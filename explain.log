@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.25 (TeX Live 2023/Debian) (preloaded format=pdflatex 2025.2.7)  17 APR 2025 14:00
+This is pdfTeX, Version 3.141592653-2.6-1.40.25 (TeX Live 2023/Debian) (preloaded format=pdflatex 2025.2.7)  17 APR 2025 14:03
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -413,73 +413,9 @@ LaTeX Font Info:    Trying to load font information for U+msb on input line 24.
  (/usr/share/texlive/texmf-dist/tex/latex/amsfonts/umsb.fd
 File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 )
+Underfull \hbox (badness 10000) in paragraph at lines 41--44
 
-/home/tea-ingland/maximum/Maximum_Quiz/explain.tex:41: LaTeX Error: Unicode character ・ (U+30FB)
-               not set up for use with LaTeX.
-
-See the LaTeX manual or LaTeX Companion for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.41 ・
-        GitHub
-You may provide a definition with
-\DeclareUnicodeCharacter 
-
-
-/home/tea-ingland/maximum/Maximum_Quiz/explain.tex:42: LaTeX Error: Unicode character ・ (U+30FB)
-               not set up for use with LaTeX.
-
-See the LaTeX manual or LaTeX Companion for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.42 ・
-        Unity_Hub
-You may provide a definition with
-\DeclareUnicodeCharacter 
-
-/home/tea-ingland/maximum/Maximum_Quiz/explain.tex:42: Missing $ inserted.
-<inserted text> 
-                $
-l.42 ・Unity_
-              Hub
-I've inserted a begin-math/end-math symbol since I think
-you left one out. Proceed, with fingers crossed.
-
-
-/home/tea-ingland/maximum/Maximum_Quiz/explain.tex:43: LaTeX Error: Unicode character ・ (U+30FB)
-               not set up for use with LaTeX.
-
-See the LaTeX manual or LaTeX Companion for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.43 ・
-        C++
-You may provide a definition with
-\DeclareUnicodeCharacter 
-
-/home/tea-ingland/maximum/Maximum_Quiz/explain.tex:44: Missing $ inserted.
-<inserted text> 
-                $
-l.44 
-     
-I've inserted a begin-math/end-math symbol since I think
-you left one out. Proceed, with fingers crossed.
-
-
-/home/tea-ingland/maximum/Maximum_Quiz/explain.tex:50: LaTeX Error: Unicode character ・ (U+30FB)
-               not set up for use with LaTeX.
-
-See the LaTeX manual or LaTeX Companion for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.50 ・
-        Ability to count the number of correct answers to a question and ran...
-You may provide a definition with
-\DeclareUnicodeCharacter 
+ []
 
 
 /home/tea-ingland/maximum/Maximum_Quiz/explain.tex:51: LaTeX Error: Unicode character ・ (U+30FB)
@@ -490,7 +426,7 @@ Type  H <return>  for immediate help.
  ...                                              
                                                   
 l.51 ・
-        Additional quiz questions
+        Ability to count the number of correct answers to a question and ran...
 You may provide a definition with
 \DeclareUnicodeCharacter 
 
@@ -503,7 +439,7 @@ Type  H <return>  for immediate help.
  ...                                              
                                                   
 l.52 ・
-        levelize quiz questions
+        Additional quiz questions
 You may provide a definition with
 \DeclareUnicodeCharacter 
 
@@ -516,6 +452,19 @@ Type  H <return>  for immediate help.
  ...                                              
                                                   
 l.53 ・
+        levelize quiz questions
+You may provide a definition with
+\DeclareUnicodeCharacter 
+
+
+/home/tea-ingland/maximum/Maximum_Quiz/explain.tex:54: LaTeX Error: Unicode character ・ (U+30FB)
+               not set up for use with LaTeX.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.54 ・
         
 You may provide a definition with
 \DeclareUnicodeCharacter 
@@ -538,18 +487,18 @@ Package rerunfilecheck Info: Checksums for `explain.out':
 (rerunfilecheck)             After:  6D8D433CCA5784773196EE46E21F16D3;756.
  ) 
 Here is how much of TeX's memory you used:
- 12838 strings out of 474222
- 196918 string characters out of 5748734
- 1928975 words of memory out of 5000000
- 34931 multiletter control sequences out of 15000+600000
- 565317 words of font info for 65 fonts, out of 8000000 for 9000
+ 12828 strings out of 474222
+ 196812 string characters out of 5748734
+ 1929975 words of memory out of 5000000
+ 34923 multiletter control sequences out of 15000+600000
+ 563618 words of font info for 57 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  79i,6n,93p,583b,443s stack positions out of 10000i,1000n,20000p,200000b,200000s
-</usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi7.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr17.pfb>
-Output written on explain.pdf (1 page, 71128 bytes).
+</usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr17.pfb>
+Output written on explain.pdf (1 page, 55139 bytes).
 PDF statistics:
- 51 PDF objects out of 1000 (max. 8388607)
- 35 compressed objects within 1 object stream
+ 41 PDF objects out of 1000 (max. 8388607)
+ 29 compressed objects within 1 object stream
  8 named destinations out of 1000 (max. 500000)
  1 words of extra memory for PDF output out of 10000 (max. 10000000)
 
