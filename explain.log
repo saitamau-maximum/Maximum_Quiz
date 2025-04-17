@@ -1,0 +1,342 @@
+This is pdfTeX, Version 3.141592653-2.6-1.40.25 (TeX Live 2023/Debian) (preloaded format=pdflatex 2025.2.7)  17 APR 2025 11:49
+entering extended mode
+ restricted \write18 enabled.
+ file:line:error style messages enabled.
+ %&-line parsing enabled.
+**/home/tea-ingland/maximum/Maximum_Quiz/explain.tex
+(/home/tea-ingland/maximum/Maximum_Quiz/explain.tex
+LaTeX2e <2023-11-01> patch level 1
+L3 programming layer <2024-01-22>
+(/usr/share/texlive/texmf-dist/tex/latex/base/article.cls
+Document Class: article 2023/05/17 v1.4n Standard LaTeX document class
+(/usr/share/texlive/texmf-dist/tex/latex/base/size10.clo
+File: size10.clo 2023/05/17 v1.4n Standard LaTeX file (size option)
+)
+\c@part=\count187
+\c@section=\count188
+\c@subsection=\count189
+\c@subsubsection=\count190
+\c@paragraph=\count191
+\c@subparagraph=\count192
+\c@figure=\count193
+\c@table=\count194
+\abovecaptionskip=\skip48
+\belowcaptionskip=\skip49
+\bibindent=\dimen140
+) (/usr/share/texlive/texmf-dist/tex/latex/base/inputenc.sty
+Package: inputenc 2021/02/14 v1.3d Input encoding file
+\inpenc@prehook=\toks17
+\inpenc@posthook=\toks18
+)
+
+/home/tea-ingland/maximum/Maximum_Quiz/explain.tex:4: LaTeX Error: Unicode character こ (U+3053)
+               not set up for use with LaTeX.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.4 \title{Explain about MaximumQuiz}  こ
+                                          こでは日本語は表示され�...
+You may provide a definition with
+\DeclareUnicodeCharacter 
+
+
+/home/tea-ingland/maximum/Maximum_Quiz/explain.tex:4: LaTeX Error: Unicode character こ (U+3053)
+               not set up for use with LaTeX.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.4 \title{Explain about MaximumQuiz}  ここ
+                                             では日本語は表示され�...
+You may provide a definition with
+\DeclareUnicodeCharacter 
+
+
+/home/tea-ingland/maximum/Maximum_Quiz/explain.tex:4: LaTeX Error: Unicode character で (U+3067)
+               not set up for use with LaTeX.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.4 \title{Explain about MaximumQuiz}  ここで
+                                                は日本語は表示され�...
+You may provide a definition with
+\DeclareUnicodeCharacter 
+
+
+/home/tea-ingland/maximum/Maximum_Quiz/explain.tex:4: LaTeX Error: Unicode character は (U+306F)
+               not set up for use with LaTeX.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.4 ...le{Explain about MaximumQuiz}  ここでは
+                                                  日本語は表示され�...
+You may provide a definition with
+\DeclareUnicodeCharacter 
+
+
+/home/tea-ingland/maximum/Maximum_Quiz/explain.tex:4: LaTeX Error: Unicode character 日 (U+65E5)
+               not set up for use with LaTeX.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.4 ...Explain about MaximumQuiz}  ここでは日
+                                                  本語は表示されな�...
+You may provide a definition with
+\DeclareUnicodeCharacter 
+
+
+/home/tea-ingland/maximum/Maximum_Quiz/explain.tex:4: LaTeX Error: Unicode character 本 (U+672C)
+               not set up for use with LaTeX.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.4 ...lain about MaximumQuiz}  ここでは日本
+                                                  語は表示されなく�...
+You may provide a definition with
+\DeclareUnicodeCharacter 
+
+
+/home/tea-ingland/maximum/Maximum_Quiz/explain.tex:4: LaTeX Error: Unicode character 語 (U+8A9E)
+               not set up for use with LaTeX.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.4 ...n about MaximumQuiz}  ここでは日本語
+                                                  は表示されなくなる
+You may provide a definition with
+\DeclareUnicodeCharacter 
+
+
+/home/tea-ingland/maximum/Maximum_Quiz/explain.tex:4: LaTeX Error: Unicode character は (U+306F)
+               not set up for use with LaTeX.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.4 ...bout MaximumQuiz}  ここでは日本語は
+                                                  表示されなくなる
+You may provide a definition with
+\DeclareUnicodeCharacter 
+
+
+/home/tea-ingland/maximum/Maximum_Quiz/explain.tex:4: LaTeX Error: Unicode character 表 (U+8868)
+               not set up for use with LaTeX.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.4 ...t MaximumQuiz}  ここでは日本語は表
+                                                  示されなくなる
+You may provide a definition with
+\DeclareUnicodeCharacter 
+
+
+/home/tea-ingland/maximum/Maximum_Quiz/explain.tex:4: LaTeX Error: Unicode character 示 (U+793A)
+               not set up for use with LaTeX.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.4 ...aximumQuiz}  ここでは日本語は表示
+                                                  されなくなる
+You may provide a definition with
+\DeclareUnicodeCharacter 
+
+
+/home/tea-ingland/maximum/Maximum_Quiz/explain.tex:4: LaTeX Error: Unicode character さ (U+3055)
+               not set up for use with LaTeX.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.4 ...mumQuiz}  ここでは日本語は表示さ
+                                                  れなくなる
+You may provide a definition with
+\DeclareUnicodeCharacter 
+
+
+/home/tea-ingland/maximum/Maximum_Quiz/explain.tex:4: LaTeX Error: Unicode character れ (U+308C)
+               not set up for use with LaTeX.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.4 ...Quiz}  ここでは日本語は表示され
+                                                  なくなる
+You may provide a definition with
+\DeclareUnicodeCharacter 
+
+
+/home/tea-ingland/maximum/Maximum_Quiz/explain.tex:4: LaTeX Error: Unicode character な (U+306A)
+               not set up for use with LaTeX.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.4 ...z}  ここでは日本語は表示されな
+                                                  くなる
+You may provide a definition with
+\DeclareUnicodeCharacter 
+
+
+/home/tea-ingland/maximum/Maximum_Quiz/explain.tex:4: LaTeX Error: Unicode character く (U+304F)
+               not set up for use with LaTeX.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.4 ... ここでは日本語は表示されなく
+                                                  なる
+You may provide a definition with
+\DeclareUnicodeCharacter 
+
+
+/home/tea-ingland/maximum/Maximum_Quiz/explain.tex:4: LaTeX Error: Unicode character な (U+306A)
+               not set up for use with LaTeX.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.4 ...�こでは日本語は表示されなくな
+                                                  る
+You may provide a definition with
+\DeclareUnicodeCharacter 
+
+
+/home/tea-ingland/maximum/Maximum_Quiz/explain.tex:4: LaTeX Error: Unicode character る (U+308B)
+               not set up for use with LaTeX.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.4 ...�では日本語は表示されなくなる
+                                                  
+You may provide a definition with
+\DeclareUnicodeCharacter 
+
+(/usr/share/texlive/texmf-dist/tex/latex/l3backend/l3backend-pdftex.def
+File: l3backend-pdftex.def 2024-01-04 L3 backend support: PDF output (pdfTeX)
+\l__color_backend_stack_int=\count195
+\l__pdf_internal_box=\box51
+) (./explain.aux)
+\openout1 = `explain.aux'.
+
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 8.
+LaTeX Font Info:    ... okay on input line 8.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 8.
+LaTeX Font Info:    ... okay on input line 8.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 8.
+LaTeX Font Info:    ... okay on input line 8.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 8.
+LaTeX Font Info:    ... okay on input line 8.
+LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 8.
+LaTeX Font Info:    ... okay on input line 8.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 8.
+LaTeX Font Info:    ... okay on input line 8.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 8.
+LaTeX Font Info:    ... okay on input line 8.
+LaTeX Font Info:    External font `cmex10' loaded for size
+(Font)              <12> on input line 10.
+LaTeX Font Info:    External font `cmex10' loaded for size
+(Font)              <8> on input line 10.
+LaTeX Font Info:    External font `cmex10' loaded for size
+(Font)              <6> on input line 10.
+
+
+/home/tea-ingland/maximum/Maximum_Quiz/explain.tex:33: LaTeX Error: Unicode character ・ (U+30FB)
+               not set up for use with LaTeX.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.33 ・
+        Ability to count the number of correct answers to a question and ran...
+You may provide a definition with
+\DeclareUnicodeCharacter 
+
+
+/home/tea-ingland/maximum/Maximum_Quiz/explain.tex:34: LaTeX Error: Unicode character ・ (U+30FB)
+               not set up for use with LaTeX.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.34 ・
+        Additional quiz questions
+You may provide a definition with
+\DeclareUnicodeCharacter 
+
+
+/home/tea-ingland/maximum/Maximum_Quiz/explain.tex:35: LaTeX Error: Unicode character ・ (U+30FB)
+               not set up for use with LaTeX.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.35 ・
+        levelize quiz questions
+You may provide a definition with
+\DeclareUnicodeCharacter 
+
+
+/home/tea-ingland/maximum/Maximum_Quiz/explain.tex:36: LaTeX Error: Unicode character ・ (U+30FB)
+               not set up for use with LaTeX.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.36 ・
+        
+You may provide a definition with
+\DeclareUnicodeCharacter 
+
+[1
+
+{/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map}] (./explain.aux)
+ ***********
+LaTeX2e <2023-11-01> patch level 1
+L3 programming layer <2024-01-22>
+ ***********
+ ) 
+Here is how much of TeX's memory you used:
+ 504 strings out of 474222
+ 9552 string characters out of 5748734
+ 1925975 words of memory out of 5000000
+ 22825 multiletter control sequences out of 15000+600000
+ 561709 words of font info for 48 fonts, out of 8000000 for 9000
+ 1141 hyphenation exceptions out of 8191
+ 35i,6n,50p,192b,197s stack positions out of 10000i,1000n,20000p,200000b,200000s
+</usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr17.pfb>
+Output written on explain.pdf (1 page, 52738 bytes).
+PDF statistics:
+ 28 PDF objects out of 1000 (max. 8388607)
+ 16 compressed objects within 1 object stream
+ 0 named destinations out of 1000 (max. 500000)
+ 1 words of extra memory for PDF output out of 10000 (max. 10000000)
+
