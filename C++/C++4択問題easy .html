@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>C++ 初心者クイズ</title>
+  <style>
+    body {
+      font-family: sans-serif;
+      background-color: #f7f7f7;
+      margin: 0;
+      padding: 20px;
+    }
+    .quiz-container {
+      max-width: 700px;
+      margin: auto;
+      background: white;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    }
+    h1, h2 {
+      text-align: center;
+    }
+    p {
+      text-align: center;
+    }
+    .question {
+      margin-bottom: 20px;
+    }
+    .options label {
+      display: block;
+      margin-bottom: 5px;
+    }
+    .result {
+      margin-top: 10px;
+      font-weight: bold;
+    }
+    .explanation {
+      margin-top: 5px;
+      font-style: italic;
+    }
+    button {
+      display: block;
+      margin: 20px auto 0;
+      padding: 8px 16px;
+      border: none;
+      background-color: #007BFF;
+      color: white;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+    button:hover {
+      background-color: #0056b3;
+    }
+    .home-button, .back-button {
+      display: block;
+      margin: 10px auto;
+      text-align: center;
+      text-decoration: none;
+      background-color: #28a745;
+      padding: 10px;
+      color: white;
+      border-radius: 4px;
+      width: fit-content;
+    }
+    .home-button:hover, .back-button:hover {
+      background-color: #218838;
+    }
+  </style>
+</head>
+<body>
+  <div class="quiz-container" id="home">
+    <h1>C++ 初心者向けクイズ</h1>
+    <p>全11問です。</p>
+    <button onclick="startQuiz()">開始</button>
+    <a href="index.html" class="back-button">トップページに戻る</a>
+  </div>
+
+  <div class="quiz-container" id="quiz" style="display: none;"></div>
+
+  <script>
+    const questions = [
+      {
+        q: "以下のうち、正しい変数の宣言はどれ？",
+        options: [
+          "int 123abc;",
+          "int x = 5;",
+          "string = name;",
+          "char a == 'c';"
+        ],
+        answer: 1,
+        explanation: "変数名は数字から始められないのでAは不適。Cは代入が逆。Dは == でなく = を使う。"
+      },
+      {
+        q: "using namespace std; は何のために使う？",
+        options: [
+          "stdという変数を使うため",
+          "標準的な機能を簡単に使えるようにするため",
+          "データをソートするため",
+          "エラーを表示させるため"
+        ],
+        answer: 1,
+        explanation: "std::cout を cout と書けるようになります。"
+      },
+      {
+        q: "以下のコードの出力は？<pre>int a = 10;\nint b = 3;\ncout << a / b << endl;</pre>",
+        options: [
+          "3.333...",
+          "3",
+          "10",
+          "エラーになる"
+        ],
+        answer: 1,
+        explanation: "int同士の割り算は整数になります。10 ÷ 3 = 3."
+      },
+      {
+        q: "以下のコードの出力は？<pre>double x = 5.9;\nint y = (int)x;\ncout << y << endl;</pre>",
+        options: [
+          "6",
+          "5",
+          "5.9",
+          "エラーになる"
+        ],
+        answer: 1,
+        explanation: "(int)x は小数点以下切り捨て → 5."
+      },
+      {
+        q: "以下のコードの出力は？<pre>char c = 'A';\ncout << (int)c << endl;</pre>",
+        options: [
+          "A",
+          "65",
+          "エラーになる",
+          "文字コードは表示できない"
+        ],
+        answer: 1,
+        explanation: "'A' の ASCIIコードは 65 です。"
+      },
+      {
+        q: "以下のコードの出力は？<pre>int x = 66;\ncout << (char)x << endl;</pre>",
+        options: [
+          "A",
+          "B",
+          "エラーになる",
+          "66"
+        ],
+        answer: 1,
+        explanation: "66番目のASCII文字は B。"
+      },
+      {
+        q: "以下のコードの出力は？<pre>bool b = true;\ncout << (int)b << endl;</pre>",
+        options: [
+          "0",
+          "1",
+          "true",
+          "エラーになる"
+        ],
+        answer: 1,
+        explanation: "true は 1、false は 0 に変換されます。"
+      },
+      {
+        q: "以下のコードの出力は？<pre>int x = 0;\nbool b = (bool)x;\ncout << b << endl;</pre>",
+        options: [
+          "0",
+          "1",
+          "false",
+          "エラーになる"
+        ],
+        answer: 0,
+        explanation: "0 は false 扱い、よって b = false → 出力は 0"
+      },
+      {
+        q: "以下のコードを実行したときの出力は？<pre>int a = 100000;\nint b = 100000;\nint c = a * b;\ncout << c << endl;</pre>",
+        options: [
+          "10000000000",
+          "0",
+          "オーバーフローしておかしな値になる",
+          "エラーになる"
+        ],
+        answer: 2,
+        explanation: "intの範囲（約2e9）を超えるので、オーバーフローします。"
+      },
+      {
+        q: "以下のコードを実行したとき、何が起きる？<pre>vector<int> v = {1, 2, 3};\ncout << v[5] << endl;</pre>",
+        options: [
+          "3が表示される",
+          "0が表示される",
+          "実行時エラー or 未定義動作になる可能性がある",
+          "エラーでコンパイルできない"
+        ],
+        answer: 2,
+        explanation: "存在しないインデックスへのアクセス → 未定義動作"
+      },
+      {
+        q: "以下のコードの出力は？<pre>int x;\ncout << x << endl;</pre>",
+        options: [
+          "0",
+          "エラーになる",
+          "ゴミみたいな変な値が表示される",
+          "空文字になる"
+        ],
+        answer: 2,
+        explanation: "ローカル変数は初期化されないので、未定義な値が表示されます。"
+      }
+    ];
+
+    let current = 0;
+
+    const homeEl = document.getElementById("home");
+    const quizEl = document.getElementById("quiz");
+
+    function startQuiz() {
+      current = 0;
+      homeEl.style.display = "none";
+      quizEl.style.display = "block";
+      showQuestion(current);
+    }
+
+    function showQuestion(index) {
+      quizEl.innerHTML = "";
+      const q = questions[index];
+
+      const container = document.createElement("div");
+      container.className = "question";
+
+      const title = document.createElement("div");
+      title.innerHTML = `<strong>Q${index + 1}:</strong> ${q.q}`;
+      container.appendChild(title);
+
+      const options = document.createElement("div");
+      options.className = "options";
+
+      q.options.forEach((opt, i) => {
+        const label = document.createElement("label");
+        const input = document.createElement("input");
+        input.type = "radio";
+        input.name = `q${index}`;
+        input.value = i;
+        label.appendChild(input);
+        label.appendChild(document.createTextNode(" " + opt));
+        options.appendChild(label);
+      });
+
+      container.appendChild(options);
+
+      const button = document.createElement("button");
+      button.textContent = "解答";
+
+      const result = document.createElement("div");
+      result.className = "result";
+
+      const explanation = document.createElement("div");
+      explanation.className = "explanation";
+
+      const backButton = document.createElement("a");
+      backButton.href = "index.html";
+      backButton.className = "home-button";
+      backButton.textContent = "トップページに戻る";
+
+      const nextButton = document.createElement("button");
+      nextButton.textContent = "次へ";
+      nextButton.style.display = "none";
+      nextButton.onclick = () => {
+        current++;
+        if (current < questions.length) {
+          showQuestion(current);
+        } else {
+          quizEl.innerHTML = `<h2>お疲れ様でした！全${questions.length}問が終了しました。</h2>`;
+          quizEl.appendChild(backButton);
+        }
+      };
+
+      button.onclick = () => {
+        const selected = container.querySelector("input:checked");
+        if (!selected) {
+          result.textContent = "選択肢を選んでください。";
+          result.style.color = "black";
+          return;
+        }
+        const isCorrect = parseInt(selected.value) === q.answer;
+        result.textContent = isCorrect ? "○ 正解です！" : `× 不正解です。正解：${q.options[q.answer]}`;
+        result.style.color = isCorrect ? "green" : "red";
+        explanation.textContent = q.explanation;
+        button.disabled = true;
+        nextButton.style.display = "inline-block";
+      };
+
+      container.appendChild(button);
+      container.appendChild(result);
+      container.appendChild(explanation);
+      container.appendChild(nextButton);
+      container.appendChild(backButton);
+
+      quizEl.appendChild(container);
+    }
+  </script>
+</body>
+</html>
