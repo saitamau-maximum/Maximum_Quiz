@@ -3,39 +3,62 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>HTMLクイズ選択</title>
+    <title>HTMLに関する問題</title>
     <style>
         body {
             font-family: Arial, sans-serif;
+            margin: 18px;
+            padding: 18px;
             text-align: center;
-            margin: 20px;
+            background-image: url("./keep_out/Tyosi.JPG");
+            background-size: cover;
+            background-position: center;
         }
-        .quiz-container {
-            margin-top: 50px;
+        header {
+            padding: 10px;
+            text-align: center; 
+            background-size: cover;
+            background-position: center;
         }
-        .quiz-button {
-            display: inline-block;
-            margin: 10px;
-            padding: 15px 30px;
-            font-size: 16px;
-            color: #fff;
-            background-color: #007BFF;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            text-decoration: none;
+        header {
+            padding: 10px;
+            text-align: center;
         }
-        .quiz-button:hover {
-            background-color: #0056b3;
+        h1 {
+            font-size: 5em;
+            color: white;
+            padding: 5px;
+        }
+        p {
+            font-size: 2em;
+            color: white;
+            padding: 3px;
+        }
+        a {
+            font-size: 1em;
+            color: white;
+            padding: 3px;
+        }
+        .tagtag {
+            color: white;
+            font-size: 2em;
+        }
+        .tagtag img {
+            width: 100px;
+            height: auto;
         }
     </style>
 </head>
 <body>
-    <h1>HTMLクイズを選択してください</h1>
-    <div class="quiz-container">
-        <a href="quiz1.html" class="quiz-button">基本的なHTML</a>
-        <a href="quiz2.html" class="quiz-button">フォームと入力</a>
-        <a href="quiz3.html" class="quiz-button">HTML5の新機能</a>
+    <header>
+        <h1>HTMLに関する問題</h1>
+    </header>
+    <p>問題を選びましょう</p>
+
+    <div class="tagtag">
+        <a href="#">問題1: &lt;div&gt;タグとは？</a><br>
+        <a href="#">問題2: &lt;span&gt;タグの役割は？</a><br>
+        <a href="#">問題3: 画像を表示するタグは？ <img src="question_icon.png" alt="クエスチョン"></a>
     </div>
 </body>
 </html>
