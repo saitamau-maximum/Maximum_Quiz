@@ -283,6 +283,10 @@
         }
       };
 
+      const nextButtonWrapper = document.createElement("div");
+      nextButtonWrapper.style.textAlign = "center";
+      nextButtonWrapper.appendChild(nextButton);
+
       button.onclick = () => {
         const selected = container.querySelector("input:checked");
         if (!selected) {
@@ -301,7 +305,7 @@
       container.appendChild(button);
       container.appendChild(result);
       container.appendChild(explanation);
-      container.appendChild(nextButton);
+      container.appendChild(nextButtonWrapper);
       container.appendChild(backButton);
 
       quizEl.appendChild(container);
