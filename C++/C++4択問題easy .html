@@ -272,6 +272,7 @@
       const nextButton = document.createElement("button");
       nextButton.textContent = "次へ";
       nextButton.style.display = "none";
+      nextButton.style.margin = "20px auto";
       nextButton.onclick = () => {
         current++;
         if (current < questions.length) {
