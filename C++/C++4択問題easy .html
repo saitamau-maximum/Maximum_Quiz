@@ -72,7 +72,7 @@
 <body>
   <div class="quiz-container" id="home">
     <h1>C++ 初心者向けクイズ</h1>
-    <p>全11問です。</p>
+    <p>全12問です。</p>
     <button onclick="startQuiz()">開始</button>
     <a href="index.html" class="back-button">トップページに戻る</a>
   </div>
@@ -81,6 +81,18 @@
 
   <script>
     const questions = [
+      {
+        q: "C++でのコメントアウトは次のうちどれか",
+        options: [
+      "//コメント",
+      "%コメント",
+      "#コメント",
+      "\\#コメント"
+  ],
+  answer: 0,
+  explanation: "//と書くとその行はコメントとしてみなされる。/*と書くと*/と書くまでコメントとみなされる"
+}
+
       {
         q: "以下のうち、正しい変数の宣言はどれ？",
         options: [
