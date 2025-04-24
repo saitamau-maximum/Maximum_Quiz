@@ -298,7 +298,11 @@
         result.textContent = isCorrect ? "○ 正解です！" : `× 不正解です。正解：${q.options[q.answer]}`;
         result.style.color = isCorrect ? "green" : "red";
         explanation.textContent = q.explanation;
-        button.disabled = true;
+        
+        const allOptions = container.querySelectorAll("input[type='radio']");
+        allOptions.forEach(opt => opt.disabled = true);
+        button.style.display = "none";
+
         nextButton.style.display = "inline-block";
       };
 
