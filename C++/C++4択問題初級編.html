@@ -15,7 +15,7 @@
 <body>
   <div class="quiz-container" id="home">
     <h1>C++ 4択クイズ 初級編</h1>
-    <p>全12問です。</p>
+    <p>全13問です。</p>
     <button onclick="startQuiz()">開始</button>
     <a href="C++.html" class="back-button">問題選択に戻る</a>
   </div>
@@ -46,6 +46,24 @@
         answer: 1,
         explanation: "変数名は数字から始められないのでAは不適。Cは代入が逆。Dは == でなく = を使う。"
       },
+      {
+   q: `<pre>次のコードでコンパイルエラーが出る理由は？
+
+int main() {
+  int class = 5;
+  cout << class << endl;
+  return 0;
+}</pre>`,
+  options: [
+    "A. クラスが未定義だから",
+    "B. class は予約語だから",
+    "C. int に初期化が必要だから",
+    "D. main関数の戻り値が void じゃないから"
+  ],
+  answer: 1,
+  explanation: "`class` は C++ の予約語。変数名や関数名に使えない。"
+},
+
       {
         q: "using namespace std; は何のために使う？",
         options: [

@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>C++ 4択問題 中級編</title>
+  <link rel="stylesheet" href="style.css" />
+  <style>
+    .options label.disabled {
+      pointer-events: none;
+      color: #000;
+    }
+  </style>
+</head>
+<body>
+  <div class="quiz-container" id="home">
+    <h1>C++ 4択クイズ 中級編</h1>
+    <p>全6問です。</p>
+    <button onclick="startQuiz()">開始</button>
+    <a href="C++.html" class="back-button">問題選択に戻る</a>
+  </div>
+
+  <div class="quiz-container" id="quiz" style="display: none;"></div>
+
+  <script>
+    const questions = [
+      {
+        q: `以下のコードの出力は？<pre>int a = 10;\nint b = 3;\ncout << double(a / b) << endl;</pre>`,
+        options: [
+          "A. 3.33333",
+          "B. 3",
+          "C. 3.0",
+          "D. エラーになる"
+        ],
+        answer: 2,
+        explanation: "a / b はどっちも int だから 整数の割り算 → 結果は 3。それを double(3) にするので 3.0 が出力される。"
+      },
+      {
+        q: `以下のコードの出力は？<pre>int a = 10;\nint b = 3;\ncout << (double)a / b << endl;</pre>`,
+        options: [
+          "A. 3.33333",
+          "B. 3",
+          "C. 3.0",
+          "D. エラーになる"
+        ],
+        answer: 0,
+        explanation: "(double)a で先に 10 が 10.0 になる → 10.0 / 3 は 実数の割り算になるので 3.33333...。"
+      },
+      {
+        q: `以下のコードの出力は？<pre>int x = 10;\n{\n  int x = 5;\n  cout << x << endl;\n}\ncout << x << endl;</pre>`,
+        options: [
+          "A. 5 5",
+          "B. 5 10",
+          "C. 10 5",
+          "D. エラーになる"
+        ],
+        answer: 1,
+        explanation: "ブロック内の int x = 5; は外側の x を隠してる（シャドウイング） → ブロック内: 5、ブロック外: 10。"
+      },
+      {
+        q: `このコードを実行しても x の値が変わらないのはなぜ？<pre>void addTen(int x) {\n  x += 10;\n}\n\nint main() {\n  int x = 5;\n  addTen(x);\n  cout << x << endl;\n  return 0;\n}</pre>`,
+        options: [
+          "A. 関数が呼ばれていないから",
+          "B. 値渡しなので x の変更が反映されない",
+          "C. 10 を足す処理が間違っている",
+          "D. cout の位置が悪い"
+        ],
+        answer: 1,
+        explanation: "関数引数に `int x` と書くと、元の値のコピーになる（値渡し） → 関数内で x を変えても、main の x には影響なし。"
+      },
+      {
+        q: "以下のコードの出力は？<pre>int i = 0;\nwhile (i != 10) {\n  i += 3;\n  cout << i << endl;\n}</pre>",
+        options: [
+          "A. TLEになる（無限ループ）",
+          "B. エラーになる",
+          "C. 3の倍数が表示される",
+          "D. 10までの数字が表示される"
+        ],
+        answer: 0,
+        explanation: "i は 0 → 3 → 6 → 9 → 12 ... となり、10 になることがないので、while (i != 10) が永遠に true になり無限ループとなる。"
+      },
+      {
+        q: "このコードが無限ループになる理由は？<pre>int i = 0;\nwhile (i != 10) {\n  i += 3;\n  cout << i << endl;\n}</pre>",
+        options: [
+          "A. i は10にならないから",
+          "B. while文の条件が間違っているから",
+          "C. += の書き方が間違っているから",
+          "D. ループの中で i が減少してるから"
+        ],
+        answer: 0,
+        explanation: "i は 0 → 3 → 6 → 9 → 12 というふうに 10 を飛び越えてしまうため、`i != 10` を永遠に満たしてしまう。"
+      }
+    ];
+
+    let current = 0;
+    const homeEl = document.getElementById("home");
+    const quizEl = document.getElementById("quiz");
+
+    function startQuiz() {
+      current = 0;
+      homeEl.style.display = "none";
+      quizEl.style.display = "block";
+      showQuestion(current);
+    }
+
+    function showQuestion(index) {
+      quizEl.innerHTML = "";
+      const q = questions[index];
+
+      const container = document.createElement("div");
+      container.className = "question";
+
+      const title = document.createElement("div");
+      title.innerHTML = `<strong>Q${index + 1}:</strong> ${q.q}`;
+      container.appendChild(title);
+
+      const options = document.createElement("div");
+      options.className = "options";
+
+      q.options.forEach((opt, i) => {
+        const label = document.createElement("label");
+        const input = document.createElement("input");
+        input.type = "radio";
+        input.name = `q${index}`;
+        input.value = i;
+        label.appendChild(input);
+        label.appendChild(document.createTextNode(" " + opt));
+        options.appendChild(label);
+      });
+
+      container.appendChild(options);
+
+      const button = document.createElement("button");
+      button.textContent = "解答";
+
+      const result = document.createElement("div");
+      result.className = "result";
+
+      const explanation = document.createElement("div");
+      explanation.className = "explanation";
+
+      const backButton = document.createElement("a");
+      backButton.href = "C++.html";
+      backButton.className = "home-button";
+      backButton.textContent = "問題選択に戻る";
+
+      const nextButton = document.createElement("button");
+      nextButton.textContent = "次へ";
+      nextButton.style.display = "none";
+      nextButton.style.margin = "20px auto";
+      nextButton.onclick = () => {
+        current++;
+        if (current < questions.length) {
+          showQuestion(current);
+        } else {
+          quizEl.innerHTML = `<h2>お疲れ様でした！全${questions.length}問が終了しました。</h2>`;
+          quizEl.appendChild(backButton);
+        }
+      };
+
+      const nextButtonWrapper = document.createElement("div");
+      nextButtonWrapper.style.textAlign = "center";
+      nextButtonWrapper.appendChild(nextButton);
+
+      button.onclick = () => {
+        const selected = container.querySelector("input:checked");
+        if (!selected) {
+          result.textContent = "選択肢を選んでください。";
+          result.style.color = "black";
+          return;
+        }
+
+        const isCorrect = parseInt(selected.value) === q.answer;
+        result.textContent = isCorrect ? "○ 正解です！" : `× 不正解です。正解：${q.options[q.answer]}`;
+        result.style.color = isCorrect ? "green" : "red";
+        explanation.textContent = q.explanation;
+
+        const labels = container.querySelectorAll("label");
+        labels.forEach(label => label.classList.add("disabled"));
+
+        button.style.display = "none";
+        nextButton.style.display = "inline-block";
+      };
+
+      container.appendChild(button);
+      container.appendChild(result);
+      container.appendChild(explanation);
+      container.appendChild(nextButtonWrapper);
+      container.appendChild(backButton);
+
+      quizEl.appendChild(container);
+    }
+  </script>
+</body>
+</html>
