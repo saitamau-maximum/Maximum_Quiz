@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>C++ 初心者クイズ</title>
+  <title>C++ 4択問題 初級編</title>
   <link rel="stylesheet" href="style.css">
   <style>
     .options label.disabled {
@@ -14,8 +14,8 @@
 </head>
 <body>
   <div class="quiz-container" id="home">
-    <h1>C++ 初心者向けクイズ</h1>
-    <p>全12問です。</p>
+    <h1>C++ 4択問題 初級編</h1>
+    <p>全15問です。</p>
     <button onclick="startQuiz()">開始</button>
     <a href="C++.html" class="back-button">問題選択に戻る</a>
   </div>
@@ -46,6 +46,24 @@
         answer: 1,
         explanation: "変数名は数字から始められないのでAは不適。Cは代入が逆。Dは == でなく = を使う。"
       },
+      {
+   q: `<pre>次のコードでコンパイルエラーが出る理由は？
+
+int main() {
+  int class = 5;
+  cout << class << endl;
+  return 0;
+}</pre>`,
+  options: [
+    "A. クラスが未定義だから",
+    "B. class は予約語だから",
+    "C. int に初期化が必要だから",
+    "D. main関数の戻り値が void じゃないから"
+  ],
+  answer: 1,
+  explanation: "`class` は C++ の予約語。変数名や関数名に使えない。"
+},
+
       {
         q: "using namespace std; は何のために使う？",
         options: [
@@ -155,8 +173,29 @@
         ],
         answer: 2,
         explanation: "ローカル変数は初期化されないので、未定義な値が表示されます。"
-      }
-      //問題の追加はここに
+      },
+      {
+    q: "次のコードを実行したときの出力は？<pre>char a = 'a';\nchar b = 'b';\ncout << (a == b) << endl;</pre>",
+    options: [
+      "0",
+      "1",
+      "true",
+      "false"
+    ],
+    answer: 0,
+    explanation: "charやstringにも演算子が使える。a と b は異なる文字なので比較結果は false (0) になる。"
+  },
+  {
+    q: "次のコードを実行したときの出力は？<pre>string str1 = 'Hello';\nstring str2 = ' World';\ncout << str1 + str2 << endl;</pre>",
+    options: [
+      "HelloWorld",
+      "Hello World",
+      "エラーになる",
+      "Hello+World"
+    ],
+    answer: 1,
+    explanation: "string同士の + 演算子で結合され、結果は 'Hello World' になる。"
+  }
     ];
 
     let current = 0;
