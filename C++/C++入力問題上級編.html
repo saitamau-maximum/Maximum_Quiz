@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>C++ 入力問題 上級編</title>
+  <link rel="stylesheet" href="style2.css">
+
+</head>
+<body>
+  <div class="quiz-container" id="home">
+    <h1>C++ 入力問題 上級編</h1>
+    <p>全1問です。</p>
+    <button onclick="startQuiz()">開始</button>
+    <a href="C++.html" class="back-button">問題選択に戻る</a>
+  </div>
+
+  <div class="quiz-container" id="quiz" style="display: none;"></div>
+
+  <script>
+    const questions = [
+      {
+        q: "次のコードを実行したとき、入力として『3 5』と与えた場合、aとbの値を半角スペース区切りで入力してください。<pre>int a, b;\ncin >> a >> b;</pre>",
+        answer: "3 5",
+        explanation: "cin >> a >> b; と書くと、最初に入力された数字がa、次に入力された数字がbに代入される。よって a = 3, b = 5 となる。"
+      }
+    ];
+
+    let current = 0;
+
+    function startQuiz() {
+      current = 0;
+      document.getElementById("home").style.display = "none";
+      document.getElementById("quiz").style.display = "block";
+      showQuestion(current);
+    }
+
+    function showQuestion(index) {
+      const q = questions[index];
+
+      const container = document.getElementById("quiz");
+      container.innerHTML = "";
+
+      const question = document.createElement("div");
+      question.innerHTML = `<strong>Q${index + 1}:</strong> ${q.q}`;
+      container.appendChild(question);
+
+      const input = document.createElement("textarea");
+      input.placeholder = "ここに入力してください";
+      container.appendChild(input);
+
+      const answerButton = document.createElement("button");
+      answerButton.textContent = "解答する";
+      container.appendChild(answerButton);
+
+      const result = document.createElement("div");
+      result.className = "result";
+      container.appendChild(result);
+
+      const explanation = document.createElement("div");
+      explanation.className = "explanation";
+      container.appendChild(explanation);
+
+      const backButton = document.createElement("a");
+      backButton.href = "C++.html";
+      backButton.textContent = "問題選択に戻る";
+      backButton.className = "home-button";
+      container.appendChild(backButton);
+
+      answerButton.addEventListener("click", () => {
+        const userInput = input.value.trim();
+        if (userInput === q.answer) {
+          result.textContent = "○ 正解です！";
+          result.style.color = "green";
+        } else {
+          result.textContent = "× 不正解です。";
+          result.style.color = "red";
+        }
+        explanation.textContent = q.explanation;
+        answerButton.style.display = "none";
+      });
+    }
+  </script>
+</body>
+</html>
