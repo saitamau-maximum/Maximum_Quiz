@@ -76,7 +76,7 @@
           result.textContent = "× 不正解です。";
           result.style.color = "red";
         }
-        explanation.textContent = q.explanation;
+        explanation.innerHTML = q.explanation;
         answerButton.style.display = "none";
       });
     }
