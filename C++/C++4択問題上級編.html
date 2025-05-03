@@ -33,7 +33,7 @@
     "何も出力しない"
   ],
   "answer": 2,
-  "explanation": "各 bit のパターンごとに、s の各文字を選ぶか選ばないかを決めている。つまり、sの部分集合(1や13、23など)をすべて出力している。"
+  "explanation": "各 bit のパターンごとに、s の各文字を選ぶか選ばないかを決めている。<br>つまり、sの部分集合(1や13、23など)をすべて出力している。"
 },
 
 
@@ -46,7 +46,7 @@
     "9"
   ],
   "answer": 1,
-  "explanation": "lower_boundはx以上の最初の要素を指す。6以上なら7が最初にくるので7が出力される。"
+  "explanation": "lower_boundはx以上の最初の要素を指す。<br>6以上なら7が最初にくるので7が出力される。"
 },
 
 {
@@ -58,7 +58,7 @@
     "16"
   ],
   "answer": 0,
-  "explanation": "配列sは配列aの累積和である。具体的には、s = {0, 2, 6, 12, 20} となる。s[3] = 12, s[1] = 2 より、12-2=10。よって答えは10。"
+  "explanation": "配列sは配列aの累積和である。具体的には、s = {0, 2, 6, 12, 20} となる。<br>s[3] = 12, s[1] = 2 より、12-2=10。よって答えは10。"
 },
 
 {
@@ -70,7 +70,7 @@
     "エラーになる"
   ],
   "answer": 2,
-  "explanation": "構造体Pにはメンバ変数xとyがあり、p.x = 2、p.y = 5となっている。coutでp.x + p.yを出力しているため、2+5=7が出力される。"
+  "explanation": "構造体Pにはメンバ変数xとyがあり、p.x = 2、p.y = 5となっている。<br>coutでp.x + p.yを出力しているため、2+5=7が出力される。"
 },
 
 {
@@ -82,7 +82,7 @@
     "7"
   ],
   "answer": 0,
-  "explanation": "6(110)と5(101)のANDを取ると100、つまり4になる。"
+  "explanation": "6(110)と5(101)のANDを取ると100、つまり4になる。(bit演算)"
 }
 
 
@@ -169,7 +169,7 @@
         const isCorrect = parseInt(selected.value) === q.answer;
         result.textContent = isCorrect ? "○ 正解です！" : `× 不正解です。正解：${q.options[q.answer]}`;
         result.style.color = isCorrect ? "green" : "red";
-        explanation.textContent = q.explanation;
+        explanation.innerHTML = q.explanation;
 
         const labels = container.querySelectorAll("label");
         labels.forEach(label => label.classList.add("disabled"));
