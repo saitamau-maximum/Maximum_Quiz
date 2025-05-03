@@ -33,8 +33,9 @@
           "\\#コメント"
         ],
         answer: 0,
-        explanation: "//と書くとその行はコメントとしてみなされる。/*と書くと、*/と書くまでコメントとみなされる"
+        explanation: "//と書くとその行はコメントとしてみなされる。<br>/*と書くと、*/と書くまでコメントとみなされる。"
       },
+
       {
         q: "以下のうち、正しい変数の宣言はどれ？",
         options: [
@@ -44,16 +45,18 @@
           "char a == 'c';"
         ],
         answer: 1,
-        explanation: "変数名は数字から始められないのでAは不適。Cは代入が逆。Dは == でなく = を使う。"
+        explanation: "変数名は数字から始められないのでAは不適。<br>Cは代入が逆。Dは == でなく = を使う。"
       },
+
       {
-   q: `<pre>次のコードでコンパイルエラーが出る理由は？
+        q: `<pre>次のコードでコンパイルエラーが出る理由は？
 
 int main() {
-  int class = 5;
-  cout << class << endl;
-  return 0;
-}</pre>`,
+    int class = 5;
+    cout << class << endl;
+    return 0;
+    }
+    </pre>`,
   options: [
     "A. クラスが未定義だから",
     "B. class は予約語だから",
@@ -61,7 +64,7 @@ int main() {
     "D. main関数の戻り値が void じゃないから"
   ],
   answer: 1,
-  explanation: "`class` は C++ の予約語。変数名や関数名に使えない。"
+  explanation: "class は C++ の予約語。変数名や関数名に使えない。"
 },
 
       {
@@ -75,6 +78,7 @@ int main() {
         answer: 1,
         explanation: "std::cout を cout と書けるようになります。"
       },
+
       {
         q: "以下のコードの出力は？<pre>int a = 10;\nint b = 3;\ncout << a / b << endl;</pre>",
         options: [
@@ -86,6 +90,7 @@ int main() {
         answer: 1,
         explanation: "int同士の割り算は整数になります。10 ÷ 3 = 3."
       },
+
       {
         q: "以下のコードの出力は？<pre>double x = 5.9;\nint y = (int)x;\ncout << y << endl;</pre>",
         options: [
@@ -97,6 +102,7 @@ int main() {
         answer: 1,
         explanation: "(int)x は小数点以下切り捨て → 5."
       },
+
       {
         q: "以下のコードの出力は？<pre>char c = 'A';\ncout << (int)c << endl;</pre>",
         options: [
@@ -106,8 +112,9 @@ int main() {
           "文字コードは表示できない"
         ],
         answer: 1,
-        explanation: "'A' の ASCIIコードは 65 です。"
+        explanation: "'A' の ASCIIコードは 65 である。"
       },
+
       {
         q: "以下のコードの出力は？<pre>int x = 66;\ncout << (char)x << endl;</pre>",
         options: [
@@ -119,6 +126,7 @@ int main() {
         answer: 1,
         explanation: "66番目のASCII文字は B。"
       },
+
       {
         q: "以下のコードの出力は？<pre>bool b = true;\ncout << (int)b << endl;</pre>",
         options: [
@@ -128,8 +136,9 @@ int main() {
           "エラーになる"
         ],
         answer: 1,
-        explanation: "true は 1、false は 0 に変換されます。"
+        explanation: "true は 1、false は 0 に変換される。"
       },
+
       {
         q: "以下のコードの出力は？<pre>int x = 0;\nbool b = (bool)x;\ncout << b << endl;</pre>",
         options: [
@@ -139,8 +148,9 @@ int main() {
           "エラーになる"
         ],
         answer: 0,
-        explanation: "0 は false 扱い、よって b = false → 出力は 0"
+        explanation: "0 は false 扱い、よって b = false<br>C++のcoutはbool型を出力するとき、trueは1、falseは0に変換して出力する。<br>もしfalseと出力したい場合cout << boolalpha << b << endl;と書く。"
       },
+
       {
         q: "以下のコードを実行したときの出力は？<pre>int a = 100000;\nint b = 100000;\nint c = a * b;\ncout << c << endl;</pre>",
         options: [
@@ -152,6 +162,7 @@ int main() {
         answer: 2,
         explanation: "intの範囲（約2e9）を超えるので、オーバーフローします。"
       },
+
       {
         q: "以下のコードを実行したとき、何が起きる？<pre>vector<int> v = {1, 2, 3};\ncout << v[5] << endl;</pre>",
         options: [
@@ -163,6 +174,7 @@ int main() {
         answer: 2,
         explanation: "存在しないインデックスへのアクセス → 未定義動作"
       },
+
       {
         q: "以下のコードの出力は？<pre>int x;\ncout << x << endl;</pre>",
         options: [
@@ -172,8 +184,9 @@ int main() {
           "空文字になる"
         ],
         answer: 2,
-        explanation: "ローカル変数は初期化されないので、未定義な値が表示されます。"
+        explanation: "ローカル変数は初期化されないので、変な値が表示されます。"
       },
+
       {
     q: "次のコードを実行したときの出力は？<pre>char a = 'a';\nchar b = 'b';\ncout << (a == b) << endl;</pre>",
     options: [
@@ -183,8 +196,9 @@ int main() {
       "false"
     ],
     answer: 0,
-    explanation: "charやstringにも演算子が使える。a と b は異なる文字なので比較結果は false (0) になる。"
+    explanation: "charやstringにも演算子が使える。<br>a と b は異なる文字なので比較結果は false (0) になる。"
   },
+
   {
     q: "次のコードを実行したときの出力は？<pre>string str1 = 'Hello';\nstring str2 = ' World';\ncout << str1 + str2 << endl;</pre>",
     options: [
@@ -279,7 +293,7 @@ int main() {
         const isCorrect = parseInt(selected.value) === q.answer;
         result.textContent = isCorrect ? "○ 正解です！" : `× 不正解です。正解：${q.options[q.answer]}`;
         result.style.color = isCorrect ? "green" : "red";
-        explanation.textContent = q.explanation;
+        explanation.innerHTML = q.explanation;
 
 
         const labels = container.querySelectorAll("label");
