@@ -60,13 +60,13 @@
   {
   "q": "次のコードの出力を半角で入力してください。\n<pre>int x = 5;\ncout << ++x << endl;\ncout << x << endl;</pre>",
   "answer": "6\n6",
-  "explanation": "++x は先に x を1増やしてから出力するので、1行目は6が表示される。\nその後の x の値も6なので、2行目も6。"
+  "explanation": "++x は先に x を1増やしてから出力するので、1行目は6が表示される。<br>その後の x の値も6なので、2行目も6。"
 },
 
 {
   "q": "次のコードの出力を半角で入力してください。\n<pre>int x = 5;\ncout << x++ << endl;\ncout << x << endl;</pre>",
   "answer": "5\n6",
-  "explanation": "x++ は出力後に x を1増やす。\n1行目では x の元の値（5）が出力され、その後 x は6になる。\n2行目では更新後の x（6）が出力される。"
+  "explanation": "x++ は出力後に x を1増やす。\n1行目では x の元の値（5）が<br>出力され、その後 x は6になる。<br>2行目では更新後の x（6）が出力される。"
 },
 
 {
@@ -111,8 +111,6 @@
   "explanation": "i + j が 3 の倍数（0, 3, 6...）のときに出力されます。ループは i, j ともに 0〜2 の3回なので、(0,0), (1,2), (2,1) の3パターンが条件を満たす。"
 },
 
-
-  //あと2もん
 ];
 
 
@@ -163,18 +161,20 @@
       container.appendChild(backButton);
 
       answerButton.addEventListener("click", () => {
-        const userInput = input.value.trim();
-        if (userInput === q.answer) {
-          result.textContent = "○ 正解です！";
-          result.style.color = "green";
-        } else {
-          result.textContent = "× 不正解です。";
-          result.style.color = "red";
-        }
-        explanation.innerHTML = q.explanation;
-        answerButton.style.display = "none";
-        nextButton.style.display = "block";
-      });
+  const userInput = input.value.trim();
+  if (userInput === q.answer) {
+    result.textContent = "○ 正解です！";
+    result.style.color = "green";
+    explanation.innerHTML = q.explanation;
+  } else {
+    result.innerHTML = `× 不正解です。<br><strong>正解：</strong> ${q.answer}`;
+    result.style.color = "red";
+    explanation.innerHTML = q.explanation;
+  }
+  answerButton.style.display = "none";
+  nextButton.style.display = "block";
+});
+
 
       nextButton.addEventListener("click", () => {
     current++;
