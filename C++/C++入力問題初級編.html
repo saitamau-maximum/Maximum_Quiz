@@ -10,7 +10,7 @@
 <body>
   <div class="quiz-container" id="home">
     <h1>C++ 入力問題 初級編</h1>
-    <p>全1問です。</p>
+    <p>全15問です。</p>
     <button onclick="startQuiz()">開始</button>
     <a href="C++.html" class="back-button">問題選択に戻る</a>
   </div>
@@ -18,13 +18,103 @@
   <div class="quiz-container" id="quiz" style="display: none;"></div>
 
   <script>
-    const questions = [
-      {
-        q: "次のコードを実行したとき、入力として『3 5』と与えた場合、aとbの値を半角スペース区切りで入力してください。<pre>int a, b;\ncin >> a >> b;</pre>",
-        answer: "3 5",
-        explanation: "cin >> a >> b; と書くと、最初に入力された数字がa、次に入力された数字がbに代入される。よって a = 3, b = 5 となる。"
-      }
-    ];
+  const questions = [
+
+  {
+  q: "次のコードの出力を1行で入力してください（半角で入力）。<pre>string a = \"Hello\";\nstring b = \"World\";\ncout << a + \" \" + b << endl;</pre>",
+  answer: "Hello World",
+  explanation: "文字列aとbを空白を挟んで連結し出力している。"
+},
+
+{
+  q: "次のコードの出力を1行で入力してください（半角で入力）。<pre>int a = 8;\nint b = 4;\nif (a % b == 0) cout << \"OK\" << endl;\nelse cout << \"NG\" << endl;</pre>",
+  answer: "OK",
+  explanation: "8は4で割り切れるので、条件はtrueになり\"OK\"が出力される。"
+},
+
+{
+  q: "次のコードの出力を1行で入力してください（半角で入力）。<pre>bool flag = (3 + 2 == 5);\ncout << flag << endl;</pre>",
+  answer: "1",
+  explanation: "真偽値flagはtrue（1）なので、1が出力される。"
+},
+
+  {
+  "q": "次のコードを実行したときの出力を半角で1行で入力してください。<pre>double x = 2.9;\nint y = x * 2;\ncout << y << endl;</pre>",
+  "answer": "5",
+  "explanation": "x * 2 の結果は 5.8 だが、それを int 型に代入しているため、<br>小数点以下は切り捨てられて 5 になる。"
+},
+
+
+  {
+  "q": "次のコードの出力を半角で入力してください。\n<pre>int x = 3;\nbool a = true;\nbool b = x < 10;\nbool c = false;\n\nif (a && b) {\n  cout << \"hello\" << endl;\n}\nif (c) {\n  cout << \"world\" << endl;\n}</pre>",
+  "answer": "hello",
+  "explanation": "x < 10 は true なので、a && b は true。<br>よって \"hello\" が出力される。<br>c は false なので \"world\" は出力されない。"
+},
+
+  {
+    "q": "次のコードの出力を入力してください。\n<pre>int a = 10;\nint b = 4;\ndouble x = a / b;\ncout << x << endl;</pre>",
+    "answer": "2",
+    "explanation": "int同士の割り算は小数点以下切り捨て → 10 / 4 = 2 → double型に変換されても2.0でなく2になる。"
+  },
+
+  {
+  "q": "次のコードの出力を半角で入力してください。\n<pre>int x = 5;\ncout << ++x << endl;\ncout << x << endl;</pre>",
+  "answer": "6\n6",
+  "explanation": "++x は先に x を1増やしてから出力するので、1行目は6が表示される。\nその後の x の値も6なので、2行目も6。"
+},
+
+{
+  "q": "次のコードの出力を半角で入力してください。\n<pre>int x = 5;\ncout << x++ << endl;\ncout << x << endl;</pre>",
+  "answer": "5\n6",
+  "explanation": "x++ は出力後に x を1増やす。\n1行目では x の元の値（5）が出力され、その後 x は6になる。\n2行目では更新後の x（6）が出力される。"
+},
+
+{
+  "q": "次のコードの出力を半角で入力してください。\n<pre>bool a = false;\nbool b = true;\nbool c = !a || (a && b);\nif (c) cout << \"yes\" << endl;\nelse cout << \"no\" << endl;</pre>",
+  "answer": "yes",
+  "explanation": "!a は true、a && b は false。\nよって true || false = true、c は true。\nしたがって \"yes\" が出力される。"
+},
+
+{
+  "q": "次のコードの出力を半角で入力してください。\n<pre>int sum = 0;\nfor (int i = 1; i <= 3; i++) {\n  sum += i;\n}\ncout << sum << endl;</pre>",
+  "answer": "6",
+  "explanation": "1 + 2 + 3 なので sum = 6。\nよって \"6\" が出力される。"
+},
+
+{
+  "q": "次のコードの出力を、半角の空白区切りで入力してください。\n<pre>vector<int> a = {1, 2, 3, 4};\nfor (int i = 0; i < 4; i++) {\n  a[3 - i] += i;\n}\nfor (int x : a) cout << x << ' ';</pre>",
+  "answer": "4 4 4 4",
+  "explanation": "a[3 - i] に i を加えるので、後ろから順に i を足していく。<br>初期配列: {1,2,3,4}\n→ a[3] += 0 → 4\n→ a[2] += 1 → 4\n→ a[1] += 2 → 4\n→ a[0] += 3 → 4\nfor(int x : a)は範囲for文と呼ばれるもので、aの要素を全て出力するのに使っている。\nよって出力は 4 4 4 4。"
+},
+
+{
+  "q": "次のコードの出力を、半角の空白区切りで入力してください。\n<pre>vector<int> a = {5, 3, 1, 2};\nsort(a.begin(), a.end());\nreverse(a.begin(), a.end());\nfor (int x : a) cout << x << ' ';</pre>",
+  "answer": "5 3 2 1",
+  "explanation": "まず sort で昇順に並べ替えると {1, 2, 3, 5} になる。<br>その後 reverse で反転すると {5, 3, 2, 1}。<br>よって出力は 5 3 2 1。大きい順にしたい場合、sort(a.rbegin(), a.rend())を使うこともできる。"
+},
+
+{
+  "q": "次のコードの出力を半角で1行で入力してください。\n<pre>int a = 10;\nint b = 7;\nint c = 4;\ncout << a - b % c << endl;</pre>",
+  "answer": "7",
+  "explanation": "b % c = 7 % 4 = 3<br>よって a - b % c = 10 - 3 = 7"
+},
+
+{
+  "q": "次のコードを実行したときの出力を半角で改行区切りで入力してください。<pre>int x = 5;\ncout << x << endl;\n\nif (x == 5) {\n  cout << x << endl;\n\n  string x = \"hello\";\n  cout << x << endl;\n}\n\ncout << x << endl;</pre>",
+  "answer": "5\n5\nhello\n5",
+  "explanation": "if 文の中で string x = \"hello\"; により、<br>新しいスコープで文字列型の x が宣言されている。<br>外側の int x とは別物なので、最初と最後は 5 のまま。"
+},
+
+{
+  "q": "次のコードを実行したときの出力を、半角で改行区切りで入力してください。<pre>for (int i = 0; i < 3; i++) {\n  for (int j = 0; j < 3; j++) {\n    if ((i + j) % 3 == 0) {\n      cout << i << \" \" << j << endl;\n    }\n  }\n}</pre>",
+  "answer": "0 0\n1 2\n2 1",
+  "explanation": "i + j が 3 の倍数（0, 3, 6...）のときに出力されます。ループは i, j ともに 0〜2 の3回なので、(0,0), (1,2), (2,1) の3パターンが条件を満たす。"
+},
+
+
+  //あと2もん
+];
+
 
     let current = 0;
 
@@ -61,6 +151,11 @@
       explanation.className = "explanation";
       container.appendChild(explanation);
 
+      const nextButton = document.createElement("button");
+      nextButton.textContent = "次の問題へ";
+      nextButton.style.display = "none";
+      container.appendChild(nextButton);
+
       const backButton = document.createElement("a");
       backButton.href = "C++.html";
       backButton.textContent = "問題選択に戻る";
@@ -76,9 +171,25 @@
           result.textContent = "× 不正解です。";
           result.style.color = "red";
         }
-        explanation.textContent = q.explanation;
+        explanation.innerHTML = q.explanation;
         answerButton.style.display = "none";
+        nextButton.style.display = "block";
       });
+
+      nextButton.addEventListener("click", () => {
+    current++;
+    if (current < questions.length) {
+      showQuestion(current);
+    } else {
+      container.innerHTML = "<h2>全ての問題が終了しました！</h2>";
+      const backBtn = document.createElement("a");
+      backBtn.href = "C++.html";
+      backBtn.textContent = "問題選択に戻る";
+      backBtn.className = "home-button";
+      container.appendChild(backBtn);
+    }
+  });
+
     }
   </script>
 </body>
