@@ -33,8 +33,9 @@
           "D. エラーになる"
         ],
         answer: 2,
-        explanation: "a / b はどっちも int だから 整数の割り算 → 結果は 3。それを double(3) にするので 3.0 が出力される。"
+        explanation: "a / b はどっちも int だから 整数の割り算 → 結果は 3。<br>それを double(3) にするので 3.0 が出力される。"
       },
+
       {
         q: `以下のコードの出力は？<pre>int a = 10;\nint b = 3;\ncout << (double)a / b << endl;</pre>`,
         options: [
@@ -44,10 +45,10 @@
           "D. エラーになる"
         ],
         answer: 0,
-        explanation: "(double)a で先に 10 が 10.0 になる → 10.0 / 3 は 実数の割り算になるので 3.33333...。"
+        explanation: "(double)a で先に 10 が 10.0 になる <br>→ 10.0 / 3 は 実数の割り算になるので 3.33333...。"
       },
       {
-        q: `以下のコードの出力は？<pre>int x = 10;\n{\n  int x = 5;\n  cout << x << endl;\n}\ncout << x << endl;</pre>`,
+        q: `以下のコードの出力は？<pre>int x = 10;\n{\n  int x = 5;\n  cout << x << " ";\n}\ncout << x << endl;</pre>`,
         options: [
           "A. 5 5",
           "B. 5 10",
@@ -55,7 +56,7 @@
           "D. エラーになる"
         ],
         answer: 1,
-        explanation: "ブロック内の int x = 5; は外側の x を隠してる（シャドウイング） → ブロック内: 5、ブロック外: 10。"
+        explanation: "ブロック内の int x = 5; は外側の x を隠してる（シャドウイング）<br> → ブロック内: 5、ブロック外: 10。"
       },
       {
         q: `このコードを実行しても x の値が変わらないのはなぜ？<pre>void addTen(int x) {\n  x += 10;\n}\n\nint main() {\n  int x = 5;\n  addTen(x);\n  cout << x << endl;\n  return 0;\n}</pre>`,
@@ -66,7 +67,7 @@
           "D. cout の位置が悪い"
         ],
         answer: 1,
-        explanation: "関数引数に int x と書くと、元の値のコピーになる（値渡し） → 関数内で x を変えても、main の x には影響なし。"
+        explanation: "関数引数に int x と書くと、元の値のコピーになる（値渡し）<br> → 関数内で x を変えても、main の x には影響なし。"
       },
       {
         q: "以下のコードの出力は？<pre>int i = 0;\nwhile (i != 10) {\n  i += 3;\n  cout << i << endl;\n}</pre>",
@@ -77,7 +78,7 @@
           "D. 10までの数字が表示される"
         ],
         answer: 0,
-        explanation: "このコードではwhile文から抜けることができないので無限ループとなりTLEする。"
+        explanation: "このコードではwhile文から抜けることができないので、無限ループとなりTLEする。"
       },
       {
         q: "このコードが無限ループになる理由は？<pre>int i = 0;\nwhile (i != 10) {\n  i += 3;\n  cout << i << endl;\n}</pre>",
@@ -88,7 +89,7 @@
           "D. ループの中で i が減少してるから"
         ],
         answer: 0,
-        explanation: "i は 0 → 3 → 6 → 9 → 12 というふうに 10 を飛び越えてしまうため、`i != 10` を永遠に満たしてしまう。"
+        explanation: "i は 0 → 3 → 6 → 9 → 12 というふうに 10 を飛び越えてしまうため、<br>i != 10 を永遠に満たしてしまう。"
       },
       {
         q: "次のコードを実行したとき、何回 '1' と出力されるか？<pre>int main() {\n  for (int i = 0; i < 3; i++) {\n    for (int j = 0; j < 3; j++) {\n      if (i == j) break;\n      cout << 1 << endl;\n    }\n  }\n  return 0;\n}</pre>",
@@ -99,7 +100,7 @@
           "6回"
         ],
         answer: 0,
-        explanation: "内側のループは i == j の時に break で抜けるため、i < jになることはない。よって(i, j) = (1, 0) 、(2, 0) 、(2, 1)のときに 1 が出力される。よって出力される回数は3回。"
+        explanation: "内側のループは i == j の時に break で抜けるため、i < jになることはない。<br>よって(i, j) = (1, 0) 、(2, 0) 、(2, 1)のときに 1 が出力される。<br>よって出力される回数は3回。"
       },
 {
   q: "次の再帰関数を実行したとき、出力される値は何か？<pre>void func(int n) {\n  if (n == 0) return;\n  cout << n << ' ';\n  func(n - 1);\n}\nint main() {\n  func(3);\n  return 0;\n}</pre>",
@@ -110,7 +111,7 @@
     "0 1 2 3"
   ],
   answer: 0,
-  explanation: "再帰関数 func(3) は n が0になるまで再帰呼び出しを行い、呼び出しの順番は 3 2 1 となる。最後に `n == 0` で終了するので、3 2 1 が出力される。"
+  explanation: "再帰関数 func(3) は n が0になるまで再帰呼び出しを行い、<br>呼び出しの順番は 3 2 1 となる。<br>最後に n == 0 で終了するので、3 2 1 が出力される。"
 },
 {
   q: "次のコードを実行したとき、b の値は何になるか？<pre>int a = 5;\nint& b = a;\na = 10;\ncout << b << endl;</pre>",
@@ -121,7 +122,7 @@
     "未定義"
   ],
   answer: 1,
-  explanation: "bはaの参照であるため、aを変更するとbも同じ値を参照することになります。従って、bの値は10になります。"
+  explanation: "bはaの参照であるため、aを変更するとbも同じ値を参照することになる。<br>したがって、bの値は10になる。"
 },
 {
   q: "次のコードを実行したとき、c の値は何になるか？<pre>int a = 5;\nint& b = a;\nint& c = b;\na = 10;\ncout << c << endl;</pre>",
@@ -132,7 +133,7 @@
     "未定義"
   ],
   answer: 1,
-  explanation: "bはaの参照で、cはbの参照である。したがって、aを10に変更すると、bが10となる。bが10になったのでcも10となる。"
+  explanation: "bはaの参照で、cはbの参照である。したがって、aを10に変更すると、<br>bが10となる。bが10になったのでcも10となる。"
 },
 
     ];
@@ -218,7 +219,7 @@
         const isCorrect = parseInt(selected.value) === q.answer;
         result.textContent = isCorrect ? "○ 正解です！" : `× 不正解です。正解：${q.options[q.answer]}`;
         result.style.color = isCorrect ? "green" : "red";
-        explanation.textContent = q.explanation;
+        explanation.innerHTML = q.explanation;
 
         const labels = container.querySelectorAll("label");
         labels.forEach(label => label.classList.add("disabled"));

@@ -10,7 +10,7 @@
 <body>
   <div class="quiz-container" id="home">
     <h1>C++ 入力問題 上級編</h1>
-    <p>全1問です。</p>
+    <p>全5問です。</p>
     <button onclick="startQuiz()">開始</button>
     <a href="C++.html" class="back-button">問題選択に戻る</a>
   </div>
@@ -18,13 +18,16 @@
   <div class="quiz-container" id="quiz" style="display: none;"></div>
 
   <script>
-    const questions = [
-      {
+  const questions = [
+
+  {
         q: "次のコードを実行したとき、入力として『3 5』と与えた場合、aとbの値を半角スペース区切りで入力してください。<pre>int a, b;\ncin >> a >> b;</pre>",
         answer: "3 5",
         explanation: "cin >> a >> b; と書くと、最初に入力された数字がa、次に入力された数字がbに代入される。よって a = 3, b = 5 となる。"
       }
-    ];
+
+];
+
 
     let current = 0;
 
@@ -61,24 +64,62 @@
       explanation.className = "explanation";
       container.appendChild(explanation);
 
+      const nextButton = document.createElement("button");
+      nextButton.textContent = "次の問題へ";
+      nextButton.style.display = "none";
+      container.appendChild(nextButton);
+
       const backButton = document.createElement("a");
       backButton.href = "C++.html";
       backButton.textContent = "問題選択に戻る";
       backButton.className = "home-button";
       container.appendChild(backButton);
 
+      let emptyClickCount = 0;
+
       answerButton.addEventListener("click", () => {
-        const userInput = input.value.trim();
-        if (userInput === q.answer) {
-          result.textContent = "○ 正解です！";
-          result.style.color = "green";
-        } else {
-          result.textContent = "× 不正解です。";
-          result.style.color = "red";
-        }
-        explanation.textContent = q.explanation;
-        answerButton.style.display = "none";
-      });
+  const userInput = input.value.trim();
+
+  if (userInput === "") {
+    emptyClickCount++;
+    if (emptyClickCount === 1) {
+      result.textContent = "何も入力されていません。もう一度押すと正解が表示されます。";
+      result.style.color = "black";
+      return;
+    }
+  }
+
+  input.disabled = true;
+
+  if (userInput === q.answer) {
+  result.textContent = "○ 正解です！";
+  result.style.color = "green";
+  explanation.innerHTML = q.explanation;
+} else {
+  result.innerHTML = `× 不正解です。<br><strong>正解：</strong><pre>${q.answer}</pre>`;
+  result.style.color = "red";
+  explanation.innerHTML = q.explanation;
+}
+
+  answerButton.style.display = "none";
+  nextButton.style.display = "block";
+});
+
+
+      nextButton.addEventListener("click", () => {
+    current++;
+    if (current < questions.length) {
+      showQuestion(current);
+    } else {
+      container.innerHTML = `<h2>お疲れ様でした！全${questions.length}問が終了しました。</h2>`;
+      const backBtn = document.createElement("a");
+      backBtn.href = "C++.html";
+      backBtn.textContent = "問題選択に戻る";
+      backBtn.className = "home-button";
+      container.appendChild(backBtn);
+    }
+  });
+
     }
   </script>
 </body>
