@@ -75,8 +75,22 @@
       backButton.className = "home-button";
       container.appendChild(backButton);
 
+      let emptyClickCount = 0;
+
       answerButton.addEventListener("click", () => {
   const userInput = input.value.trim();
+
+  if (userInput === "") {
+    emptyClickCount++;
+    if (emptyClickCount === 1) {
+      result.textContent = "何も入力されていません。もう一度押すと正解が表示されます。";
+      result.style.color = "black";
+      return;
+    }
+  }
+
+  input.disabled = true;
+  
   if (userInput === q.answer) {
   result.textContent = "○ 正解です！";
   result.style.color = "green";
