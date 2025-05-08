@@ -82,13 +82,13 @@
 },
 
 {
-  q: "次のコードの出力を、半角の空白区切りで入力してください。\n<pre>vector<int> a = {1, 2, 3, 4};\nfor (int i = 0; i < 4; i++) {\n  a[3 - i] += i;\n}\nfor (int x : a) cout << x << ' ';</pre>",
+  q: "次のコードの出力を、半角の空白区切りで入力してください。\n<pre>vector&ltint&gt a = {1, 2, 3, 4};\nfor (int i = 0; i < 4; i++) {\n  a[3 - i] += i;\n}\nfor (int x : a) cout << x << ' ';</pre>",
   answer: "4 4 4 4",
   explanation: "a[3 - i] に i を加えるので、後ろから順に i を足していく。<br>初期配列: {1,2,3,4}<br>→ a[3] += 0 → 4<br>→ a[2] += 1 → 4\n→ a[1] += 2 → 4\n→ a[0] += 3 → 4\nfor(int x : a)は範囲for文と呼ばれるもので、aの要素を全て出力するのに使っている。\nよって出力は 4 4 4 4。"
 },
 
 {
-  q: "次のコードの出力を、半角の空白区切りで入力してください。\n<pre>vector<int> a = {5, 3, 1, 2};\nsort(a.begin(), a.end());\nreverse(a.begin(), a.end());\nfor (int x : a) cout << x << ' ';</pre>",
+  q: "次のコードの出力を、半角の空白区切りで入力してください。\n<pre>vector&ltint&gt a = {5, 3, 1, 2};\nsort(a.begin(), a.end());\nreverse(a.begin(), a.end());\nfor (int x : a) cout << x << ' ';</pre>",
   answer: "5 3 2 1",
   explanation: "まず sort で昇順に並べ替えると {1, 2, 3, 5} になる。<br>その後 reverse で反転すると {5, 3, 2, 1}。<br>よって出力は 5 3 2 1。大きい順にしたい場合、sort(a.rbegin(), a.rend())を使うこともできる。"
 },
