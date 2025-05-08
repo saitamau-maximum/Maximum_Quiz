@@ -19,12 +19,87 @@
 
   <script>
   const questions = [
+  {
+  q: "次のコードの出力を、半角で改行区切りで入力してください。<pre>vector<int> v = {10, 20, 30};\nauto it = v.begin();\nfor(int i = 0; i < 3; i++){\n  *it += 5;\n  it++;\n}\nfor(int x : v) {\n  cout << x << endl;\n}</pre>",
+  answer: "15\n25\n35",
+  explanation: "v の各要素に 5 を加えている。for 文で *it += 5 により <br>10→15, 20→25, 30→35 となる。<br>その後 for 文で全要素を出力するので、15 25 35 の順で出力される。"
+},
+
+{
+  q: "次のコードの出力を、半角で改行区切りで入力してください。<pre>vector<int> v = {10, 20, 30};\nauto it = v.begin();\ncout << *it << endl;\nit++;\ncout << *it << endl;</pre>",
+  answer: "10\n20",
+  explanation: "it は v.begin() で最初の要素を指しており、*it は 10。\nit++ により次の要素（20）を指すので、2回目は 20 を出力する。"
+},
+
+{
+  q: "次のコードを実行したときの出力を半角で改行区切りで入力してください。<pre>set<int> s;\ns.insert(5);\ns.insert(3);\ns.insert(5);\nfor (int x : s) cout << x << endl;</pre>",
+  answer: "3\n5",
+  explanation: "set は重複を許さず、昇順に自動でソートされる。<br>5 は2回挿入されているが1つしか保持されない。"
+},
+
+{
+  q: "次のコードを実行したときの出力を半角で改行区切りで入力してください。<pre>map<string, int> mp;\nmp[\"apple\"] = 2;\nmp[\"banana\"] = 5;\nfor (auto p : mp) cout << p.first << ' ' << p.second << endl;</pre>",
+  answer: "apple 2\nbanana 5",
+  explanation: "map はキーでソートされる（文字列順）。first がキー、second が値であり、それを出力している。"
+},
+
+{
+  q: "次のコードの出力を1行で入力してください。\n<pre>map<string, int> m;\ncout << m[\"key\"] << endl;</pre>",
+  answer: "0",
+  explanation: "存在しないキーにアクセスすると、デフォルト値（int型なら0）が挿入される。"
+},
+
+{
+  q: "次のコードの出力を1行で入力してください。\n<pre>set<int> s = {1, 3, 5};\nif (s.find(3) != s.end()) cout << \"yes\";\nelse cout << \"no\";</pre>",
+  answer: "yes",
+  explanation: "find(3) は見つかるので、yesが出力される。"
+},
+
+{
+  q: "次のコードを実行したとき、出力されるものは何か？<br>※実行時の出力そのものではなく、どのような種類の値が出るかを答えてください（例: 整数、文字列など）\n<pre>set<int> s = {3, 5, 8};\nint x = 5;\nauto a = s.find(x);\ncout << a << endl;</pre>",
+  answer: "イテレータ（アドレスのような値）",
+  explanation: "set.find(x) はイテレータを返す。cout << a はそのアドレス的な表現（ポインタのような表示）になるため、整数やfoundなどではない。通常は *a で値を参照する。"
+},
+
+{
+    q: `次のコードの出力を改行区切りで入力してください。<pre>
+void add(int x) {
+  x += 5;
+}
+
+int main() {
+  int a = 10;
+  add(a);
+  cout << a << endl;
+}</pre>`,
+    answer: "10",
+    explanation: "add という関数は値渡しなので、関数内の x += 5 は a に直接影響せず、a は 10 のまま。"
+  },
 
   {
-        q: "次のコードを実行したとき、入力として『3 5』と与えた場合、aとbの値を半角スペース区切りで入力してください。<pre>int a, b;\ncin >> a >> b;</pre>",
-        answer: "3 5",
-        explanation: "cin >> a >> b; と書くと、最初に入力された数字がa、次に入力された数字がbに代入される。よって a = 3, b = 5 となる。"
-      }
+  q: `次のコードの出力を改行区切りで入力してください。<pre>
+void add(int &x) {
+  x += 5;
+}
+
+int main() {
+  int a = 10;
+  add(a);
+  cout << a << endl;
+}</pre>`,
+    answer: "15",
+    explanation: "これは参照渡しなので、関数内の x += 5 は a に直接影響して、a は 15 になる。"
+  },
+
+  {
+    q: `次のコードの出力を1行で入力してください。<pre>
+int a = 5;
+int b = 10;
+int c = (a > b ? a : b);
+cout << c << endl;</pre>`,
+    answer: "10",
+    explanation: "a > b は false なので、三項演算子の条件が成り立たず、b が代入される → c = 10。"
+  }
 
 ];
 
