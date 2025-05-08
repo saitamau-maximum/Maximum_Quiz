@@ -38,13 +38,13 @@
 },
 
 {
-  q: "次のコードを実行したときの出力を半角で改行区切りで入力してください。<pre>map<string, int> mp;\nmp[\"apple\"] = 2;\nmp[\"banana\"] = 5;\nfor (auto p : mp) cout << p.first << ' ' << p.second << endl;</pre>",
+  q: "次のコードを実行したときの出力を半角で改行区切りで入力してください。<pre>map&lt;string, int&gt; mp;\nmp[\"banana\"] = 5;\nmp[\"apple\"] = 2;\nfor (auto p : mp) cout << p.first << ' ' << p.second << endl;</pre>",
   answer: "apple 2\nbanana 5",
   explanation: "map はキーでソートされる（文字列順）。first がキー、second が値であり、それを出力している。"
 },
 
 {
-  q: "次のコードの出力を1行で入力してください。\n<pre>map<string, int> m;\ncout << m[\"key\"] << endl;</pre>",
+  q: "次のコードの出力を1行で入力してください。\n<pre>map&lt;string, int&gt; m;\ncout << m[\"key\"] << endl;</pre>",
   answer: "0",
   explanation: "存在しないキーにアクセスすると、デフォルト値（int型なら0）が挿入される。"
 },
@@ -57,7 +57,7 @@
 
 {
   q: "次のコードを実行したとき、出力されるものは何か？<br>※実行時の出力そのものではなく、どのような種類の値が出るかを答えてください（例: 整数、文字列など）\n<pre>set<int> s = {3, 5, 8};\nint x = 5;\nauto a = s.find(x);\ncout << a << endl;</pre>",
-  answer: "イテレータ（アドレスのような値）",
+  answer: "イテレータ",
   explanation: "set.find(x) はイテレータを返す。cout << a はそのアドレス的な表現（ポインタのような表示）になるため、整数やfoundなどではない。通常は *a で値を参照する。"
 },
 
