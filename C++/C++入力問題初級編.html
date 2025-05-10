@@ -194,6 +194,7 @@
 
 
     nextButton.addEventListener("click", () => {
+    setTimeout(() => {
     current++;
     if (current < questions.length) {
       showQuestion(current);
@@ -205,6 +206,7 @@
       backBtn.className = "home-button";
       container.appendChild(backBtn);
     }
+    }, 100);
   });
 
 

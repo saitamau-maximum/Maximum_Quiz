@@ -185,6 +185,7 @@ cout << c << endl;</pre>`,
 
 
    nextButton.addEventListener("click", () => {
+    setTimeout(() => {
     current++;
     if (current < questions.length) {
       showQuestion(current);
@@ -196,6 +197,7 @@ cout << c << endl;</pre>`,
       backBtn.className = "home-button";
       container.appendChild(backBtn);
     }
+  },100);
   });
 
 

@@ -146,7 +146,9 @@
       nextButton.textContent = "次へ";
       nextButton.style.display = "none";
       nextButton.style.margin = "20px auto";
+
       nextButton.onclick = () => {
+        setTimeout(() => {
         current++;
         if (current < questions.length) {
           showQuestion(current);
@@ -154,6 +156,7 @@
           quizEl.innerHTML = `<h2>お疲れ様でした！全${questions.length}問が終了しました。<br><br>${score}問正解しました！</h2>`;
           quizEl.appendChild(backButton);
         }
+        }, 100);
       };
 
       const nextButtonWrapper = document.createElement("div");
