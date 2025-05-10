@@ -213,6 +213,7 @@ int main() {
     ];
 
     let current = 0;
+    let score = 0;
 
     const homeEl = document.getElementById("home");
     const quizEl = document.getElementById("quiz");
@@ -270,14 +271,17 @@ int main() {
       nextButton.style.display = "none";
       nextButton.style.margin = "20px auto";
       nextButton.onclick = () => {
-        current++;
-        if (current < questions.length) {
-          showQuestion(current);
-        } else {
-          quizEl.innerHTML = `<h2>お疲れ様でした！全${questions.length}問が終了しました。</h2>`;
-          quizEl.appendChild(backButton);
-        }
-      };
+    setTimeout(() => {
+    current++;
+    if (current < questions.length) {
+      showQuestion(current);
+    } else {
+      quizEl.innerHTML = `<h2>お疲れ様でした！全${questions.length}問が終了しました。<br><br>${score}問正解しました！</h2>`;
+      quizEl.appendChild(backButton);
+    }
+  }, 100);
+};
+
 
       const nextButtonWrapper = document.createElement("div");
       nextButtonWrapper.style.textAlign = "center";
@@ -291,6 +295,9 @@ int main() {
           return;
         }
         const isCorrect = parseInt(selected.value) === q.answer;
+        if(isCorrect) {
+          score++;
+        }
         result.textContent = isCorrect ? "○ 正解です！" : `× 不正解です。正解：${q.options[q.answer]}`;
         result.style.color = isCorrect ? "green" : "red";
         explanation.innerHTML = q.explanation;
