@@ -214,6 +214,8 @@ int main() {
 
     let current = 0;
     let score = 0;
+    let backClickCount = 0;
+
 
     const homeEl = document.getElementById("home");
     const quizEl = document.getElementById("quiz");
@@ -266,6 +268,16 @@ int main() {
       backButton.className = "home-button";
       backButton.textContent = "問題選択に戻る";
 
+      backButton.addEventListener("click", function(e) {
+        e.preventDefault();
+        if (backClickCount === 0) {
+          alert("本当に戻りますか？もう一度クリックすると戻ります。");
+          backClickCount++;
+        } else {
+          window.location.href = "C++.html";
+        }
+      });
+
       const nextButton = document.createElement("button");
       nextButton.textContent = "次へ";
       nextButton.style.display = "none";
@@ -273,6 +285,7 @@ int main() {
       nextButton.onclick = () => {
     setTimeout(() => {
     current++;
+    backClickCount = 0;
     if (current < questions.length) {
       showQuestion(current);
     } else {
