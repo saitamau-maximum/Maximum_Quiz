@@ -106,6 +106,21 @@ cout << c << endl;</pre>`,
 
     let current = 0;
     let score = 0;
+    let backClickCount = 0;
+
+    const backButtonHome = document.querySelector(".back-button");
+if (backButtonHome) {
+  backButtonHome.addEventListener("click", function(e) {
+    e.preventDefault();
+    if (backClickCount === 0) {
+      alert("本当に戻りますか？もう一度クリックすると戻ります。");
+      backClickCount++;
+    } else {
+      window.location.href = "C++.html";
+    }
+  });
+}
+
 
     function startQuiz() {
       current = 0;
@@ -150,6 +165,16 @@ cout << c << endl;</pre>`,
       backButton.textContent = "問題選択に戻る";
       backButton.className = "home-button";
       container.appendChild(backButton);
+      backButton.addEventListener("click", function(e) {
+  e.preventDefault();
+  if (backClickCount === 0) {
+    alert("本当に戻りますか？もう一度クリックすると戻ります。");
+    backClickCount++;
+  } else {
+    window.location.href = "C++.html";
+  }
+});
+
 
       let emptyClickCount = 0;
 
@@ -182,11 +207,13 @@ cout << c << endl;</pre>`,
   nextButton.style.display = "block";
 });
 
+  const backButtonHome = document.querySelector(".back-button");
 
 
    nextButton.addEventListener("click", () => {
     setTimeout(() => {
     current++;
+    backClickCount = 0;
     if (current < questions.length) {
       showQuestion(current);
     } else {

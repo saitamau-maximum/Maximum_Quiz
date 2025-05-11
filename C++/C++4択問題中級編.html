@@ -148,6 +148,23 @@
 
     let current = 0;
     let score = 0;
+    let backClickCount = 0;
+
+const backButtonHome = document.querySelector(".back-button");
+if (backButtonHome) {
+  backButtonHome.addEventListener("click", function(e) {
+    e.preventDefault();
+    if (backClickCount === 0) {
+      alert("本当に戻りますか？もう一度クリックすると戻ります。");
+      backClickCount++;
+    } else {
+      window.location.href = "C++.html";
+    }
+  });
+}
+
+
+    
 
     const homeEl = document.getElementById("home");
     const quizEl = document.getElementById("quiz");
@@ -199,6 +216,16 @@
       backButton.href = "C++.html";
       backButton.className = "home-button";
       backButton.textContent = "問題選択に戻る";
+  backButton.addEventListener("click", function(e) {
+    e.preventDefault();
+    if (backClickCount === 0) {
+      alert("本当に戻りますか？もう一度クリックすると戻ります。");
+      backClickCount++;
+    } else {
+      window.location.href = "C++.html";
+    }
+  });
+
 
       const nextButton = document.createElement("button");
       nextButton.textContent = "次へ";
@@ -208,9 +235,11 @@
       nextButton.onclick = () => {
         setTimeout(() => {
         current++;
+        backClickCount = 0;
         if (current < questions.length) {
           showQuestion(current);
         } else {
+          backClickCount = 1;
           quizEl.innerHTML = `<h2>お疲れ様でした！全${questions.length}問が終了しました。<br><br>${score}問正解しました！</h2>`;
           quizEl.appendChild(backButton);
         }
