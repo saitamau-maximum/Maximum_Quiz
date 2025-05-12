@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>C#の問題</title>
+  <style>
+    body {
+      font-family: sans-serif;
+      background-color: #f0f0f0;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+    .container {
+      text-align: center;
+      background: white;
+      padding: 40px;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+    a {
+      display: block;
+      margin-top: 20px;
+      text-decoration: none;
+      background-color: #007BFF;
+      color: white;
+      padding: 12px 24px;
+      font-size: 1.2em;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+    a:hover {
+      background-color: #0056b3;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>C#の問題</h1>
+    <a id="beginner-link">4択問題 初級編</a>
+    <a id="intermediate-link">4択問題 中級編</a>
+    <a id="advanced-link">4択問題 上級編</a>
+    <a id="input-beginner-link">入力問題 初級編</a>
+    <a id="input-intermediate-link">入力問題 中級編</a>
+    <a id="input-advanced-link">入力問題 上級編</a>
+    <a id="home-link">Maximum Quizのトップページに戻る</a>
+  </div>
+
+  <script>
+    function delayedRedirect(id, url) {
+      const element = document.getElementById(id);
+      element.addEventListener("click", function() {
+        this.style.pointerEvents = "none";
+        setTimeout(() => {
+          window.location.href = url;
+        }, 10);
+      });
+    }
+
+    delayedRedirect("beginner-link", "C++4択問題初級編.html");
+    delayedRedirect("intermediate-link", "C++4択問題中級編.html");
+    delayedRedirect("advanced-link", "C++4択問題上級編.html");
+    delayedRedirect("input-beginner-link", "C++入力問題初級編.html");
+    delayedRedirect("input-intermediate-link", "C++入力問題中級編.html");
+    delayedRedirect("input-advanced-link", "C++入力問題上級編.html");
+    delayedRedirect("home-link", "../index.html");
+  </script>
+</body>
+</html>

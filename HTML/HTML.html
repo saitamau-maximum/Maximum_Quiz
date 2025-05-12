@@ -1,62 +1,67 @@
 <!DOCTYPE html>
 <html lang="ja">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>HTMLに関する問題</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 18px;
-            padding: 18px;
-            text-align: center;
-            background-image: url("./keep_out/Tyosi.JPG");
-            background-size: cover;
-            background-position: center;
-        }
-        header {
-            padding: 10px;
-            text-align: center; 
-            background-size: cover;
-            background-position: center;
-        }
-        header {
-            padding: 10px;
-            text-align: center;
-        }
-        h1 {
-            font-size: 5em;
-            color: white;
-            padding: 5px;
-        }
-        p {
-            font-size: 2em;
-            color: white;
-            padding: 3px;
-        }
-        a {
-            font-size: 1em;
-            color: white;
-            padding: 3px;
-        }
-        .tagtag {
-            color: white;
-            font-size: 2em;
-        }
-        .tagtag img {
-            width: 100px;
-            height: auto;
-        }
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>C#の問題</title>
+  <style>
+    body {
+      font-family: sans-serif;
+      background-color: #f0f0f0;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+    .container {
+      text-align: center;
+      background: white;
+      padding: 40px;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+    a {
+      display: block;
+      margin-top: 20px;
+      text-decoration: none;
+      background-color: #007BFF;
+      color: white;
+      padding: 12px 24px;
+      font-size: 1.2em;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+    a:hover {
+      background-color: #0056b3;
+    }
+  </style>
 </head>
 <body>
-    <header>
-        <h1>HTMLに関する問題</h1>
-    </header>
-    <p>問題を選びましょう</p>
+  <div class="container">
+    <h1>C#の問題</h1>
+    <a href="HTML.html">4択問題 初級編</a>
+  </div>
 
-    <div class="tagtag">
-        <a href="one_forth.html">四択クイズ</a><br>
-        </div>
+  <script>
+    function delayedRedirect(id, url) {
+      const element = document.getElementById(id);
+      element.addEventListener("click", function() {
+        this.style.pointerEvents = "none";
+        setTimeout(() => {
+          window.location.href = url;
+        }, 10);
+      });
+    }
+
+    delayedRedirect("beginner-link", "C++4択問題初級編.html");
+    delayedRedirect("intermediate-link", "C++4択問題中級編.html");
+    delayedRedirect("advanced-link", "C++4択問題上級編.html");
+    delayedRedirect("input-beginner-link", "C++入力問題初級編.html");
+    delayedRedirect("input-intermediate-link", "C++入力問題中級編.html");
+    delayedRedirect("input-advanced-link", "C++入力問題上級編.html");
+    delayedRedirect("home-link", "../index.html");
+  </script>
 </body>
 </html>
