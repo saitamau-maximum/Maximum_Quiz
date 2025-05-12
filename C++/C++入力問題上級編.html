@@ -5,6 +5,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>C++ 入力問題 上級編</title>
   <link rel="stylesheet" href="style2.css">
+<audio id="se-correct" src="correct.mp3" preload="auto"></audio>
+<audio id="se-wrong" src="wrong.mp3" preload="auto"></audio>
 
 </head>
 <body>
@@ -147,12 +149,19 @@ if (backButtonHome) {
 
   input.disabled = true;
 
+   const seCorrect = document.getElementById("se-correct");
+const seWrong = document.getElementById("se-wrong");
+
   if (userInput === q.answer) {
     score++;
+    seCorrect.currentTime = 0;
+  seCorrect.play();
   result.textContent = "○ 正解です！";
   result.style.color = "green";
   explanation.innerHTML = q.explanation;
 } else {
+   seWrong.currentTime = 0;
+  seWrong.play();
   result.innerHTML = `× 不正解です。<br><strong>正解：</strong><pre>${q.answer}</pre>`;
   result.style.color = "red";
   explanation.innerHTML = q.explanation;
