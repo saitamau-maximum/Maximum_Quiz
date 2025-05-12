@@ -58,8 +58,24 @@ cout << mul(1.5, 2.0) << endl;</pre>`,
 
 ];
 
-
     let current = 0;
+    let score = 0;
+    let backClickCount = 0;
+
+    const backButtonHome = document.querySelector(".back-button");
+if (backButtonHome) {
+  backButtonHome.addEventListener("click", function(e) {
+    e.preventDefault();
+    if (backClickCount === 0) {
+      alert("本当に戻りますか？もう一度クリックすると戻ります。");
+      backClickCount++;
+    } else {
+      window.location.href = "C++.html";
+    }
+  });
+}
+
+
 
     function startQuiz() {
       current = 0;
@@ -104,6 +120,16 @@ cout << mul(1.5, 2.0) << endl;</pre>`,
       backButton.textContent = "問題選択に戻る";
       backButton.className = "home-button";
       container.appendChild(backButton);
+      backButton.addEventListener("click", function(e) {
+  e.preventDefault();
+  if (backClickCount === 0) {
+    alert("本当に戻りますか？もう一度クリックすると戻ります。");
+    backClickCount++;
+  } else {
+    window.location.href = "C++.html";
+  }
+});
+
 
       let emptyClickCount = 0;
 
@@ -122,6 +148,7 @@ cout << mul(1.5, 2.0) << endl;</pre>`,
   input.disabled = true;
 
   if (userInput === q.answer) {
+    score++;
   result.textContent = "○ 正解です！";
   result.style.color = "green";
   explanation.innerHTML = q.explanation;
@@ -136,19 +163,23 @@ cout << mul(1.5, 2.0) << endl;</pre>`,
 });
 
 
-      nextButton.addEventListener("click", () => {
+   nextButton.addEventListener("click", () => {
+    setTimeout(() => {
     current++;
+    backClickCount = 0;
     if (current < questions.length) {
       showQuestion(current);
     } else {
-      container.innerHTML = `<h2>お疲れ様でした！全${questions.length}問が終了しました。</h2>`;
+      container.innerHTML = `<h2>お疲れ様でした！全${questions.length}問が終了しました。<br><br>${score}問正解しました！</h2>`;
       const backBtn = document.createElement("a");
       backBtn.href = "C++.html";
       backBtn.textContent = "問題選択に戻る";
       backBtn.className = "home-button";
       container.appendChild(backBtn);
     }
+  }, 100);
   });
+
 
     }
   </script>

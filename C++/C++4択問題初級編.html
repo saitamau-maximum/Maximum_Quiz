@@ -213,6 +213,23 @@ int main() {
     ];
 
     let current = 0;
+    let score = 0;
+    let backClickCount = 0;
+
+const backButtonHome = document.querySelector(".back-button");
+if (backButtonHome) {
+  backButtonHome.addEventListener("click", function(e) {
+    e.preventDefault();
+    if (backClickCount === 0) {
+      alert("本当に戻りますか？もう一度クリックすると戻ります。");
+      backClickCount++;
+    } else {
+      window.location.href = "C++.html";
+    }
+  });
+}
+
+
 
     const homeEl = document.getElementById("home");
     const quizEl = document.getElementById("quiz");
@@ -265,19 +282,35 @@ int main() {
       backButton.className = "home-button";
       backButton.textContent = "問題選択に戻る";
 
+      backButton.addEventListener("click", function(e) {
+        e.preventDefault();
+        if (backClickCount === 0) {
+          alert("本当に戻りますか？もう一度クリックすると戻ります。");
+          backClickCount++;
+        } else {
+          window.location.href = "C++.html";
+        }
+      });
+
       const nextButton = document.createElement("button");
       nextButton.textContent = "次へ";
       nextButton.style.display = "none";
       nextButton.style.margin = "20px auto";
+      
       nextButton.onclick = () => {
-        current++;
-        if (current < questions.length) {
-          showQuestion(current);
-        } else {
-          quizEl.innerHTML = `<h2>お疲れ様でした！全${questions.length}問が終了しました。</h2>`;
-          quizEl.appendChild(backButton);
-        }
-      };
+    setTimeout(() => {
+    current++;
+    backClickCount = 0;
+    if (current < questions.length) {
+      showQuestion(current);
+    } else {
+      backClickCount = 1;
+      quizEl.innerHTML = `<h2>お疲れ様でした！全${questions.length}問が終了しました。<br><br>${score}問正解しました！</h2>`;
+      quizEl.appendChild(backButton);
+    }
+  }, 100);
+};
+
 
       const nextButtonWrapper = document.createElement("div");
       nextButtonWrapper.style.textAlign = "center";
@@ -291,6 +324,9 @@ int main() {
           return;
         }
         const isCorrect = parseInt(selected.value) === q.answer;
+        if(isCorrect) {
+          score++;
+        }
         result.textContent = isCorrect ? "○ 正解です！" : `× 不正解です。正解：${q.options[q.answer]}`;
         result.style.color = isCorrect ? "green" : "red";
         explanation.innerHTML = q.explanation;

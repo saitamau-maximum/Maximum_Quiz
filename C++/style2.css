@@ -51,7 +51,7 @@ button {
     color: white;
     border-radius: 4px;
     cursor: pointer;
-    font-size: 1.2rem;
+    font-size: 1.5rem;
 }
 
 button:hover {
@@ -68,7 +68,7 @@ button:hover {
     color: white;
     border-radius: 4px;
     width: fit-content;
-    font-size: 1.2rem;
+    font-size: 1.5rem;
 }
 
 .home-button:hover, .back-button:hover {
