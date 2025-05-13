@@ -25,7 +25,7 @@ scriptのquestionでは
     ],
     anser: ~1問目の答え~;
     explanation: ~1問目の解説~;
-}, ← 忘れずに
+}, ← "忘れずに"
 
 {
     q: ~2問目の問題~;
@@ -34,7 +34,7 @@ scriptのquestionでは
     ],
     anser: ~2問目の答え~;
     explanation: ~2問目の解説~;
-},  ← 忘れずに
+},  ← "忘れずに"
 
 {
     q: ~3問目の問題~;
