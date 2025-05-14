@@ -7,11 +7,13 @@
 主にhtmlとjavascriptとcssを使う。フォーマットはexplain.texを参照のこと。
 
 ##　共同開発の流れ
+
 以下のサイト参照のこと、Pull Requestを作成したらDiscodeで連絡。
 https://blog.maximum.vc/blog/2023/webken/3/
 https://blog.maximum.vc/blog/2023/webken/4/
 
 ##　タグについての注意
+```
 クイズの問題文や解説文の表示にはinnerHTMLというものを使っています。これによりHTMLの記号が使えるようになります(主に改行のため)
 
 つまり、問題文や解説文の中に<br>と書けば改行できます。
@@ -29,3 +31,4 @@ https://blog.maximum.vc/blog/2023/webken/4/
 
 SEを追加するのが終わったら順次開設を追加するのでお待ちを
 
+```
