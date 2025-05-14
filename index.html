@@ -13,15 +13,46 @@
 header {
     padding: 20px;
     text-align: center;
-    background-color: #3d8ca2;
+    width: 200%; 
+    height: 100px;
+    background-color: rgb(214, 51, 39);
+    margin: -25; /* 上下の余白をなくす */
+}
+h1 {
+    top:20pt; /* headerの上からの位置 */
+    right: 50pt; /* headerの左からの位置 */
+    position: absolute;
+    color:  rgb(43, 210, 34);
+    font-size: 50px;
+    margin: 0; /* 上下の余白をなくす */
+}
+p {
+    color: rgb(43, 210, 34);
+    font-size: 18px;
+    margin: 0; /* 上下の余白をなくす */
 }
 body {
-    background-color: rgb(14, 32, 186);
+    background-color: rgb(255, 255, 255);
     color: rgb(255, 255, 255);
+    font-size: 16px;
     font-family: Arial, sans-serif;
-    margin: 18px;
+    margin: 0; /* ページ全体の余白をなくす */
     padding: 18px;
     text-align: center;
+}
+.logo1 {
+    position: absolute;
+    top: 25px; /* headerの上からの位置 */
+    left: 50px; /* headerの左からの位置 */
+    width: 250px; /* ロゴの幅を調整 */
+    height: auto; /* アスペクト比を維持 */
+}
+.logo2 {
+    position: absolute;
+    top: 200pt; /* headerの上からの位置 */
+    left: 100pt; /* headerの左からの位置 */
+    width: 250px; /* ロゴの幅を調整 */
+    height: auto; /* アスペクト比を維持 */
 }
 button {
     padding: 10px 20px;
@@ -34,50 +65,52 @@ button {
     font-weight: bold;
 }
 a[href="C#/C#.html"] {
-    color: yellow;
+    color: rgb(43, 210, 34);
 }
 a[href="C++/C++.html"] {
-    color: yellow;
+    color: rgb(43, 210, 34);
 }
 a[href="HTML/HTML.html"] {
-    color: yellow;
+    color: rgb(43, 210, 34);
 }
 a[href="CSS/CSS.html"] {
-    color: yellow;
+    color: rgb(43, 210, 34);
 }
 a[href="JavaScript/JavaScript.html"] {
-    color: yellow;
+    color: rgb(43, 210, 34);
 }
 a[href="Unity_Hub/Unity_hub.html"] {
-    color: yellow;
+    color: rgb(43, 210, 34);
 }
 a[href="Git_Hub/Git_Hub.html"] {
-    color: yellow;
+    color: rgb(43, 210, 34);
 }
 a[href="https://maximum.vc/"] {
-    color: yellow;
+    color: rgb(59, 199, 255);
 }
 a[href="https://id.maximum.vc/"] {
-    color: yellow;
+    color: rgb(59, 199, 255);
 }
 a[href="https://members.maximum.vc/search"] {
-    color: yellow;
+    color: rgb(59, 199, 255);
 }
-.hero {
-    width: 25%; /* 画像の幅を1/4に設定 */
-    height: auto; /* アスペクト比を維持 */
-}
-
 </style>
+<header class="hXpOls cGuTmT kqknCe fPSBzf dDWCpe bYPztT">
 
-</head>
-<img src="keep_out/Logo.png" alt="ゲーム開発班のロゴ" class="hero">
-<h1>Maximum Quiz</h1>
+
+
+ <img src="keep_out/Maximum-logo.svg" alt="Maximumロゴ" class="logo1">
+
+   </header>
+   <h1>Maximum Quiz</h1>
+</head>   
+<img src="keep_out/Logo.png" alt="ゲーム開発班のロゴ" class="logo2">
+
+<br></br>
 <p>このサイトは、Maximumで必要な知識を学ぶためのクイズサイトです。<br>
   各セクションに分かれた問題を解くことで、知識を深めましょう。問題は今後増やしていく予定です。</p>
-
 </p>
-
+<br></br>
   <a href="C#/C#.html">C#に関する問題</a><br>
   <a href="C++/C++.html">C++に関する問題</a><br>
 
