@@ -5,8 +5,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>ここがヘッダだよ</title>           <!--ヘッダ名を設定-->
   <link rel="stylesheet" href="style2.css">  <!--cssファイルの名前に合わせる-->
-  <audio id="se-correct" src="correct.mp3" preload="auto"></audio>
-<audio id="se-wrong" src="wrong.mp3" preload="auto"></audio>
+  <audio id="se-correct" src="../keep_out/正解音.mp3" preload="auto"></audio>
+  <audio id="se-wrong" src="../keep_out/不正解音.mp3" preload="auto"></audio>
 </head>
 <body>
   <div class="quiz-container" id="home">
@@ -63,6 +63,14 @@ cout << mul(1.5, 2.0) << endl;</pre>`,
     let score = 0;
     let backClickCount = 0;
 
+     function escapeHTMLExceptBR(str) {
+  return str
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/&lt;br&gt;/g, "<br>");
+}
+
     const backButtonHome = document.querySelector(".back-button");
 if (backButtonHome) {
   backButtonHome.addEventListener("click", function(e) {
@@ -92,7 +100,8 @@ if (backButtonHome) {
       container.innerHTML = "";
 
       const question = document.createElement("div");
-      question.innerHTML = `<strong>Q${index + 1}:</strong> ${q.q}`;
+      question.innerHTML = `<strong>Q${index + 1}:</strong> ${escapeHTMLExceptBR(q.q)}`;
+
       container.appendChild(question);
 
       const input = document.createElement("textarea");
@@ -152,11 +161,13 @@ if (backButtonHome) {
     score++;
   result.textContent = "○ 正解です！";
   result.style.color = "green";
-  explanation.innerHTML = q.explanation;
+  explanation.innerHTML = escapeHTMLExceptBR(q.explanation);
+
 } else {
   result.innerHTML = `× 不正解です。<br><strong>正解：</strong><pre>${q.answer}</pre>`;
   result.style.color = "red";
-  explanation.innerHTML = q.explanation;
+  explanation.innerHTML = escapeHTMLExceptBR(q.explanation);
+
 }
 
   answerButton.style.display = "none";
