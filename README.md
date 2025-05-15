@@ -12,6 +12,8 @@
 https://blog.maximum.vc/blog/2023/webken/3/
 https://blog.maximum.vc/blog/2023/webken/4/
 
+コンフリクトを起こさないようにissueこなすごとにgit pull origin main でmain　ブランチとコードを合わせること
+
 ##　タグについての注意
 ```
 クイズの問題文や解説文の表示にはinnerHTMLというものを使っています。これによりHTMLの記号が使えるようになります(主に改行のため)
