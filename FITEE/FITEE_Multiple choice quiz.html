@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>基本情報基礎技術者試験の四択問題</title>
+  <link rel="stylesheet" href="keep_out/style.css">
+  <style>
+    .options label.disabled {
+      pointer-events: none;
+      color: #000;
+    }
+  </style>
+  <audio id="se-correct" src="keep_out/correct.mp3" preload="auto"></audio>
+<audio id="se-wrong" src="keep_out/wrong.mp3" preload="auto"></audio>
+
+</head>
+<body>
+  <div class="quiz-container" id="home">
+    <h1>基本情報基礎技術者試験の四択問題</h1>
+    <p>全15問です。</p>
+    <button onclick="startQuiz()">開始</button>
+    <a href="FITEE.html" class="back-button">問題選択に戻る</a>
+  </div>
+
+  <div class="quiz-container" id="quiz" style="display: none;"></div>
+
+  <script>
+    const questions = [//問題を未変更
+      {
+        q: "C++でのコメントアウトは次のうちどれか",
+        options: [
+          "//コメント",
+          "%コメント",
+          "#コメント",
+          "\\#コメント"
+        ],
+        answer: 0,
+        explanation: "//と書くとその行はコメントとしてみなされる。<br>/*と書くと、*/と書くまでコメントとみなされる。"
+      },
+
+      {
+        q: "以下のうち、正しい変数の宣言はどれ？",
+        options: [
+          "int 123abc;",
+          "int x = 5;",
+          "string = name;",
+          "char a == 'c';"
+        ],
+        answer: 1,
+        explanation: "変数名は数字から始められないのでAは不適。<br>Cは代入が逆。Dは == でなく = を使う。"
+      },
+
+      {
+        q: `<pre>次のコードでコンパイルエラーが出る理由は？
+
+int main() {
+    int class = 5;
+    cout << class << endl;
+    return 0;
+    }
+    </pre>`,
+  options: [
+    "A. クラスが未定義だから",
+    "B. class は予約語だから",
+    "C. int に初期化が必要だから",
+    "D. main関数の戻り値が void じゃないから"
+  ],
+  answer: 1,
+  explanation: "class は C++ の予約語。変数名や関数名に使えない。"
+},
+
+      {
+        q: "using namespace std; は何のために使う？",
+        options: [
+          "stdという変数を使うため",
+          "標準的な機能を簡単に使えるようにするため",
+          "データをソートするため",
+          "エラーを表示させるため"
+        ],
+        answer: 1,
+        explanation: "std::cout を cout と書けるようになります。"
+      },
+
+      {
+        q: "以下のコードの出力は？<pre>int a = 10;\nint b = 3;\ncout << a / b << endl;</pre>",
+        options: [
+          "3.333...",
+          "3",
+          "10",
+          "エラーになる"
+        ],
+        answer: 1,
+        explanation: "int同士の割り算は整数になります。10 ÷ 3 = 3."
+      },
+
+      {
+        q: "以下のコードの出力は？<pre>double x = 5.9;\nint y = (int)x;\ncout << y << endl;</pre>",
+        options: [
+          "6",
+          "5",
+          "5.9",
+          "エラーになる"
+        ],
+        answer: 1,
+        explanation: "(int)x は小数点以下切り捨て → 5."
+      },
+
+      {
+        q: "以下のコードの出力は？<pre>char c = 'A';\ncout << (int)c << endl;</pre>",
+        options: [
+          "A",
+          "65",
+          "エラーになる",
+          "文字コードは表示できない"
+        ],
+        answer: 1,
+        explanation: "'A' の ASCIIコードは 65 である。"
+      },
+
+      {
+        q: "以下のコードの出力は？<pre>int x = 66;\ncout << (char)x << endl;</pre>",
+        options: [
+          "A",
+          "B",
+          "エラーになる",
+          "66"
+        ],
+        answer: 1,
+        explanation: "66番目のASCII文字は B。"
+      },
+
+      {
+        q: "以下のコードの出力は？<pre>bool b = true;\ncout << (int)b << endl;</pre>",
+        options: [
+          "0",
+          "1",
+          "true",
+          "エラーになる"
+        ],
+        answer: 1,
+        explanation: "true は 1、false は 0 に変換される。"
+      },
+
+      {
+        q: "以下のコードの出力は？<pre>int x = 0;\nbool b = (bool)x;\ncout << b << endl;</pre>",
+        options: [
+          "0",
+          "1",
+          "false",
+          "エラーになる"
+        ],
+        answer: 0,
+        explanation: "0 は false 扱い、よって b = false<br>C++のcoutはbool型を出力するとき、trueは1、falseは0に変換して出力する。<br>もしfalseと出力したい場合cout << boolalpha << b << endl;と書く。"
+      },
+
+      {
+        q: "以下のコードを実行したときの出力は？<pre>int a = 100000;\nint b = 100000;\nint c = a * b;\ncout << c << endl;</pre>",
+        options: [
+          "10000000000",
+          "0",
+          "オーバーフローしておかしな値になる",
+          "エラーになる"
+        ],
+        answer: 2,
+        explanation: "intの範囲（約2e9）を超えるので、オーバーフローします。"
+      },
+
+      {
+        q: "以下のコードを実行したとき、何が起きる？<pre>vector&lt;int&gt; v = {1, 2, 3};\ncout << v[5] << endl;</pre>",
+        options: [
+          "3が表示される",
+          "0が表示される",
+          "実行時エラー or 未定義動作になる可能性がある",
+          "エラーでコンパイルできない"
+        ],
+        answer: 2,
+        explanation: "存在しないインデックスへのアクセス → 未定義動作"
+      },
+
+      {
+        q: "以下のコードの出力は？<pre>int x;\ncout << x << endl;</pre>",
+        options: [
+          "0",
+          "エラーになる",
+          "ゴミみたいな変な値が表示される",
+          "空文字になる"
+        ],
+        answer: 2,
+        explanation: "ローカル変数は初期化されないので、変な値が表示されます。"
+      },
+
+      {
+    q: "次のコードを実行したときの出力は？<pre>char a = 'a';\nchar b = 'b';\ncout << (a == b) << endl;</pre>",
+    options: [
+      "0",
+      "1",
+      "true",
+      "false"
+    ],
+    answer: 0,
+    explanation: "charやstringにも演算子が使える。<br>a と b は異なる文字なので比較結果は false (0) になる。"
+  },
+
+  {
+    q: "次のコードを実行したときの出力は？<pre>string str1 = 'Hello';\nstring str2 = ' World';\ncout << str1 + str2 << endl;</pre>",
+    options: [
+      "HelloWorld",
+      "Hello World",
+      "エラーになる",
+      "Hello+World"
+    ],
+    answer: 1,
+    explanation: "string同士の + 演算子で結合され、結果は 'Hello World' になる。"
+  }
+    ];
+
+    let current = 0;
+    let score = 0;
+    let backClickCount = 0;
+
+const backButtonHome = document.querySelector(".back-button");
+if (backButtonHome) {
+  backButtonHome.addEventListener("click", function(e) {
+    e.preventDefault();
+    if (backClickCount === 0) {
+      alert("本当に戻りますか？もう一度クリックすると戻ります。");
+      backClickCount++;
+    } else {
+      window.location.href = "FITEE.html";
+    }
+  });
+}
+
+
+
+    const homeEl = document.getElementById("home");
+    const quizEl = document.getElementById("quiz");
+
+    function startQuiz() {
+      current = 0;
+      homeEl.style.display = "none";
+      quizEl.style.display = "block";
+      showQuestion(current);
+    }
+
+    function showQuestion(index) {
+      quizEl.innerHTML = "";
+      const q = questions[index];
+
+      const container = document.createElement("div");
+      container.className = "question";
+
+      const title = document.createElement("div");
+      title.innerHTML = `<strong>Q${index + 1}:</strong> ${q.q}`;
+      container.appendChild(title);
+
+      const options = document.createElement("div");
+      options.className = "options";
+
+      q.options.forEach((opt, i) => {
+        const label = document.createElement("label");
+        const input = document.createElement("input");
+        input.type = "radio";
+        input.name = `q${index}`;
+        input.value = i;
+        label.appendChild(input);
+        label.appendChild(document.createTextNode(" " + opt));
+        options.appendChild(label);
+      });
+
+      container.appendChild(options);
+
+      const button = document.createElement("button");
+      button.textContent = "解答";
+
+      const result = document.createElement("div");
+      result.className = "result";
+
+      const explanation = document.createElement("div");
+      explanation.className = "explanation";
+
+      const backButton = document.createElement("a");
+      backButton.href = "FITEE.html";
+      backButton.className = "home-button";
+      backButton.textContent = "問題選択に戻る";
+
+      backButton.addEventListener("click", function(e) {
+        e.preventDefault();
+        if (backClickCount === 0) {
+          alert("本当に戻りますか？もう一度クリックすると戻ります。");
+          backClickCount++;
+        } else {
+          window.location.href = "C++.html";
+        }
+      });
+
+      const nextButton = document.createElement("button");
+      nextButton.textContent = "次へ";
+      nextButton.style.display = "none";
+      nextButton.style.margin = "20px auto";
+      
+      nextButton.onclick = () => {
+    setTimeout(() => {
+    current++;
+    backClickCount = 0;
+    if (current < questions.length) {
+      showQuestion(current);
+    } else {
+      backClickCount = 1;
+      quizEl.innerHTML = `<h2>お疲れ様でした！全${questions.length}問が終了しました。<br><br>${score}問正解しました！</h2>`;
+      quizEl.appendChild(backButton);
+    }
+  }, 100);
+};
+
+
+      const nextButtonWrapper = document.createElement("div");
+      nextButtonWrapper.style.textAlign = "center";
+      nextButtonWrapper.appendChild(nextButton);
+
+      button.onclick = () => {
+        const selected = container.querySelector("input:checked");
+        if (!selected) {
+          result.textContent = "選択肢を選んでください。";
+          result.style.color = "black";
+          return;
+        }
+        const isCorrect = parseInt(selected.value) === q.answer;
+
+        const seCorrect = document.getElementById("se-correct");
+        const seWrong = document.getElementById("se-wrong");
+
+if (isCorrect) {
+  score++;
+  seCorrect.currentTime = 0;
+  seCorrect.play();
+} else {
+  seWrong.currentTime = 0;
+  seWrong.play();
+}
+
+        result.textContent = isCorrect ? "○ 正解です！" : `× 不正解です。正解：${q.options[q.answer]}`;
+        result.style.color = isCorrect ? "green" : "red";
+        explanation.innerHTML = q.explanation;
+
+
+        const labels = container.querySelectorAll("label");
+        labels.forEach(label => label.classList.add("disabled"));
+
+        button.style.display = "none";
+        nextButton.style.display = "inline-block";
+      };
+
+      container.appendChild(button);
+      container.appendChild(result);
+      container.appendChild(explanation);
+      container.appendChild(nextButtonWrapper);
+      container.appendChild(backButton);
+
+      quizEl.appendChild(container);
+    }
+  </script>
+</body>
+</html>
