@@ -13,6 +13,7 @@ https://blog.maximum.vc/blog/2023/webken/3/
 https://blog.maximum.vc/blog/2023/webken/4/
 
 コンフリクトを起こさないようにissueこなすごとにgit pull origin main でmain　ブランチとコードを合わせること
+ブランチ名には日本語及び空白を入れないこと（アンダースコアは大丈夫）
 
 ##　タグについての注意
 ```
