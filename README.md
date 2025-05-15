@@ -4,7 +4,7 @@
 
 ##　記述言語
 
-主にhtmlとjavascriptとcssを使う。フォーマットはexplain.texを参照のこと。
+主にhtmlとjavascriptとcssを使う。フォーマットはクイズテンプレートを参照のこと。
 
 ##　共同開発の流れ
 
