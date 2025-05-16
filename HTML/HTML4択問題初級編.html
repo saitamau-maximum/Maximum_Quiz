@@ -11,6 +11,8 @@
       color: #000;
     }
   </style>
+  <audio id="se-correct" src="../keep_out/correct.mp3" preload="auto"></audio>
+  <audio id="se-wrong" src="../keep_out/wrong.mp3" preload="auto"></audio>
 </head>
 <body>
   <div class="quiz-container" id="home">
@@ -33,7 +35,7 @@
           "\\#コメント"
         ],
         answer: 0,
-        explanation: "//と書くとその行はコメントとしてみなされる。<br>/*と書くと、*/と書くまでコメントとみなされる。"
+        explanation: "//と書くとその行はコメントとしてみなされる。\n/*と書くと、*/と書くまでコメントとみなされる。"
       },
 
       {
@@ -152,7 +154,7 @@
           "<hr>"
         ],
         answer: 1,
-        explanation: "<br>タグは改行を挿入します。"
+        explanation: "<br> タグは改行を挿入します。"
       },
 
       {
@@ -216,7 +218,31 @@
        },
     ];
 
+   function escapeHTMLExceptBR(str) {
+  return str
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/\n/g, "<br>");
+}
+
+
     let current = 0;
+    let score = 0;
+    let backClickCount = 0;
+
+    const backButtonHome = document.querySelector(".back-button");
+if (backButtonHome) {
+  backButtonHome.addEventListener("click", function(e) {
+    e.preventDefault();
+    if (backClickCount === 0) {
+      alert("本当に戻りますか？もう一度クリックすると戻ります。");
+      backClickCount++;
+    } else {
+      window.location.href = "HTML.html"; 
+    }
+  });
+}
 
     const homeEl = document.getElementById("home");
     const quizEl = document.getElementById("quiz");
