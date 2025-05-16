@@ -41,7 +41,7 @@
 },
 
 {
-  q: "次のコードの出力を1行で入力してください。\n<pre>int a = 10;\nint* p = &a;\n*p += 5;\ncout << a << endl;\na += 5; cout << *p << endl;</pre>",
+  q: "次のコードの出力を1行で入力してください。\n<pre>int a = 10;\nint* p = &a;\n*p += 5;\ncout << a << endl;\n a += 5;\ncout << *p << endl;</pre>",
   answer: "15\n20",
   explanation: "ポインタpはaのアドレスを指しており、*p += 5 は a に5を加える操作。<br>したがって a は10 → 15となる。<br>その後 a += 5 で a は20になるが、*p はaのアドレスを指しているので、*pも20になる。"
 },
