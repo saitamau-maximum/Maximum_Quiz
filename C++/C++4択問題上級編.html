@@ -201,16 +201,16 @@
 
         const isCorrect = parseInt(selected.value) === q.answer;
         const seCorrect = document.getElementById("se-correct");
-const seWrong = document.getElementById("se-wrong");
+        const seWrong = document.getElementById("se-wrong");
 
-if (isCorrect) {
-  score++;
-  seCorrect.currentTime = 0;
-  seCorrect.play();
-} else {
-  seWrong.currentTime = 0;
-  seWrong.play();
-}
+        if (isCorrect) {
+          score++;
+          seCorrect.currentTime = 0;
+          seCorrect.play();
+        } else {
+          seWrong.currentTime = 0;
+          seWrong.play();
+        }
 
         result.textContent = isCorrect ? "○ 正解です！" : `× 不正解です。正解：${q.options[q.answer]}`;
         result.style.color = isCorrect ? "green" : "red";
