@@ -35,7 +35,7 @@
           "\\#コメント"
         ],
         answer: 0,
-        explanation: "//と書くとその行はコメントとしてみなされる。\n/*と書くと、*/と書くまでコメントとみなされる。"
+        explanation: "<!-- 〜 --> の形式でコメントアウトします。これはHTMLのコメント方法です。"
       },
 
       {
@@ -336,6 +336,8 @@ if (backButtonHome) {
           return;
         }
         const isCorrect = parseInt(selected.value) === q.answer;
+        const seCorrect = document.getElementById("se-correct");
+        const seWrong = document.getElementById("se-wrong");
 
         if (isCorrect) {
               score++;
