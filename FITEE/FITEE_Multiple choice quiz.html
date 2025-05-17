@@ -215,6 +215,14 @@ int main() {
   }
     ];
 
+     function escapeHTMLExceptBR(str) {
+  return str
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/&lt;br&gt;/g, "<br>");
+}
+
     let current = 0;
     let score = 0;
     let backClickCount = 0;
@@ -231,8 +239,6 @@ if (backButtonHome) {
     }
   });
 }
-
-
 
     const homeEl = document.getElementById("home");
     const quizEl = document.getElementById("quiz");
@@ -252,7 +258,7 @@ if (backButtonHome) {
       container.className = "question";
 
       const title = document.createElement("div");
-      title.innerHTML = `<strong>Q${index + 1}:</strong> ${q.q}`;
+      title.innerHTML = `<strong>Q${index + 1}:</strong> ${escapeHTMLExceptBR(q.q)}`;
       container.appendChild(title);
 
       const options = document.createElement("div");
@@ -331,18 +337,18 @@ if (backButtonHome) {
         const seCorrect = document.getElementById("se-correct");
         const seWrong = document.getElementById("se-wrong");
 
-if (isCorrect) {
-  score++;
-  seCorrect.currentTime = 0;
-  seCorrect.play();
-} else {
-  seWrong.currentTime = 0;
-  seWrong.play();
-}
+        if (isCorrect) {
+          score++;
+          seCorrect.currentTime = 0;
+          seCorrect.play();
+        } else {
+          seWrong.currentTime = 0;
+          seWrong.play();
+        }
 
         result.textContent = isCorrect ? "○ 正解です！" : `× 不正解です。正解：${q.options[q.answer]}`;
         result.style.color = isCorrect ? "green" : "red";
-        explanation.innerHTML = q.explanation;
+        explanation.innerHTML = escapeHTMLExceptBR(q.explanation);
 
 
         const labels = container.querySelectorAll("label");
