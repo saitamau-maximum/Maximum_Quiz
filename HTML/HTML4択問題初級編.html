@@ -4,13 +4,15 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>HTML4択問題 初級編</title>
-  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="../keep_out/style.css">
   <style>
     .options label.disabled {
       pointer-events: none;
       color: #000;
     }
   </style>
+  <audio id="se-correct" src="../keep_out/correct.mp3" preload="auto"></audio>
+  <audio id="se-wrong" src="../keep_out/wrong.mp3" preload="auto"></audio>
 </head>
 <body>
   <div class="quiz-container" id="home">
@@ -33,7 +35,7 @@
           "\\#コメント"
         ],
         answer: 0,
-        explanation: "//と書くとその行はコメントとしてみなされる。<br>/*と書くと、*/と書くまでコメントとみなされる。"
+        explanation: "<!-- 〜 --> の形式でコメントアウトします。これはHTMLのコメント方法です。"
       },
 
       {
@@ -152,7 +154,7 @@
           "<hr>"
         ],
         answer: 1,
-        explanation: "<br>タグは改行を挿入します。"
+        explanation: "<br> タグは改行を挿入します。"
       },
 
       {
@@ -216,7 +218,31 @@
        },
     ];
 
+   function escapeHTMLExceptBR(str) {
+  return str
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/\n/g, "<br>");
+}
+
+
     let current = 0;
+    let score = 0;
+    let backClickCount = 0;
+
+    const backButtonHome = document.querySelector(".back-button");
+if (backButtonHome) {
+  backButtonHome.addEventListener("click", function(e) {
+    e.preventDefault();
+    if (backClickCount === 0) {
+      alert("本当に戻りますか？もう一度クリックすると戻ります。");
+      backClickCount++;
+    } else {
+      window.location.href = "HTML.html"; 
+    }
+  });
+}
 
     const homeEl = document.getElementById("home");
     const quizEl = document.getElementById("quiz");
@@ -236,7 +262,7 @@
       container.className = "question";
 
       const title = document.createElement("div");
-      title.innerHTML = `<strong>Q${index + 1}:</strong> ${q.q}`;
+      title.innerHTML = `<strong>Q${index + 1}:</strong> ${escapeHTMLExceptBR(q.q)}`;
       container.appendChild(title);
 
       const options = document.createElement("div");
@@ -265,22 +291,37 @@
       explanation.className = "explanation";
 
       const backButton = document.createElement("a");
-      backButton.href = "C++.html";
+      backButton.href = "HTML.html";
       backButton.className = "home-button";
       backButton.textContent = "問題選択に戻る";
+      
+      backButton.addEventListener("click", function(e) {
+        e.preventDefault();
+        if (backClickCount === 0) {
+          alert("本当に戻りますか？もう一度クリックすると戻ります。");
+          backClickCount++;
+        } else {
+          window.location.href = "HTML.html";
+        }
+      });
 
       const nextButton = document.createElement("button");
       nextButton.textContent = "次へ";
       nextButton.style.display = "none";
       nextButton.style.margin = "20px auto";
+
       nextButton.onclick = () => {
+        setTimeout(() => {
         current++;
+        backClickCount = 0;
         if (current < questions.length) {
           showQuestion(current);
         } else {
-          quizEl.innerHTML = `<h2>お疲れ様でした！全${questions.length}問が終了しました。</h2>`;
+          backClickCount = 1;
+          quizEl.innerHTML = `<h2>お疲れ様でした！全${questions.length}問が終了しました。<br><br>${score}問正解しました！</h2>`;
           quizEl.appendChild(backButton);
         }
+        }, 100);
       };
 
       const nextButtonWrapper = document.createElement("div");
@@ -295,9 +336,21 @@
           return;
         }
         const isCorrect = parseInt(selected.value) === q.answer;
+        const seCorrect = document.getElementById("se-correct");
+        const seWrong = document.getElementById("se-wrong");
+
+        if (isCorrect) {
+              score++;
+              seCorrect.currentTime = 0;
+              seCorrect.play();
+        } else {
+              seWrong.currentTime = 0;
+              seWrong.play();
+      }
+
         result.textContent = isCorrect ? "○ 正解です！" : `× 不正解です。正解：${q.options[q.answer]}`;
         result.style.color = isCorrect ? "green" : "red";
-        explanation.innerHTML = q.explanation;
+        explanation.innerHTML = escapeHTMLExceptBR(q.explanation);
 
 
         const labels = container.querySelectorAll("label");

@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>~の問題</title>
+  <title>~の問題</title> <!--ヘッダの設定-->
   <style>
     body {
       font-family: sans-serif;
@@ -40,7 +40,7 @@
 </head>
 <body>
   <div class="container">
-    <h1>の問題</h1>
+    <h1>の問題</h1> <!--タイトルの設定-->
     <a id="beginner-link">4択問題 初級編</a>
     <a id="intermediate-link">4択問題 中級編</a>
     <a id="advanced-link">4択問題 上級編</a>
@@ -61,12 +61,12 @@
       });
     }
 
-    delayedRedirect("beginner-link", "~4択問題初級編.html");
-    delayedRedirect("intermediate-link", "~4択問題中級編.html");
-    delayedRedirect("advanced-link", "~4択問題上級編.html");
-    delayedRedirect("input-beginner-link", "~入力問題初級編.html");
-    delayedRedirect("input-intermediate-link", "~入力問題中級編.html");
-    delayedRedirect("input-advanced-link", "~入力問題上級編.html");
+    delayedRedirect("beginner-link", "~4択問題初級編.html"); //後ろ側だけ変える
+    delayedRedirect("intermediate-link", "~4択問題中級編.html"); //同上
+    delayedRedirect("advanced-link", "~4択問題上級編.html"); //同上
+    delayedRedirect("input-beginner-link", "~入力問題初級編.html"); //同上
+    delayedRedirect("input-intermediate-link", "~入力問題中級編.html"); //同上
+    delayedRedirect("input-advanced-link", "~入力問題上級編.html"); //同上
     delayedRedirect("home-link", "../index.html");
   </script>
 </body>

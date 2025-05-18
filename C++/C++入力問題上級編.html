@@ -4,9 +4,9 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>C++ 入力問題 上級編</title>
-  <link rel="stylesheet" href="style2.css">
-<audio id="se-correct" src="../keep_out/正解音.mp3" preload="auto"></audio>
-<audio id="se-wrong" src="../keep_out/不正解音.mp3" preload="auto"></audio>
+  <link rel="stylesheet" href="../keep_out/style2.css">
+<audio id="se-correct" src="../keep_out/correct.mp3" preload="auto"></audio>
+<audio id="se-wrong" src="../keep_out/wrong.mp3" preload="auto"></audio>
 
 </head>
 <body>
@@ -41,7 +41,7 @@
 },
 
 {
-  q: "次のコードの出力を1行で入力してください。\n<pre>int a = 10;\nint* p = &a;\n*p += 5;\ncout << a << endl;\na += 5; cout << *p << endl;</pre>",
+  q: "次のコードの出力を1行で入力してください。\n<pre>int a = 10;\nint* p = &a;\n*p += 5;\ncout << a << endl;\n a += 5;\ncout << *p << endl;</pre>",
   answer: "15\n20",
   explanation: "ポインタpはaのアドレスを指しており、*p += 5 は a に5を加える操作。<br>したがって a は10 → 15となる。<br>その後 a += 5 で a は20になるが、*p はaのアドレスを指しているので、*pも20になる。"
 },
@@ -113,7 +113,7 @@ if (backButtonHome) {
       container.appendChild(explanation);
 
       const nextButton = document.createElement("button");
-      nextButton.textContent = "次の問題へ";
+      nextButton.textContent = "次へ";
       nextButton.style.display = "none";
       container.appendChild(nextButton);
 
@@ -149,8 +149,8 @@ if (backButtonHome) {
 
   input.disabled = true;
 
-   const seCorrect = document.getElementById("se-correct");
-const seWrong = document.getElementById("se-wrong");
+  const seCorrect = document.getElementById("se-correct");
+  const seWrong = document.getElementById("se-wrong");
 
   if (userInput === q.answer) {
     score++;

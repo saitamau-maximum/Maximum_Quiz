@@ -4,9 +4,9 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>ここがヘッダだよ</title>           <!--ヘッダ名を設定-->
-  <link rel="stylesheet" href="style2.css">  <!--cssファイルの名前に合わせる-->
-  <audio id="se-correct" src="../keep_out/正解音.mp3" preload="auto"></audio>
-  <audio id="se-wrong" src="../keep_out/不正解音.mp3" preload="auto"></audio>
+  <link rel="stylesheet" href="../keep_out/style2.css">
+  <audio id="se-correct" src="../keep_out/correct.mp3" preload="auto"></audio>
+  <audio id="se-wrong" src="../keep_out/wrong.mp3" preload="auto"></audio>
 </head>
 <body>
   <div class="quiz-container" id="home">
@@ -56,7 +56,7 @@ cout << mul(1.5, 2.0) << endl;</pre>`,
         answer: "8\n3.0",
         explanation: "テンプレート関数により型Tに応じて演算される。2 * 4 = 8、1.5 * 2.0 = 3.0"
       },
-*/
+      */
 ];
 
     let current = 0;
@@ -121,7 +121,7 @@ if (backButtonHome) {
       container.appendChild(explanation);
 
       const nextButton = document.createElement("button");
-      nextButton.textContent = "次の問題へ";
+      nextButton.textContent = "次へ";
       nextButton.style.display = "none";
       container.appendChild(nextButton);
 
@@ -157,13 +157,21 @@ if (backButtonHome) {
 
   input.disabled = true;
 
+  const seCorrect = document.getElementById("se-correct");
+  const seWrong = document.getElementById("se-wrong");
+
+
   if (userInput === q.answer) {
     score++;
+    seCorrect.currentTime = 0;
+  seCorrect.play();
   result.textContent = "○ 正解です！";
   result.style.color = "green";
   explanation.innerHTML = escapeHTMLExceptBR(q.explanation);
 
 } else {
+  seCorrect.currentTime = 0;
+  seCorrect.play();
   result.innerHTML = `× 不正解です。<br><strong>正解：</strong><pre>${q.answer}</pre>`;
   result.style.color = "red";
   explanation.innerHTML = escapeHTMLExceptBR(q.explanation);
