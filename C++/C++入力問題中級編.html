@@ -239,20 +239,21 @@ if (backButtonHome) {
   },100);
   });
 
-  const bgm = document.getElementById('bgm');
-  const bgmToggleBtn = document.getElementById('bgm-toggle');
-
-  bgmToggleBtn.addEventListener('click', () => {
-    if (!bgm.paused) {
-      bgm.pause();  
-      bgmToggleBtn.textContent = '▶️ BGMを再開';
-    } else {
-      bgm.play();
-      bgmToggleBtn.textContent = '⏸️ BGMを停止';
-  }
-});
-
     }
+    
+    const bgm = document.getElementById('bgm');
+    const bgmToggleBtn = document.getElementById('bgm-toggle');
+
+    bgmToggleBtn.addEventListener('click', () => {
+        if (!bgm.paused) {
+            bgm.pause();
+            bgmToggleBtn.textContent = '▶️ BGMを再開';
+        } else {
+            bgm.play();
+            bgmToggleBtn.textContent = '⏸️ BGMを停止';
+    }
+  });
+
   </script>
 </body>
 </html>
