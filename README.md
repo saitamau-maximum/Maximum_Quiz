@@ -32,3 +32,7 @@ mp3やjpegなどの素材は各ディレクトリにあるkeep_outに入れる�
 (HTML4択クイズ初級編では<br>を解説として使っていたので\nで改行できるようにしてあります)
 
 ```
+# explain.texについて
+開発上の注意点についてはREADMEファイルに書きますが、Maximum_Quiz事体の説明はexplain.texに書きます。explain.texを変更してもexplain.pdfには反映されないので変更し終わったらpdflatex explain.texとターミナル上で打って更新してください。
+
+LaTeXはラテフと読みます。.tex はテフファイル呼びましょう。
