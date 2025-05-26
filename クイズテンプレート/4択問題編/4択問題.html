@@ -15,6 +15,8 @@
   <audio id="se-wrong" src="../keep_out/wrong.mp3" preload="auto"></audio>
 </head>
 <body>
+  <audio id="bgm" src="../keep_out/BGM.mp3" loop></audio>
+  <button id="bgm-toggle">⏸️ BGMを停止</button>
   <div class="quiz-container" id="home">
     <h1>タイトル</h1> <!--タイトルの設定(ヘッダ名と同じでも可)-->
     <p>全n問です。</p> <!--問題数を設定-->
@@ -125,6 +127,7 @@ if (backButtonHome) {
     const quizEl = document.getElementById("quiz");
 
     function startQuiz() {
+      document.getElementById('bgm').play();
       current = 0;
       homeEl.style.display = "none";
       quizEl.style.display = "block";
@@ -247,6 +250,20 @@ if (backButtonHome) {
 
       quizEl.appendChild(container);
     }
+
+  const bgm = document.getElementById('bgm');
+  const bgmToggleBtn = document.getElementById('bgm-toggle');
+
+  bgmToggleBtn.addEventListener('click', () => {
+    if (!bgm.paused) {
+      bgm.pause();
+      bgmToggleBtn.textContent = '▶️ BGMを再開';
+    } else {
+      bgm.play();
+      bgmToggleBtn.textContent = '⏸️ BGMを停止';
+  }
+});
+ 
   </script>
 </body>
 </html>

@@ -9,6 +9,8 @@
   <audio id="se-wrong" src="../keep_out/wrong.mp3" preload="auto"></audio>
 </head>
 <body>
+  <audio id="bgm" src="../keep_out/BGM.mp3" loop></audio>
+  <button id="bgm-toggle">⏸️ BGMを停止</button>
   <div class="quiz-container" id="home">
     <h1>タイトル</h1>  <!--タイトルを設定(ヘッダ名と同じでも可)-->
     <p>全5問です。</p>
@@ -87,6 +89,7 @@ if (backButtonHome) {
 
 
     function startQuiz() {
+      document.getElementById('bgm').play();
       current = 0;
       document.getElementById("home").style.display = "none";
       document.getElementById("quiz").style.display = "block";
@@ -141,10 +144,10 @@ if (backButtonHome) {
 });
 
 
-      let emptyClickCount = 0;
+    let emptyClickCount = 0;
 
-      answerButton.addEventListener("click", () => {
-  const userInput = input.value.trim();
+    answerButton.addEventListener("click", () => {
+    const userInput = input.value.trim();
 
   if (userInput === "") {
     emptyClickCount++;
@@ -202,6 +205,19 @@ if (backButtonHome) {
 
 
     }
+  const bgm = document.getElementById('bgm');
+  const bgmToggleBtn = document.getElementById('bgm-toggle');
+
+  bgmToggleBtn.addEventListener('click', () => {
+    if (!bgm.paused) {
+      bgm.pause();
+      bgmToggleBtn.textContent = '▶️ BGMを再開';
+    } else {
+      bgm.play();
+      bgmToggleBtn.textContent = '⏸️ BGMを停止';
+  }
+});
+
   </script>
 </body>
 </html>
