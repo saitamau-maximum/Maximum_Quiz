@@ -13,10 +13,10 @@ https://blog.maximum.vc/blog/2023/webken/3/
 
 https://blog.maximum.vc/blog/2023/webken/4/
 
-コンフリクトを起こさないようにissueこなすごとにgit pull origin main でmain　ブランチとコードを合わせること
+コンフリクトを起こさないようにissueをこなすごとにgit pull origin main でmain　ブランチとコードを合わせること
 ブランチ名には日本語及び空白を入れないこと（アンダースコアは大丈夫）
 
-mp3やjpegなどの素材は各ディレクトリにあるkeep_outに入れること
+mp3やjpegなどの素材はkeep_outディレクトリに入れること
 
 ##　タグについての注意
 
