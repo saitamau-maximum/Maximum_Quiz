@@ -240,7 +240,7 @@ if (backButtonHome) {
     const quizEl = document.getElementById("quiz");
 
     function startQuiz() {
-      if(!bgmpaused){
+      if(!bgm.paused){
       document.getElementById('bgm').play();
       bgmToggleBtn.textContent = '⏸️ BGMを停止';
       }
