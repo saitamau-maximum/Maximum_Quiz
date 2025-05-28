@@ -89,7 +89,7 @@ if (backButtonHome) {
 
 
     function startQuiz() {
-      if(!bgm.paused){
+      if(bgmToggleBtn.textContent == "▶️ BGMを再生") {
       document.getElementById('bgm').play();
       bgmToggleBtn.textContent = '⏸️ BGMを停止';
       }

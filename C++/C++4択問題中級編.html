@@ -175,7 +175,7 @@ if (backButtonHome) {
     const quizEl = document.getElementById("quiz");
 
     function startQuiz() {
-      if(!bgm.paused){
+      if(bgmToggleBtn.textContent == "▶️ BGMを再生") {
       document.getElementById('bgm').play();
       bgmToggleBtn.textContent = '⏸️ BGMを停止';
       }
