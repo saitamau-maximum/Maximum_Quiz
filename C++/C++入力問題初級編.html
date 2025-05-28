@@ -136,8 +136,10 @@ if (backButtonHome) {
 
 
     function startQuiz() {
+      if(!bgm.paused){
       document.getElementById('bgm').play();
       bgmToggleBtn.textContent = '⏸️ BGMを停止';
+      }
       current = 0;
       document.getElementById("home").style.display = "none";
       document.getElementById("quiz").style.display = "block";
