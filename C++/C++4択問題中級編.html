@@ -17,7 +17,7 @@
 </head>
 <body>
   <audio id="bgm" src="../keep_out/BGM.mp3" loop></audio>
-  <button id="bgm-toggle">⏸️ BGMを停止</button>
+  <button id="bgm-toggle">▶️ BGMを再生</button>
   <div class="quiz-container" id="home">
     <h1>C++ 4択クイズ 中級編</h1>
     <p>全10問です。</p>
@@ -176,6 +176,7 @@ if (backButtonHome) {
 
     function startQuiz() {
       document.getElementById('bgm').play();
+      bgmToggleBtn.textContent = '⏸️ BGMを停止';
       current = 0;
       homeEl.style.display = "none";
       quizEl.style.display = "block";
