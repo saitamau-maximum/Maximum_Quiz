@@ -16,7 +16,9 @@
 
 </head>
 <body>
-  <div class="quiz-container" id="home">
+   <audio id="bgm" src="../keep_out/BGM.mp3" loop></audio>
+   <button id="bgm-toggle">▶️ BGMを再生</button>
+   <div class="quiz-container" id="home">
     <h1>C++ 4択問題 初級編</h1>
     <p>全15問です。</p>
     <button onclick="startQuiz()">開始</button>
@@ -48,7 +50,7 @@
           "char a == 'c';"
         ],
         answer: 1,
-        explanation: "変数名は数字から始められないのでAは不適。<br>Cは代入が逆。Dは == でなく = を使う。"
+        explanation: "変数名は数字から始められないので1つめは不適。<br>3つめはイコールが要らない。<br>初期化したいなら string name = &quot;Yamadastring&quot;のように書く<br>4つめは == でなく = を使う。"
       },
 
       {
@@ -61,10 +63,10 @@ int main() {
     }
     </pre>`,
   options: [
-    "A. クラスが未定義だから",
-    "B. class は予約語だから",
-    "C. int に初期化が必要だから",
-    "D. main関数の戻り値が void じゃないから"
+    "クラスが未定義だから",
+    "class は予約語だから",
+    "int に初期化が必要だから",
+    "main関数の戻り値が void じゃないから"
   ],
   answer: 1,
   explanation: "class は C++ の予約語。変数名や関数名に使えない。"
@@ -203,7 +205,7 @@ int main() {
   },
 
   {
-    q: "次のコードを実行したときの出力は？<pre>string str1 = 'Hello';\nstring str2 = ' World';\ncout << str1 + str2 << endl;</pre>",
+    q: "次のコードを実行したときの出力は？<pre>string str1 = &quot;Hello&quot;;\nstring str2 = &quot; World&quot;;\ncout << str1 + str2 << endl;</pre>",
     options: [
       "HelloWorld",
       "Hello World",
@@ -238,6 +240,10 @@ if (backButtonHome) {
     const quizEl = document.getElementById("quiz");
 
     function startQuiz() {
+      if(bgmToggleBtn.textContent == "▶️ BGMを再生") {
+      document.getElementById('bgm').play();
+      bgmToggleBtn.textContent = '⏸️ BGMを停止';
+      }
       current = 0;
       homeEl.style.display = "none";
       quizEl.style.display = "block";
@@ -360,6 +366,20 @@ if (backButtonHome) {
 
       quizEl.appendChild(container);
     }
+
+  const bgm = document.getElementById('bgm');
+  const bgmToggleBtn = document.getElementById('bgm-toggle');
+
+  bgmToggleBtn.addEventListener('click', () => {
+    if (!bgm.paused) {
+      bgm.pause();
+      bgmToggleBtn.textContent = '▶️ BGMを再開';
+    } else {
+      bgm.play();
+      bgmToggleBtn.textContent = '⏸️ BGMを停止';
+  }
+});
+
   </script>
 </body>
 </html>
