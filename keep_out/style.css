@@ -1,6 +1,8 @@
 body {
   font-family: sans-serif;
-  background-color: #f7f7f7;
+  background-image: url("QUIZ.jpg");
+  background-size: cover;
+  background-position: center;
   margin: 0;
   padding: 20px;
 }
