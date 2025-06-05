@@ -95,6 +95,14 @@
   }  
     ];
 
+    function shuffle(array) {
+  for (let i = array.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [array[i], array[j]] = [array[j], array[i]];
+  }
+}
+
+
     function escapeHTMLExceptBR(str) {
   return str
     .replace(/&/g, "&amp;")
@@ -131,6 +139,7 @@ if (backButtonHome) {
       document.getElementById('bgm').play();
       bgmToggleBtn.textContent = '⏸️ BGMを停止';
       }
+      shuffle(questions);
       current = 0;
       homeEl.style.display = "none";
       quizEl.style.display = "block";
