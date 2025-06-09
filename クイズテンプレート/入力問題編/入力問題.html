@@ -181,6 +181,7 @@ if (backButtonHome) {
     seCorrect.currentTime = 0;
   seCorrect.play();
   result.textContent = "○ 正解です！";
+  result.classList.add("correct");
   result.style.color = "green";
   explanation.innerHTML = escapeHTMLExceptBR(q.explanation);
 
@@ -188,6 +189,7 @@ if (backButtonHome) {
   seCorrect.currentTime = 0;
   seCorrect.play();
   result.innerHTML = `× 不正解です。<br><strong>正解：</strong><pre>${q.answer}</pre>`;
+  result.classList.add("wrong");
   result.style.color = "red";
   explanation.innerHTML = escapeHTMLExceptBR(q.explanation);
 
