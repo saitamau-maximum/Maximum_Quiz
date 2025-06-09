@@ -60,6 +60,16 @@ cout << mul(1.5, 2.0) << endl;</pre>`,
       },
       */
 ];
+  
+  function toHalfWidth(str) {
+  return str.replace(/[！-～]/g, function(s) {
+    return String.fromCharCode(s.charCodeAt(0) - 0xFEE0);
+  }).replace(/　/g, ' ');
+}
+
+function normalizeInput(str) {
+  return toHalfWidth(str.trim()).replace(/\s+/g, ' ');
+}
 
   function shuffle(array) {
     for (let i = array.length - 1; i > 0; i--) {
@@ -175,8 +185,9 @@ if (backButtonHome) {
   const seCorrect = document.getElementById("se-correct");
   const seWrong = document.getElementById("se-wrong");
 
-
-  if (userInput === q.answer) {
+  const normalizedUser = normalizeInput(userInput);
+  const normalizedAns = normalizeInput(q.answer);
+  if (normalizedUser === normalizedAns) {
     score++;
     seCorrect.currentTime = 0;
   seCorrect.play();
