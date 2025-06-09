@@ -347,10 +347,12 @@ if (backButtonHome) {
         const seWrong = document.getElementById("se-wrong");
 
         if (isCorrect) {
+          result.classList.add("correct");
           score++;
           seCorrect.currentTime = 0;
           seCorrect.play();
         } else {
+          result.classList.add("wrong");
           seWrong.currentTime = 0;
           seWrong.play();
         }

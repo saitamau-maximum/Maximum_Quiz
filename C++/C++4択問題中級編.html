@@ -281,12 +281,14 @@ if (backButtonHome) {
         const seWrong = document.getElementById("se-wrong");
 
         if (isCorrect) {
+          result.classList.add("correct");
           score++;
-            seCorrect.currentTime = 0;
-            seCorrect.play();
+          seCorrect.currentTime = 0;
+          seCorrect.play();
         } else {
-            seWrong.currentTime = 0;
-            seWrong.play();
+          result.classList.add("wrong");
+          seWrong.currentTime = 0;
+          seWrong.play();
       }
 
         result.textContent = isCorrect ? "○ 正解です！" : `× 不正解です。正解：${q.options[q.answer]}`;
