@@ -171,12 +171,14 @@ if (backButtonHome) {
     seCorrect.currentTime = 0;
   seCorrect.play();
   result.textContent = "○ 正解です！";
+  result.classList.add("correct");
   result.style.color = "green";
   explanation.innerHTML = q.explanation;
 } else {
    seWrong.currentTime = 0;
   seWrong.play();
   result.innerHTML = `× 不正解です。<br><strong>正解：</strong><pre>${q.answer}</pre>`;
+  result.classList.add("wrong");
   result.style.color = "red";
   explanation.innerHTML = q.explanation;
 }
