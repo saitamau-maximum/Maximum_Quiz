@@ -267,7 +267,7 @@ if (backButtonHome) {
       localStorage.setItem(RANKING_KEY, JSON.stringify(ranking));
 
       const rankingList = document.createElement("div");
-      rankingList.innerHTML = "<h3>🏆 ランキング</h3>";
+      rankingList.innerHTML = "<h3>🏆正解数ランキング(ローカル)</h3>";
 
       ranking.forEach((r, i) => {
           rankingList.innerHTML += `${i + 1}位: ${r.score}点（${r.date}）<br>`;

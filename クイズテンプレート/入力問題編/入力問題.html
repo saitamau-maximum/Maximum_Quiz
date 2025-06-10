@@ -13,7 +13,7 @@
   <button id="bgm-toggle">▶️ BGMを再生</button>
   <div class="quiz-container" id="home">
     <h1>タイトル</h1>  <!--タイトルを設定(ヘッダ名と同じでも可)-->
-    <p>全5問です。</p>
+    <p>全5問です。</p> <!--問題数を設定-->
     <button onclick="startQuiz()">開始</button>
     <a href="a.html" class="back-button">問題選択に戻る</a> <!--a.htmlを変更(問題選択画面のファイル名にする)-->
   </div>
@@ -21,6 +21,7 @@
   <div class="quiz-container" id="quiz" style="display: none;"></div>
 
   <script>
+  const RANKING_KEY = "a"; //ランキングのキーを設定
   const questions = [
 /*
   {
@@ -219,11 +220,39 @@ if (backButtonHome) {
       showQuestion(current);
     } else {
       container.innerHTML = `<h2>お疲れ様でした！全${questions.length}問が終了しました。<br><br>${score}問正解しました！</h2>`;
-      const backBtn = document.createElement("a");
-      backBtn.href = "a.html"; // a.htmlを変更(問題選択画面のファイル名にする)
-      backBtn.textContent = "問題選択に戻る";
-      backBtn.className = "home-button";
-      container.appendChild(backBtn);
+     const today = new Date().toLocaleString();
+      const newRecord = { date: today, score: score };
+
+      let ranking = JSON.parse(localStorage.getItem(RANKING_KEY) || "[]");
+      ranking.push(newRecord);
+
+      ranking.sort((a, b) => b.score - a.score);
+      ranking = ranking.slice(0, 5);
+
+      localStorage.setItem(RANKING_KEY, JSON.stringify(ranking));
+
+      const rankingList = document.createElement("div");
+      rankingList.innerHTML = "<h3>🏆正解数ランキング(ローカル)</h3>";
+
+      ranking.forEach((r, i) => {
+          rankingList.innerHTML += `${i + 1}位: ${r.score}点（${r.date}）<br>`;
+      });
+
+      container.appendChild(rankingList);
+
+      const resetBtn = document.createElement("button");
+      resetBtn.textContent = "ランキングをリセット";
+      resetBtn.onclick = () => {
+        localStorage.removeItem(RANKING_KEY);
+        location.reload();
+        };
+        container.appendChild(resetBtn);
+        quizEl.appendChild(container);
+        const backBtn = document.createElement("a");
+        backBtn.href = "a.html"; // a.htmlを変更(問題選択画面のファイル名にする)
+        backBtn.textContent = "問題選択に戻る";
+        backBtn.className = "home-button";
+        container.appendChild(backBtn);
     }
   }, 100);
   });
