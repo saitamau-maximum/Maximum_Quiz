@@ -22,6 +22,7 @@
   <div class="quiz-container" id="quiz" style="display: none;"></div>
 
   <script>
+  const RANKING_KEY = "cpp_in_quiz_ranking_easy";
   const questions = [
 
   {
@@ -260,11 +261,39 @@ if (backButtonHome) {
       showQuestion(current);
     } else {
       container.innerHTML = `<h2>お疲れ様でした！全${questions.length}問が終了しました。<br><br>${score}問正解しました！</h2>`;
-      const backBtn = document.createElement("a");
-      backBtn.href = "C++.html";
-      backBtn.textContent = "問題選択に戻る";
-      backBtn.className = "home-button";
-      container.appendChild(backBtn);
+      const today = new Date().toLocaleString();
+      const newRecord = { date: today, score: score };
+
+      let ranking = JSON.parse(localStorage.getItem(RANKING_KEY) || "[]");
+      ranking.push(newRecord);
+
+      ranking.sort((a, b) => b.score - a.score);
+      ranking = ranking.slice(0, 5);
+
+      localStorage.setItem(RANKING_KEY, JSON.stringify(ranking));
+
+      const rankingList = document.createElement("div");
+      rankingList.innerHTML = "<h3>🏆 ランキング</h3>";
+
+      ranking.forEach((r, i) => {
+          rankingList.innerHTML += `${i + 1}位: ${r.score}点（${r.date}）<br>`;
+      });
+
+      container.appendChild(rankingList);
+
+      const resetBtn = document.createElement("button");
+      resetBtn.textContent = "ランキングをリセット";
+      resetBtn.onclick = () => {
+        localStorage.removeItem(RANKING_KEY);
+        location.reload();
+        };
+        container.appendChild(resetBtn);
+        quizEl.appendChild(container);
+        const backBtn = document.createElement("a");
+        backBtn.href = "C++.html";
+        backBtn.textContent = "問題選択に戻る";
+        backBtn.className = "home-button";
+        container.appendChild(backBtn);
     }
     }, 100);
   });
