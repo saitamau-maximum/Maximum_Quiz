@@ -218,7 +218,16 @@
             rankingList.innerHTML += `${i + 1}位: ${r.score}点（${r.date}）<br>`;
           });
 
-          container.appendChild(rankingList);
+          const retryBtn = document.createElement("button");
+          retryBtn.textContent = "最初からやり直す";
+          retryBtn.onclick = () => {
+          score = 0;
+          backClickCount = 0;
+          shuffle(questions);
+          current = 0;
+          showQuestion(current);
+        };
+
 
           let resetClickCount = 0;
 
@@ -233,8 +242,10 @@
               location.reload();
             }
           };
-            container.appendChild(resetBtn);
             quizEl.appendChild(backButton);
+            container.appendChild(retryBtn);
+            container.appendChild(rankingList);
+            container.appendChild(resetBtn);
             quizEl.appendChild(container);
         }
         }, 100);
