@@ -273,16 +273,20 @@ if (backButtonHome) {
           rankingList.innerHTML += `${i + 1}位: ${r.score}点（${r.date}）<br>`;
       });
 
-      container.appendChild(rankingList);
+      let resetClickCount = 0;
 
-      const resetBtn = document.createElement("button");
-      resetBtn.textContent = "ランキングをリセット";
-      resetBtn.onclick = () => {
-        localStorage.removeItem(RANKING_KEY);
-        location.reload();
-        };
+          const resetBtn = document.createElement("button");
+          resetBtn.textContent = "ランキングをリセット";
+          resetBtn.onclick = () => {
+            if (resetClickCount === 0) {
+              alert("本当にリセットしますか？もう一度クリックするとリセットされます。");
+              resetClickCount++;
+            } else {
+              localStorage.removeItem(RANKING_KEY);
+              location.reload();
+            }
+          };
         container.appendChild(resetBtn);
-        quizEl.appendChild(container);
         const backBtn = document.createElement("a");
         backBtn.href = "C++.html";
         backBtn.textContent = "問題選択に戻る";

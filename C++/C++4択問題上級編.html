@@ -197,6 +197,8 @@
           showQuestion(current);
         } else {
           backClickCount = 1;
+           quizEl.innerHTML = "";
+           const container = document.createElement("div");
           quizEl.innerHTML = `<h2>お疲れ様でした！全${questions.length}問が終了しました。<br><br>${score}問正解しました！</h2>`;
           const today = new Date().toLocaleString();
           const newRecord = { date: today, score: score };
@@ -218,12 +220,19 @@
 
           container.appendChild(rankingList);
 
+          let resetClickCount = 0;
+
           const resetBtn = document.createElement("button");
           resetBtn.textContent = "ランキングをリセット";
           resetBtn.onclick = () => {
-            localStorage.removeItem(RANKING_KEY);
-            location.reload();
-            };
+            if (resetClickCount === 0) {
+              alert("本当にリセットしますか？もう一度クリックするとリセットされます。");
+              resetClickCount++;
+            } else {
+              localStorage.removeItem(RANKING_KEY);
+              location.reload();
+            }
+          };
             container.appendChild(resetBtn);
             quizEl.appendChild(backButton);
             quizEl.appendChild(container);
