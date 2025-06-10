@@ -238,7 +238,15 @@ if (backButtonHome) {
           rankingList.innerHTML += `${i + 1}位: ${r.score}点（${r.date}）<br>`;
       });
 
-      container.appendChild(rankingList);
+      const retryBtn = document.createElement("button");
+          retryBtn.textContent = "最初からやり直す";
+          retryBtn.onclick = () => {
+          score = 0;
+          backClickCount = 0;
+          shuffle(questions);
+          current = 0;
+          showQuestion(current);
+        };
 
       const resetBtn = document.createElement("button");
       resetBtn.textContent = "ランキングをリセット";
@@ -247,12 +255,14 @@ if (backButtonHome) {
         location.reload();
         };
         container.appendChild(resetBtn);
-        quizEl.appendChild(container);
         const backBtn = document.createElement("a");
         backBtn.href = "a.html"; // a.htmlを変更(問題選択画面のファイル名にする)
         backBtn.textContent = "問題選択に戻る";
         backBtn.className = "home-button";
         container.appendChild(backBtn);
+        container.appendChild(retryBtn);
+        container.appendChild(rankingList);
+        container.appendChild(resetBtn);
     }
   }, 100);
   });
