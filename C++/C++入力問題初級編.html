@@ -7,6 +7,8 @@
   <link rel="stylesheet" href="../keep_out/style2.css">
 <audio id="se-correct" src="../keep_out/correct.mp3" preload="auto"></audio>
 <audio id="se-wrong" src="../keep_out/wrong.mp3" preload="auto"></audio>
+<audio id="se-start" src="../keep_out/start.mp3" preload="auto"></audio>
+  <audio id="se-end" src="../keep_out/end.mp3" preload="auto"></audio>
 
 </head>
 <body>
@@ -260,6 +262,9 @@ if (backButtonHome) {
     if (current < questions.length) {
       showQuestion(current);
     } else {
+      const seEnd = document.getElementById('se-end');
+      seEnd.currentTime = 0;
+      seEnd.play();
       container.innerHTML = `<h2>お疲れ様でした！全${questions.length}問が終了しました。<br><br>${score}問正解しました！</h2>`;
       const today = new Date().toLocaleString();
       const newRecord = { date: today, score: score };

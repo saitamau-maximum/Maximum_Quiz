@@ -13,6 +13,8 @@
   </style>
   <audio id="se-correct" src="../keep_out/correct.mp3" preload="auto"></audio>
   <audio id="se-wrong" src="../keep_out/wrong.mp3" preload="auto"></audio>
+  <audio id="se-start" src="../keep_out/start.mp3" preload="auto"></audio>
+  <audio id="se-end" src="../keep_out/end.mp3" preload="auto"></audio>
  
 
 </head>
@@ -196,6 +198,9 @@
         if (current < questions.length) {
           showQuestion(current);
         } else {
+          const seEnd = document.getElementById('se-end');
+          seEnd.currentTime = 0;
+          seEnd.play();
           backClickCount = 1;
            quizEl.innerHTML = "";
            const container = document.createElement("div");
