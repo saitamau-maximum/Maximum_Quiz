@@ -26,25 +26,25 @@
   const questions = [
 
   {
-  q: "次のコードの出力を1行で入力してください（半角で入力）。<pre>string a = \"Hello\";\nstring b = \"World\";\ncout << a + \" \" + b << endl;</pre>",
+  q: "次のコードの出力を半角で入力してください。<pre>string a = \"Hello\";\nstring b = \"World\";\ncout << a + \" \" + b << endl;</pre>",
   answer: "Hello World",
   explanation: "文字列aとbを空白を挟んで連結し出力している。"
 },
 
 {
-  q: "次のコードの出力を1行で入力してください（半角で入力）。<pre>int a = 8;\nint b = 4;\nif (a % b == 0) cout << \"OK\" << endl;\nelse cout << \"NG\" << endl;</pre>",
+  q: "次のコードの出力を半角で入力してください。<pre>int a = 8;\nint b = 4;\nif (a % b == 0) cout << \"OK\" << endl;\nelse cout << \"NG\" << endl;</pre>",
   answer: "OK",
   explanation: "8は4で割り切れるので、条件はtrueになり\"OK\"が出力される。"
 },
 
 {
-  q: "次のコードの出力を1行で入力してください（半角で入力）。<pre>bool flag = (3 + 2 == 5);\ncout << flag << endl;</pre>",
+  q: "次のコードの出力を半角で入力してください。<pre>bool flag = (3 + 2 == 5);\ncout << flag << endl;</pre>",
   answer: "1",
   explanation: "真偽値flagはtrue（1）なので、1が出力される。"
 },
 
   {
-  q: "次のコードを実行したときの出力を半角で1行で入力してください。<pre>double x = 2.9;\nint y = x * 2;\ncout << y << endl;</pre>",
+  q: "次のコードを実行したときの出力を半角で入力してください。<pre>double x = 2.9;\nint y = x * 2;\ncout << y << endl;</pre>",
   answer: "5",
   explanation: "x * 2 の結果は 5.8 だが、それを int 型に代入しているため、<br>小数点以下は切り捨てられて 5 になる。"
 },
@@ -57,7 +57,7 @@
 },
 
   {
-    q: "次のコードの出力を入力してください。\n<pre>int a = 10;\nint b = 4;\ndouble x = a / b;\ncout << x << endl;</pre>",
+    q: "次のコードの出力を半角で入力してください。\n<pre>int a = 10;\nint b = 4;\ndouble x = a / b;\ncout << x << endl;</pre>",
     answer: "2",
     explanation: "int同士の割り算は小数点以下切り捨て → 10 / 4 = 2 → double型に変換されても2.0でなく2になる。"
   },
@@ -87,31 +87,31 @@
 },
 
 {
-  q: "次のコードの出力を、半角の空白区切りで入力してください。\n<pre>vector&lt;int&gt; a = {1, 2, 3, 4};\nfor (int i = 0; i < 4; i++) {\n  a[3 - i] += i;\n}\nfor (int x : a) cout << x << ' ';</pre>",
+  q: "次のコードの出力を、半角で入力してください。\n<pre>vector&lt;int&gt; a = {1, 2, 3, 4};\nfor (int i = 0; i < 4; i++) {\n  a[3 - i] += i;\n}\nfor (int x : a) cout << x << ' ';</pre>",
   answer: "4 4 4 4",
   explanation: "a[3 - i] に i を加えるので、後ろから順に i を足していく。<br>初期配列: {1,2,3,4}<br>→ a[3] += 0 → 4<br>→ a[2] += 1 → 4<br>→ a[1] += 2 → 4<br>→ a[0] += 3 → 4<br>for(int x : a)は範囲for文と呼ばれるもので、aの要素を全て出力するのに使っている。<br>よって出力は 4 4 4 4。"
 },
 
 {
-  q: "次のコードの出力を、半角の空白区切りで入力してください。\n<pre>vector&lt;int&gt; a = {5, 3, 1, 2};\nsort(a.begin(), a.end());\nreverse(a.begin(), a.end());\nfor (int x : a) cout << x << ' ';</pre>",
+  q: "次のコードの出力を、半角で入力してください。\n<pre>vector&lt;int&gt; a = {5, 3, 1, 2};\nsort(a.begin(), a.end());\nreverse(a.begin(), a.end());\nfor (int x : a) cout << x << ' ';</pre>",
   answer: "5 3 2 1",
-  explanation: "まず sort で昇順に並べ替えると {1, 2, 3, 5} になる。<br>その後 reverse で反転すると {5, 3, 2, 1}。<br>よって出力は 5 3 2 1。大きい順にしたい場合、sort(a.rbegin(), a.rend())を使うこともできる。"
+  explanation: "まず sort で昇順に並べ替えると {1, 2, 3, 5} になる。<br>その後 reverse で反転すると {5, 3, 2, 1}。<br>よって出力は 5 3 2 1。<br>大きい順にしたい場合、sort(a.rbegin(), a.rend())を使うこともできる。"
 },
 
 {
-  q: "次のコードの出力を半角で1行で入力してください。\n<pre>int a = 10;\nint b = 7;\nint c = 4;\ncout << a - b % c << endl;</pre>",
+  q: "次のコードの出力を半角で入力してください。\n<pre>int a = 10;\nint b = 7;\nint c = 4;\ncout << a - b % c << endl;</pre>",
   answer: "7",
   explanation: "b % c = 7 % 4 = 3<br>よって a - b % c = 10 - 3 = 7"
 },
 
 {
-  q: "次のコードを実行したときの出力を半角で改行区切りで入力してください。<pre>int x = 5;\ncout << x << endl;\n\nif (x == 5) {\n  cout << x << endl;\n\n  string x = \"hello\";\n  cout << x << endl;\n}\n\ncout << x << endl;</pre>",
+  q: "次のコードを実行したときの出力を半角で入力してください。<pre>int x = 5;\ncout << x << endl;\n\nif (x == 5) {\n  cout << x << endl;\n\n  string x = \"hello\";\n  cout << x << endl;\n}\n\ncout << x << endl;</pre>",
   answer: "5\n5\nhello\n5",
   explanation: "if 文の中で string x = \"hello\"; により、<br>新しいスコープで文字列型の x が宣言されている。<br>外側の int x とは別物なので、最初と最後は 5 のまま。"
 },
 
 {
-  q: "次のコードを実行したときの出力を、半角で改行区切りで入力してください。<pre>for (int i = 0; i < 3; i++) {\n  for (int j = 0; j < 3; j++) {\n    if ((i + j) % 3 == 0) {\n      cout << i << \" \" << j << endl;\n    }\n  }\n}</pre>",
+  q: "次のコードを実行したときの出力を、半角で入力してください。<pre>for (int i = 0; i < 3; i++) {\n  for (int j = 0; j < 3; j++) {\n    if ((i + j) % 3 == 0) {\n      cout << i << \" \" << j << endl;\n    }\n  }\n}</pre>",
   answer: "0 0\n1 2\n2 1",
   explanation: "i + j が 3 の倍数（0, 3, 6...）のときに出力されます。ループは i, j ともに 0〜2 の3回なので、(0,0), (1,2), (2,1) の3パターンが条件を満たす。"
 },

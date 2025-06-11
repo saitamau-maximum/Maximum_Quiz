@@ -27,31 +27,31 @@
   const questions = [
 
   {
-  q: "次のコードの出力を半角の空白区切りで入力してください。<pre>map&lt;string, int&gt; mp;\nmp[\"a\"]++;\nmp[\"b\"] += 3;\ncout << mp[\"a\"] << \" \" << mp[\"b\"] << \" \" << mp[\"c\"] << endl;</pre>",
+  q: "次のコードの出力を半角で入力してください。<pre>map&lt;string, int&gt; mp;\nmp[\"a\"]++;\nmp[\"b\"] += 3;\ncout << mp[\"a\"] << \" \" << mp[\"b\"] << \" \" << mp[\"c\"] << endl;</pre>",
   answer: "1 3 0",
   explanation: "mp[\"a\"]++ で a = 1、mp[\"b\"] += 3 で b = 3。<br>存在しないキー \"c\" にアクセスすると map は初期値 0 を挿入して返すため、出力は 1 3 0 になる。"
 },
 
   {
-  q: "次のコードの出力は?\n<pre>priority_queue&lt;int&gt; pq;\npq.push(3);\npq.push(5);\npq.push(1);\ncout << pq.top() << endl;</pre>",
+  q: "次のコードの出力を半角で入力してください。\n<pre>priority_queue&lt;int&gt; pq;\npq.push(3);\npq.push(5);\npq.push(1);\ncout << pq.top() << endl;</pre>",
   answer: "5",
   explanation: "priority_queueはデフォルトで大きい順（最大ヒープ）に並ぶため、top()は最大値の5となる。"
 },
 
 {
-  q: "次のコードの出力は?\n<pre>vector&lt;pair&lt;int, int&gt;&gt; v(4);\nv[0] = {1, 3};\nv[1] = {2, 1};\nv[2] = {2, 0};\nv[3] = {1, 2};\nsort(v.begin(), v.end());\nfor (auto [a, b] : v) cout << a << \" \" << b << endl;</pre>",
+  q: "次のコードの出力を半角で入力してください。\n<pre>vector&lt;pair&lt;int, int&gt;&gt; v(4);\nv[0] = {1, 3};\nv[1] = {2, 1};\nv[2] = {2, 0};\nv[3] = {1, 2};\nsort(v.begin(), v.end());\nfor (auto [a, b] : v) cout << a << \" \" << b << endl;</pre>",
   answer: "1 2\n1 3\n2 0\n2 1",
   explanation: "pairのソートは辞書順（firstが小さい順、同じならsecondが小さい順）。<br>よって順番は {1,2}, {1,3}, {2,0}, {2,1} となる。"
 },
 
 {
-  q: "次のコードの出力を1行で入力してください。\n<pre>int a = 10;\nint* p = &a;\n*p += 5;\ncout << a << endl;\n a += 5;\ncout << *p << endl;</pre>",
+  q: "次のコードの出力を半角で入力してください。\n<pre>int a = 10;\nint* p = &a;\n*p += 5;\ncout << a << endl;\n a += 5;\ncout << *p << endl;</pre>",
   answer: "15\n20",
   explanation: "ポインタpはaのアドレスを指しており、*p += 5 は a に5を加える操作。<br>したがって a は10 → 15となる。<br>その後 a += 5 で a は20になるが、*p はaのアドレスを指しているので、*pも20になる。"
 },
 
 {
-        q: `次のコードの出力を1行で入力してください。<pre>template &lt;typename T&gt;
+        q: `次のコードの出力を半角で入力してください。<pre>template &lt;typename T&gt;
 T mul(T x, T y) {
   return x * y;
 }
