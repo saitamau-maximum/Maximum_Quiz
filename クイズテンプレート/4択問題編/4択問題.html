@@ -13,6 +13,8 @@
   </style>
   <audio id="se-correct" src="../keep_out/correct.mp3" preload="auto"></audio>
   <audio id="se-wrong" src="../keep_out/wrong.mp3" preload="auto"></audio>
+   <audio id="se-start" src="../keep_out/start.mp3" preload="auto"></audio>
+  <audio id="se-end" src="../keep_out/end.mp3" preload="auto"></audio>
 </head>
 <body>
   <audio id="bgm" src="../keep_out/BGM.mp3" loop></audio>
@@ -136,6 +138,13 @@ if (backButtonHome) {
     const quizEl = document.getElementById("quiz");
 
     function startQuiz() {
+      const startButton = homeEl.querySelector("button");
+      startButton.disabled = true;
+
+      const seStart = document.getElementById('se-start');
+      seStart.currentTime = 0;
+      seStart.play();
+      setTimeout(() => {
       if(bgmToggleBtn.textContent == "▶️ BGMを再生") {
       document.getElementById('bgm').play();
       bgmToggleBtn.textContent = '⏸️ BGMを停止';
@@ -145,6 +154,8 @@ if (backButtonHome) {
       homeEl.style.display = "none";
       quizEl.style.display = "block";
       showQuestion(current);
+      startButton.disabled = false;
+      }, 3000);
     }
 
     function showQuestion(index) {
@@ -211,8 +222,11 @@ if (backButtonHome) {
     if (current < questions.length) {
       showQuestion(current);
     } else {
-      backClickCount = 1;
-      quizEl.innerHTML = `<h2>お疲れ様でした！全${questions.length}問が終了しました。<br><br>${score}問正解しました！</h2>`;
+          const seEnd = document.getElementById('se-end');
+          seEnd.currentTime = 0;
+          seEnd.play();
+          backClickCount = 1;
+          quizEl.innerHTML = `<h2>お疲れ様でした！全${questions.length}問が終了しました。<br><br>${score}問正解しました！</h2>`;
           const today = new Date().toLocaleString();
           const newRecord = { date: today, score: score };
 

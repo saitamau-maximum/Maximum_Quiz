@@ -7,6 +7,8 @@
   <link rel="stylesheet" href="../keep_out/style2.css">
   <audio id="se-correct" src="../keep_out/correct.mp3" preload="auto"></audio>
   <audio id="se-wrong" src="../keep_out/wrong.mp3" preload="auto"></audio>
+   <audio id="se-start" src="../keep_out/start.mp3" preload="auto"></audio>
+  <audio id="se-end" src="../keep_out/end.mp3" preload="auto"></audio>
 </head>
 <body>
   <audio id="bgm" src="../keep_out/BGM.mp3" loop></audio>
@@ -14,7 +16,7 @@
   <div class="quiz-container" id="home">
     <h1>タイトル</h1>  <!--タイトルを設定(ヘッダ名と同じでも可)-->
     <p>全5問です。</p> <!--問題数を設定-->
-    <button onclick="startQuiz()">開始</button>
+    <button id="startButton" onclick="startQuiz()">開始</button>
     <a href="a.html" class="back-button">問題選択に戻る</a> <!--a.htmlを変更(問題選択画面のファイル名にする)-->
   </div>
 
@@ -108,6 +110,13 @@ if (backButtonHome) {
 
 
     function startQuiz() {
+      const startButton = document.getElementById("startButton");
+      startButton.disabled = true;
+
+      const seStart = document.getElementById('se-start');
+      seStart.currentTime = 0;
+      seStart.play();
+      setTimeout(() => {
       if(bgmToggleBtn.textContent == "▶️ BGMを再生") {
       document.getElementById('bgm').play();
       bgmToggleBtn.textContent = '⏸️ BGMを停止';
@@ -117,6 +126,8 @@ if (backButtonHome) {
       document.getElementById("home").style.display = "none";
       document.getElementById("quiz").style.display = "block";
       showQuestion(current);
+      startButton.disabled = false;
+      }, 3000);
     }
 
     function showQuestion(index) {
@@ -219,8 +230,11 @@ if (backButtonHome) {
     if (current < questions.length) {
       showQuestion(current);
     } else {
+      const seEnd = document.getElementById('se-end');
+      seEnd.currentTime = 0;
+      seEnd.play();
       container.innerHTML = `<h2>お疲れ様でした！全${questions.length}問が終了しました。<br><br>${score}問正解しました！</h2>`;
-     const today = new Date().toLocaleString();
+      const today = new Date().toLocaleString();
       const newRecord = { date: today, score: score };
 
       let ranking = JSON.parse(localStorage.getItem(RANKING_KEY) || "[]");
