@@ -186,6 +186,13 @@ if (backButtonHome) {
     const quizEl = document.getElementById("quiz");
 
     function startQuiz() {
+      const startButton = homeEl.querySelector("button");
+      startButton.disabled = true;
+
+      const seStart = document.getElementById('se-start');
+      seStart.currentTime = 0;
+      seStart.play();
+      setTimeout(() => {
       if(bgmToggleBtn.textContent == "▶️ BGMを再生") {
       document.getElementById('bgm').play();
       bgmToggleBtn.textContent = '⏸️ BGMを停止';
@@ -195,6 +202,8 @@ if (backButtonHome) {
       homeEl.style.display = "none";
       quizEl.style.display = "block";
       showQuestion(current);
+      startButton.disabled = false;
+      }, 3000);
     }
 
     function showQuestion(index) {

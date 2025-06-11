@@ -18,7 +18,7 @@
   <div class="quiz-container" id="home">
     <h1>C++ 入力問題 上級編</h1>
     <p>全5問です。</p>
-    <button onclick="startQuiz()">開始</button>
+    <button id="startButton" onclick="startQuiz()">開始</button>
     <a href="C++.html" class="back-button">問題選択に戻る</a>
   </div>
 
@@ -102,6 +102,13 @@ if (backButtonHome) {
 }
 
     function startQuiz() {
+      const startButton = document.getElementById("startButton");
+      startButton.disabled = true;
+
+      const seStart = document.getElementById('se-start');
+      seStart.currentTime = 0;
+      seStart.play();
+      setTimeout(() => {
       if(bgmToggleBtn.textContent == "▶️ BGMを再生") {
       document.getElementById('bgm').play();
       bgmToggleBtn.textContent = '⏸️ BGMを停止';
@@ -111,6 +118,8 @@ if (backButtonHome) {
       document.getElementById("home").style.display = "none";
       document.getElementById("quiz").style.display = "block";
       showQuestion(current);
+      startButton.disabled = false;
+      }, 3000);
     }
 
     function showQuestion(index) {
