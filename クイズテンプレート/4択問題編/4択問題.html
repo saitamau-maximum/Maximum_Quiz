@@ -272,11 +272,7 @@ if (backButtonHome) {
           const retryBtn = document.createElement("button");
           retryBtn.textContent = "最初からやり直す";
           retryBtn.onclick = () => {
-          score = 0;
-          backClickCount = 0;
-          shuffle(questions);
-          current = 0;
-          showQuestion(current);
+          startQuiz();
         };
 
           let resetClickCount = 0;
