@@ -120,3 +120,39 @@ button:hover {
     padding: 10px 20px;
   }
 }
+
+.options label.disabled {
+      pointer-events: none;
+      color: #000;
+    }
+
+    .countdown-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(255, 255, 255, 0.9);
+      display: none;
+      justify-content: center;
+      align-items: center;
+      z-index: 1000;
+    }
+
+    .countdown-text {
+      font-size: 12em;
+      font-weight: bold;
+      color: #007BFF;
+      animation: countdown-zoom 1s infinite;
+    }
+
+    @keyframes countdown-zoom {
+      from { transform: scale(0.8); opacity: 0.8; }
+      to { transform: scale(1.2); opacity: 1; }
+    }
+
+    @media (max-width: 600px) {
+      .countdown-text {
+        font-size: 8em;
+      }
+    }

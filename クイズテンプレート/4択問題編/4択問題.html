@@ -27,7 +27,9 @@
   </div>
 
   <div class="quiz-container" id="quiz" style="display: none;"></div>
-
+  <div id="countdown-overlay" class="countdown-overlay">
+  <div id="countdown-text" class="countdown-text"></div>
+  </div>
   <script>
 const RANKING_KEY = "a"; //ランキングのキーを設定
     const questions = [
@@ -144,18 +146,40 @@ if (backButtonHome) {
       const seStart = document.getElementById('se-start');
       seStart.currentTime = 0;
       seStart.play();
+      
+      const countdownOverlay = document.getElementById('countdown-overlay');
+      const countdownText = document.getElementById('countdown-text');
+      
+      countdownOverlay.style.display = 'flex';
+
+      let count = 3;
+      countdownText.textContent = count;
+
+      const countdownTimer = setInterval(() => {
+        count--;
+        if (count > 0) {
+          countdownText.textContent = count;
+        } else {
+          countdownText.textContent = 'START!';
+        }
+      }, 1000);
+
       setTimeout(() => {
-      if(bgmToggleBtn.textContent == "▶️ BGMを再生") {
-      document.getElementById('bgm').play();
-      bgmToggleBtn.textContent = '⏸️ BGMを停止';
-      }
-      shuffle(questions);
-      current = 0;
-      homeEl.style.display = "none";
-      quizEl.style.display = "block";
-      showQuestion(current);
-      startButton.disabled = false;
-      }, 3000);
+        clearInterval(countdownTimer);
+        countdownOverlay.style.display = 'none';
+
+        if(bgmToggleBtn.textContent == "▶️ BGMを再生") {
+          document.getElementById('bgm').play();
+          bgmToggleBtn.textContent = '⏸️ BGMを停止';
+        }
+        shuffle(questions);
+        current = 0;
+        score = 0;
+        homeEl.style.display = "none";
+        quizEl.style.display = "block";
+        showQuestion(current);
+        startButton.disabled = false;
+      }, 3500);
     }
 
     function showQuestion(index) {

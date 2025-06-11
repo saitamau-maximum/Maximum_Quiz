@@ -23,7 +23,9 @@
   </div>
 
   <div class="quiz-container" id="quiz" style="display: none;"></div>
-
+  <div id="countdown-overlay" class="countdown-overlay">
+  <div id="countdown-text" class="countdown-text"></div>
+  </div>
   <script>
   const RANKING_KEY = "cpp_in_quiz_ranking_hard";
   const questions = [
@@ -100,6 +102,8 @@ if (backButtonHome) {
     }
   });
 }
+    const homeEl = document.getElementById("home");
+    const quizEl = document.getElementById("quiz");
 
     function startQuiz() {
       const startButton = document.getElementById("startButton");
@@ -108,56 +112,77 @@ if (backButtonHome) {
       const seStart = document.getElementById('se-start');
       seStart.currentTime = 0;
       seStart.play();
+      
+      const countdownOverlay = document.getElementById('countdown-overlay');
+      const countdownText = document.getElementById('countdown-text');
+      
+      countdownOverlay.style.display = 'flex';
+
+      let count = 3;
+      countdownText.textContent = count;
+
+      const countdownTimer = setInterval(() => {
+        count--;
+        if (count > 0) {
+          countdownText.textContent = count;
+        } else {
+          countdownText.textContent = 'START!';
+        }
+      }, 1000);
+
       setTimeout(() => {
-      if(bgmToggleBtn.textContent == "▶️ BGMを再生") {
-      document.getElementById('bgm').play();
-      bgmToggleBtn.textContent = '⏸️ BGMを停止';
-      }
-      shuffle(questions);
-      current = 0;
-      document.getElementById("home").style.display = "none";
-      document.getElementById("quiz").style.display = "block";
-      showQuestion(current);
-      startButton.disabled = false;
-      }, 3000);
+        clearInterval(countdownTimer);
+        countdownOverlay.style.display = 'none';
+
+        if(bgmToggleBtn.textContent == "▶️ BGMを再生") {
+          document.getElementById('bgm').play();
+          bgmToggleBtn.textContent = '⏸️ BGMを停止';
+        }
+        shuffle(questions);
+        current = 0;
+        score = 0;
+        homeEl.style.display = "none";
+        quizEl.style.display = "block";
+        showQuestion(current);
+        startButton.disabled = false;
+      }, 3500);
     }
 
     function showQuestion(index) {
       const q = questions[index];
 
-      const container = document.getElementById("quiz");
-      container.innerHTML = "";
+      quizEl.innerHTML = "";
 
       const question = document.createElement("div");
       question.innerHTML = `<strong>Q${index + 1}:</strong> ${q.q}`;
-      container.appendChild(question);
+      quizEl.appendChild(question);
 
       const input = document.createElement("textarea");
       input.placeholder = "ここに入力してください";
-      container.appendChild(input);
+      quizEl.appendChild(input);
 
       const answerButton = document.createElement("button");
       answerButton.textContent = "解答する";
-      container.appendChild(answerButton);
+      quizEl.appendChild(answerButton);
 
       const result = document.createElement("div");
       result.className = "result";
-      container.appendChild(result);
+      quizEl.appendChild(result);
 
       const explanation = document.createElement("div");
       explanation.className = "explanation";
-      container.appendChild(explanation);
+      quizEl.appendChild(explanation);
 
       const nextButton = document.createElement("button");
       nextButton.textContent = "次へ";
       nextButton.style.display = "none";
-      container.appendChild(nextButton);
+      quizEl.appendChild(nextButton);
 
       const backButton = document.createElement("a");
       backButton.href = "C++.html";
       backButton.textContent = "問題選択に戻る";
       backButton.className = "home-button";
-      container.appendChild(backButton);
+      quizEl.appendChild(backButton);
       backButton.addEventListener("click", function(e) {
   e.preventDefault();
   if (backClickCount === 0) {
@@ -168,11 +193,10 @@ if (backButtonHome) {
   }
 });
 
+      let emptyClickCount = 0;
 
-    let emptyClickCount = 0;
-
-    answerButton.addEventListener("click", () => {
-    const userInput = input.value.trim();
+      answerButton.addEventListener("click", () => {
+  const userInput = input.value.trim();
 
   if (userInput === "") {
     emptyClickCount++;
@@ -184,15 +208,14 @@ if (backButtonHome) {
   }
 
   input.disabled = true;
-
   const seCorrect = document.getElementById("se-correct");
   const seWrong = document.getElementById("se-wrong");
 
-const normalizedUser = normalizeInput(userInput);
-const normalizedAns = normalizeInput(q.answer);
+  const normalizedUser = normalizeInput(userInput);
+  const normalizedAns = normalizeInput(q.answer);
   if (normalizedUser === normalizedAns) {
-    score++;
-    seCorrect.currentTime = 0;
+  score++;
+  seCorrect.currentTime = 0;
   seCorrect.play();
   result.textContent = "○ 正解です！";
   result.classList.add("correct");
@@ -212,7 +235,7 @@ const normalizedAns = normalizeInput(q.answer);
 });
 
 
-   nextButton.addEventListener("click", () => {
+    nextButton.addEventListener("click", () => {
     setTimeout(() => {
     current++;
     backClickCount = 0;
@@ -222,7 +245,7 @@ const normalizedAns = normalizeInput(q.answer);
       const seEnd = document.getElementById('se-end');
       seEnd.currentTime = 0;
       seEnd.play();
-      container.innerHTML = `<h2>お疲れ様でした！全${questions.length}問が終了しました。<br><br>${score}問正解しました！</h2>`;
+      quizEl.innerHTML = `<h2>お疲れ様でした！全${questions.length}問が終了しました。<br><br>${score}問正解しました！</h2>`;
       const today = new Date().toLocaleString();
       const newRecord = { date: today, score: score };
 
@@ -244,11 +267,7 @@ const normalizedAns = normalizeInput(q.answer);
       const retryBtn = document.createElement("button");
           retryBtn.textContent = "最初からやり直す";
           retryBtn.onclick = () => {
-          score = 0;
-          backClickCount = 0;
-          shuffle(questions);
-          current = 0;
-          showQuestion(current);
+          startQuiz();
         };
 
       let resetClickCount = 0;
@@ -256,24 +275,24 @@ const normalizedAns = normalizeInput(q.answer);
       const resetBtn = document.createElement("button");
       resetBtn.textContent = "ランキングをリセット";
       resetBtn.onclick = () => {
-        if (resetClickCount === 0) {
-            alert("本当にリセットしますか？もう一度クリックするとリセットされます。");
-            resetClickCount++;
-          } else {
+      if (resetClickCount === 0) {
+          alert("本当にリセットしますか？もう一度クリックするとリセットされます。");
+          resetClickCount++;
+        } else {
             localStorage.removeItem(RANKING_KEY);
             location.reload();
-          }
+        }
         };
         const backBtn = document.createElement("a");
         backBtn.href = "C++.html";
         backBtn.textContent = "問題選択に戻る";
         backBtn.className = "home-button";
-        container.appendChild(backBtn);
-        container.appendChild(retryBtn);
-        container.appendChild(rankingList);
-        container.appendChild(resetBtn);
+        quizEl.appendChild(backBtn);
+        quizEl.appendChild(retryBtn);
+        quizEl.appendChild(rankingList);
+        quizEl.appendChild(resetBtn);
     }
-  }, 100);
+    }, 100);
   });
 }
 
