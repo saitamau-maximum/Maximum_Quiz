@@ -1,0 +1,344 @@
+<script>
+    
+・const RANKING_KEY
+      ローカルストレージにランキングデータを保存する際のキー名。
+    
+    const RANKING_KEY = "cpp_select_quiz_ranking_easy";
+
+・const questions
+      クイズの問題、選択肢、正解のインデックス、解説を格納するオブジェクトの配列。
+       q - 問題文
+       options - 4つの選択肢
+       answer - 正解の選択肢のインデックス (0から始まる)
+       explanation - 正解の解説文
+     
+
+・function shuffle
+      配列の要素をランダムに並び替える（フィッシャー–イェーツのシャッフル）。
+      array - 並び替える対象の配列
+
+    function shuffle(array) {
+  for (let i = array.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [array[i], array[j]] = [array[j], array[i]];
+  }
+}
+
+・let current
+      現在表示している問題のインデックス（何問目か）を管理する変数。
+
+
+・let score
+      ユーザーの正解数を記録する変数。
+    
+
+・let backClickCount
+      「問題選択に戻る」ボタンの誤操作を防ぐためのクリック回数カウンタ。
+  
+
+・backButtonHome
+      ホーム画面にある「問題選択に戻る」ボタンのHTML要素。
+
+    const backButtonHome = document.querySelector(".back-button");
+    if (backButtonHome) {
+      // 「戻る」ボタンがクリックされた時のイベントリスナー
+      backButtonHome.addEventListener("click", function(e) {
+        e.preventDefault(); // デフォルトのリンク遷移をキャンセル
+        if (backClickCount === 0) {
+          alert("本当に戻りますか？もう一度クリックすると戻ります。");
+          backClickCount++;
+        } else {
+          window.location.href = "C++.html"; // 2回目のクリックでページ遷移
+        }
+      });
+    }
+
+・homeEl
+      クイズのスタート画面（ホーム）のコンテナ要素。
+
+    const homeEl = document.getElementById("home");
+
+・quizEl
+      クイズの問題が表示されるコンテナ要素。
+
+    const quizEl = document.getElementById("quiz");
+
+・function startQuiz
+      クイズを開始する関数。3秒のカウントダウン後、クイズ画面を表示する。
+
+    function startQuiz() {
+      // 開始ボタンを一時的に無効化する
+      const startButton = homeEl.querySelector("button");
+      startButton.disabled = true;
+
+      // 開始効果音を再生
+      const seStart = document.getElementById('se-start');
+      seStart.currentTime = 0;
+      seStart.play();
+      
+      // カウントダウン表示用のオーバーレイとテキスト要素を取得
+      const countdownOverlay = document.getElementById('countdown-overlay');
+      const countdownText = document.getElementById('countdown-text');
+
+      countdownOverlay.style.display = 'flex';// オーバーレイを表示 
+      
+      let count = 3;// カウントダウンの初期値
+      countdownText.textContent = count;
+
+      // 1秒ごとにカウントダウンを実行するタイマー
+      const countdownTimer = setInterval(() => {
+        count--;
+        if (count > 0) {
+          countdownText.textContent = count;
+        } else {
+          countdownText.textContent = 'START!';
+        }
+      }, 1000);
+
+      // 3.5秒後にクイズを開始する
+      setTimeout(() => {
+        // カウントダウンタイマーを停止
+        clearInterval(countdownTimer);
+         // オーバーレイを非表示
+        countdownOverlay.style.display = 'none';
+
+        // BGMが再生されていない場合、再生を開始する
+        if(bgmToggleBtn.textContent == "▶️ BGMを再生") {
+          document.getElementById('bgm').play();
+          bgmToggleBtn.textContent = '⏸️ BGMを停止';
+        }
+
+        shuffle(questions);// 問題をシャッフル
+        current = 0;// 現在の問題をリセット
+        score = 0;// スコアをリセット
+        homeEl.style.display = "none"; // ホーム画面を非表示
+        quizEl.style.display = "block"; // クイズ画面を表示
+        showQuestion(current); // 最初の問題を表示
+        startButton.disabled = false; // 開始ボタンを再度有効化
+      }, 3500);
+    }
+
+
+・function showQuestion
+        指定されたインデックスの問題と選択肢を画面に描画する関数。
+        index - 表示する問題のインデックス (`questions`配列に対応)
+
+    function showQuestion(index) {
+      quizEl.innerHTML = ""; // 前の問題をクリア
+      const q = questions[index]; // 現在の問題オブジェクトを取得
+
+      // 問題コンテナを作成
+      const container = document.createElement("div");
+      container.className = "question";
+
+      // 問題文を作成して追加
+      const title = document.createElement("div");
+      title.innerHTML = `<strong>Q${index + 1}:</strong> ${q.q}`;
+      container.appendChild(title);
+
+      // 選択肢のコンテナを作成
+      const options = document.createElement("div");
+      options.className = "options";
+
+      // 各選択肢をラジオボタンとして作成
+      q.options.forEach((opt, i) => {
+        const label = document.createElement("label");
+        const input = document.createElement("input");
+        input.type = "radio";
+        input.name = `q${index}`;
+        input.value = i;
+        label.appendChild(input);
+        label.appendChild(document.createTextNode(" " + opt));
+        options.appendChild(label);
+      });
+      container.appendChild(options);
+
+      // 「解答」ボタンを作成
+      const button = document.createElement("button");
+      button.textContent = "解答";
+
+      // 結果表示用の要素を作成
+      const result = document.createElement("div");
+      result.className = "result";
+
+      // 解説表示用の要素を作成
+      const explanation = document.createElement("div");
+      explanation.className = "explanation";
+
+      // 「問題選択に戻る」ボタンを作成
+      const backButton = document.createElement("a");
+      backButton.href = "C++.html";
+      backButton.className = "home-button";
+      backButton.textContent = "問題選択に戻る";
+      
+      // 「戻る」ボタンの誤操作防止イベントリスナー
+      backButton.addEventListener("click", function(e) {
+        e.preventDefault();
+        if (backClickCount === 0) {
+          alert("本当に戻りますか？もう一度クリックすると戻ります。");
+          backClickCount++;
+        } else {
+          window.location.href = "C++.html";
+        }
+      });
+
+      // 「次へ」ボタンを作成
+      const nextButton = document.createElement("button");
+      nextButton.textContent = "次へ";
+      nextButton.style.display = "none"; // 初期状態では非表示
+      nextButton.style.margin = "20px auto";
+      
+  
+      //「次へ」ボタンがクリックされた時の処理。
+      // 次の問題に進むか、全問終了していたら結果画面を表示する。
+      
+      nextButton.onclick = () => {
+        setTimeout(() => {
+          current++; // 次の問題へ
+          backClickCount = 0; // 戻るボタンのクリックカウントをリセット
+          if (current < questions.length) {
+            showQuestion(current); // 次の問題を表示
+          } else {
+            // --- 全問終了時の処理 ---
+            const seEnd = document.getElementById('se-end');
+            seEnd.currentTime = 0;
+            seEnd.play(); // 終了効果音
+            backClickCount = 1; // 結果画面では「戻る」を1クリックで有効にする
+            quizEl.innerHTML = ""; // 画面をクリア
+
+            // 結果表示
+            const container = document.createElement("div");
+            quizEl.innerHTML = `<h2>お疲れ様でした！全${questions.length}問が終了しました。<br><br>${score}問正解しました！</h2>`;
+            
+            // --- ランキング処理 ---
+            const today = new Date().toLocaleString(); // 現在日時を取得
+            const newRecord = { date: today, score: score }; // 新しい記録を作成
+
+            // ローカルストレージから既存のランキングを取得
+            let ranking = JSON.parse(localStorage.getItem(RANKING_KEY) || "[]");
+            ranking.push(newRecord); // 新しい記録を追加
+
+            // スコアの高い順にソートし、上位5件に絞る
+            ranking.sort((a, b) => b.score - a.score);
+            ranking = ranking.slice(0, 5);
+
+            // ローカルストレージに保存
+            localStorage.setItem(RANKING_KEY, JSON.stringify(ranking));
+
+            // ランキングを画面に表示
+            const rankingList = document.createElement("div");
+            rankingList.innerHTML = "<h3>🏆正解数ランキング(ローカル)</h3>";
+            ranking.forEach((r, i) => {
+              rankingList.innerHTML += `${i + 1}位: ${r.score}点（${r.date}）<br>`;
+            });
+
+            // 「最初からやり直す」ボタンを作成
+            const retryBtn = document.createElement("button");
+            retryBtn.textContent = "最初からやり直す";
+            retryBtn.onclick = () => {
+              startQuiz(); // クイズを再開
+            };
+
+            let resetClickCount = 0; // ランキングリセットボタンの誤操作防止カウンタ
+
+            // 「ランキングをリセット」ボタンを作成
+            const resetBtn = document.createElement("button");
+            resetBtn.textContent = "ランキングをリセット";
+            resetBtn.onclick = () => {
+              if (resetClickCount === 0) {
+                alert("本当にリセットしますか？もう一度クリックするとリセットされます。");
+                resetClickCount++;
+              } else {
+                localStorage.removeItem(RANKING_KEY); // ランキングデータを削除
+                location.reload(); // ページをリロードして反映
+              }
+            };
+
+            // 各要素を画面に追加
+            quizEl.appendChild(backButton);
+            container.appendChild(retryBtn);
+            container.appendChild(rankingList);
+            container.appendChild(resetBtn);
+            quizEl.appendChild(container);
+          }
+        }, 100);
+      };
+
+      // 「次へ」ボタンを中央に配置するためのラッパー
+      const nextButtonWrapper = document.createElement("div");
+      nextButtonWrapper.style.textAlign = "center";
+      nextButtonWrapper.appendChild(nextButton);
+
+  
+      //「解答」ボタンがクリックされた時の処理。
+      // 正誤判定を行い、結果と解説を表示する。
+
+      button.onclick = () => {
+        const selected = container.querySelector("input:checked"); // 選択されたラジオボタンを取得
+        if (!selected) {
+          result.textContent = "選択肢を選んでください。";
+          result.style.color = "black";
+          return;
+        }
+        const isCorrect = parseInt(selected.value) === q.answer; // 正誤を判定
+
+        // 効果音要素を取得
+        const seCorrect = document.getElementById("se-correct");
+        const seWrong = document.getElementById("se-wrong");
+
+        if (isCorrect) {
+          result.classList.add("correct");
+          score++; // 正解ならスコアを加算
+          seCorrect.currentTime = 0;
+          seCorrect.play(); // 正解音
+        } else {
+          result.classList.add("wrong");
+          seWrong.currentTime = 0;
+          seWrong.play(); // 不正解音
+        }
+
+        // 結果と解説を表示
+        result.textContent = isCorrect ? "○ 正解です！" : `× 不正解です。正解：${q.options[q.answer]}`;
+        result.style.color = isCorrect ? "green" : "red";
+        explanation.innerHTML = q.explanation;
+
+        // 解答後は選択肢を無効化
+        const labels = container.querySelectorAll("label");
+        labels.forEach(label => label.classList.add("disabled"));
+
+        // ボタンの表示を切り替え
+        button.style.display = "none"; // 「解答」ボタンを非表示
+        nextButton.style.display = "inline-block"; // 「次へ」ボタンを表示
+      };
+
+      // 作成した各要素をクイズコンテナに追加
+      container.appendChild(button);
+      container.appendChild(result);
+      container.appendChild(explanation);
+      container.appendChild(nextButtonWrapper);
+      container.appendChild(backButton);
+      quizEl.appendChild(container);
+    }
+
+
+・bgm
+      BGM用のaudio要素。
+
+  const bgm = document.getElementById('bgm');
+
+・const bgmToggleBtn
+      BGMの再生/停止を切り替えるボタン要素。
+
+  const bgmToggleBtn = document.getElementById('bgm-toggle');
+
+  // BGM切り替えボタンのクリックイベント
+  bgmToggleBtn.addEventListener('click', () => {
+    if (!bgm.paused) { // BGMが再生中なら
+      bgm.pause(); // 停止する
+      bgmToggleBtn.textContent = '▶️ BGMを再開';
+    } else { // BGMが停止中なら
+      bgm.play(); // 再生する
+      bgmToggleBtn.textContent = '⏸️ BGMを停止';
+  }
+});
+</script>
