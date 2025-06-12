@@ -93,7 +93,9 @@ function normalizeInput(str) {
     .replace(/&/g, "&amp;")
     .replace(/</g, "&lt;")
     .replace(/>/g, "&gt;")
-    .replace(/&lt;br&gt;/g, "<br>");
+    .replace(/&lt;br&gt;/g, "<br>")
+    .replace(/&lt;pre&gt;/g, "<pre>")
+    .replace(/&lt;\/pre&gt;/g, "</pre>");
 }
 
     const backButtonHome = document.querySelector(".back-button");

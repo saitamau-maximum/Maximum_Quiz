@@ -13,9 +13,12 @@
   </style>
   <audio id="se-correct" src="../keep_out/correct.mp3" preload="auto"></audio>
   <audio id="se-wrong" src="../keep_out/wrong.mp3" preload="auto"></audio>
-
+  <audio id="se-start" src="../keep_out/start.mp3" preload="auto"></audio>
+  <audio id="se-end" src="../keep_out/end.mp3" preload="auto"></audio>
 </head>
 <body>
+  <audio id="bgm" src="../keep_out/BGM.mp3" loop></audio>
+  <button id="bgm-toggle">▶️ BGMを再生</button>
   <div class="quiz-container" id="home">
     <h1>基本情報基礎技術者試験の四択問題</h1>
     <p>全15問です。</p>
@@ -24,8 +27,11 @@
   </div>
 
   <div class="quiz-container" id="quiz" style="display: none;"></div>
-
+  <div id="countdown-overlay" class="countdown-overlay">
+  <div id="countdown-text" class="countdown-text"></div>
+  </div>
   <script>
+    const RANKING_KEY = "FITEE_select_quiz_ranking_easy";
     const questions = [//問題を未変更
       {
         q: "C++でのコメントアウトは次のうちどれか",
@@ -215,12 +221,23 @@ int main() {
   }
     ];
 
-     function escapeHTMLExceptBR(str) {
+
+    function shuffle(array) {
+  for (let i = array.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [array[i], array[j]] = [array[j], array[i]];
+  }
+}
+
+
+    function escapeHTMLExceptBR(str) {
   return str
     .replace(/&/g, "&amp;")
     .replace(/</g, "&lt;")
     .replace(/>/g, "&gt;")
-    .replace(/&lt;br&gt;/g, "<br>");
+    .replace(/&lt;br&gt;/g, "<br>")
+    .replace(/&lt;pre&gt;/g, "<pre>")
+    .replace(/&lt;\/pre&gt;/g, "</pre>");
 }
 
     let current = 0;
@@ -244,10 +261,46 @@ if (backButtonHome) {
     const quizEl = document.getElementById("quiz");
 
     function startQuiz() {
-      current = 0;
-      homeEl.style.display = "none";
-      quizEl.style.display = "block";
-      showQuestion(current);
+      const startButton = homeEl.querySelector("button");
+      startButton.disabled = true;
+
+      const seStart = document.getElementById('se-start');
+      seStart.currentTime = 0;
+      seStart.play();
+      
+      const countdownOverlay = document.getElementById('countdown-overlay');
+      const countdownText = document.getElementById('countdown-text');
+      
+      countdownOverlay.style.display = 'flex';
+
+      let count = 3;
+      countdownText.textContent = count;
+
+      const countdownTimer = setInterval(() => {
+        count--;
+        if (count > 0) {
+          countdownText.textContent = count;
+        } else {
+          countdownText.textContent = 'START!';
+        }
+      }, 1000);
+
+      setTimeout(() => {
+        clearInterval(countdownTimer);
+        countdownOverlay.style.display = 'none';
+
+        if(bgmToggleBtn.textContent == "▶️ BGMを再生") {
+          document.getElementById('bgm').play();
+          bgmToggleBtn.textContent = '⏸️ BGMを停止';
+        }
+        shuffle(questions);
+        current = 0;
+        score = 0;
+        homeEl.style.display = "none";
+        quizEl.style.display = "block";
+        showQuestion(current);
+        startButton.disabled = false;
+      }, 3500);
     }
 
     function showQuestion(index) {
@@ -259,6 +312,7 @@ if (backButtonHome) {
 
       const title = document.createElement("div");
       title.innerHTML = `<strong>Q${index + 1}:</strong> ${escapeHTMLExceptBR(q.q)}`;
+
       container.appendChild(title);
 
       const options = document.createElement("div");
@@ -313,9 +367,53 @@ if (backButtonHome) {
     if (current < questions.length) {
       showQuestion(current);
     } else {
-      backClickCount = 1;
-      quizEl.innerHTML = `<h2>お疲れ様でした！全${questions.length}問が終了しました。<br><br>${score}問正解しました！</h2>`;
+          const seEnd = document.getElementById('se-end');
+          seEnd.currentTime = 0;
+          seEnd.play();
+          backClickCount = 1;
+          quizEl.innerHTML = `<h2>お疲れ様でした！全${questions.length}問が終了しました。<br><br>${score}問正解しました！</h2>`;
+          const today = new Date().toLocaleString();
+          const newRecord = { date: today, score: score };
+
+          let ranking = JSON.parse(localStorage.getItem(RANKING_KEY) || "[]");
+          ranking.push(newRecord);
+
+          ranking.sort((a, b) => b.score - a.score);
+          ranking = ranking.slice(0, 5);
+
+          localStorage.setItem(RANKING_KEY, JSON.stringify(ranking));
+
+          const rankingList = document.createElement("div");
+          rankingList.innerHTML = "<h3>🏆正解数ランキング(ローカル)</h3>";
+
+          ranking.forEach((r, i) => {
+            rankingList.innerHTML += `${i + 1}位: ${r.score}点（${r.date}）<br>`;
+          });
+
+          const retryBtn = document.createElement("button");
+          retryBtn.textContent = "最初からやり直す";
+          retryBtn.onclick = () => {
+          startQuiz();
+        };
+
+          let resetClickCount = 0;
+
+          const resetBtn = document.createElement("button");
+          resetBtn.textContent = "ランキングをリセット";
+          resetBtn.onclick = () => {
+            if (resetClickCount === 0) {
+              alert("本当にリセットしますか？もう一度クリックするとリセットされます。");
+              resetClickCount++;
+            } else {
+              localStorage.removeItem(RANKING_KEY);
+              location.reload();
+            }
+          };
       quizEl.appendChild(backButton);
+      container.appendChild(retryBtn);
+      container.appendChild(rankingList);
+      container.appendChild(resetBtn);
+      quizEl.appendChild(container);
     }
   }, 100);
 };
@@ -332,24 +430,25 @@ if (backButtonHome) {
           result.style.color = "black";
           return;
         }
-        const isCorrect = parseInt(selected.value) === q.answer;
 
+        const isCorrect = parseInt(selected.value) === q.answer;
         const seCorrect = document.getElementById("se-correct");
         const seWrong = document.getElementById("se-wrong");
 
         if (isCorrect) {
+          result.classList.add("correct");
           score++;
           seCorrect.currentTime = 0;
           seCorrect.play();
         } else {
+          result.classList.add("wrong");
           seWrong.currentTime = 0;
           seWrong.play();
         }
-
+        
         result.textContent = isCorrect ? "○ 正解です！" : `× 不正解です。正解：${q.options[q.answer]}`;
         result.style.color = isCorrect ? "green" : "red";
         explanation.innerHTML = escapeHTMLExceptBR(q.explanation);
-
 
         const labels = container.querySelectorAll("label");
         labels.forEach(label => label.classList.add("disabled"));
@@ -366,6 +465,20 @@ if (backButtonHome) {
 
       quizEl.appendChild(container);
     }
+
+  const bgm = document.getElementById('bgm');
+  const bgmToggleBtn = document.getElementById('bgm-toggle');
+
+  bgmToggleBtn.addEventListener('click', () => {
+    if (!bgm.paused) {
+      bgm.pause();
+      bgmToggleBtn.textContent = '▶️ BGMを再開';
+    } else {
+      bgm.play();
+      bgmToggleBtn.textContent = '⏸️ BGMを停止';
+  }
+});
+ 
   </script>
 </body>
 </html>

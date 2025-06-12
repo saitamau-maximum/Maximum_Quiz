@@ -113,7 +113,9 @@ const RANKING_KEY = "a"; //ランキングのキーを設定
     .replace(/&/g, "&amp;")
     .replace(/</g, "&lt;")
     .replace(/>/g, "&gt;")
-    .replace(/&lt;br&gt;/g, "<br>");
+    .replace(/&lt;br&gt;/g, "<br>")
+    .replace(/&lt;pre&gt;/g, "<pre>")
+    .replace(/&lt;\/pre&gt;/g, "</pre>");
 }
 
 
