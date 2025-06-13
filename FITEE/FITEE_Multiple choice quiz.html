@@ -372,6 +372,7 @@ if (backButtonHome) {
           seEnd.play();
           backClickCount = 1;
           quizEl.innerHTML = "";
+          const container = document.createElement("div");
           quizEl.innerHTML = `<h2>お疲れ様でした！全${questions.length}問が終了しました。<br><br>${score}問正解しました！</h2>`;
           const today = new Date().toLocaleString();
           const newRecord = { date: today, score: score };
