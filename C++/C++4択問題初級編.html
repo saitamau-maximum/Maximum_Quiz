@@ -22,7 +22,7 @@
    <button id="bgm-toggle">▶️ BGMを再生</button>
    <div class="quiz-container" id="home">
     <h1>C++ 4択問題 初級編</h1>
-    <p>全15問です。</p>
+    <p id="question-count">問題数を表示(変更不要)</p>
     <button onclick="startQuiz()">開始</button>
     <a href="C++.html" class="back-button">問題選択に戻る</a>
   </div>
@@ -222,6 +222,13 @@ int main() {
     explanation: "string同士の + 演算子で結合され、結果は 'Hello World' になる。"
   }
     ];
+
+    document.addEventListener("DOMContentLoaded", () => {
+    const questionCountElement = document.getElementById("question-count");
+    if (questionCountElement) {
+      questionCountElement.textContent = `全${questions.length}問です。`;
+    }
+  });
 
     function shuffle(array) {
   for (let i = array.length - 1; i > 0; i--) {
