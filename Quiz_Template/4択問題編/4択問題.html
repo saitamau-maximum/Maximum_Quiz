@@ -21,7 +21,7 @@
   <button id="bgm-toggle">▶️ BGMを再生</button>
   <div class="quiz-container" id="home">
     <h1>タイトル</h1> <!--タイトルの設定(ヘッダ名と同じでも可)-->
-    <p>全n問です。</p> <!--問題数を設定-->
+    <p id="question-count">問題数を表示(変更不要)</p>
     <button onclick="startQuiz()">開始</button>
     <a href="a.html" class="back-button">問題選択に戻る</a>  <!--a.htmlを変更(問題選択画面のファイル名にする)--> 
   </div>
@@ -33,9 +33,9 @@
   <script>
 const RANKING_KEY = "a"; //ランキングのキーを設定
     const questions = [
-
+/*
   {
-     /* {
+     {
   q: "次のコードを実行したとき、何が出力されますか？<pre>string s = \"123\";\nfor (int bit = 0; bit < (1 << 3); bit++) {\n  string t = \"\";\n  for (int i = 0; i < 3; i++) {\n    if (bit & (1 << i)) t += s[i];\n  }\n  cout << t << endl;\n}</pre>",
   options: [
     "すべての部分文字列を出力している",
@@ -95,10 +95,16 @@ const RANKING_KEY = "a"; //ランキングのキーを設定
   answer: 0,
   explanation: "6(110)と5(101)のANDを取ると100、つまり4になる。(bit演算)"
 }
-
-*/
-  }  
+  }
+*/  
     ];
+
+    document.addEventListener("DOMContentLoaded", () => {
+    const questionCountElement = document.getElementById("question-count");
+    if (questionCountElement) {
+      questionCountElement.textContent = `全${questions.length}問です。`;
+    }
+  });
 
     function shuffle(array) {
   for (let i = array.length - 1; i > 0; i--) {
