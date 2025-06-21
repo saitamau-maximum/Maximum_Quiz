@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>逆ポーランド記号の問題</title>
+  <title>逆ポーランド記法の問題</title>
   <link rel="stylesheet" href="../../keep_out/style2.css">
   <audio id="se-correct" src="../../keep_out/correct.mp3" preload="auto"></audio>
   <audio id="se-wrong" src="../../keep_out/wrong.mp3" preload="auto"></audio>
@@ -14,7 +14,7 @@
   <audio id="bgm" src="../../keep_out/BGM.mp3" loop></audio>
   <button id="bgm-toggle">▶️ BGMを再生</button>
   <div class="quiz-container" id="home">
-    <h1>逆ポーランド記号の問題</h1>
+    <h1>逆ポーランド記法の問題</h1>
     <p id="question-count">問題数を表示(変更不要)</p>
     <button id="startButton" onclick="startQuiz()">開始</button>
     <a href="../FITEE.html" class="back-button">問題選択に戻る</a>
@@ -98,7 +98,7 @@ function createRPNQuestion() {
     return null;
   }
 
-  const questionText = `次の逆ポーランド記号（後置記法）の計算結果を半角で入力してください。\n（割り切れない場合は小数点以下を切り捨ててください）\n<pre>${expr}</pre>`;
+  const questionText = `次の逆ポーランド記法（後置記法）の計算結果を半角で入力してください。\n（割り切れない場合は小数点以下を切り捨ててください）\n<pre>${expr}</pre>`;
   const correctAnswerStr = String(correctAnswer);
 
   return {
