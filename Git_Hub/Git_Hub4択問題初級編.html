@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>GitHub 4択問題 初級編</title> <!--ヘッダ名を設定-->
+  <link rel="stylesheet" href="../keep_out/style.css">
+  <style>
+    .options label.disabled {
+      pointer-events: none;
+      color: #000;
+    }
+  </style>
+  <audio id="se-correct" src="../keep_out/correct.mp3" preload="auto"></audio>
+  <audio id="se-wrong" src="../keep_out/wrong.mp3" preload="auto"></audio>
+  <audio id="se-start" src="../keep_out/start.mp3" preload="auto"></audio>
+  <audio id="se-end" src="../keep_out/end.mp3" preload="auto"></audio>
+</head>
+<body>
+  <audio id="bgm" src="../keep_out/BGM.mp3" loop></audio>
+  <button id="bgm-toggle">▶️ BGMを再生</button>
+  <div class="quiz-container" id="home">
+    <h1>GitHub 4択問題 初級編</h1> <!--タイトルの設定(ヘッダ名と同じでも可)-->
+    <p id="question-count">問題数を表示(変更不要)</p>
+    <button onclick="startQuiz()">開始</button>
+    <a href="Git_Hub.html" class="back-button">問題選択に戻る</a>  <!--a.htmlを変更(問題選択画面のファイル名にする)--> 
+  </div>
+
+  <div class="quiz-container" id="quiz" style="display: none;"></div>
+  <div id="countdown-overlay" class="countdown-overlay">
+  <div id="countdown-text" class="countdown-text"></div>
+  </div>
+  <script>
+const RANKING_KEY = "GitHub_select_quiz_ranking_easy"; //ランキングのキーを設定
+    const questions = [
+  {
+  q: "Gitでローカルの変更を保存するために使うコマンドはどれですか？",
+  options: [
+    "git clone",
+    "git push",
+    "git commit",
+    "git fork"
+  ],
+  answer: 2,
+  explanation: "git commit は、ステージされた変更をローカルリポジトリに保存するためのコマンドです。<br> git clone はリモートリポジトリを複製するコマンド。<br> git push はローカルの変更をリモートに送るコマンド。<br> git fork はGitHub上でリポジトリをコピーする操作ですが、コマンドではなくWeb上の操作です。"
+},
+
+
+{
+  q: "新しいブランチを作成するためのコマンドはどれですか？",
+  options: [
+    "git new branch",
+    "git create branch",
+    "git branch <ブランチ名>",
+    "git make-branch <ブランチ名>"
+  ],
+  answer: 2,
+  explanation: "git branch に続けてブランチ名を指定すると、新しいブランチが作成されます。"
+},
+
+{
+  q: "別のブランチに移動するためのコマンドはどれですか？",
+  options: [
+    "git move <ブランチ名>",
+    "git switch <ブランチ名>",
+    "git jump <ブランチ名>",
+    "git push <ブランチ名>"
+  ],
+  answer: 1,
+  explanation: "Git 2.23以降では git switch が推奨されています（以前は git checkout <ブランチ名> も使われていました）。"
+},
+
+{
+  q: "別ブランチでの変更を現在のブランチに取り込むために使うコマンドはどれですか？",
+  options: [
+    "git fork",
+    "git merge <ブランチ名>",
+    "git share",
+    "git pull-request"
+  ],
+  answer: 1,
+  explanation: "指定したブランチの変更内容を現在のブランチに統合するコマンドです。<br> 変更を取り込みたいbranch上で実行してください。"
+},
+
+{
+  q: "新しいブランチを作成して同時にそのブランチに移動するには？",
+  options: [
+    "git switch -b <ブランチ名>",
+    "git make -move <ブランチ名>",
+    "git init-branch <ブランチ名>",
+    "git commit -b <ブランチ名>"
+  ],
+  answer: 0,
+  explanation: "新規ブランチ作成と移動を同時に行うには git switch -b または旧形式の git checkout -b を使います。"
+}
+    ];
+
+    document.addEventListener("DOMContentLoaded", () => {
+    const questionCountElement = document.getElementById("question-count");
+    if (questionCountElement) {
+      questionCountElement.textContent = `全${questions.length}問です。`;
+    }
+  });
+
+    function shuffle(array) {
+  for (let i = array.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [array[i], array[j]] = [array[j], array[i]];
+  }
+}
+
+
+    function escapeHTMLExceptBR(str) {
+  return str
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/&lt;br&gt;/g, "<br>")
+    .replace(/&lt;pre&gt;/g, "<pre>")
+    .replace(/&lt;\/pre&gt;/g, "</pre>");
+}
+
+
+    let current = 0;
+    let score = 0;
+    let backClickCount = 0;
+
+const backButtonHome = document.querySelector(".back-button");
+if (backButtonHome) {
+  backButtonHome.addEventListener("click", function(e) {
+    e.preventDefault();
+    if (backClickCount === 0) {
+      alert("本当に戻りますか？もう一度クリックすると戻ります。");
+      backClickCount++;
+    } else {
+      window.location.href = "Git_Hub.html"; // a.htmlを変更(問題選択画面のファイル名にする) 
+    }
+  });
+}
+
+
+
+    const homeEl = document.getElementById("home");
+    const quizEl = document.getElementById("quiz");
+
+    function startQuiz() {
+      const startButton = homeEl.querySelector("button");
+      startButton.disabled = true;
+
+      const seStart = document.getElementById('se-start');
+      seStart.currentTime = 0;
+      seStart.play();
+      
+      const countdownOverlay = document.getElementById('countdown-overlay');
+      const countdownText = document.getElementById('countdown-text');
+      
+      countdownOverlay.style.display = 'flex';
+
+      let count = 3;
+      countdownText.textContent = count;
+
+      const countdownTimer = setInterval(() => {
+        count--;
+        if (count > 0) {
+          countdownText.textContent = count;
+        } else {
+          countdownText.textContent = 'START!';
+        }
+      }, 1000);
+
+      setTimeout(() => {
+        clearInterval(countdownTimer);
+        countdownOverlay.style.display = 'none';
+
+        if(bgmToggleBtn.textContent == "▶️ BGMを再生") {
+          document.getElementById('bgm').play();
+          bgmToggleBtn.textContent = '⏸️ BGMを停止';
+        }
+        shuffle(questions);
+        current = 0;
+        score = 0;
+        homeEl.style.display = "none";
+        quizEl.style.display = "block";
+        showQuestion(current);
+        startButton.disabled = false;
+      }, 3500);
+    }
+
+    function showQuestion(index) {
+      quizEl.innerHTML = "";
+      const q = questions[index];
+
+      const container = document.createElement("div");
+      container.className = "question";
+
+      const title = document.createElement("div");
+      title.innerHTML = `<strong>Q${index + 1}:</strong> ${escapeHTMLExceptBR(q.q)}`;
+
+      container.appendChild(title);
+
+      const options = document.createElement("div");
+      options.className = "options";
+
+      q.options.forEach((opt, i) => {
+        const label = document.createElement("label");
+        const input = document.createElement("input");
+        input.type = "radio";
+        input.name = `q${index}`;
+        input.value = i;
+        label.appendChild(input);
+        label.appendChild(document.createTextNode(" " + opt));
+        options.appendChild(label);
+      });
+
+      container.appendChild(options);
+
+      const button = document.createElement("button");
+      button.textContent = "解答";
+
+      const result = document.createElement("div");
+      result.className = "result";
+
+      const explanation = document.createElement("div");
+      explanation.className = "explanation";
+
+      const backButton = document.createElement("a");
+      backButton.href = "GitHub.html"; //a.htmlを変更(問題選択画面のファイル名にする)
+      backButton.className = "home-button";
+      backButton.textContent = "問題選択に戻る";
+
+      backButton.addEventListener("click", function(e) {
+        e.preventDefault();
+        if (backClickCount === 0) {
+          alert("本当に戻りますか？もう一度クリックすると戻ります。");
+          backClickCount++;
+        } else {
+          window.location.href = "Git_Hub.html"; // a.htmlを変更(問題選択画面のファイル名にする) 
+        }
+      });
+
+      const nextButton = document.createElement("button");
+      nextButton.textContent = "次へ";
+      nextButton.style.display = "none";
+      nextButton.style.margin = "20px auto";
+      
+      nextButton.onclick = () => {
+    setTimeout(() => {
+    current++;
+    backClickCount = 0;
+    if (current < questions.length) {
+      showQuestion(current);
+    } else {
+          const seEnd = document.getElementById('se-end');
+          seEnd.currentTime = 0;
+          seEnd.play();
+          backClickCount = 1;
+          quizEl.innerHTML = "";
+          const container = document.createElement("div");
+          quizEl.innerHTML = `<h2>お疲れ様でした！全${questions.length}問が終了しました。<br><br>${score}問正解しました！</h2>`;
+          const today = new Date().toLocaleString();
+          const newRecord = { date: today, score: score };
+
+          let ranking = JSON.parse(localStorage.getItem(RANKING_KEY) || "[]");
+          ranking.push(newRecord);
+
+          ranking.sort((a, b) => b.score - a.score);
+          ranking = ranking.slice(0, 5);
+
+          localStorage.setItem(RANKING_KEY, JSON.stringify(ranking));
+
+          const rankingList = document.createElement("div");
+          rankingList.innerHTML = "<h3>🏆正解数ランキング(ローカル)</h3>";
+
+          ranking.forEach((r, i) => {
+            rankingList.innerHTML += `${i + 1}位: ${r.score}点（${r.date}）<br>`;
+          });
+
+          const retryBtn = document.createElement("button");
+          retryBtn.textContent = "最初からやり直す";
+          retryBtn.onclick = () => {
+          startQuiz();
+        };
+
+          let resetClickCount = 0;
+
+          const resetBtn = document.createElement("button");
+          resetBtn.textContent = "ランキングをリセット";
+          resetBtn.onclick = () => {
+            if (resetClickCount === 0) {
+              alert("本当にリセットしますか？もう一度クリックするとリセットされます。");
+              resetClickCount++;
+            } else {
+              localStorage.removeItem(RANKING_KEY);
+              location.reload();
+            }
+          };
+      quizEl.appendChild(backButton);
+      container.appendChild(retryBtn);
+      container.appendChild(rankingList);
+      container.appendChild(resetBtn);
+      quizEl.appendChild(container);
+    }
+  }, 100);
+};
+
+
+      const nextButtonWrapper = document.createElement("div");
+      nextButtonWrapper.style.textAlign = "center";
+      nextButtonWrapper.appendChild(nextButton);
+
+      button.onclick = () => {
+        const selected = container.querySelector("input:checked");
+        if (!selected) {
+          result.textContent = "選択肢を選んでください。";
+          result.style.color = "black";
+          return;
+        }
+
+        const isCorrect = parseInt(selected.value) === q.answer;
+        const seCorrect = document.getElementById("se-correct");
+        const seWrong = document.getElementById("se-wrong");
+
+        if (isCorrect) {
+          result.classList.add("correct");
+          score++;
+          seCorrect.currentTime = 0;
+          seCorrect.play();
+        } else {
+          result.classList.add("wrong");
+          seWrong.currentTime = 0;
+          seWrong.play();
+        }
+        
+        result.textContent = isCorrect ? "○ 正解です！" : `× 不正解です。正解：${q.options[q.answer]}`;
+        result.style.color = isCorrect ? "green" : "red";
+        explanation.innerHTML = escapeHTMLExceptBR(q.explanation);
+
+        const labels = container.querySelectorAll("label");
+        labels.forEach(label => label.classList.add("disabled"));
+
+        button.style.display = "none";
+        nextButton.style.display = "inline-block";
+      };
+
+      container.appendChild(button);
+      container.appendChild(result);
+      container.appendChild(explanation);
+      container.appendChild(nextButtonWrapper);
+      container.appendChild(backButton);
+
+      quizEl.appendChild(container);
+    }
+
+  const bgm = document.getElementById('bgm');
+  const bgmToggleBtn = document.getElementById('bgm-toggle');
+
+  bgmToggleBtn.addEventListener('click', () => {
+    if (!bgm.paused) {
+      bgm.pause();
+      bgmToggleBtn.textContent = '▶️ BGMを再開';
+    } else {
+      bgm.play();
+      bgmToggleBtn.textContent = '⏸️ BGMを停止';
+  }
+});
+ 
+  </script>
+</body></body>
+</html>
