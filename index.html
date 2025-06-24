@@ -1,56 +1,57 @@
-<!DOCTYPE HTML PUBRIC ~>
-<html lang = "ja">
+<!DOCTYPE html>
+<html lang="ja">
 <head>
 <meta charset="UTF-8">
-
 <!--
 <p>HTMLhはこれでコメントアウトする。</p>
 -->
-
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title> Maximum_Quizのホームページ</title>
 <style>
 header {
     padding: 20px;
     text-align: center;
-    width: 200%; 
+    width: 100%; 
     height: 200px;
     background-color: rgb(78, 146, 249);
-    margin: -25; /* 上下の余白をなくす */
+    margin: 0;
+    position: relative;
 }
 .logo1 {
     position: absolute;
-    top: 40pt; /* headerの上からの位置 */
-    left: 7%; /* headerの左からの位置 */
-    width: 250px; /* ロゴの幅を調整 */
-    height: auto; /* アスペクト比を維持 */
+    top: 40pt;
+    left: 7%;
+    width: 250px;
+    height: auto;
+    cursor: pointer;
 }
 .logo2 {
     position: absolute;
-    top: 20pt; /* headerの上からの位置 */
-    left: 700pt; /* headerの左からの位置 */
-    width: 200px; /* ロゴの幅を調整 */
-    height: auto; /* アスペクト比を維持 */
+    top: 20pt;
+    left: 700pt;
+    width: 200px;
+    height: auto;
+    cursor: pointer;
 }
 h1 {
-    top:100pt; /* headerの上からの位置 */
-    left: 35%; /* headerの左からの位置 */
+    top:100pt;
+    left: 35%;
     position: absolute;
     color:  rgb(43, 210, 34);
     font-size: 50px;
-    margin: 0; /* 上下の余白をなくす */
+    margin: 0;
 }
 p {
     color: rgb(43, 210, 34);
     font-size: 18px;
-    margin: 0; /* 上下の余白をなくす */
+    margin: 0;
 }
 body {
     background-color: rgb(255, 255, 255);
     color: rgb(255, 255, 255);
     font-size: 16px;
     font-family: Arial, sans-serif;
-    margin: 0; /* ページ全体の余白をなくす */
+    margin: 0;
     padding: 18px;
     text-align: center;
 }
@@ -63,7 +64,8 @@ button {
     margin-top: 20px;
     font-size: 18px;
     font-weight: bold;
-}.green-tab {
+}
+.green-tab {
     display: inline-block;
     margin-left: 0%;
     padding: 1px;
@@ -88,35 +90,28 @@ a[href="https://members.maximum.vc/search"] {
     color: rgb(59, 199, 255);
 }
 </style>
-<header class="hXpOls cGuTmT kqknCe fPSBzf dDWCpe bYPztT">
-
-
-
- <img src="keep_out/Maximum-logo.svg" alt="Maximumロゴ" class="logo1">
-
-   </header>
-   <h1>Maximum Quiz</h1>
-</head>   
-<img src="keep_out/Logo.png" alt="ゲーム開発班のロゴ" class="logo2">
-
-<br></br>
-<p>このサイトは、Maximumで必要な知識を学ぶためのクイズサイトです。<br>
-  各セクションに分かれた問題を解くことで、知識を深めましょう。問題は今後増やしていく予定です。</p>
-</p>
-<br></br><div class="green-tab">
-  <a href="C#/C#.html">C#に関する問題</a><br>
-  <a href="C++/C++.html">C++に関する問題</a><br>
-  <a href="HTML/HTML.html">HTMLに関する問題</a><br>
-  <a href="CSS/CSS.html">CSSに関する問題</a><br>
-  <a href="JavaScript/JavaScript.html">JavaScriptに関する問題</a><br>
-  <a href="Unity_Hub/Unity_hub.html">Unityhubに関する問題</a><br>
-  <a href="Git_Hub/Git_Hub.html">GitHubに関する問題</a><br>
-  <a href="FITEE/FITEE.html">基本情報技術者試験に関する問題</a><br>
-</div>
-  <br> </br>
-  <a href="https://maximum.vc/">Maximum.vc</a><br>
-  <br> 
-  <a href="https://id.maximum.vc/">Maximum_IDP</a><br> 
-  <br> 
-  <a href="https://members.maximum.vc/search">Maximum_Privete_Website</a><br> 
-  <br> 
+</head>
+<body>
+  <header class="hXpOls cGuTmT kqknCe fPSBzf dDWCpe bYPztT">
+    <a href="https://maximum.vc/" target="_blank">
+      <img src="keep_out/Maximum-logo.svg" alt="Maximumロゴ" class="logo1">
+    </a>
+    <h1>Maximum Quiz</h1>
+    <a href="https://course.maximum.vc/course/0bcd6f26-3c38-4cca-ac17-87aa30c32d20" target="_blank">
+      <img src="keep_out/Logo.png" alt="ゲーム開発班のロゴ" class="logo2">
+    </a>
+  </header>
+  <br>
+  <p>このサイトは、Maximumで必要な知識を学ぶためのクイズサイトです。<br>
+    各セクションに分かれた問題を解くことで、知識を深めましょう。問題は今後増やしていく予定です。</p>
+  <br>
+  <div class="green-tab">
+    <a href="C#/C#.html">C#に関する問題</a><br>
+    <a href="C++/C++.html">C++に関する問題</a><br>
+    <a href="HTML/HTML.html">HTMLに関する問題</a><br>
+    <a href="CSS/CSS.html">CSSに関する問題</a><br>
+    <a href="JavaScript/JavaScript.html">JavaScriptに関する問題</a><br>
+    <a href="Unity_Hub/Unity_hub.html">Unityhubに関する問題</a><br>
+    <a href="Git_Hub/Git_Hub.html">GitHubに関する問題</a><br>
+    <a href="FITEE/FITEE.html">基本情報技術者試験に関する問題</a><br>
+  </div>
