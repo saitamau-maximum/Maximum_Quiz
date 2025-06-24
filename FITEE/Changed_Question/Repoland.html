@@ -113,7 +113,7 @@ function createRPNQuestion() {
 document.addEventListener("DOMContentLoaded", () => {
     const questionCountElement = document.getElementById("question-count");
     if (questionCountElement) {
-      questionCountElement.textContent = `全10問です。`;
+      questionCountElement.textContent = `全5問です。`;
     }
 });
 
@@ -200,7 +200,7 @@ function startQuiz() {
     }
 
     questions.length = 0;
-    const numberOfQuestionsToGenerate = 10;                    //問題数調整場所
+    const numberOfQuestionsToGenerate = 5;                    //問題数調整場所
     for (let i = 0; i < numberOfQuestionsToGenerate; i++) {
         const rpnQuestion = createRPNQuestion();
         if (rpnQuestion) {
