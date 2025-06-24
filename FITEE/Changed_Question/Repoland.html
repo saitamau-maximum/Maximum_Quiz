@@ -62,32 +62,34 @@ function evaluateRPN(expression) {
 }
 
 function createRPNQuestion() {
-
   const patterns = [
-    { exprTemplate: "N1 N2 + N3 *", operators: ['+', '*'] },
-    { exprTemplate: "N1 N2 N3 - /", operators: ['/', '-'] },
-    { exprTemplate: "N1 N2 * N3 +", operators: ['*', '+'] },
-    { exprTemplate: "N1 N2 N3 + *", operators: ['+', '*'] },
-    { exprTemplate: "N1 N2 - N3 +", operators: ['-', '+'] },
-    { exprTemplate: "N1 N2 + N3 -", operators: ['+', '-'] },
-    { exprTemplate: "N1 N2 N3 * /", operators: ['*', '/'] },
-    { exprTemplate: "N1 N2 / N3 +", operators: ['/', '+'] },
-    { exprTemplate: "N1 N2 / N3 + N4 *", operators: ['/', '+', '*'] },
-    { exprTemplate: "N1 N2 - N3 - N4 /", operators: ['-', '/'] },
-    { exprTemplate: "N1 N2 * N3 + N4 -", operators: ['*', '+', '-'] },
-    { exprTemplate: "N1 N2 + N3 * N4 /", operators: ['+', '*', '/'] },
-    { exprTemplate: "N1 N2 - N3 + N4 *", operators: ['-', '+', '*'] },
-    { exprTemplate: "N1 N2 / N3 - N4 +", operators: ['/', '-', '+'] }
+    { exprTemplate: "N1 N2 + N3 *", operators: ['+', '*'], infixTemplate: "(N1 + N2) * N3" },
+    { exprTemplate: "N1 N2 N3 - /", operators: ['/', '-'], infixTemplate: "N1 / (N2 - N3)" },
+    { exprTemplate: "N1 N2 * N3 +", operators: ['*', '+'], infixTemplate: "(N1 * N2) + N3" },
+    { exprTemplate: "N1 N2 N3 + *", operators: ['+', '*'], infixTemplate: "N1 * (N2 + N3)" },
+    { exprTemplate: "N1 N2 - N3 +", operators: ['-', '+'], infixTemplate: "(N1 - N2) + N3" },
+    { exprTemplate: "N1 N2 + N3 -", operators: ['+', '-'], infixTemplate: "(N1 + N2) - N3" },
+    { exprTemplate: "N1 N2 N3 * /", operators: ['*', '/'], infixTemplate: "N1 / (N2 * N3)" },
+    { exprTemplate: "N1 N2 / N3 +", operators: ['/', '+'], infixTemplate: "(N1 / N2) + N3" },
+    { exprTemplate: "N1 N2 / N3 + N4 *", operators: ['/', '+', '*'], infixTemplate: "( (N1 / N2) + N3 ) * N4" },
+    { exprTemplate: "N1 N2 - N3 - N4 /", operators: ['-', '/'], infixTemplate: "( (N1 - N2) - N3 ) / N4" },
+    { exprTemplate: "N1 N2 * N3 + N4 -", operators: ['*', '+', '-'], infixTemplate: "( (N1 * N2) + N3 ) - N4" },
+    { exprTemplate: "N1 N2 + N3 * N4 /", operators: ['+', '*', '/'], infixTemplate: "( (N1 + N2) * N3 ) / N4" },
+    { exprTemplate: "N1 N2 - N3 + N4 *", operators: ['-', '+', '*'], infixTemplate: "( (N1 - N2) + N3 ) * N4" },
+    { exprTemplate: "N1 N2 / N3 - N4 +", operators: ['/', '-', '+'], infixTemplate: "( (N1 / N2) - N3 ) + N4" }
   ];
 
   const selectedPattern = patterns[Math.floor(Math.random() * patterns.length)];
   let expr = selectedPattern.exprTemplate;
+  let infixExpr = selectedPattern.infixTemplate;
+
+  const numMap = {};
 
   const numCount = (expr.match(/N/g) || []).length;
   for (let i = 0; i < numCount; i++) {
-    let num;
-    num = Math.floor(Math.random() * 10) + 1;
+    let num = Math.floor(Math.random() * 10) + 1;
     expr = expr.replace('N' + (i + 1), num);
+    infixExpr = infixExpr.replace('N' + (i + 1), num);
   }
 
   let correctAnswer;
@@ -104,7 +106,7 @@ function createRPNQuestion() {
   return {
     q: questionText,
     answer: correctAnswerStr,
-    explanation: `解説：${expr}をスタックで計算すると${correctAnswerStr}になります。`
+    explanation: `解説：逆ポーランド記法 ${expr} を中置記法に直すと ${infixExpr} です。これを計算すると ${correctAnswerStr} になります。`
   };
 }
 
