@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>C++ 4択問題 上級編</title>
-  <link rel="stylesheet" href="../keep_out/style.css" />
+  <link rel="stylesheet" href="../keep_out/selectQuestion.css" />
   <style>
     .options label.disabled {
       pointer-events: none;
@@ -34,323 +34,91 @@
   </div>
 
   <script>
-    const RANKING_KEY = "cpp_select_quiz_ranking_hard";
-    const questions = [
-    {
-  q: "次のコードを実行したとき、何が出力されますか？<pre>string s = \"123\";\nfor (int bit = 0; bit < (1 << 3); bit++) {\n  string t = \"\";\n  for (int i = 0; i < 3; i++) {\n    if (bit & (1 << i)) t += s[i];\n  }\n  cout << t << endl;\n}</pre>",
-  options: [
-    "すべての部分文字列を出力している",
-    "すべての並び替え（順列）を出力している",
-    "すべての文字の組み合わせを出力している",
-    "何も出力しない"
-  ],
-  answer: 2,
-  explanation: "各 bit のパターンごとに、s の各文字を選ぶか選ばないかを決めている(bit探索)。<br>つまり、sの部分集合(1や13、23など)をすべて出力している。<br>部分文字列は連続していないといけないので、例えば13などが当てはまらない"
-},
-
-
-{
-  q: "次のコードを実行したときの出力は？<pre>vector&lt;int&gt; v = {1, 3, 5, 7, 9};\nint x = 6;\nauto it = lower_bound(v.begin(), v.end(), x);\ncout << *it << endl;</pre>",
-  options: [
-    "5",
-    "7",
-    "6",
-    "9"
-  ],
-  answer: 1,
-  explanation: "lower_boundはx以上の最初の要素を指す。<br>6以上なら7が最初にくるので7が出力される。"
-},
-
-{
-  q: "次のコードを実行したときの出力は？<pre>vector&lt;int&gt; a = {2, 4, 6, 8};\nvector&lt;int&gt; s(5);\nfor (int i = 0; i < 4; i++) s[i+1] = s[i] + a[i];\ncout << s[3] - s[1] << endl;</pre>",
-  options: [
-    "10",
-    "12",
-    "14",
-    "16"
-  ],
-  answer: 0,
-  explanation: "配列sは配列aの累積和である。具体的には、s = {0, 2, 6, 12, 20} となる。<br>s[3] = 12, s[1] = 2 より、<br>12 - 2 = 10。よって答えは10。"
-},
-
-{
-  q: "次のコードを実行したときの出力は？<pre>struct P {\n  int x, y;\n};\n\nint main() {\n  P p = {2, 5};\n  cout << p.x + p.y << endl;\n  return 0;\n}</pre>",
-  options: [
-    "2",
-    "5",
-    "7",
-    "エラーになる"
-  ],
-  answer: 2,
-  explanation: "構造体Pにはメンバ変数xとyがあり、p.x = 2、p.y = 5となっている。<br>coutでp.x + p.yを出力しているため、2 + 5 = 7が出力される。"
-},
-
-{
-  q: "次のコードを実行したとき、出力は？<pre>int a = 6;\nint b = 5;\ncout << (a & b) << endl;</pre>",
-  options: [
-    "4",
-    "5",
-    "6",
-    "7"
-  ],
-  answer: 0,
-  explanation: "6(110)と5(101)のANDを取ると100、つまり4になる。(bit演算)"
-}
-];
-
-document.addEventListener("DOMContentLoaded", () => {
-    const questionCountElement = document.getElementById("question-count");
-    if (questionCountElement) {
-      questionCountElement.textContent = `全${questions.length}問です。`;
-    }
-  });
-
-    function shuffle(array) {
-  for (let i = array.length - 1; i > 0; i--) {
-    const j = Math.floor(Math.random() * (i + 1));
-    [array[i], array[j]] = [array[j], array[i]];
+  window.quizConfig = {
+    RANKING_KEY: "cpp_select_quiz_ranking_hard", // ランキングのキー
+    selectionPageUrl: "C++.html", // 問題選択ページのURL
+    questions: [
+      {
+        q: `次のコードを実行したとき、何が出力されますか？<pre>string s = "123";
+for (int bit = 0; bit < (1 << 3); bit++) {
+  string t = "";
+  for (int i = 0; i < 3; i++) {
+    if (bit & (1 << i)) t += s[i];
   }
-}
+  cout << t << endl;
+}</pre>`,
+        options: [
+          "すべての部分文字列を出力している",
+          "すべての並び替え（順列）を出力している",
+          "すべての文字の組み合わせを出力している",
+          "何も出力しない"
+        ],
+        answer: 2,
+        explanation: "bit探索により、各文字を選ぶ・選ばないの全組合せ（部分集合）を列挙している。"
+      },
+      {
+        q: `次のコードを実行したときの出力は？<pre>vector&lt;int&gt; v = {1, 3, 5, 7, 9};
+int x = 6;
+auto it = lower_bound(v.begin(), v.end(), x);
+cout << *it << endl;</pre>`,
+        options: [
+          "5",
+          "7",
+          "6",
+          "9"
+        ],
+        answer: 1,
+        explanation: "lower_boundはx以上の最小の要素を指す。x=6に対して、最初に該当するのは7。"
+      },
+      {
+        q: `次のコードを実行したときの出力は？<pre>vector&lt;int&gt; a = {2, 4, 6, 8};
+vector&lt;int&gt; s(5);
+for (int i = 0; i < 4; i++) s[i+1] = s[i] + a[i];
+cout << s[3] - s[1] << endl;</pre>`,
+        options: [
+          "10",
+          "12",
+          "14",
+          "16"
+        ],
+        answer: 0,
+        explanation: "累積和を用いた計算。s[3] = 12, s[1] = 2 ⇒ 12 - 2 = 10"
+      },
+      {
+        q: `次のコードを実行したときの出力は？<pre>struct P {
+  int x, y;
+};
 
-
-    const backButtonHome = document.querySelector(".back-button");
-
-    let current = 0;
-    let score = 0;
-    let backClickCount = 0;
-
-    backButtonHome.addEventListener("click", function(e) {
-      e.preventDefault();
-      if (backClickCount === 0) {
-        alert("本当に戻りますか？もう一度クリックすると戻ります。");
-        backClickCount++;
-      } else {
-        window.location.href = "C++.html";
+int main() {
+  P p = {2, 5};
+  cout << p.x + p.y << endl;
+  return 0;
+}</pre>`,
+        options: [
+          "2",
+          "5",
+          "7",
+          "エラーになる"
+        ],
+        answer: 2,
+        explanation: "構造体メンバ x=2, y=5 → 合計 7 を出力。"
+      },
+      {
+        q: `次のコードを実行したとき、出力は？<pre>int a = 6;
+int b = 5;
+cout << (a & b) << endl;</pre>`,
+        options: [
+          "4",
+          "5",
+          "6",
+          "7"
+        ],
+        answer: 0,
+        explanation: "ビットごとのAND演算。6(110) & 5(101) = 4(100)。"
       }
-    });
-
-    const homeEl = document.getElementById("home");
-    const quizEl = document.getElementById("quiz");
-
-    function startQuiz() {
-      const startButton = homeEl.querySelector("button");
-      startButton.disabled = true;
-
-      const seStart = document.getElementById('se-start');
-      seStart.currentTime = 0;
-      seStart.play();
-      
-      const countdownOverlay = document.getElementById('countdown-overlay');
-      const countdownText = document.getElementById('countdown-text');
-      
-      countdownOverlay.style.display = 'flex';
-
-      let count = 3;
-      countdownText.textContent = count;
-
-      const countdownTimer = setInterval(() => {
-        count--;
-        if (count > 0) {
-          countdownText.textContent = count;
-        } else {
-          countdownText.textContent = 'START!';
-        }
-      }, 1000);
-
-      setTimeout(() => {
-        clearInterval(countdownTimer);
-        countdownOverlay.style.display = 'none';
-
-        if(bgmToggleBtn.textContent == "▶️ BGMを再生") {
-          document.getElementById('bgm').play();
-          bgmToggleBtn.textContent = '⏸️ BGMを停止';
-        }
-        shuffle(questions);
-        current = 0;
-        score = 0;
-        homeEl.style.display = "none";
-        quizEl.style.display = "block";
-        showQuestion(current);
-        startButton.disabled = false;
-      }, 3500);
-    }
-
-    function showQuestion(index) {
-      quizEl.innerHTML = "";
-      const q = questions[index];
-
-      const container = document.createElement("div");
-      container.className = "question";
-
-      const title = document.createElement("div");
-      title.innerHTML = `<strong>Q${index + 1}:</strong> ${q.q}`;
-      container.appendChild(title);
-
-      const options = document.createElement("div");
-      options.className = "options";
-
-      q.options.forEach((opt, i) => {
-        const label = document.createElement("label");
-        const input = document.createElement("input");
-        input.type = "radio";
-        input.name = `q${index}`;
-        input.value = i;
-        label.appendChild(input);
-        label.appendChild(document.createTextNode(" " + opt));
-        options.appendChild(label);
-      });
-
-      container.appendChild(options);
-
-      const button = document.createElement("button");
-      button.textContent = "解答";
-
-      const result = document.createElement("div");
-      result.className = "result";
-
-      const explanation = document.createElement("div");
-      explanation.className = "explanation";
-
-      const backButton = document.createElement("a");
-      backButton.href = "C++.html";
-      backButton.className = "home-button";
-      backButton.textContent = "問題選択に戻る";
-      backButton.addEventListener("click", function(e) {
-        e.preventDefault();
-        if (backClickCount === 0) {
-          alert("本当に戻りますか？もう一度クリックすると戻ります。");
-          backClickCount++;
-        } else {
-          window.location.href = "C++.html";
-        }
-      });
-
-      const nextButton = document.createElement("button");
-      nextButton.textContent = "次へ";
-      nextButton.style.display = "none";
-      nextButton.style.margin = "20px auto";
-
-      nextButton.onclick = () => {
-        setTimeout(() => {
-        current++;
-        backClickCount = 0;
-        if (current < questions.length) {
-          showQuestion(current);
-        } else {
-          const seEnd = document.getElementById('se-end');
-          seEnd.currentTime = 0;
-          seEnd.play();
-          backClickCount = 1;
-           quizEl.innerHTML = "";
-           const container = document.createElement("div");
-          quizEl.innerHTML = `<h2>お疲れ様でした！全${questions.length}問が終了しました。<br><br>${score}問正解しました！</h2>`;
-          const today = new Date().toLocaleString();
-          const newRecord = { date: today, score: score };
-
-          let ranking = JSON.parse(localStorage.getItem(RANKING_KEY) || "[]");
-          ranking.push(newRecord);
-
-          ranking.sort((a, b) => b.score - a.score);
-          ranking = ranking.slice(0, 5);
-
-          localStorage.setItem(RANKING_KEY, JSON.stringify(ranking));
-
-          const rankingList = document.createElement("div");
-          rankingList.innerHTML = "<h3>🏆正解数ランキング(ローカル)</h3>";
-
-          ranking.forEach((r, i) => {
-            rankingList.innerHTML += `${i + 1}位: ${r.score}点（${r.date}）<br>`;
-          });
-
-          const retryBtn = document.createElement("button");
-          retryBtn.textContent = "最初からやり直す";
-          retryBtn.onclick = () => {
-          startQuiz();
-        };
-
-
-          let resetClickCount = 0;
-
-          const resetBtn = document.createElement("button");
-          resetBtn.textContent = "ランキングをリセット";
-          resetBtn.onclick = () => {
-            if (resetClickCount === 0) {
-              alert("本当にリセットしますか？もう一度クリックするとリセットされます。");
-              resetClickCount++;
-            } else {
-              localStorage.removeItem(RANKING_KEY);
-              location.reload();
-            }
-          };
-            quizEl.appendChild(backButton);
-            container.appendChild(retryBtn);
-            container.appendChild(rankingList);
-            container.appendChild(resetBtn);
-            quizEl.appendChild(container);
-        }
-        }, 100);
-      };
-
-      const nextButtonWrapper = document.createElement("div");
-      nextButtonWrapper.style.textAlign = "center";
-      nextButtonWrapper.appendChild(nextButton);
-
-      button.onclick = () => {
-        const selected = container.querySelector("input:checked");
-        if (!selected) {
-          result.textContent = "選択肢を選んでください。";
-          result.style.color = "black";
-          return;
-        }
-
-        const isCorrect = parseInt(selected.value) === q.answer;
-        const seCorrect = document.getElementById("se-correct");
-        const seWrong = document.getElementById("se-wrong");
-
-        if (isCorrect) {
-          result.classList.add("correct");
-          score++;
-          seCorrect.currentTime = 0;
-          seCorrect.play();
-        } else {
-          result.classList.add("wrong");
-          seWrong.currentTime = 0;
-          seWrong.play();
-        }
-
-        result.textContent = isCorrect ? "○ 正解です！" : `× 不正解です。正解：${q.options[q.answer]}`;
-        result.style.color = isCorrect ? "green" : "red";
-        explanation.innerHTML = q.explanation;
-
-        const labels = container.querySelectorAll("label");
-        labels.forEach(label => label.classList.add("disabled"));
-
-        button.style.display = "none";
-        nextButton.style.display = "inline-block";
-      };
-
-      container.appendChild(button);
-      container.appendChild(result);
-      container.appendChild(explanation);
-      container.appendChild(nextButtonWrapper);
-      container.appendChild(backButton);
-
-      quizEl.appendChild(container);
-    }
-
-    const bgm = document.getElementById('bgm');
-const bgmToggleBtn = document.getElementById('bgm-toggle');
-
-bgmToggleBtn.addEventListener('click', () => {
-  if (!bgm.paused) {
-    bgm.pause();
-    bgmToggleBtn.textContent = '▶️ BGMを再開';
-  } else {
-    bgm.play();
-    bgmToggleBtn.textContent = '⏸️ BGMを停止';
-  }
-});
-
-  </script>
+    ]
+  };
+</script>
+<script src="../keep_out/selectQuestion.js" defer></script>
 </body>
 </html>

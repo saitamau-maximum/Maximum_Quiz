@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>C++ 4択問題 初級編</title>
-  <link rel="stylesheet" href="../keep_out/style.css">
+  <link rel="stylesheet" href="../keep_out/selectQuestion.css">
   <style>
     .options label.disabled {
       pointer-events: none;
@@ -33,8 +33,10 @@
   </div>
 
   <script>
-    const RANKING_KEY = "cpp_select_quiz_ranking_easy";
-    const questions = [
+  window.quizConfig = {
+    RANKING_KEY: "cpp_select_quiz_ranking_easy", // ランキングのキー
+    selectionPageUrl: "C++.html", // 問題選択ページのURL
+    questions: [
       {
         q: "C++でのコメントアウトは次のうちどれか",
         options: [
@@ -46,7 +48,6 @@
         answer: 0,
         explanation: "//と書くとその行はコメントとしてみなされる。<br>/*と書くと、*/と書くまでコメントとみなされる。"
       },
-
       {
         q: "以下のうち、正しい変数の宣言はどれ？",
         options: [
@@ -56,9 +57,8 @@
           "char a == 'c';"
         ],
         answer: 1,
-        explanation: "変数名は数字から始められないので1つめは不適。<br>3つめはイコールが要らない。<br>初期化したいなら string name = &quot;Yamadastring&quot;のように書く<br>4つめは == でなく = を使う。"
+        explanation: "変数名は数字から始められないので1つめは不適。<br>3つめはイコールが要らない。<br>初期化したいなら string name = \"Yamadastring\" のように書く。<br>4つめは == でなく = を使う。"
       },
-
       {
         q: `<pre>次のコードでコンパイルエラーが出る理由は？
 
@@ -66,18 +66,17 @@ int main() {
     int class = 5;
     cout << class << endl;
     return 0;
-    }
-    </pre>`,
-  options: [
-    "クラスが未定義だから",
-    "class は予約語だから",
-    "int に初期化が必要だから",
-    "main関数の戻り値が void じゃないから"
-  ],
-  answer: 1,
-  explanation: "class は C++ の予約語。変数名や関数名に使えない。"
-},
-
+}
+</pre>`,
+        options: [
+          "クラスが未定義だから",
+          "class は予約語だから",
+          "int に初期化が必要だから",
+          "main関数の戻り値が void じゃないから"
+        ],
+        answer: 1,
+        explanation: "class は C++ の予約語。変数名や関数名に使えない。"
+      },
       {
         q: "using namespace std; は何のために使う？",
         options: [
@@ -89,7 +88,6 @@ int main() {
         answer: 1,
         explanation: "std::cout を cout と書けるようになります。"
       },
-
       {
         q: "以下のコードの出力は？<pre>int a = 10;\nint b = 3;\ncout << a / b << endl;</pre>",
         options: [
@@ -99,9 +97,8 @@ int main() {
           "エラーになる"
         ],
         answer: 1,
-        explanation: "int同士の割り算は整数になります。10 ÷ 3 = 3."
+        explanation: "int同士の割り算は整数になります。10 ÷ 3 = 3。"
       },
-
       {
         q: "以下のコードの出力は？<pre>double x = 5.9;\nint y = (int)x;\ncout << y << endl;</pre>",
         options: [
@@ -111,9 +108,8 @@ int main() {
           "エラーになる"
         ],
         answer: 1,
-        explanation: "(int)x は小数点以下切り捨て → 5."
+        explanation: "(int)x は小数点以下切り捨て → 5。"
       },
-
       {
         q: "以下のコードの出力は？<pre>char c = 'A';\ncout << (int)c << endl;</pre>",
         options: [
@@ -123,9 +119,8 @@ int main() {
           "何も表示されない"
         ],
         answer: 1,
-        explanation: "'A' の ASCIIコードは 65 であるため、<br>int型のAを出力すると65が出力される。"
+        explanation: "'A' の ASCIIコードは 65。"
       },
-
       {
         q: "以下のコードの出力は？<pre>int x = 66;\ncout << (char)x << endl;</pre>",
         options: [
@@ -135,9 +130,8 @@ int main() {
           "何も表示されない"
         ],
         answer: 1,
-        explanation: "66番目のASCII文字は Bである。"
+        explanation: "66番目のASCII文字は B。"
       },
-
       {
         q: "以下のコードの出力は？<pre>bool b = true;\ncout << (int)b << endl;</pre>",
         options: [
@@ -147,9 +141,8 @@ int main() {
           "エラーになる"
         ],
         answer: 1,
-        explanation: "true は 1、false は 0 に変換される。"
+        explanation: "true は 1 に変換される。"
       },
-
       {
         q: "以下のコードの出力は？<pre>int x = 0;\nbool b = (bool)x;\ncout << b << endl;</pre>",
         options: [
@@ -159,9 +152,8 @@ int main() {
           "エラーになる"
         ],
         answer: 0,
-        explanation: "0 は false 扱い、よって b = false<br>C++のcoutはbool型を出力するとき、trueは1、falseは0に変換して出力する。<br>もしfalseと出力したい場合cout << boolalpha << b << endl;と書く。"
+        explanation: "0 は false 扱い。cout で出力されると 0。"
       },
-
       {
         q: "以下のコードを実行したときの出力は？<pre>int a = 100000;\nint b = 100000;\nint c = a * b;\ncout << c << endl;</pre>",
         options: [
@@ -171,9 +163,8 @@ int main() {
           "エラーになる"
         ],
         answer: 2,
-        explanation: "intの範囲（約2e9）を超えるので、オーバーフローします。"
+        explanation: "int の範囲を超えるのでオーバーフロー。"
       },
-
       {
         q: "以下のコードを実行したとき、何が起きる？<pre>vector&lt;int&gt; v = {1, 2, 3};\ncout << v[5] << endl;</pre>",
         options: [
@@ -183,9 +174,8 @@ int main() {
           "エラーでコンパイルできない"
         ],
         answer: 2,
-        explanation: "存在しないインデックスへのアクセス → 未定義動作"
+        explanation: "存在しないインデックスへのアクセスは未定義動作。"
       },
-
       {
         q: "以下のコードの出力は？<pre>int x;\ncout << x << endl;</pre>",
         options: [
@@ -195,294 +185,33 @@ int main() {
           "何も表示されない"
         ],
         answer: 2,
-        explanation: "ローカル変数は初期化されないので、変な値が表示されます。"
+        explanation: "ローカル変数は初期化されない → 変な値が出る。"
       },
-
       {
-    q: "次のコードを実行したときの出力は？<pre>char a = 'a';\nchar b = 'b';\ncout << (a == b) << endl;</pre>",
-    options: [
-      "0",
-      "1",
-      "true",
-      "false"
-    ],
-    answer: 0,
-    explanation: "charやstringにも演算子が使える。<br>a と b は異なる文字なので比較結果は false (0) になる。"
-  },
-
-  {
-    q: "次のコードを実行したときの出力は？<pre>string str1 = &quot;Hello&quot;;\nstring str2 = &quot; World&quot;;\ncout << str1 + str2 << endl;</pre>",
-    options: [
-      "HelloWorld",
-      "Hello World",
-      "エラーになる",
-      "Hello+World"
-    ],
-    answer: 1,
-    explanation: "string同士の + 演算子で結合され、結果は 'Hello World' になる。"
-  }
-    ];
-
-    document.addEventListener("DOMContentLoaded", () => {
-    const questionCountElement = document.getElementById("question-count");
-    if (questionCountElement) {
-      questionCountElement.textContent = `全${questions.length}問です。`;
-    }
-  });
-
-    function shuffle(array) {
-  for (let i = array.length - 1; i > 0; i--) {
-    const j = Math.floor(Math.random() * (i + 1));
-    [array[i], array[j]] = [array[j], array[i]];
-  }
-}
-
-
-    let current = 0;
-    let score = 0;
-    let backClickCount = 0;
-
-const backButtonHome = document.querySelector(".back-button");
-if (backButtonHome) {
-  backButtonHome.addEventListener("click", function(e) {
-    e.preventDefault();
-    if (backClickCount === 0) {
-      alert("本当に戻りますか？もう一度クリックすると戻ります。");
-      backClickCount++;
-    } else {
-      window.location.href = "C++.html";
-    }
-  });
-}
-
-
-
-    const homeEl = document.getElementById("home");
-    const quizEl = document.getElementById("quiz");
-
-    function startQuiz() {
-      const startButton = homeEl.querySelector("button");
-      startButton.disabled = true;
-
-      const seStart = document.getElementById('se-start');
-      seStart.currentTime = 0;
-      seStart.play();
-      
-      const countdownOverlay = document.getElementById('countdown-overlay');
-      const countdownText = document.getElementById('countdown-text');
-      
-      countdownOverlay.style.display = 'flex';
-
-      let count = 3;
-      countdownText.textContent = count;
-
-      const countdownTimer = setInterval(() => {
-        count--;
-        if (count > 0) {
-          countdownText.textContent = count;
-        } else {
-          countdownText.textContent = 'START!';
-        }
-      }, 1000);
-
-      setTimeout(() => {
-        clearInterval(countdownTimer);
-        countdownOverlay.style.display = 'none';
-
-        if(bgmToggleBtn.textContent == "▶️ BGMを再生") {
-          document.getElementById('bgm').play();
-          bgmToggleBtn.textContent = '⏸️ BGMを停止';
-        }
-        shuffle(questions);
-        current = 0;
-        score = 0;
-        homeEl.style.display = "none";
-        quizEl.style.display = "block";
-        showQuestion(current);
-        startButton.disabled = false;
-      }, 3500);
-    }
-
-    function showQuestion(index) {
-      quizEl.innerHTML = "";
-      const q = questions[index];
-
-      const container = document.createElement("div");
-      container.className = "question";
-
-      const title = document.createElement("div");
-      title.innerHTML = `<strong>Q${index + 1}:</strong> ${q.q}`;
-      container.appendChild(title);
-
-      const options = document.createElement("div");
-      options.className = "options";
-
-      q.options.forEach((opt, i) => {
-        const label = document.createElement("label");
-        const input = document.createElement("input");
-        input.type = "radio";
-        input.name = `q${index}`;
-        input.value = i;
-        label.appendChild(input);
-        label.appendChild(document.createTextNode(" " + opt));
-        options.appendChild(label);
-      });
-
-      container.appendChild(options);
-
-      const button = document.createElement("button");
-      button.textContent = "解答";
-
-      const result = document.createElement("div");
-      result.className = "result";
-
-      const explanation = document.createElement("div");
-      explanation.className = "explanation";
-
-      const backButton = document.createElement("a");
-      backButton.href = "C++.html";
-      backButton.className = "home-button";
-      backButton.textContent = "問題選択に戻る";
-
-      backButton.addEventListener("click", function(e) {
-        e.preventDefault();
-        if (backClickCount === 0) {
-          alert("本当に戻りますか？もう一度クリックすると戻ります。");
-          backClickCount++;
-        } else {
-          window.location.href = "C++.html";
-        }
-      });
-
-      const nextButton = document.createElement("button");
-      nextButton.textContent = "次へ";
-      nextButton.style.display = "none";
-      nextButton.style.margin = "20px auto";
-      
-      nextButton.onclick = () => {
-    setTimeout(() => {
-    current++;
-    backClickCount = 0;
-    if (current < questions.length) {
-      showQuestion(current);
-    } else {
-    const seEnd = document.getElementById('se-end');
-    seEnd.currentTime = 0;
-    seEnd.play();
-    backClickCount = 1;
-    quizEl.innerHTML = "";
-    const container = document.createElement("div");
-    quizEl.innerHTML = `<h2>お疲れ様でした！全${questions.length}問が終了しました。<br><br>${score}問正解しました！</h2>`;
-    const today = new Date().toLocaleString();
-    const newRecord = { date: today, score: score };
-
-    let ranking = JSON.parse(localStorage.getItem(RANKING_KEY) || "[]");
-    ranking.push(newRecord);
-
-    ranking.sort((a, b) => b.score - a.score);
-    ranking = ranking.slice(0, 5);
-
-    localStorage.setItem(RANKING_KEY, JSON.stringify(ranking));
-
-    const rankingList = document.createElement("div");
-    rankingList.innerHTML = "<h3>🏆正解数ランキング(ローカル)</h3>";
-
-    ranking.forEach((r, i) => {
-      rankingList.innerHTML += `${i + 1}位: ${r.score}点（${r.date}）<br>`;
-    });
-
-    const retryBtn = document.createElement("button");
-    retryBtn.textContent = "最初からやり直す";
-    retryBtn.onclick = () => {
-    startQuiz();
+        q: "次のコードを実行したときの出力は？<pre>char a = 'a';\nchar b = 'b';\ncout << (a == b) << endl;</pre>",
+        options: [
+          "0",
+          "1",
+          "true",
+          "false"
+        ],
+        answer: 0,
+        explanation: "a と b は異なるので比較は false（0）。"
+      },
+      {
+        q: "次のコードを実行したときの出力は？<pre>string str1 = \"Hello\";\nstring str2 = \" World\";\ncout << str1 + str2 << endl;</pre>",
+        options: [
+          "HelloWorld",
+          "Hello World",
+          "エラーになる",
+          "Hello+World"
+        ],
+        answer: 1,
+        explanation: "string 同士の + で結合 → Hello World。"
+      }
+    ]
   };
-
-          let resetClickCount = 0;
-
-          const resetBtn = document.createElement("button");
-          resetBtn.textContent = "ランキングをリセット";
-          resetBtn.onclick = () => {
-            if (resetClickCount === 0) {
-              alert("本当にリセットしますか？もう一度クリックするとリセットされます。");
-              resetClickCount++;
-            } else {
-              localStorage.removeItem(RANKING_KEY);
-              location.reload();
-            }
-          };
-      quizEl.appendChild(backButton);
-      container.appendChild(retryBtn);
-      container.appendChild(rankingList);
-      container.appendChild(resetBtn);
-      quizEl.appendChild(container);
-    }
-  }, 100);
-};
-
-
-
-
-      const nextButtonWrapper = document.createElement("div");
-      nextButtonWrapper.style.textAlign = "center";
-      nextButtonWrapper.appendChild(nextButton);
-
-      button.onclick = () => {
-        const selected = container.querySelector("input:checked");
-        if (!selected) {
-          result.textContent = "選択肢を選んでください。";
-          result.style.color = "black";
-          return;
-        }
-
-        const isCorrect = parseInt(selected.value) === q.answer;
-        const seCorrect = document.getElementById("se-correct");
-        const seWrong = document.getElementById("se-wrong");
-
-        if (isCorrect) {
-          result.classList.add("correct");
-          score++;
-          seCorrect.currentTime = 0;
-          seCorrect.play();
-        } else {
-          result.classList.add("wrong");
-          seWrong.currentTime = 0;
-          seWrong.play();
-        }
-
-        result.textContent = isCorrect ? "○ 正解です！" : `× 不正解です。正解：${q.options[q.answer]}`;
-        result.style.color = isCorrect ? "green" : "red";
-        explanation.innerHTML = q.explanation;
-
-
-        const labels = container.querySelectorAll("label");
-        labels.forEach(label => label.classList.add("disabled"));
-
-        button.style.display = "none";
-        nextButton.style.display = "inline-block";
-      };
-
-      container.appendChild(button);
-      container.appendChild(result);
-      container.appendChild(explanation);
-      container.appendChild(nextButtonWrapper);
-      container.appendChild(backButton);
-
-      quizEl.appendChild(container);
-    }
-
-  const bgm = document.getElementById('bgm');
-  const bgmToggleBtn = document.getElementById('bgm-toggle');
-
-  bgmToggleBtn.addEventListener('click', () => {
-    if (!bgm.paused) {
-      bgm.pause();
-      bgmToggleBtn.textContent = '▶️ BGMを再開';
-    } else {
-      bgm.play();
-      bgmToggleBtn.textContent = '⏸️ BGMを停止';
-  }
-});
-
   </script>
+  <script src="../keep_out/selectQuestion.js" defer></script>
 </body>
 </html>
