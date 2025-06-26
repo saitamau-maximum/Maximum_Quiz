@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>C++ 4択問題 中級編</title>
-  <link rel="stylesheet" href="../keep_out/style.css" />
+  <link rel="stylesheet" href="../keep_out/selectQuestion.css" />
   <style>
     .options label.disabled {
       pointer-events: none;
@@ -33,387 +33,123 @@
   </div>
 
   <script>
-    const RANKING_KEY = "cpp_select_quiz_ranking_normal";
-    const questions = [
-      {
-        q: `以下のコードの出力は？<pre>int a = 10;\nint b = 3;\ncout << double(a / b) << endl;</pre>`,
-        options: [
-          "A. 3.33333",
-          "B. 3",
-          "C. 3.0",
-          "D. エラーになる"
-        ],
-        answer: 2,
-        explanation: "a / b はどっちも int だから 整数の割り算 → 結果は 3。<br>それを double(3) にするので 3.0 が出力される。"
-      },
-
-      {
-        q: `以下のコードの出力は？<pre>int a = 10;\nint b = 3;\ncout << (double)a / b << endl;</pre>`,
-        options: [
-          "A. 3.33333",
-          "B. 3",
-          "C. 3.0",
-          "D. エラーになる"
-        ],
-        answer: 0,
-        explanation: "(double)a で先に 10 が 10.0 になる <br>→ 10.0 / 3 は 実数の割り算になるので 3.33333...。"
-      },
-
-      {
-        q: `以下のコードの出力は？<pre>int x = 10;\n{\n  int x = 5;\n  cout << x << " ";\n}\ncout << x << endl;</pre>`,
-        options: [
-          "A. 5 5",
-          "B. 5 10",
-          "C. 10 5",
-          "D. エラーになる"
-        ],
-        answer: 1,
-        explanation: "ブロック内の int x = 5; は外側の x を隠してる（シャドウイング）<br> → ブロック内: 5、ブロック外: 10。"
-      },
-
-      {
-        q: `このコードを実行しても x の値が変わらないのはなぜ？<pre>void addTen(int x) {\n  x += 10;\n}\n\nint main() {\n  int x = 5;\n  addTen(x);\n  cout << x << endl;\n  return 0;\n}</pre>`,
-        options: [
-          "A. 関数が呼ばれていないから",
-          "B. 値渡しなので x の変更が反映されない",
-          "C. 10 を足す処理が間違っている",
-          "D. cout の位置が悪い"
-        ],
-        answer: 1,
-        explanation: "関数引数に int x と書くと、元の値のコピーになる（値渡し）<br> → 関数内で x を変えても、main の x には影響なし。"
-      },
-
-      {
-        q: "以下のコードの出力は？<pre>int i = 0;\nwhile (i != 10) {\n  i += 3;\n  cout << i << endl;\n}</pre>",
-        options: [
-          "A. TLEになる（無限ループ）",
-          "B. エラーになる",
-          "C. 10以下の3の倍数が表示される",
-          "D. 0 ~ 10の全ての数字が表示される"
-        ],
-        answer: 0,
-        explanation: "このコードではwhile文から抜けることができないので、無限ループとなりTLEする。"
-      },
-
-      {
-        q: "このコードが無限ループになる理由は？<pre>int i = 0;\nwhile (i != 10) {\n  i += 3;\n  cout << i << endl;\n}</pre>",
-        options: [
-          "A. i は10にならないから",
-          "B. while文の中にbreakがないから",
-          "C. += の書き方が間違っているから",
-          "D. ループの中で i が減少してるから"
-        ],
-        answer: 0,
-        explanation: "i は 0 → 3 → 6 → 9 → 12 というふうに 10 を飛び越えてしまうため、<br>i != 10 を永遠に満たしてしまう。<br>while()と書いていないのでbreakは必須ではない。"
-      },
-
-      {
-        q: "次のコードを実行したとき、何回 '1' と出力されるか？<pre>int main() {\n  for (int i = 0; i < 3; i++) {\n    for (int j = 0; j < 3; j++) {\n      if (i == j) break;\n      cout << 1 << endl;\n    }\n  }\n  return 0;\n}</pre>",
-        options: [
-          "3回",
-          "4回",
-          "5回",
-          "6回"
-        ],
-        answer: 0,
-        explanation: "内側のループは i == j の時に break で抜けるため、i < jになることはない。<br>よって(i, j) = (1, 0) 、(2, 0) 、(2, 1)のときに 1 が出力される。<br>したがって出力される回数は3回。"
-      },
-
+    window.quizConfig = {
+      RANKING_KEY: "cpp_select_quiz_ranking_normal",
+      selectionPageUrl: "C++.html",
+      questions: [
+        {
+          q: `以下のコードの出力は？<pre>int a = 10;
+int b = 3;
+cout << double(a / b) << endl;</pre>`,
+          options: ["A. 3.33333", "B. 3", "C. 3.0", "D. エラーになる"],
+          answer: 2,
+          explanation: "a / b は int同士なので 3 になる。double(3) → 3.0。"
+        },
+        {
+          q: `以下のコードの出力は？<pre>int a = 10;
+int b = 3;
+cout << (double)a / b << endl;</pre>`,
+          options: ["A. 3.33333", "B. 3", "C. 3.0", "D. エラーになる"],
+          answer: 0,
+          explanation: "a を先に double に変換 → 実数除算 → 約 3.3333。"
+        },
+        {
+          q: `以下のコードの出力は？<pre>int x = 10;
 {
-  q: "次のコードを実行したときの出力は？<pre>void func(int n) {\n  if (n == 0) return;\n  cout << n << ' ';\n  func(n - 1);\n}\nint main() {\n  func(3);\n  return 0;\n}</pre>",
-  options: [
-    "3 2 1",
-    "3 2 1 0",
-    "1 2 3",
-    "0 1 2 3"
-  ],
-  answer: 0,
-  explanation: "再帰関数 func(3) は n が0になるまで再帰呼び出しを行い、<br>呼び出しの順番は 3 2 1 となる。<br>最後に n == 0 で終了するので、3 2 1 が出力される。"
-},
-
-{
-  q: "次のコードを実行したときの出力は？<pre>int a = 5;\nint& b = a;\na = 10;\ncout << b << endl;</pre>",
-  options: [
-    "5",
-    "10",
-    "エラーになる",
-    "未定義"
-  ],
-  answer: 1,
-  explanation: "bはaの参照であるため、aを変更するとbも同じ値を参照することになる。<br>したがって、bの値は10になる。"
-},
-
-{
-  q: "次のコードを実行したときの出力は？<pre>int a = 5;\nint& b = a;\nint& c = b;\na = 10;\ncout << c << endl;</pre>",
-  options: [
-    "5",
-    "10",
-    "エラーになる",
-    "未定義"
-  ],
-  answer: 1,
-  explanation: "bはaの参照で、cはbの参照である。したがって、aを10に変更すると、<br>bが10となる。bが10になったのでcも10となる。"
-},
-];
-
-document.addEventListener("DOMContentLoaded", () => {
-    const questionCountElement = document.getElementById("question-count");
-    if (questionCountElement) {
-      questionCountElement.textContent = `全${questions.length}問です。`;
-    }
-  });
-
-    function shuffle(array) {
-  for (let i = array.length - 1; i > 0; i--) {
-    const j = Math.floor(Math.random() * (i + 1));
-    [array[i], array[j]] = [array[j], array[i]];
-  }
+  int x = 5;
+  cout << x << " ";
+}
+cout << x << endl;</pre>`,
+          options: ["A. 5 5", "B. 5 10", "C. 10 5", "D. エラーになる"],
+          answer: 1,
+          explanation: "スコープ内での変数 x はローカルで外側の x を隠す（シャドウイング）。"
+        },
+        {
+          q: `このコードを実行しても x の値が変わらないのはなぜ？<pre>void addTen(int x) {
+  x += 10;
 }
 
-
-    let current = 0;
-    let score = 0;
-    let backClickCount = 0;
-
-const backButtonHome = document.querySelector(".back-button");
-if (backButtonHome) {
-  backButtonHome.addEventListener("click", function(e) {
-    e.preventDefault();
-    if (backClickCount === 0) {
-      alert("本当に戻りますか？もう一度クリックすると戻ります。");
-      backClickCount++;
-    } else {
-      window.location.href = "C++.html";
+int main() {
+  int x = 5;
+  addTen(x);
+  cout << x << endl;
+  return 0;
+}</pre>`,
+          options: ["A. 関数が呼ばれていないから", "B. 値渡しなので x の変更が反映されない", "C. 10 を足す処理が間違っている", "D. cout の位置が悪い"],
+          answer: 1,
+          explanation: "int x はコピー渡し（値渡し）なので、main 内の x には影響しない。"
+        },
+        {
+          q: `以下のコードの出力は？<pre>int i = 0;
+while (i != 10) {
+  i += 3;
+  cout << i << endl;
+}</pre>`,
+          options: ["A. TLEになる（無限ループ）", "B. エラーになる", "C. 10以下の3の倍数が表示される", "D. 0 ~ 10の全ての数字が表示される"],
+          answer: 0,
+          explanation: "i は 0→3→6→9→12 となり 10 を飛び越える。i != 10 が常に真になる。"
+        },
+        {
+          q: `このコードが無限ループになる理由は？<pre>int i = 0;
+while (i != 10) {
+  i += 3;
+  cout << i << endl;
+}</pre>`,
+          options: ["A. i は10にならないから", "B. while文の中にbreakがないから", "C. += の書き方が間違っているから", "D. ループの中で i が減少してるから"],
+          answer: 0,
+          explanation: "i は 10 をスキップするので終了条件に達しない。"
+        },
+        {
+          q: `次のコードを実行したとき、何回 '1' と出力されるか？<pre>int main() {
+  for (int i = 0; i < 3; i++) {
+    for (int j = 0; j < 3; j++) {
+      if (i == j) break;
+      cout << 1 << endl;
     }
-  });
-}
-
-
-    
-
-    const homeEl = document.getElementById("home");
-    const quizEl = document.getElementById("quiz");
-
-    function startQuiz() {
-      const startButton = homeEl.querySelector("button");
-      startButton.disabled = true;
-
-      const seStart = document.getElementById('se-start');
-      seStart.currentTime = 0;
-      seStart.play();
-      
-      const countdownOverlay = document.getElementById('countdown-overlay');
-      const countdownText = document.getElementById('countdown-text');
-      
-      countdownOverlay.style.display = 'flex';
-
-      let count = 3;
-      countdownText.textContent = count;
-
-      const countdownTimer = setInterval(() => {
-        count--;
-        if (count > 0) {
-          countdownText.textContent = count;
-        } else {
-          countdownText.textContent = 'START!';
-        }
-      }, 1000);
-
-      setTimeout(() => {
-        clearInterval(countdownTimer);
-        countdownOverlay.style.display = 'none';
-
-        if(bgmToggleBtn.textContent == "▶️ BGMを再生") {
-          document.getElementById('bgm').play();
-          bgmToggleBtn.textContent = '⏸️ BGMを停止';
-        }
-        shuffle(questions);
-        current = 0;
-        score = 0;
-        homeEl.style.display = "none";
-        quizEl.style.display = "block";
-        showQuestion(current);
-        startButton.disabled = false;
-      }, 3500);
-    }
-
-    function showQuestion(index) {
-      quizEl.innerHTML = "";
-      const q = questions[index];
-
-      const container = document.createElement("div");
-      container.className = "question";
-
-      const title = document.createElement("div");
-      title.innerHTML = `<strong>Q${index + 1}:</strong> ${q.q}`;
-      container.appendChild(title);
-
-      const options = document.createElement("div");
-      options.className = "options";
-
-      q.options.forEach((opt, i) => {
-        const label = document.createElement("label");
-        const input = document.createElement("input");
-        input.type = "radio";
-        input.name = `q${index}`;
-        input.value = i;
-        label.appendChild(input);
-        label.appendChild(document.createTextNode(" " + opt));
-        options.appendChild(label);
-      });
-
-      container.appendChild(options);
-
-      const button = document.createElement("button");
-      button.textContent = "解答";
-
-      const result = document.createElement("div");
-      result.className = "result";
-
-      const explanation = document.createElement("div");
-      explanation.className = "explanation";
-
-      const backButton = document.createElement("a");
-      backButton.href = "C++.html";
-      backButton.className = "home-button";
-      backButton.textContent = "問題選択に戻る";
-  backButton.addEventListener("click", function(e) {
-    e.preventDefault();
-    if (backClickCount === 0) {
-      alert("本当に戻りますか？もう一度クリックすると戻ります。");
-      backClickCount++;
-    } else {
-      window.location.href = "C++.html";
-    }
-  });
-
-
-      const nextButton = document.createElement("button");
-      nextButton.textContent = "次へ";
-      nextButton.style.display = "none";
-      nextButton.style.margin = "20px auto";
-
-      nextButton.onclick = () => {
-        setTimeout(() => {
-        current++;
-        backClickCount = 0;
-        if (current < questions.length) {
-          showQuestion(current);
-        } else {
-          const seEnd = document.getElementById('se-end');
-          seEnd.currentTime = 0;
-          seEnd.play();
-          backClickCount = 1;
-          quizEl.innerHTML = "";
-          const container = document.createElement("div");
-          quizEl.innerHTML = `<h2>お疲れ様でした！全${questions.length}問が終了しました。<br><br>${score}問正解しました！</h2>`;
-          const today = new Date().toLocaleString();
-          const newRecord = { date: today, score: score };
-
-          let ranking = JSON.parse(localStorage.getItem(RANKING_KEY) || "[]");
-          ranking.push(newRecord);
-
-          ranking.sort((a, b) => b.score - a.score);
-          ranking = ranking.slice(0, 5);
-
-          localStorage.setItem(RANKING_KEY, JSON.stringify(ranking));
-
-          const rankingList = document.createElement("div");
-          rankingList.innerHTML = "<h3>🏆正解数ランキング(ローカル)</h3>";
-
-          ranking.forEach((r, i) => {
-            rankingList.innerHTML += `${i + 1}位: ${r.score}点（${r.date}）<br>`;
-          });
-
-          const retryBtn = document.createElement("button");
-          retryBtn.textContent = "最初からやり直す";
-          retryBtn.onclick = () => {
-          startQuiz();
-        };
-
-
-          let resetClickCount = 0;
-
-          const resetBtn = document.createElement("button");
-          resetBtn.textContent = "ランキングをリセット";
-          resetBtn.onclick = () => {
-            if (resetClickCount === 0) {
-              alert("本当にリセットしますか？もう一度クリックするとリセットされます。");
-              resetClickCount++;
-            } else {
-              localStorage.removeItem(RANKING_KEY);
-              location.reload();
-            }
-          };
-            quizEl.appendChild(backButton);
-            container.appendChild(retryBtn);
-            container.appendChild(rankingList);
-            container.appendChild(resetBtn);
-            quizEl.appendChild(container);
-          }
-        }, 100);
-      };
-
-      const nextButtonWrapper = document.createElement("div");
-      nextButtonWrapper.style.textAlign = "center";
-      nextButtonWrapper.appendChild(nextButton);
-
-      button.onclick = () => {
-        const selected = container.querySelector("input:checked");
-        if (!selected) {
-          result.textContent = "選択肢を選んでください。";
-          result.style.color = "black";
-          return;
-        }
-
-        const isCorrect = parseInt(selected.value) === q.answer;
-        const seCorrect = document.getElementById("se-correct");
-        const seWrong = document.getElementById("se-wrong");
-
-        if (isCorrect) {
-          result.classList.add("correct");
-          score++;
-          seCorrect.currentTime = 0;
-          seCorrect.play();
-        } else {
-          result.classList.add("wrong");
-          seWrong.currentTime = 0;
-          seWrong.play();
-      }
-
-        result.textContent = isCorrect ? "○ 正解です！" : `× 不正解です。正解：${q.options[q.answer]}`;
-        result.style.color = isCorrect ? "green" : "red";
-        explanation.innerHTML = q.explanation;
-
-        const labels = container.querySelectorAll("label");
-        labels.forEach(label => label.classList.add("disabled"));
-
-        button.style.display = "none";
-        nextButton.style.display = "inline-block";
-      };
-
-      container.appendChild(button);
-      container.appendChild(result);
-      container.appendChild(explanation);
-      container.appendChild(nextButtonWrapper);
-      container.appendChild(backButton);
-
-      quizEl.appendChild(container);
-    }
-
-  const bgm = document.getElementById('bgm');
-  const bgmToggleBtn = document.getElementById('bgm-toggle');
-
-  bgmToggleBtn.addEventListener('click', () => {
-    if (!bgm.paused) {
-      bgm.pause();
-      bgmToggleBtn.textContent = '▶️ BGMを再開';
-    } else {
-      bgm.play();
-      bgmToggleBtn.textContent = '⏸️ BGMを停止';
   }
-});
-
+  return 0;
+}</pre>`,
+          options: ["3回", "4回", "5回", "6回"],
+          answer: 0,
+          explanation: "(i,j) = (1,0), (2,0), (2,1) のとき出力 → 計3回"
+        },
+        {
+          q: `次のコードを実行したときの出力は？<pre>void func(int n) {
+  if (n == 0) return;
+  cout << n << ' ';
+  func(n - 1);
+}
+int main() {
+  func(3);
+  return 0;
+}</pre>`,
+          options: ["3 2 1", "3 2 1 0", "1 2 3", "0 1 2 3"],
+          answer: 0,
+          explanation: "func(3) → func(2) → func(1) → func(0) で終了 → 出力は 3 2 1"
+        },
+        {
+          q: `次のコードを実行したときの出力は？<pre>int a = 5;
+int& b = a;
+a = 10;
+cout << b << endl;</pre>`,
+          options: ["5", "10", "エラーになる", "未定義"],
+          answer: 1,
+          explanation: "b は a の参照 → a を 10 にすると b も 10"
+        },
+        {
+          q: `次のコードを実行したときの出力は？<pre>int a = 5;
+int& b = a;
+int& c = b;
+a = 10;
+cout << c << endl;</pre>`,
+          options: ["5", "10", "エラーになる", "未定義"],
+          answer: 1,
+          explanation: "c は b の参照 → b は a の参照 → a = 10 → b, c も 10"
+        }
+      ]
+    };
   </script>
+  <script src="../keep_out/selectQuestion.js" defer></script>
+</body>
 </body>
 </html>
