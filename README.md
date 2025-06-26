@@ -1,3 +1,4 @@
+http://quiz.game.teams.maximum.vc/
 # Maximum_Quiz
 
 １，２年生向けにプログラミングに関する問題を出すプログラム。
