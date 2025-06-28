@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="ja">
+ <link rel="icon" href="https://avatars.githubusercontent.com/u/120705481?s=48&v=4" type="image/x-icon">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CSSの四択問題</title> 
+  <link rel="stylesheet" href="../keep_out/selectQuestion.css">
+  <style>
+    .options label.disabled {
+      pointer-events: none;
+      color: #000;
+    }
+  </style>
+  <audio id="se-correct" src="../keep_out/correct.mp3" preload="auto"></audio>
+  <audio id="se-wrong" src="../keep_out/wrong.mp3" preload="auto"></audio>
+  <audio id="se-start" src="../keep_out/start.mp3" preload="auto"></audio>
+  <audio id="se-end" src="../keep_out/end.mp3" preload="auto"></audio>
+</head>
+
+<body>
+  <audio id="bgm" src="../keep_out/BGM.mp3" loop></audio>
+  <button id="bgm-toggle">▶️ BGMを再生</button>
+  <div class="quiz-container" id="home">
+    <h1>CSSの四択問題</h1>
+    <p id="question-count">問題数を表示(変更不要)</p>
+    <button onclick="startQuiz()">開始</button>
+    <a href="CSS.html" class="back-button">問題選択に戻る</a> 
+  </div>
+
+  <div class="quiz-container" id="quiz" style="display: none;"></div>
+  <div id="countdown-overlay" class="countdown-overlay">
+    <div id="countdown-text" class="countdown-text"></div>
+  </div>
+  <script>
+    window.quizConfig = {
+
+      RANKING_KEY: "CSS", //ランキングのキーを設定
+
+      selectionPageUrl: "CSS.html", //問題選択ページのファイル名を入力
+
+      questions: [
+        /*
+            問題の設定
+            q: 問題文
+            options: 選択肢の配列
+            answer: 正解のインデックス（0から始まる）
+            explanation: 正解の解説
+            */
+            {
+            q: "CSSで要素の背景色を設定するプロパティは？",
+            options: ["background-color", "color", "font-size", "border"],
+            answer: 0,
+            explanation: "background-colorプロパティで要素の背景色を設定します。"
+            },
+            {
+            q: "CSSでフォントサイズを指定する単位として正しいものはどれ？",
+            options: ["px", "em", "rem", "以上"],
+            answer: 0,
+            explanation: "pxはピクセル単位で、フォントサイズを指定する際によく使われます。"
+            },
+            {
+            q: "CSSで要素を中央に配置するために使用するプロパティは？",
+            options: ["margin: auto;", "text-align: center;", "float: center;", "position: center;"],
+            answer: 0,
+            explanation: "margin: auto;を使用すると、要素が中央に配置されます。"
+            },
+            {
+            q: "CSSでクラスセレクタを指定する際の記述方法は？",
+            options: [".class-name", "#class-name", "class-name", "*class-name"],
+            answer: 0,
+            explanation: "クラスセレクタはドット（.）を前につけて指定します。"
+            }
+        
+      ]
+    };
+  </script>
+  <script src="../keep_out/selectQuestion.js" defer></script>
+</body>
+
+</html>
