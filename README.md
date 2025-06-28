@@ -1,16 +1,19 @@
 http://quiz.game.teams.maximum.vc/
+
 # Maximum_Quiz
 
 １，２年生向けにプログラミングに関する問題を出すプログラム。
 
 ##　記述言語
 
-主にhtmlとjavascriptとcssを使う。フォーマットはクイズテンプレートを参照のこと。
+主にhtmlとJavaScriptとCSSを使う。フォーマットはQuiz_Templateを参照のこと。
 
 ##　ファイル名
 
 問題選択のファイル名は「言語名_問.html」とする。例：JavaScript_.html
 問題のファイル名は「言語名_問題の種類.html」とする。例：JavaScript_Multiple_Question.html
+JavaScriptの表記はJとSを大文字にして統一する。
+CSSは大文字で統一する。
 
 ##　共同開発の流れ
 
@@ -39,9 +42,6 @@ mp3やjpegなどの素材はkeep_outディレクトリに入れること
 
 ```
 # explain.texについて
-開発上の注意点についてはREADMEファイルに書きますが、Maximum_Quiz事体の説明はexplain.texに書きます。explain.texを変更してもexplain.pdfには反映されないので変更し終わったらpdflatex explain.texとターミナル上で打って更新してください。
+開発上の注意点についてはREADMEファイルに書きますが、Maximum_Quiz事体の説明はexplain.texに書きます。。
 
-LaTeXはラテフと読みます。.tex はテフファイル呼びましょう。
 
-# クイズの問題は思いついたが開発をするには時間が足りないというときは
-MaximumQuiz.xlsxファイルに（エクスプローラーから）問題を書き込みましょう。実装はほかの人に任せてみましょう。
