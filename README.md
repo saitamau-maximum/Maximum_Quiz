@@ -6,13 +6,14 @@ http://quiz.game.teams.maximum.vc/
 
 ##　記述言語
 
-主にhtmlとjavascriptとcssを使う。フォーマットはQuiz_Templateを参照のこと。
+主にhtmlとJavaScriptとCSSを使う。フォーマットはQuiz_Templateを参照のこと。
 
 ##　ファイル名
 
 問題選択のファイル名は「言語名_問.html」とする。例：JavaScript_.html
 問題のファイル名は「言語名_問題の種類.html」とする。例：JavaScript_Multiple_Question.html
 JavaScriptの表記はJとSを大文字にして統一する。
+CSSは大文字で統一する。
 
 ##　共同開発の流れ
 
