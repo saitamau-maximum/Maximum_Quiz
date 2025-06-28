@@ -7,6 +7,11 @@ http://quiz.game.teams.maximum.vc/
 
 主にhtmlとjavascriptとcssを使う。フォーマットはクイズテンプレートを参照のこと。
 
+##　ファイル名
+
+問題選択のファイル名は「言語名_問.html」とする。例：JavaScript_.html
+問題のファイル名は「言語名_問題の種類.html」とする。例：JavaScript_Multiple_Question.html
+
 ##　共同開発の流れ
 
 以下のサイト参照のこと、Pull Requestを作成したらDiscodeで連絡。
