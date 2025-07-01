@@ -65,6 +65,28 @@ cout << x << endl;</pre>`,
           answer: 1,
           explanation: "スコープ内での変数 x はローカルで外側の x を隠す（シャドウイング）。"
         },
+              {
+        q:"オーダー表記で、O(n^2)のアルゴリズムはどれ？",
+        options: [
+          "for (int i = 0; i < n; i++) { for (int j = 0; j < n; j++) { /* 処理 */ } }",
+          "for (int i = 0; i < n; i++) { /* 処理 */ }",
+          "while (n > 0) { n--; /* 処理 */ }",
+          "for (int i = 0; i < n; i++) { /* 処理 */ } for (int j = 0; j < n; j++) { /* 処理 */ }"
+        ],
+        answer: 0,
+        explanation: "O(n^2)は二重ループのように、nの二乗に比例する時間がかかるアルゴリズムを表す。<br>1つ目の選択肢は、iとjの両方がnまでループしているので、O(n^2)に該当する。<br>2つ目はO(n)、3つ目はO(n)、4つ目はO(n^2)だが、二重ループではないのでO(n^2)とは言えない。"
+      },
+      {
+        q:"オーダー表記で、O(logn)のアルゴリズムはどれ？",
+        options: [
+          "for (int i = 0; i < n; i++) { /* 処理 */ }",
+          "while (n > 1) { n /= 2; /* 処理 */ }",
+          "for (int i = 0; i < n; i++) { for (int j = 0; j < n; j++) { /* 処理 */ } }",
+          "for (int i = 0; i < log(n); i++) { /* 処理 */ }"
+        ],
+        answer: 1,
+        explanation: "while (n > 1) { n /= 2; /* 処理 */ } は、nを半分にしていくので、O(logn)に該当する。<br>1つ目はO(n)、3つ目はO(n^2)、4つ目はO(logn)だが、ループの回数がlog(n)なので、正確にはO(logn)とは言えない。"
+      },
         {
           q: `このコードを実行しても x の値が変わらないのはなぜ？<pre>void addTen(int x) {
   x += 10;
