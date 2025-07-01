@@ -109,6 +109,24 @@ function showQuestion(index) {
   quizEl.innerHTML = "";
   const q = questions[index];
 
+  const originalAnswerText = q.options[q.answer];
+
+  let shuffledOptionsWithOriginalIndex = q.options.map((option, idx) => ({ option, originalIdx: idx }));
+  shuffle(shuffledOptionsWithOriginalIndex);
+
+  const shuffledOptions = shuffledOptionsWithOriginalIndex.map(item => item.option);
+
+  let newAnswerIndex = -1;
+  for (let i = 0; i < shuffledOptionsWithOriginalIndex.length; i++) {
+    if (shuffledOptionsWithOriginalIndex[i].originalIdx === q.answer) {
+      newAnswerIndex = i;
+      break;
+    }
+  }
+
+  const currentQuestionOptions = shuffledOptions;
+  const currentQuestionCorrectAnswerIndex = newAnswerIndex;
+
   const container = document.createElement("div");
   container.className = "question";
 
@@ -119,7 +137,7 @@ function showQuestion(index) {
   const options = document.createElement("div");
   options.className = "options";
 
-  q.options.forEach((opt, i) => {
+  currentQuestionOptions.forEach((opt, i) => {
     const label = document.createElement("label");
     const input = document.createElement("input");
     input.type = "radio";
@@ -217,10 +235,6 @@ function showQuestion(index) {
     }, 100);
   };
 
-  const nextButtonWrapper = document.createElement("div");
-  nextButtonWrapper.style.textAlign = "center";
-  nextButtonWrapper.appendChild(nextButton);
-
   button.onclick = () => {
     const selected = container.querySelector("input:checked");
     if (!selected) {
@@ -229,7 +243,7 @@ function showQuestion(index) {
       return;
     }
 
-    const isCorrect = parseInt(selected.value) === q.answer;
+    const isCorrect = parseInt(selected.value) === currentQuestionCorrectAnswerIndex;
     const seCorrect = document.getElementById("se-correct");
     const seWrong = document.getElementById("se-wrong");
 
@@ -244,7 +258,7 @@ function showQuestion(index) {
       seWrong.play();
     }
 
-    result.textContent = isCorrect ? "○ 正解です！" : `× 不正解です。正解：${q.options[q.answer]}`;
+    result.textContent = isCorrect ? "○ 正解です！" : `× 不正解です。正解：${currentQuestionOptions[currentQuestionCorrectAnswerIndex]}`;
     result.style.color = isCorrect ? "green" : "red";
     explanation.innerHTML = escapeHTMLExceptBR(q.explanation);
 
@@ -254,6 +268,9 @@ function showQuestion(index) {
     button.style.display = "none";
     nextButton.style.display = "inline-block";
   };
+  const nextButtonWrapper = document.createElement("div");
+  nextButtonWrapper.style.textAlign = "center";
+  nextButtonWrapper.appendChild(nextButton);
 
   container.appendChild(button);
   container.appendChild(result);
