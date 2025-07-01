@@ -1,3 +1,160 @@
 <!DOCTYPE html>
 <html lang="ja">
   <link rel="icon" href="https://avatars.githubusercontent.com/u/120705481?s=48&v=4" type="image/x-icon">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>GitHub 4択問題</title>
+  <link rel="stylesheet" href="../keep_out/inputQuestion.css">
+  <style>
+    .options label.disabled {
+      pointer-events: none;
+      color: #000;
+    }
+  </style>
+  <audio id="se-correct" src="../keep_out/correct.mp3" preload="auto"></audio>
+  <audio id="se-wrong" src="../keep_out/wrong.mp3" preload="auto"></audio>
+  <audio id="se-start" src="../keep_out/start.mp3" preload="auto"></audio>
+  <audio id="se-end" src="../keep_out/end.mp3" preload="auto"></audio>
+</head>
+
+<body>
+  <audio id="bgm" src="../keep_out/BGM.mp3" loop></audio>
+  <button id="bgm-toggle">▶️ BGMを再生</button>
+  <div class="quiz-container" id="home">
+    <h1>GitHub 4択問題</h1> <!--タイトルの設定(ヘッダ名と同じでも可)-->
+    <p id="question-count">問題数を表示(変更不要)</p>
+    <button onclick="startQuiz()">開始</button>
+    <a href="Unity_Hub.html" class="back-button">問題選択に戻る</a> <!--a.htmlを変更(問題選択画面のファイル名にする)-->
+  </div>
+
+  <div class="quiz-container" id="quiz" style="display: none;"></div>
+  <div id="countdown-overlay" class="countdown-overlay">
+    <div id="countdown-text" class="countdown-text"></div>
+  </div>
+  <script>
+    window.quizConfig = {
+      
+      RANKING_KEY: "UnityHub", //ランキングのキーを設定
+
+      selectionPageUrl: "Unity_Hub.html", //問題選択ページのURLを入力
+
+      questions: [
+        {
+          q: "Unity Hubの主な役割はどれ？",
+          options: [
+            "Unityエディターやプロジェクトの管理",
+            "3Dモデルの作成",
+            "ゲームの公開",
+            "サウンド編集"
+          ],
+          answer: 0,
+          explanation: "Unity HubはUnityエディターやプロジェクトの管理を行うツールです。"
+        },
+        {
+          q: "Unity Hubで新しいプロジェクトを作成するにはどのボタンを押す？",
+          options: [
+            "新しいプロジェクト",
+            "インストール",
+            "設定",
+            "テンプレート"
+          ],
+          answer: 0,
+          explanation: "「新しいプロジェクト」ボタンから新規プロジェクトを作成できます。"
+        },
+        {
+          q: "Unity Hubでエディターのバージョンを追加するには？",
+          options: [
+            "インストールタブから追加",
+            "プロジェクトタブから追加",
+            "設定タブから追加",
+            "テンプレートタブから追加"
+          ],
+          answer: 0,
+          explanation: "インストールタブからエディターのバージョンを追加できます。"
+        },
+        {
+          q: "Unity Hubでプロジェクトのバージョンを切り替えるには？",
+          options: [
+            "プロジェクトを選択し、バージョンを指定する",
+            "エディターを再インストールする",
+            "プロジェクトを削除して再作成する",
+            "バージョンは切り替えできない"
+          ],
+          answer: 0,
+          explanation: "プロジェクトごとに使用するUnityエディターのバージョンを指定できます。"
+        },
+        {
+          q: "Unity Hubでアカウントにサインインする主な理由は？",
+          options: [
+            "ライセンス認証やクラウドサービス利用のため",
+            "プロジェクトの削除のため",
+            "エディターのアンインストールのため",
+            "サウンドの編集のため"
+          ],
+          answer: 0,
+          explanation: "Unityのライセンス認証やクラウドサービス利用のためにサインインが必要です。"
+        },
+        {
+          q: "Unity Hubでプロジェクトを削除するには？",
+          options: [
+            "プロジェクトの右側の「…」から削除を選ぶ",
+            "エディターをアンインストールする",
+            "設定から削除する",
+            "プロジェクト名を変更する"
+          ],
+          answer: 0,
+          explanation: "プロジェクトの右側の「…」メニューから削除できます。"
+        },
+        {
+          q: "Unity Hubでテンプレートを選ぶと何が変わる？",
+          options: [
+            "プロジェクトの初期設定が変わる",
+            "Unity Hubのテーマが変わる",
+            "エディターのバージョンが変わる",
+            "アカウントが切り替わる"
+          ],
+          answer: 0,
+          explanation: "テンプレートによってプロジェクトの初期設定が異なります。"
+        },
+        {
+          q: "Unity Hubで複数のUnityエディターを管理できる理由は？",
+          options: [
+            "プロジェクトごとに異なるバージョンを使えるから",
+            "パソコンの容量を増やすため",
+            "サウンド編集のため",
+            "アカウントを切り替えるため"
+          ],
+          answer: 0,
+          explanation: "プロジェクトごとに異なるUnityバージョンを使いたい場合に便利です。"
+        },
+        {
+          q: "Unity Hubでプロジェクトを開くときに必要なものは？",
+          options: [
+            "対応するUnityエディターがインストールされていること",
+            "インターネット接続",
+            "サウンドカード",
+            "グラフィックボード"
+          ],
+          answer: 0,
+          explanation: "プロジェクトに対応したUnityエディターが必要です。"
+        },
+        {
+          q: "Unity Hubの「学習」タブでできることは？",
+          options: [
+            "チュートリアルや学習リソースの閲覧",
+            "プロジェクトの削除",
+            "エディターのアンインストール",
+            "アカウントの削除"
+          ],
+          answer: 0,
+          explanation: "「学習」タブではUnityのチュートリアルや学習リソースを利用できます。"
+        }
+      ]
+
+    };
+  </script>
+  <script src="../keep_out/selectQuestion.js" defer></script>
+</body>
+
+</html>
