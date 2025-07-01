@@ -5,7 +5,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>応用情報基礎技術者試験の四択問題</title>
-  <link rel="stylesheet" href="../keep_out/style.css">
+  <link rel="stylesheet" href="../keep_out/selectQuestion.css">
   <style>
     .options label.disabled {
       pointer-events: none;
@@ -24,7 +24,7 @@
     <h1>応用情報基礎技術者試験の四択問題</h1>
     <p id="question-count">問題数を表示(変更不要)</p>
     <button onclick="startQuiz()">開始</button>
-    <a href="FITEE.html" class="back-button">問題選択に戻る</a>
+    <a href="AITEE.html" class="back-button">問題選択に戻る</a>
   </div>
 
   <div class="quiz-container" id="quiz" style="display: none;"></div>
@@ -32,7 +32,7 @@
   <div id="countdown-text" class="countdown-text"></div>
   </div>
   <script>
-    const RANKING_KEY = "FITEE_select_quiz_ranking_easy";
+    const RANKING_KEY = "AITEE_select_quiz_ranking_easy";
     const questions = [
       {
         q: "次のうち、プログラムのバグを特定するために使用される手法はどれか",
@@ -83,7 +83,7 @@
         explanation: "オブジェクト指向プログラミングでは、クラスとそのインスタンスを用いてデータとメソッドを一体化して扱う。<br>他の選択肢はオブジェクト指向の特徴ではない。"
       },
       {
-        p:"次のうちミドルウェアの説明として正しいものはどれか", 
+        q:"次のうちミドルウェアの説明として正しいものはどれか", 
         options: [
           "ハードウェアとアプリケーションソフトウェアの間に位置し、通信やデータベースアクセスなどの機能を提供する。",
           "オペレーティングシステムの一部であり、ハードウェアの管理を行う。",
@@ -308,7 +308,7 @@
       },
       
 {
- p:"ＣＰＵが空くと、次に実行されるべきタスクにＣＰＵが割り当てられることを何というか？",
+ q:"ＣＰＵが空くと、次に実行されるべきタスクにＣＰＵが割り当てられることを何というか？",
  options: [
   "プリエンプション",
   "スケジューリング",
@@ -321,7 +321,7 @@ explanation: "ディスパッチングは、CPUが空いたときに次に実行
 },
 
 {
- p:"より優先度の高いタスクが生成されＣＰＵを奪われることを何というか？",
+ q:"より優先度の高いタスクが生成されＣＰＵを奪われることを何というか？",
  options: [
   "プリエンプション",
   "スケジューリング",
@@ -334,7 +334,7 @@ explanation: "プリエンプションは、より優先度の高いタスクが
 },
 
 {
- p:"アプリケーションソフトが過大なメモリを要求し、OSが仮想メモリへの入出力（スワップインスワップアウト）にCPUの処理能力のほとんどを割いてしまい、コンピュータが外部からの入出力を受け付けられない停止状態に陥ることを何というか？",
+ q:"アプリケーションソフトが過大なメモリを要求し、OSが仮想メモリへの入出力（スワップインスワップアウト）にCPUの処理能力のほとんどを割いてしまい、コンピュータが外部からの入出力を受け付けられない停止状態に陥ることを何というか？",
  options: [
   "スラッシング",
   "スケジューリング",
