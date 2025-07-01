@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="ja">
+ <link rel="icon" href="https://avatars.githubusercontent.com/u/120705481?s=48&v=4" type="image/x-icon">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>C#四択問題</title> 
+  <link rel="stylesheet" href="../keep_out/selectQuestion.css">
+  <style>
+    .options label.disabled {
+      pointer-events: none;
+      color: #000;
+    }
+  </style>
+  <audio id="se-correct" src="../keep_out/correct.mp3" preload="auto"></audio>
+  <audio id="se-wrong" src="../keep_out/wrong.mp3" preload="auto"></audio>
+  <audio id="se-start" src="../keep_out/start.mp3" preload="auto"></audio>
+  <audio id="se-end" src="../keep_out/end.mp3" preload="auto"></audio>
+</head>
+
+<body>
+  <audio id="bgm" src="../keep_out/BGM.mp3" loop></audio>
+  <button id="bgm-toggle">▶️ BGMを再生</button>
+  <div class="quiz-container" id="home">
+    <h1>タイトル</h1> <!--タイトルの設定(ヘッダ名と同じでも可)-->
+    <p id="question-count">問題数を表示(変更不要)</p>
+    <button onclick="startQuiz()">開始</button>
+    <a href="C#.html" class="back-button">問題選択に戻る</a>
+  </div>
+
+  <div class="quiz-container" id="quiz" style="display: none;"></div>
+  <div id="countdown-overlay" class="countdown-overlay">
+    <div id="countdown-text" class="countdown-text"></div>
+  </div>
+  <script>
+    window.quizConfig = {
+
+      RANKING_KEY: "a", //ランキングのキーを設定
+
+      selectionPageUrl: "C#.html", //問題選択ページのファイル名を入力
+
+      questions: [
+        {
+          q: "C#で変数を宣言する正しい方法はどれ？",
+          options: ["int x = 10;", "var x := 10;", "let x = 10;", "x = 10;"],
+          answer: 0,
+          explanation: "C#では型名を指定して変数を宣言します。例: int x = 10;"
+        },
+        {
+          q: "C#でクラスを定義するキーワードは？",
+          options: ["class", "struct", "define", "object"],
+          answer: 0,
+          explanation: "C#でクラスを定義するには class キーワードを使います。"
+        },
+        {
+          q: "C#でメソッドの戻り値がない場合に使う型は？",
+          options: ["void", "null", "empty", "none"],
+          answer: 0,
+          explanation: "戻り値がない場合はvoid型を使います。"
+        },
+        {
+          q: "C#で配列を宣言する正しい方法はどれ？",
+          options: ["int[] arr = new int[5];", "array arr = int[5];", "int arr = [5];", "int arr[] = new int[5];"],
+          answer: 0,
+          explanation: "C#ではint[] arr = new int[5];のように宣言します。"
+        },
+        {
+          q: "C#で条件分岐に使うキーワードは？",
+          options: ["if", "switch", "case", "when"],
+          answer: 0,
+          explanation: "条件分岐にはifやswitchなどを使います。"
+        },
+        {
+          q: "C#で例外処理に使うキーワードは？",
+          options: ["try-catch", "error-handle", "exception", "rescue"],
+          answer: 0,
+          explanation: "C#ではtry-catchで例外処理を行います。"
+        },
+        {
+          q: "C#で文字列を連結する演算子は？",
+          options: ["+", "&", ".", "concat"],
+          answer: 0,
+          explanation: "C#では+演算子で文字列を連結します。"
+        },
+        {
+          q: "C#でコンストラクタを定義する正しい方法は？",
+          options: ["クラス名と同じ名前のメソッド", "constructorキーワードを使う", "initメソッドを使う", "createメソッドを使う"],
+          answer: 0,
+          explanation: "C#ではクラス名と同じ名前のメソッドがコンストラクタです。"
+        },
+        {
+          q: "C#で継承を表すキーワードは？",
+          options: [":", "extends", "inherits", "->"],
+          answer: 0,
+          explanation: "C#ではコロン（:）を使って継承を表します。"
+        },
+        {
+          q: "C#で値型の例はどれ？",
+          options: ["int", "string", "object", "class"],
+          answer: 0,
+          explanation: "intは値型、stringやobjectは参照型です。"
+        }
+      ],
+    };
+  </script>
+  <script src="../keep_out/selectQuestion.js" defer></script>
+</body>
+
+</html>
