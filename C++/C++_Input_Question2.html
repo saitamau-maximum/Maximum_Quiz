@@ -4,7 +4,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>C++ 入力問題 上級編</title>
+  <title>C++ 入力問題 中級編</title>
   <link rel="stylesheet" href="../keep_out/inputQuestion.css">
   <audio id="se-correct" src="../keep_out/correct.mp3" preload="auto"></audio>
   <audio id="se-wrong" src="../keep_out/wrong.mp3" preload="auto"></audio>
@@ -18,7 +18,7 @@
   <button id="bgm-toggle">▶️ BGMを再生</button>
 
   <div class="quiz-container" id="home">
-    <h1>C++ 入力問題 上級編</h1>
+    <h1>C++ 入力問題 中級編</h1>
     <p id="question-count">問題数を表示(変更不要)</p>
     <button id="startButton" onclick="startQuiz()">開始</button>
     <a href="C++.html" class="back-button">問題選択に戻る</a>
@@ -30,60 +30,102 @@
   </div>
   <script>
     window.quizConfig = {
-
-      RANKING_KEY: "cpp_in3",
-
+      RANKING_KEY: "cpp_in2",
       selectionPageUrl: "C++.html",
-
       questions: [
         {
-          q: `次のコードの出力を半角で入力してください。<pre>map&lt;string, int&gt; mp;
-mp["a"]++;
-mp["b"] += 3;
-cout << mp["a"] << " " << mp["b"] << " " << mp["c"] << endl;</pre>`,
-          answer: "1 3 0",
-          explanation: `mapは存在しないキーにアクセスした場合、初期値0を入れて返すため "1 3 0"。`
+          q: `次のコードの出力を、半角で入力してください。<pre>vector&lt;int&gt; v = {10, 20, 30};
+auto it = v.begin();
+for(int i = 0; i < 3; i++){
+  *it += 5;
+  it++;
+}
+for(int x : v) {
+  cout << x << endl;
+}</pre>`,
+          answer: "15\n25\n35",
+          explanation: "各要素に5を加えた結果が順に出力される。"
         },
         {
-          q: `次のコードの出力を半角で入力してください。\n<pre>priority_queue&lt;int&gt; pq;
-pq.push(3);
-pq.push(5);
-pq.push(1);
-cout << pq.top() << endl;</pre>`,
-          answer: "5",
-          explanation: "priority_queue はデフォルトで最大ヒープ → 最大値5が top に。"
+          q: `次のコードの出力を、半角で入力してください。<pre>vector&lt;int&gt; v = {10, 20, 30};
+auto it = v.begin();
+cout << *it << endl;
+it++;
+cout << *it << endl;</pre>`,
+          answer: "10\n20",
+          explanation: "it は v.begin() → *it = 10 → 次は 20。"
         },
         {
-          q: `次のコードの出力を半角で入力してください。\n<pre>vector&lt;pair&lt;int, int&gt;&gt; v(4);
-v[0] = {1, 3};
-v[1] = {2, 1};
-v[2] = {2, 0};
-v[3] = {1, 2};
-sort(v.begin(), v.end());
-for (auto [a, b] : v) cout << a << " " << b << endl;</pre>`,
-          answer: "1 2\n1 3\n2 0\n2 1",
-          explanation: "pairは first, second の順で辞書順ソートされるため、この順番になる。"
+          q: `次のコードを実行したときの出力を半角で入力してください。<pre>set&lt;int&gt; s;
+s.insert(5);
+s.insert(3);
+s.insert(5);
+for (int x : s) cout << x << endl;</pre>`,
+          answer: "3\n5",
+          explanation: "set は重複不可・昇順で並ぶ。"
         },
         {
-          q: `次のコードの出力を半角で入力してください。\n<pre>int a = 10;
-int* p = &a;
-*p += 5;
-cout << a << endl;
-a += 5;
-cout << *p << endl;</pre>`,
-          answer: "15\n20",
-          explanation: "*p += 5 で a = 15、その後 a += 5 → a = 20、ポインタも a を指しているため *p = 20。"
+          q: `次のコードを実行したときの出力を半角で入力してください。<pre>map&lt;string, int&gt; mp;
+mp["banana"] = 5;
+mp["apple"] = 2;
+for (auto p : mp) cout << p.first << ' ' << p.second << endl;</pre>`,
+          answer: "apple 2\nbanana 5",
+          explanation: "map はキー順（文字列順）でループされる。"
         },
         {
-          q: `次のコードの出力を半角で入力してください。\n<pre>template &lt;typename T&gt;
-T mul(T x, T y) {
-  return x * y;
+          q: `次のコードの出力を半角で入力してください。\n<pre>map&lt;string, int&gt; m;
+cout << m["key"] << endl;</pre>`,
+          answer: "0",
+          explanation: "未定義キーへのアクセスで初期値0が自動挿入される。"
+        },
+        {
+          q: `次のコードの出力を半角で入力してください。\n<pre>set&lt;int&gt; s = {1, 3, 5};
+if (s.find(3) != s.end()) cout << "yes";
+else cout << "no";</pre>`,
+          answer: "yes",
+          explanation: "find(3) 成功で yes 出力。"
+        },
+        {
+          q: `次のコードを実行したとき、出力されるものは何か？（型の種類を答えてください）<pre>set&lt;int&gt; s = {3, 5, 8};
+int x = 5;
+auto a = s.find(x);
+cout << a << endl;</pre>`,
+          answer: "イテレータ",
+          explanation: "set.find(x) の戻り値はイテレータ。cout << a でポインタっぽい出力。"
+        },
+        {
+          q: `次のコードの出力を半角で入力してください。<pre>void add(int x) {
+  x += 5;
 }
 
-cout << mul(2, 4) << endl;
-cout << mul(1.5, 2.0) << endl;</pre>`,
-          answer: "8\n3.0",
-          explanation: "テンプレート関数により、整数は整数同士の掛け算で8、浮動小数同士で3.0。"
+int main() {
+  int a = 10;
+  add(a);
+  cout << a << endl;
+}</pre>`,
+          answer: "10",
+          explanation: "値渡しなので a は変更されない。"
+        },
+        {
+          q: `次のコードの出力を半角で入力してください。<pre>void add(int &x) {
+  x += 5;
+}
+
+int main() {
+  int a = 10;
+  add(a);
+  cout << a << endl;
+}</pre>`,
+          answer: "15",
+          explanation: "参照渡しなので a に直接加算される。"
+        },
+        {
+          q: `次のコードの出力を半角で入力してください。<pre>int a = 5;
+int b = 10;
+int c = (a > b ? a : b);
+cout << c << endl;</pre>`,
+          answer: "10",
+          explanation: "a > b が false → b を代入 → c = 10。"
         }
       ]
     };
