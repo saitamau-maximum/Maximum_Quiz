@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="ja">
+ <link rel="icon" href="https://avatars.githubusercontent.com/u/120705481?s=48&v=4" type="image/x-icon">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Pythonの四択問題</title>
+  <link rel="stylesheet" href="../keep_out/selectQuestion.css">
+  <style>
+    .options label.disabled {
+      pointer-events: none;
+      color: #000;
+    }
+  </style>
+  <audio id="se-correct" src="../keep_out/correct.mp3" preload="auto"></audio>
+  <audio id="se-wrong" src="../keep_out/wrong.mp3" preload="auto"></audio>
+  <audio id="se-start" src="../keep_out/start.mp3" preload="auto"></audio>
+  <audio id="se-end" src="../keep_out/end.mp3" preload="auto"></audio>
+</head>
+
+<body>
+  <audio id="bgm" src="../keep_out/BGM.mp3" loop></audio>
+  <button id="bgm-toggle">▶️ BGMを再生</button>
+  <div class="quiz-container" id="home">
+    <h1>Pythonの四択問題</h1> 
+    <p id="question-count">問題数を表示(変更不要)</p>
+    <button onclick="startQuiz()">開始</button>
+    <a href="SQL.html" class="back-button">問題選択に戻る</a>
+  </div>
+
+  <div class="quiz-container" id="quiz" style="display: none;"></div>
+  <div id="countdown-overlay" class="countdown-overlay">
+    <div id="countdown-text" class="countdown-text"></div>
+  </div>
+  <script>
+    window.quizConfig = {
+
+      RANKING_KEY: "a", //ランキングのキーを設定
+
+      selectionPageUrl: "SQL.html", //問題選択ページのファイル名を入力
+
+      questions: [
+        {
+          q: "次のコードを実行したとき、出力される値は？<pre>def func(x):\n    return x * 2\n\nprint(func(3))</pre>",
+          options: [
+            "6",
+            "3",
+            "9",
+            "エラーが発生する"
+          ],
+          answer: 0,
+          explanation: "関数 func は引数 x を受け取り、それを2倍にして返す。func(3) は 3 * 2 = 6 を返す。"
+        },
+        {
+          q: "次のコードを実行したとき、出力される値は？<pre>my_list = [1, 2, 3]\nmy_list.append(4)\nprint(my_list)</pre>",
+          options: [
+            "[1, 2, 3]",
+            "[1, 2, 3, 4]",
+            "[4, 1, 2, 3]",
+            "エラーが発生する"
+          ],
+          answer: 1,
+          explanation: "append メソッドはリストの末尾に要素を追加する。したがって、my_list は [1, 2, 3, 4] になる。"
+        }
+      ]
+    };
+  </script>
+  <script src="../keep_out/selectQuestion.js" defer></script>
+</body>
+
+</html>

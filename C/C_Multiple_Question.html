@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="ja">
+ <link rel="icon" href="https://avatars.githubusercontent.com/u/120705481?s=48&v=4" type="image/x-icon">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>C言語の問題</title>
+  <link rel="stylesheet" href="../keep_out/selectQuestion.css">
+  <style>
+    .options label.disabled {
+      pointer-events: none;
+      color: #000;
+    }
+  </style>
+  <audio id="se-correct" src="../keep_out/correct.mp3" preload="auto"></audio>
+  <audio id="se-wrong" src="../keep_out/wrong.mp3" preload="auto"></audio>
+  <audio id="se-start" src="../keep_out/start.mp3" preload="auto"></audio>
+  <audio id="se-end" src="../keep_out/end.mp3" preload="auto"></audio>
+</head>
+
+<body>
+  <audio id="bgm" src="../keep_out/BGM.mp3" loop></audio>
+  <button id="bgm-toggle">▶️ BGMを再生</button>
+  <div class="quiz-container" id="home">
+    <h1>C言語の問題</h1> 
+    <p id="question-count">問題数を表示(変更不要)</p>
+    <button onclick="startQuiz()">開始</button>
+    <a href="C.html" class="back-button">問題選択に戻る</a> 
+  </div>
+
+  <div class="quiz-container" id="quiz" style="display: none;"></div>
+  <div id="countdown-overlay" class="countdown-overlay">
+    <div id="countdown-text" class="countdown-text"></div>
+  </div>
+  <script>
+    window.quizConfig = {
+
+      RANKING_KEY: "a", //ランキングのキーを設定
+
+      selectionPageUrl: "C.html", //問題選択ページのファイル名を入力
+
+      questions: [
+        {
+          q: "次のコードを実行したとき、何が出力されますか？<pre>string s = \"123\";\nfor (int bit = 0; bit < (1 << 3); bit++) {\n  string t = \"\";\n  for (int i = 0; i < 3; i++) {\n    if (bit & (1 << i)) t += s[i];\n  }\n  cout << t << endl;\n}</pre>",
+          options: [
+            "すべての部分文字列を出力している",
+            "すべての並び替え（順列）を出力している",
+            "すべての文字の組み合わせを出力している",
+            "何も出力しない"
+          ],
+          answer: 2,
+          explanation: "各 bit のパターンごとに、s の各文字を選ぶか選ばないかを決めている。<br>つまり、sの部分集合(1や13、23など)をすべて出力している。<br>部分文字列は連続していないといけないので、例えば13などが当てはまらない"
+        },
+        {
+          q: "次のコードを実行したとき、出力される値は？<pre>vector&lt;int&gt; v = {1, 3, 5, 7, 9};\nint x = 6;\nauto it = lower_bound(v.begin(), v.end(), x);\ncout << *it << endl;</pre>",
+          options: [
+            "5",
+            "6",
+            "7",
+            "9"
+          ],
+          answer: 2,
+          explanation: "lower_boundは指定した値以上の最小値を返す。<br>この場合、6以上の最小値は7なので、それが出力される。"
+        },
+        {
+          q: "次のコードを実行したとき、出力される値は？<pre>vector&lt;int&gt; v = {1, 3, 5, 7, 9};\nint x = 6;\nauto it = upper_bound(v.begin(), v.end(), x);\ncout << *it << endl;</pre>",
+          options: [
+            "5",
+            "6",
+            "7",
+            "9"
+          ],
+          answer: 2,
+          explanation: "upper_boundは指定した値より大きい最小値を返す。<br>この場合、6より大きい最小値は7なので、それが出力される。"
+        },
+        {
+          q: "次のコードを実行したとき、出力される値は？<pre>vector&lt;int&gt; v = {1, 3, 5, 7, 9};\nint x = 6;\nauto it = find(v.begin(), v.end(), x);\nif (it != v.end()) cout << \"Found\" << endl;\nelse cout << \"Not Found\" << endl;</pre>",
+          options: [
+            "Found",
+            "Not Found",
+            "エラーになる",
+            "何も出力しない"
+          ],
+          answer: 1,
+          explanation: "findは指定した値が見つからない場合、v.end()を返す。<br>この場合、6はvに含まれていないので、Not Foundが出力される。"
+        },
+        {
+          q:"int *aと宣言しているとき、aは何を指しているか？",
+          options: [
+            "整数型の配列",
+            "整数型のポインタ",
+            "整数型の変数",
+            "整数型の関数"
+          ],
+          answer: 1,
+          explanation: "int *aは整数型のポインタを宣言している。<br>aは整数型の変数のアドレスを格納するために使用される。"
+        },
+        
+      ]
+    };
+  </script>
+  <script src="../keep_out/selectQuestion.js" defer></script>
+</body>
+
+</html>

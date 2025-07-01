@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="ja">
+ <link rel="icon" href="https://avatars.githubusercontent.com/u/120705481?s=48&v=4" type="image/x-icon">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SQLの四択問題</title>
+  <link rel="stylesheet" href="../keep_out/selectQuestion.css">
+  <style>
+    .options label.disabled {
+      pointer-events: none;
+      color: #000;
+    }
+  </style>
+  <audio id="se-correct" src="../keep_out/correct.mp3" preload="auto"></audio>
+  <audio id="se-wrong" src="../keep_out/wrong.mp3" preload="auto"></audio>
+  <audio id="se-start" src="../keep_out/start.mp3" preload="auto"></audio>
+  <audio id="se-end" src="../keep_out/end.mp3" preload="auto"></audio>
+</head>
+
+<body>
+  <audio id="bgm" src="../keep_out/BGM.mp3" loop></audio>
+  <button id="bgm-toggle">▶️ BGMを再生</button>
+  <div class="quiz-container" id="home">
+    <h1>SQLの四択問題</h1> 
+    <p id="question-count">問題数を表示(変更不要)</p>
+    <button onclick="startQuiz()">開始</button>
+    <a href="SQL.html" class="back-button">問題選択に戻る</a>
+  </div>
+
+  <div class="quiz-container" id="quiz" style="display: none;"></div>
+  <div id="countdown-overlay" class="countdown-overlay">
+    <div id="countdown-text" class="countdown-text"></div>
+  </div>
+  <script>
+    window.quizConfig = {
+
+      RANKING_KEY: "a", //ランキングのキーを設定
+
+      selectionPageUrl: "SQL.html", //問題選択ページのファイル名を入力
+
+      questions: [
+        {
+          q: "次のSQL文の実行結果は？<pre>SELECT COUNT(*) FROM employees WHERE department = 'Sales';</pre>",
+          options: [
+            "営業部門の従業員数",
+            "全従業員数",
+            "営業部門の売上合計",
+            "営業部門の平均給与"
+          ],
+          answer: 0,
+          explanation: "COUNT(*) は指定した条件に一致する行数をカウントします。ここでは営業部門の従業員数を取得しています。"
+        },
+        {
+          q: "次のSQL文の目的は？<pre>UPDATE employees SET salary = salary * 1.1 WHERE performance_rating = 'Excellent';</pre>",
+          options: [
+            "全従業員の給与を10%増加させる",
+            "優秀な従業員の給与を10%増加させる",
+            "全従業員の評価を'Excellent'に変更する",
+            "優秀な従業員の評価を'Excellent'に変更する"
+          ],
+          answer: 1,
+          explanation: "UPDATE文は指定した条件に一致する行を更新します。ここでは、評価が'Excellent'の従業員の給与を10%増加させています。"
+        },
+        {
+          q: "次のSQL文の実行結果は？<pre>SELECT * FROM employees WHERE salary BETWEEN 50000 AND 100000;</pre>",
+          options: [
+            "給与が50,000から100,000の従業員を取得",
+            "給与が50,000以下の従業員を取得",
+            "給与が100,000以上の従業員を取得",
+            "全ての従業員を取得"
+          ],
+          answer: 0,
+          explanation: "BETWEEN句は指定した範囲内の値を持つ行を取得します。ここでは、給与が50,000から100,000の従業員を取得しています。"
+        },
+        {
+          q: "次のSQL文の目的は？<pre>DELETE FROM employees WHERE last_login < '2023-01-01';</pre>",
+          options: [
+            "2023年1月1日以前にログインした従業員を削除",
+            "全ての従業員を削除",
+            "2023年1月1日以降にログインした従業員を削除",
+            "2023年1月1日以前に登録された従業員を削除"
+          ],
+          answer: 0,
+          explanation: "DELETE文は指定した条件に一致する行を削除します。ここでは、2023年1月1日以前にログインした従業員を削除しています。"
+        },
+      ]
+    };
+  </script>
+  <script src="../keep_out/selectQuestion.js" defer></script>
+</body>
+
+</html>
