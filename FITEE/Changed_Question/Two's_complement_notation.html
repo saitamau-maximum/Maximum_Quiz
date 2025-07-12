@@ -1,6 +1,404 @@
 <!DOCTYPE html>
 <html lang="ja">
   <link rel="icon" href="https://avatars.githubusercontent.com/u/120705481?s=48&v=4" type="image/x-icon">
-<!--   
-毎回の値の変わる2の補数表記の問題を作る
--->
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>2の補数表記クイズ</title>
+  <link rel="stylesheet" href="../../keep_out/inputQuestion.css">
+  <audio id="se-correct" src="../../keep_out/correct.mp3" preload="auto"></audio>
+  <audio id="se-wrong" src="../../keep_out/wrong.mp3" preload="auto"></audio>
+  <audio id="se-start" src="../../keep_out/start.mp3" preload="auto"></audio>
+  <audio id="se-end" src="../../keep_out/end.mp3" preload="auto"></audio>
+
+</head>
+
+<body>
+    <div class="countdown-overlay" id="countdown-overlay">
+        <div class="countdown-text" id="countdown-text">3</div>
+    </div>
+
+    <audio id="bgm" src="../../keep_out/BGM.mp3" loop></audio>
+  <button id="bgm-toggle">▶️ BGMを再生</button>
+    <div id="home" class="quiz-container">
+        <h1>2の補数表記クイズ</h1>
+        <p id="question-count">全<span id="initial-question-count">5</span>問です。</p>
+        <p>このクイズでは、10進数を2の補数表記に変換したり、2の補数表記を10進数に変換したりする問題が出題されます。半角で入力してください。</p>
+        <button id="startButton">開始</button>
+        <a href="../FITEE.html" class="back-button">問題選択に戻る</a>
+        <audio id="se-start" src="se_start.mp3"></audio>
+        <audio id="se-correct" src="se_correct.mp3"></audio>
+        <audio id="se-wrong" src="se_wrong.mp3"></audio>
+        <audio id="se-end" src="se_end.mp3"></audio>
+    </div>
+
+    <div id="quiz" class="quiz-container" style="display: none;">
+        </div>
+
+    <script>
+
+        const RANKING_KEY = "twosComplementRanking"; // ランキングキーを直接定義
+        const selectionPageUrl = "../FITEE.html"; // 問題選択ページへのURLを直接定義
+
+        let questions = []; // 問題を動的に生成するため、空のまま
+        let bgmToggleBtn;
+        let bgm;
+        let current = 0;
+        let score = 0;
+        let backClickCount = 0;
+        const homeEl = document.getElementById("home");
+        const quizEl = document.getElementById("quiz");
+        const initialQuestionCountElement = document.getElementById("initial-question-count");
+        const totalQuestionsToGenerate = 5; // 生成する問題数
+
+        // 初期表示の問題数を設定
+        if (initialQuestionCountElement) {
+            initialQuestionCountElement.textContent = totalQuestionsToGenerate;
+        }
+
+        document.addEventListener("DOMContentLoaded", () => {
+            const questionCountElement = document.getElementById("question-count");
+            if (questionCountElement) {
+                // DOMContentLoaded時点では、initial-question-countが設定済み
+                questionCountElement.textContent = `全${totalQuestionsToGenerate}問です。`;
+            }
+
+            const backButtonHome = document.querySelector(".back-button");
+            if (backButtonHome) {
+                backButtonHome.addEventListener("click", function (e) {
+                    e.preventDefault();
+                    if (backClickCount === 0) {
+                        alert("本当に戻りますか？もう一度クリックすると戻ります。");
+                        backClickCount++;
+                    } else {
+                        window.location.href = selectionPageUrl;
+                    }
+                });
+            }
+
+            bgmToggleBtn = document.getElementById("bgm-toggle");
+            bgm = document.getElementById("bgm");
+            if (bgmToggleBtn && bgm) {
+                bgmToggleBtn.addEventListener("click", () => {
+                    if (!bgm.paused) {
+                        bgm.pause();
+                        bgmToggleBtn.textContent = '▶️ BGMを再開';
+                    } else {
+                        bgm.play();
+                        bgmToggleBtn.textContent = '⏸️ BGMを停止';
+                    }
+                });
+            }
+
+            const startButton = document.getElementById("startButton");
+            if (startButton) {
+                startButton.addEventListener("click", startQuiz);
+            }
+        });
+
+        function toHalfWidth(str) {
+            return str.replace(/[！-～]/g, s => String.fromCharCode(s.charCodeAt(0) - 0xFEE0)).replace(/　/g, ' ');
+        }
+        function normalizeInput(str) {
+            return toHalfWidth(str.trim()).replace(/\s+/g, ' ');
+        }
+        function shuffle(array) {
+            for (let i = array.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [array[i], array[j]] = [array[j], array[i]];
+            }
+        }
+
+        // --- 2の補数変換ヘルパー関数 ---
+
+        /**
+         * 10進数を指定ビット数の2の補数表現に変換します。
+         * @param {number} decimal 10進数
+         * @param {number} bits ビット数
+         * @returns {string} 2の補数表現のバイナリ文字列
+         */
+        function decimalToTwosComplement(decimal, bits) {
+            if (decimal >= 0) {
+                let binary = decimal.toString(2);
+                return binary.padStart(bits, '0');
+            } else {
+                let absDecimal = Math.abs(decimal);
+                let binary = absDecimal.toString(2);
+                binary = binary.padStart(bits, '0');
+
+                let invertedBinary = binary.split('').map(bit => (bit === '0' ? '1' : '0')).join('');
+
+                let carry = 1;
+                let result = '';
+                for (let i = bits - 1; i >= 0; i--) {
+                    let sum = parseInt(invertedBinary[i]) + carry;
+                    result = (sum % 2) + result;
+                    carry = Math.floor(sum / 2);
+                }
+                return result;
+            }
+        }
+
+        /**
+         * 指定ビット数の2の補数表現を10進数に変換します。
+         * @param {string} twosComplement 2の補数表現のバイナリ文字列
+         * @returns {number} 10進数
+         */
+        function twosComplementToDecimal(twosComplement) {
+            const bits = twosComplement.length;
+            if (twosComplement[0] === '0') {
+                return parseInt(twosComplement, 2);
+            } else {
+                let inverted = twosComplement.split('').map(bit => (bit === '0' ? '1' : '0')).join('');
+                let tempDecimal = parseInt(inverted, 2);
+                return -(tempDecimal + 1);
+            }
+        }
+
+        /**
+         * ランダムな2の補数問題オブジェクトを生成します。
+         * @returns {object} 問題オブジェクト { q: 問題文, answer: 正解, explanation: 解説 }
+         */
+        function generateTwosComplementQuestion() {
+            const bitsOptions = [4, 8, 16];
+            const bits = bitsOptions[Math.floor(Math.random() * bitsOptions.length)];
+
+            const maxPositive = Math.pow(2, bits - 1) - 1;
+            const minNegative = -Math.pow(2, bits - 1);
+
+            const questionType = Math.random() < 0.5 ? 'decimalToTwos' : 'twosToDecimal';
+
+            let questionText;
+            let correctAnswer;
+            let explanationText;
+
+            if (questionType === 'decimalToTwos') {
+                const decimalNum = Math.floor(Math.random() * (maxPositive - minNegative + 1)) + minNegative;
+                correctAnswer = decimalToTwosComplement(decimalNum, bits);
+                questionText = `10進数 ${decimalNum} を ${bits}ビット の2の補数表記にすると？`;
+                explanationText = `${decimalNum} を ${bits}ビットの2の補数表記に変換します。<br>`;
+                if (decimalNum >= 0) {
+                    explanationText += `正の数なので、まず10進数 ${decimalNum} を2進数 (${decimalNum.toString(2)}) に変換し、${bits}ビットになるように先頭に0を埋めます。`;
+                } else {
+                    explanationText += `負の数なので、まず絶対値 ${Math.abs(decimalNum)} を2進数 (${Math.abs(decimalNum).toString(2)}) に変換し、${bits}ビットになるように0を埋めます。<br>`;
+                    explanationText += `次に、全てのビットを反転させ、最後に 1 を加えます。`;
+                }
+
+            } else {
+                let binaryStr;
+                let decimalCandidate;
+                do {
+                    binaryStr = '';
+                    for (let i = 0; i < bits; i++) {
+                        binaryStr += Math.random() < 0.5 ? '0' : '1';
+                    }
+                    decimalCandidate = twosComplementToDecimal(binaryStr);
+                } while (decimalCandidate > maxPositive || decimalCandidate < minNegative);
+
+                correctAnswer = String(decimalCandidate);
+                questionText = `${bits}ビット の2の補数表記 ${binaryStr} は10進数で何？`;
+                explanationText = `${binaryStr}を10進数に変換します。<br>`;
+                if (binaryStr[0] === '0') {
+                    explanationText += `最上位ビットが0なので正の数です。${binaryStr}を直接10進数に変換します。`;
+                } else {
+                    explanationText += `最上位ビットが1なので負の数です。まず全てのビットを反転させ、1を加えてからその10進数値に負の符号を付けます。`;
+                }
+            }
+
+            return {
+                q: questionText,
+                answer: correctAnswer,
+                explanation: explanationText
+            };
+        }
+
+        // --- クイズ開始処理の修正 ---
+        function startQuiz() {
+            const startButton = document.getElementById("startButton");
+            startButton.disabled = true;
+
+            const seStart = document.getElementById('se-start');
+            seStart.currentTime = 0;
+            seStart.play();
+
+            const countdownOverlay = document.getElementById('countdown-overlay');
+            const countdownText = document.getElementById('countdown-text');
+            countdownOverlay.style.display = 'flex';
+
+            let count = 3;
+            countdownText.textContent = count;
+
+            const countdownTimer = setInterval(() => {
+                count--;
+                countdownText.textContent = count > 0 ? count : 'START!';
+            }, 1000);
+
+            setTimeout(() => {
+                clearInterval(countdownTimer);
+                countdownOverlay.style.display = 'none';
+
+                if (bgmToggleBtn && bgmToggleBtn.textContent === "▶️ BGMを再生") {
+                    bgm.play();
+                    bgmToggleBtn.textContent = '⏸️ BGMを停止';
+                }
+
+                // ここで動的に問題を生成し、questions配列に代入
+                questions = []; // 既存のquestions配列をクリア
+                for (let i = 0; i < totalQuestionsToGenerate; i++) {
+                    questions.push(generateTwosComplementQuestion());
+                }
+                
+                // 問題数を更新 (DOMコンテンツロード時にも設定されるが、念のため)
+                const questionCountElement = document.getElementById("question-count");
+                if (questionCountElement) {
+                    questionCountElement.textContent = `全${questions.length}問です。`;
+                }
+
+                shuffle(questions);
+                current = 0;
+                score = 0;
+                homeEl.style.display = "none";
+                quizEl.style.display = "block";
+                showQuestion(current);
+                startButton.disabled = false;
+            }, 3500);
+        }
+        // --- クイズ開始処理の修正 終わり ---
+
+        // showQuestion以下の関数はinputQuestion.jsの既存のまま (変更なし)
+        function showQuestion(index) {
+            const q = questions[index];
+            quizEl.innerHTML = "";
+
+            const question = document.createElement("div");
+            question.innerHTML = `<strong>Q${index + 1}:</strong> ${q.q}`;
+            quizEl.appendChild(question);
+
+            const input = document.createElement("textarea");
+            input.placeholder = "ここに入力してください";
+            quizEl.appendChild(input);
+
+            const answerButton = document.createElement("button");
+            answerButton.textContent = "解答する";
+            quizEl.appendChild(answerButton);
+
+            const result = document.createElement("div");
+            result.className = "result";
+            quizEl.appendChild(result);
+
+            const explanation = document.createElement("div");
+            explanation.className = "explanation";
+            quizEl.appendChild(explanation);
+
+            const nextButton = document.createElement("button");
+            nextButton.textContent = "次へ";
+            nextButton.style.display = "none";
+            quizEl.appendChild(nextButton);
+
+            const backButton = document.createElement("a");
+            backButton.href = selectionPageUrl;
+            backButton.textContent = "問題選択に戻る";
+            backButton.className = "home-button";
+            quizEl.appendChild(backButton);
+            backButton.addEventListener("click", function (e) {
+                e.preventDefault();
+                if (backClickCount === 0) {
+                    alert("本当に戻りますか？もう一度クリックすると戻ります。");
+                    backClickCount++;
+                } else {
+                    window.location.href = selectionPageUrl;
+                }
+            });
+
+            let emptyClickCount = 0;
+            answerButton.addEventListener("click", () => {
+                const userInput = input.value.trim();
+                if (userInput === "") {
+                    emptyClickCount++;
+                    if (emptyClickCount === 1) {
+                        result.textContent = "何も入力されていません。もう一度押すと正解が表示されます。";
+                        result.style.color = "black";
+                        return;
+                    }
+                }
+
+                input.disabled = true;
+                const seCorrect = document.getElementById("se-correct");
+                const seWrong = document.getElementById("se-wrong");
+
+                const normalizedUser = normalizeInput(userInput);
+                const normalizedAns = normalizeInput(q.answer);
+
+                if (normalizedUser === normalizedAns) {
+                    score++;
+                    seCorrect.currentTime = 0;
+                    seCorrect.play();
+                    result.textContent = "○ 正解です！";
+                    result.classList.add("correct");
+                    result.style.color = "green";
+                } else {
+                    seWrong.currentTime = 0;
+                    seWrong.play();
+                    result.innerHTML = `× 不正解です。<br><strong>正解：</strong><pre>${q.answer}</pre>`;
+                    result.classList.add("wrong");
+                    result.style.color = "red";
+                }
+
+                explanation.innerHTML = q.explanation;
+                answerButton.style.display = "none";
+                nextButton.style.display = "block";
+            });
+
+            nextButton.addEventListener("click", () => {
+                setTimeout(() => {
+                    current++;
+                    backClickCount = 0;
+                    if (current < questions.length) {
+                        showQuestion(current);
+                    } else {
+                        const seEnd = document.getElementById('se-end');
+                        seEnd.currentTime = 0;
+                        seEnd.play();
+                        quizEl.innerHTML = `<h2>お疲れ様でした！全${questions.length}問が終了しました。<br><br>${score}問正解しました！</h2>`;
+                        const today = new Date().toLocaleString();
+                        const newRecord = { date: today, score: score };
+                        let ranking = JSON.parse(localStorage.getItem(RANKING_KEY) || "[]");
+                        ranking.push(newRecord);
+                        ranking.sort((a, b) => b.score - a.score);
+                        ranking = ranking.slice(0, 5);
+                        localStorage.setItem(RANKING_KEY, JSON.stringify(ranking));
+
+                        const rankingList = document.createElement("div");
+                        rankingList.innerHTML = "<h3>🏆正解数ランキング(ローカル)</h3>";
+                        ranking.forEach((r, i) => {
+                            rankingList.innerHTML += `${i + 1}位: ${r.score}点（${r.date}）<br>`;
+                        });
+
+                        const retryBtn = document.createElement("button");
+                        retryBtn.textContent = "最初からやり直す";
+                        retryBtn.onclick = () => startQuiz();
+
+                        let resetClickCount = 0;
+                        const resetBtn = document.createElement("button");
+                        resetBtn.textContent = "ランキングをリセット";
+                        resetBtn.onclick = () => {
+                            if (resetClickCount === 0) {
+                                alert("本当にリセットしますか？もう一度クリックするとリセットされます。");
+                                resetClickCount++;
+                            } else {
+                                localStorage.removeItem(RANKING_KEY);
+                                location.reload();
+                            }
+                        };
+
+                        quizEl.appendChild(backButton);
+                        quizEl.appendChild(retryBtn);
+                        quizEl.appendChild(rankingList);
+                        quizEl.appendChild(resetBtn);
+                    }
+                }, 100);
+            });
+        }
+    </script>
+</body>
+</html>

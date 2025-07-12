@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>C++ コード提出問題（ハッシュ値判定）</title>
+  <style>
+    body {
+      font-family: sans-serif;
+      background-color: #f4f4f4;
+      margin: 0;
+      padding: 20px;
+      font-size: 1.2rem;
+    }
+    .container {
+      max-width: 800px;
+      margin: auto;
+      background: white;
+      padding: 30px;
+      border-radius: 10px;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    }
+    h1 {
+      text-align: center;
+      color: #333;
+    }
+    pre {
+      background-color: #eee;
+      padding: 15px;
+      border-radius: 5px;
+      overflow-x: auto;
+      font-size: 1rem;
+    }
+    textarea {
+      width: calc(100% - 20px);
+      height: 250px;
+      padding: 10px;
+      margin-bottom: 20px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      font-size: 1rem;
+      font-family: 'Consolas', 'Monaco', 'Courier New', monospace;
+    }
+    button {
+      display: block;
+      margin: 0 auto;
+      padding: 12px 25px;
+      border: none;
+      background-color: #007BFF;
+      color: white;
+      border-radius: 5px;
+      cursor: pointer;
+      font-size: 1.3rem;
+      transition: background-color 0.3s ease;
+    }
+    button:hover {
+      background-color: #0056b3;
+    }
+    #result {
+      margin-top: 25px;
+      padding: 15px;
+      border-radius: 5px;
+      font-weight: bold;
+      white-space: pre-wrap; /* 改行を保持 */
+      word-wrap: break-word; /* 長い単語を折り返す */
+    }
+    .correct {
+      background-color: #e6ffe6;
+      border: 1px solid #28a745;
+      color: #155724;
+    }
+    .wrong {
+      background-color: #ffe6e6;
+      border: 1px solid #dc3545;
+      color: #721c24;
+    }
+    .error {
+        background-color: #fff3cd;
+        border: 1px solid #ffc107;
+        color: #856404;
+    }
+    .loading-spinner {
+        border: 4px solid #f3f3f3;
+        border-top: 4px solid #3498db;
+        border-radius: 50%;
+        width: 30px;
+        height: 30px;
+        animation: spin 1s linear infinite;
+        margin: 20px auto;
+        display: none; /* 初期は非表示 */
+    }
+    @keyframes spin {
+        0% { transform: rotate(0deg); }
+        100% { transform: rotate(360deg); }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>C++ コード提出問題</h1>
+    <p>以下の C++ コードの**main関数部分**を完成させ、指定された入力に対して期待されるハッシュ値の出力を生成するコードを作成してください。</p>
+    <p>問題: 標準入力から2つの整数を受け取り、それらの合計を標準出力に出力するプログラムを作成してください。</p>
+    <pre>
+#include &lt;iostream&gt; // これらは自動的に含まれます
+// using namespace std; // これは使用できません。std::をつけてください
+
+int main() {
+  // ここにコードを記述してください
+  // 例:
+  // int a, b;
+  // std::cin >> a >> b;
+  // std::cout << a + b << std::endl;
+  return 0;
+}
+    </pre>
+    <p><strong>あなたのコード:</strong></p>
+    <textarea id="userCodeInput">
+#include <iostream>
+
+int main() {
+  // ここにコードを記述してください
+  // 例:
+  // int a, b;
+  // std::cin >> a >> b;
+  // std::cout << a + b << std::endl;
+  return 0;
+}
+    </textarea>
+    <button id="submitButton">解答を送信</button>
+    <div class="loading-spinner" id="loadingSpinner"></div>
+    <div id="result"></div>
+  </div>
+
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      const submitButton = document.getElementById("submitButton");
+      const userCodeInput = document.getElementById("userCodeInput");
+      const resultDiv = document.getElementById("result");
+      const loadingSpinner = document.getElementById("loadingSpinner");
+
+      submitButton.addEventListener("click", async () => {
+        const userCode = userCodeInput.value;
+        resultDiv.textContent = ""; // 結果をクリア
+        resultDiv.className = ""; // スタイルをクリア
+        loadingSpinner.style.display = "block"; // スピナー表示
+        submitButton.disabled = true; // ボタンを無効化
+
+        try {
+          const response = await fetch("http://127.0.0.1:5000/submit_code", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({ code: userCode }),
+          });
+
+          const data = await response.json();
+
+          loadingSpinner.style.display = "none"; // スピナー非表示
+          submitButton.disabled = false; // ボタンを有効化
+
+          if (data.status === "success") {
+            resultDiv.textContent = "✅ 正解です！";
+            resultDiv.classList.add("correct");
+          } else if (data.status === "failure") {
+            resultDiv.innerHTML = `❌ 不正解です。<br>
+                                   あなたの出力のハッシュ値: ${data.your_hash}<br>
+                                   期待されるハッシュ値: ${data.expected_hash}<br>
+                                   あなたのプログラムの出力:<pre>${data.your_output || '(出力なし)'}</pre>`;
+            resultDiv.classList.add("wrong");
+          } else if (data.status === "compile_error") {
+            resultDiv.innerHTML = `⚠️ コンパイルエラーが発生しました。<br><pre>${data.error_message}</pre>`;
+            resultDiv.classList.add("error");
+          } else if (data.status === "runtime_error") {
+            resultDiv.innerHTML = `🚨 実行時エラーが発生しました。<br>エラーメッセージ:<pre>${data.error_message}</pre>あなたのプログラムの出力:<pre>${data.your_output || '(出力なし)'}</pre>`;
+            resultDiv.classList.add("error");
+          } else {
+            resultDiv.innerHTML = `不明なエラーが発生しました。<br><pre>${data.error_message || '詳細不明'}</pre>`;
+            resultDiv.classList.add("error");
+          }
+        } catch (error) {
+          console.error("Fetch error:", error);
+          loadingSpinner.style.display = "none"; // スピナー非表示
+          submitButton.disabled = false; // ボタンを有効化
+          resultDiv.innerHTML = `通信エラーが発生しました: ${error.message}<br>サーバーが起動しているか確認してください。`;
+          resultDiv.classList.add("error");
+        }
+      });
+    });
+  </script>
+</body>
+</html> 
