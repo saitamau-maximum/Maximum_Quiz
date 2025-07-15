@@ -1,16 +1,16 @@
 FROM node:20
 
-# 作業ディレクトリを作成
+
 WORKDIR /app
 
-# ファイルをコピー
+
 COPY . .
 
-# 依存をインストール（package.json がある場合）
+
 RUN npm install
 
-# ポートを公開
+
 EXPOSE 8000
 
-# アプリを起動
+
 CMD ["node", "server.js"]
