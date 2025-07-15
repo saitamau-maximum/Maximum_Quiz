@@ -1,10 +1,10 @@
 <!DOCTYPE html>
 <html lang="ja">
-   <link rel="icon" href="https://avatars.githubusercontent.com/u/120705481?s=48&v=4" type="image/x-icon">
+  <link rel="icon" href="https://avatars.githubusercontent.com/u/120705481?s=48&v=4" type="image/x-icon">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>SQLの問題</title> 
+  <title>C++の問題</title>
   <style>
     body {
       font-family: sans-serif;
@@ -44,9 +44,14 @@
 </head>
 <body>
   <div class="container">
-    <h1>SQLの問題</h1> 
-    <a id="beginner-link">4択問題</a>
-    <a id="home-link">Maximum Quizのトップページに戻る</a>
+    <h1>C++の問題</h1>
+    <a id="beginner-link">4択問題 初級編</a>
+    <a id="intermediate-link">4択問題 中級編</a>
+    <a id="advanced-link">4択問題 上級編</a>
+    <a id="input-beginner-link">入力問題 初級編</a>
+    <a id="input-intermediate-link">入力問題 中級編</a>
+    <a id="input-advanced-link">入力問題 上級編</a>
+    <a id="home-link">プログラミング言語問題のページに戻る</a>
   </div>
 
   <script>
@@ -60,8 +65,13 @@
       });
     }
 
-    delayedRedirect("beginner-link", "SQL_Multiple_Question.html"); //後ろ側だけ変える(後ろがファイル名)
-    delayedRedirect("home-link", "../index.html");
+    delayedRedirect("beginner-link", "C++_Multiple_Question1.html");
+    delayedRedirect("intermediate-link", "C++_Multiple_Question2.html");
+    delayedRedirect("advanced-link", "C++_Multiple_Question3.html");
+    delayedRedirect("input-beginner-link", "C++_Input_Question1.html");
+    delayedRedirect("input-intermediate-link", "C++_Input_Question2.html");
+    delayedRedirect("input-advanced-link", "C++_Input_Question3.html");
+    delayedRedirect("home-link", "../Programing.html");
   </script>
 </body>
 </html>
