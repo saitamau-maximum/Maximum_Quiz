@@ -1,10 +1,10 @@
 <!DOCTYPE html>
 <html lang="ja">
-     <link rel="icon" href="https://avatars.githubusercontent.com/u/120705481?s=48&v=4" type="image/x-icon">
+  <link rel="icon" href="https://avatars.githubusercontent.com/u/120705481?s=48&v=4" type="image/x-icon">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>JavaScriptの問題</title> 
+  <title>HTMLの問題</title>
   <style>
     body {
       font-family: sans-serif;
@@ -44,9 +44,14 @@
 </head>
 <body>
   <div class="container">
-    <h1>JavaScriptの問題</h1> 
-    <a id="Multiple_Question">4択問題</a>
-    <a id="home-link">Maximum Quizのトップページに戻る</a>
+    <h1>HTMLの問題</h1>
+    <a id="beginner-link">4択問題</a>
+    <!--<a id="intermediate-link">4択問題 中級編</a>
+    <a id="advanced-link">4択問題 上級編</a>
+    <a id="input-beginner-link">入力問題 初級編</a>
+    <a id="input-intermediate-link">入力問題 中級編</a>
+    <a id="input-advanced-link">入力問題 上級編</a>-->
+    <a id="home-link">プログラミング言語問題のページに戻る</a>
   </div>
 
   <script>
@@ -60,8 +65,12 @@
       });
     }
 
-    delayedRedirect("Multiple_Question", "JavaScript_Multiple_Question.html"); 
-    delayedRedirect("home-link", "../index.html");
+    delayedRedirect("beginner-link", "HTML_Multiple_Question.html");
+    /*delayedRedirect("intermediate-link", "HTML4択問題中級編.html");
+    delayedRedirect("input-beginner-link", "HTML入力問題初級編.html");
+    delayedRedirect("input-intermediate-link", "HTML入力問題中級編.html");
+    delayedRedirect("input-advanced-link", "HTML入力問題上級編.html");*/
+    delayedRedirect("home-link", "../Programing.html");
   </script>
 </body>
 </html>

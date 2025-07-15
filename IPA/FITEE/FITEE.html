@@ -4,7 +4,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>C#の問題</title>
+  <title>基本情報基礎技術者試験の関する問題</title>
   <style>
     body {
       font-family: sans-serif;
@@ -44,24 +44,12 @@
 </head>
 <body>
   <div class="container">
-    <h1>C#の問題</h1>
-    <a id="beginner-link">4択問題</a>    
-    <a id="home-link">Maximum Quizのトップページに戻る</a>
+    <h1>基本情報基礎技術者試験の問題</h1>
+    <a href="FITEE_Multiple_Question.html">4択問題</a>
+    <a href="Changed_Question/Repoland.html">逆ポーランド記法の問題</a>
+    <a href="Changed_Question/Two's_complement_notation.html">2の補数表記の問題</a>
+    <a href="../IPA.html">IPA資格試験問題のページに戻る</a>
+   
   </div>
-
-  <script>
-    function delayedRedirect(id, url) {
-      const element = document.getElementById(id);
-      element.addEventListener("click", function() {
-        this.style.pointerEvents = "none";
-        setTimeout(() => {
-          window.location.href = url;
-        }, 10);
-      });
-    }
-
-    delayedRedirect("beginner-link", "C-sharp_Multiple_Question.html");
-    delayedRedirect("home-link", "../index.html");
-  </script>
 </body>
 </html>
