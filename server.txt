@@ -1,0 +1,54 @@
+import { Hono } from 'hono'
+import { serve } from '@hono/node-server'
+import { exec } from 'child_process'
+import { writeFileSync, unlinkSync, readFileSync  } from 'fs'
+import crypto from 'crypto'
+
+const app = new Hono()
+
+app.post('/submit', async (c) => {
+  const { code, problemId } = await c.req.json()
+
+  console.log(code);
+  console.log(problemId);
+
+  const id = String(problemId)
+
+  // ファイルに一時的にコードを書き出し
+  const filePath = `/tmp/${crypto.randomUUID()}.cpp`
+  writeFileSync(filePath, code)
+
+  // コマンド実行（g++でコンパイルして実行）
+  const compileCmd = `g++ ${filePath} -o ${filePath}.out`
+  const execCmd = `${filePath}.out < testcases/${id}/input.txt`
+
+  try {
+    // コンパイル
+    await new Promise((resolve, reject) =>
+      exec(compileCmd, (err) => (err ? reject(err) : resolve()))
+    )
+
+    // 実行
+    const output = await new Promise<string>((resolve, reject) =>
+      exec(execCmd, (err, stdout) => (err ? reject(err) : resolve(stdout)))
+    )
+
+    // 正誤判定（出力を比較）
+    const expected = readFileSync(`testcases/${id}/output.txt`, 'utf-8')
+    const isCorrect = output.trim() === expected.trim()
+
+    return c.json({ status: isCorrect ? 'AC' : 'WA', output })
+  } catch (err) {
+    console.error('エラー:', err)
+    return c.json({ status: 'RE', error: String(err) })
+  } finally {
+    // 一時ファイル削除
+    try {
+      unlinkSync(filePath)
+      unlinkSync(`${filePath}.out`)
+    } catch (_) {}
+  }
+})
+
+console.log('サーバーの起動に成功しました。');
+serve(app)

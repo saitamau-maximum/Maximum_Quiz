@@ -1,0 +1,17 @@
+{
+  "name": "hono-judge-server",
+  "version": "1.0.0",
+  "type": "module",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "nodemon server.js"
+  },
+  "dependencies": {
+    "@hono/node-server": "^1.15.0",
+    "hono": "^4.8.4"
+  },
+  "devDependencies": {
+    "nodemon": "^3.0.2"
+  }
+}
