@@ -60,6 +60,6 @@ app.post('/submit', async (c) => {
 });
 
 
-
+const port = Number(process.env.PORT) || 8000;
 console.log('🚀 サーバーの起動に成功しました。 http://localhost:8000/submit')
-serve({ fetch: app.fetch, port: 8000 })
+serve({ fetch: app.fetch, port });
