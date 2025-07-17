@@ -1,94 +1,93 @@
-import { readFile } from 'fs/promises';
-import { writeFile, unlink } from 'fs/promises';
-import { randomUUID } from 'crypto';
-import { spawn } from 'child_process';
-import path from 'path';
+import { readFile, writeFile, unlink } from 'fs/promises'
+import { randomUUID } from 'crypto'
+import { spawn } from 'child_process'
+import path from 'path'
 
-// handleSubmit関数の定義
+// Hono用：handleSubmit関数の定義
 export const handleSubmit = async (c) => {
-  const body = await c.req.json();
-  console.log('[handleSubmit] Received request body:', body);
-
-  const { code, problemId } = body;
-  const filename = `/tmp/${randomUUID()}`;
-  const sourcePath = `${filename}.cpp`;
-  const binaryPath = `${filename}.out`;
-
   try {
+    const body = await c.req.json()
+    console.log('[handleSubmit] Received request body:', body)
+
+    const { code, problemId } = body
+    if (!code || !problemId) {
+      return c.json({ error: 'code と problemId の両方が必要です。' }, 400)
+    }
+
+    const filename = `/tmp/${randomUUID()}`
+    const sourcePath = `${filename}.cpp`
+    const binaryPath = `${filename}.out`
+
     // 1. 書き込み
-    console.log('[handleSubmit] Writing code to file:', sourcePath);
-    await writeFile(sourcePath, code);
+    console.log('[handleSubmit] Writing source to:', sourcePath)
+    await writeFile(sourcePath, code)
 
-    // 2. コンパイル（stderr 収集付き）
-    console.log('[handleSubmit] Compiling...');
+    // 2. コンパイル
+    console.log('[handleSubmit] Compiling source...')
     await new Promise((resolve, reject) => {
-      const compile = spawn('g++', [sourcePath, '-o', binaryPath]);
-
-      let compileError = '';
+      const compile = spawn('g++', [sourcePath, '-o', binaryPath])
+      let compileError = ''
 
       compile.stderr.on('data', (data) => {
-        compileError += data.toString();
-      });
+        compileError += data.toString()
+      })
 
       compile.on('close', (code) => {
         if (code === 0) {
-          resolve();
+          resolve()
         } else {
-          console.error('[handleSubmit] Compile error:\n', compileError);
-          reject(new Error(`Compilation failed with exit code ${code}:\n${compileError}`));
+          console.error('[handleSubmit] Compile Error:\n', compileError)
+          reject(new Error(`コンパイル失敗 (exit code ${code}):\n${compileError}`))
         }
-      });
-    });
+      })
+    })
 
-    // 3. テストケース読み込み
-    const inputPath = path.join('testcases', `${problemId}`, 'input.txt');
-    const expectedPath = path.join('testcases', `${problemId}`, 'output.txt');
-    const input = await readFile(inputPath, 'utf8');
-    const expected = (await readFile(expectedPath, 'utf8')).trim();
+    // 3. テストケースの読み込み
+    const inputPath = path.join('testcases', `${problemId}`, 'input.txt')
+    const outputPath = path.join('testcases', `${problemId}`, 'output.txt')
+    const input = await readFile(inputPath, 'utf8')
+    const expected = (await readFile(outputPath, 'utf8')).trim()
 
-    console.log('[handleSubmit] Executing binary:', binaryPath);
-
-    const child = spawn(binaryPath, [], {
-      timeout: 10000,
-    });
-
-    let output = '';
-    let error = '';
+    console.log('[handleSubmit] Running executable...')
+    const child = spawn(binaryPath, [], { timeout: 10000 })
+    let output = ''
+    let error = ''
 
     child.stdout.on('data', (data) => {
-      output += data.toString();
-    });
+      output += data.toString()
+    })
 
     child.stderr.on('data', (data) => {
-      error += data.toString();
-    });
+      error += data.toString()
+    })
 
-    child.stdin.write(input);
-    child.stdin.end();
+    child.stdin.write(input)
+    child.stdin.end()
 
     const result = await new Promise((resolve, reject) => {
       child.on('close', (code, signal) => {
         if (signal === 'SIGTERM') {
-          reject(new Error('Execution timed out'));
+          reject(new Error('実行がタイムアウトしました。'))
         } else if (code !== 0) {
-          reject(new Error(`Execution failed with exit code ${code}\n${error}`));
+          reject(new Error(`実行失敗 (exit code ${code}):\n${error}`))
         } else {
-          resolve(output.trim());
+          resolve(output.trim())
         }
-      });
-    });
+      })
+    })
 
-    const success = result === expected;
-    return c.json({ result, expected, success });
-
+    const success = result === expected
+    return c.json({ result, expected, success })
   } catch (err) {
-    console.error('[handleSubmit] Runtime error:', err);
-    return c.json({ error: err.message }, 500);
+    console.error('[handleSubmit] エラー:', err)
+    return c.json({ error: err.message }, 500)
   } finally {
-    // クリーンアップ
-    await Promise.allSettled([
-      unlink(sourcePath),
-      unlink(binaryPath),
-    ]);
+    // 一時ファイルの削除
+    if (typeof sourcePath !== 'undefined' && typeof binaryPath !== 'undefined') {
+      await Promise.allSettled([
+        unlink(sourcePath),
+        unlink(binaryPath)
+      ])
+    }
   }
-};
+}
