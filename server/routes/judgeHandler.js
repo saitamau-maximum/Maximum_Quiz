@@ -1,6 +1,6 @@
 // judgeHandler.js
 import { exec } from 'child_process'
-import { writeFileSync, unlinkSync, readFileSync } from 'fs'
+import { writeFileSync, unlinkSync, readFileSync, existsSync } from 'fs'
 import crypto from 'crypto'
 
 /**
@@ -25,18 +25,22 @@ export async function handleSubmit(c) {
   }
 
   const id = String(problemId)
-  const filePath = `/tmp/${crypto.randomUUID()}.cpp`
+  const uuid = crypto.randomUUID()
+  const fileBase = `/var/tmp/${uuid}`
+  const filePath = `${fileBase}.cpp`
+  const outPath = `${fileBase}.out`
 
   writeFileSync(filePath, code)
 
-  const compileCmd = `g++ ${filePath} -o ${filePath}.out`
-  const execCmd = `${filePath}.out < testcases/${id}/input.txt`
+  const compileCmd = `g++ ${filePath} -o ${outPath}`
+  const execCmd = `${outPath} < testcases/${id}/input.txt`
 
   try {
     // コンパイル（タイムアウト 2秒）
     await new Promise((resolve, reject) => {
       exec(compileCmd, { timeout: 2000 }, (_err, _stdout, stderr) => {
         if (_err) {
+          console.error('コンパイルエラー:', stderr || _err.message)
           reject(new Error(stderr || _err.message))
         } else {
           resolve()
@@ -50,6 +54,7 @@ export async function handleSubmit(c) {
     const output = await new Promise((resolve, reject) => {
       exec(execCmd, { timeout: 2000 }, (err, stdout, stderr) => {
         if (err) {
+          console.error('実行エラー:', stderr || err.message)
           reject(new Error(stderr || err.message))
         } else {
           resolve(stdout)
@@ -68,8 +73,8 @@ export async function handleSubmit(c) {
     return c.json({ status: 'RE', error: errMsg })
   } finally {
     try {
-      unlinkSync(filePath)
-      unlinkSync(`${filePath}.out`)
+      if (existsSync(filePath)) unlinkSync(filePath)
+      if (existsSync(outPath)) unlinkSync(outPath)
     } catch (e) {
       console.warn('一時ファイルの削除に失敗しました:', e)
     }
