@@ -1,83 +1,94 @@
-import { exec } from 'child_process'
-import { writeFileSync, unlinkSync, readFileSync } from 'fs'
-import crypto from 'crypto'
+import { readFile } from 'fs/promises';
+import { writeFile, unlink } from 'fs/promises';
+import { randomUUID } from 'crypto';
+import { spawn } from 'child_process';
+import path from 'path';
 
-export async function handleSubmit(c) {
-  const MAX_CODE_SIZE_BYTES = 512 * 1024 // 512 KiB
+// handleSubmit関数の定義
+export const handleSubmit = async (c) => {
+  const body = await c.req.json();
+  console.log('[handleSubmit] Received request body:', body);
+
+  const { code, problemId } = body;
+  const filename = `/tmp/${randomUUID()}`;
+  const sourcePath = `${filename}.cpp`;
+  const binaryPath = `${filename}.out`;
 
   try {
-    const body = await c.req.json()
-    console.log('[handleSubmit] Received request body:', body)
+    // 1. 書き込み
+    console.log('[handleSubmit] Writing code to file:', sourcePath);
+    await writeFile(sourcePath, code);
 
-    const code = body.code
-    const problemId = body.problemId
-
-    if (typeof code !== 'string' || typeof problemId === 'undefined') {
-      console.log('[handleSubmit] Invalid request format')
-      return c.json({ status: 'RE', error: 'Invalid request format' }, 400)
-    }
-
-    const codeSize = Buffer.byteLength(code, 'utf8')
-    if (codeSize > MAX_CODE_SIZE_BYTES) {
-      console.log(`[handleSubmit] Code too large: ${codeSize} bytes`)
-      return c.json({ status: 'RE', error: 'Code too large. Must be ≤ 512 KiB' }, 400)
-    }
-
-    const id = String(problemId)
-    const filePath = `/var/tmp/${crypto.randomUUID()}.cpp`
-
-    console.log(`[handleSubmit] Writing code to file: ${filePath}`)
-    writeFileSync(filePath, code)
-
-    const compileCmd = `g++ ${filePath} -o ${filePath}.out`
-    console.log('[handleSubmit] Compile command:', compileCmd)
-
+    // 2. コンパイル（stderr 収集付き）
+    console.log('[handleSubmit] Compiling...');
     await new Promise((resolve, reject) => {
-      exec(compileCmd, { timeout: 2000 }, (_err, _stdout, stderr) => {
-        if (_err) {
-          console.log('[handleSubmit] Compile error:', stderr || _err.message)
-          reject(new Error(stderr || _err.message))
+      const compile = spawn('g++', [sourcePath, '-o', binaryPath]);
+
+      let compileError = '';
+
+      compile.stderr.on('data', (data) => {
+        compileError += data.toString();
+      });
+
+      compile.on('close', (code) => {
+        if (code === 0) {
+          resolve();
         } else {
-          console.log('[handleSubmit] Compile succeeded')
-          resolve()
+          console.error('[handleSubmit] Compile error:\n', compileError);
+          reject(new Error(`Compilation failed with exit code ${code}:\n${compileError}`));
         }
-      })
-    })
+      });
+    });
 
-    const execCmd = `timeout 2s ${filePath}.out < /app/testcases/${id}/input.txt`
-    console.log('[handleSubmit] Execution command:', execCmd)
+    // 3. テストケース読み込み
+    const inputPath = path.join('testcases', `${problemId}`, 'input.txt');
+    const expectedPath = path.join('testcases', `${problemId}`, 'output.txt');
+    const input = await readFile(inputPath, 'utf8');
+    const expected = (await readFile(expectedPath, 'utf8')).trim();
 
-    const output = await new Promise((resolve, reject) => {
-      exec(execCmd, { timeout: 2000 }, (err, stdout, stderr) => {
-        if (err) {
-          console.log('[handleSubmit] Execution error:', stderr || err.message)
-          reject(new Error(stderr || err.message))
+    console.log('[handleSubmit] Executing binary:', binaryPath);
+
+    const child = spawn(binaryPath, [], {
+      timeout: 10000,
+    });
+
+    let output = '';
+    let error = '';
+
+    child.stdout.on('data', (data) => {
+      output += data.toString();
+    });
+
+    child.stderr.on('data', (data) => {
+      error += data.toString();
+    });
+
+    child.stdin.write(input);
+    child.stdin.end();
+
+    const result = await new Promise((resolve, reject) => {
+      child.on('close', (code, signal) => {
+        if (signal === 'SIGTERM') {
+          reject(new Error('Execution timed out'));
+        } else if (code !== 0) {
+          reject(new Error(`Execution failed with exit code ${code}\n${error}`));
         } else {
-          console.log('[handleSubmit] Execution succeeded. Output:', stdout)
-          resolve(stdout)
+          resolve(output.trim());
         }
-      })
-    })
+      });
+    });
 
-    const expectedPath = `/app/testcases/${id}/output.txt`
-    console.log('[handleSubmit] Reading expected output from:', expectedPath)
-    const expected = readFileSync(expectedPath, 'utf-8')
+    const success = result === expected;
+    return c.json({ result, expected, success });
 
-    const isCorrect = output.trim() === expected.trim()
-    console.log('[handleSubmit] Result:', isCorrect ? 'AC' : 'WA')
-
-    return c.json({ status: isCorrect ? 'AC' : 'WA', output })
-  } catch (error) {
-    console.log('[handleSubmit] Error caught:', error)
-    const errMsg = error instanceof Error ? error.message : String(error)
-    return c.json({ status: 'RE', error: errMsg })
+  } catch (err) {
+    console.error('[handleSubmit] Runtime error:', err);
+    return c.json({ error: err.message }, 500);
   } finally {
-    try {
-      console.log('[handleSubmit] Cleaning up temporary files')
-      unlinkSync(filePath)
-      unlinkSync(`${filePath}.out`)
-    } catch (e) {
-      console.warn('[handleSubmit] Failed to delete temporary files:', e)
-    }
+    // クリーンアップ
+    await Promise.allSettled([
+      unlink(sourcePath),
+      unlink(binaryPath),
+    ]);
   }
-}
+};
