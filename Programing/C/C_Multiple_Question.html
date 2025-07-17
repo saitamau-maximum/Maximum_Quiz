@@ -40,6 +40,11 @@
       selectionPageUrl: "C.html", //問題選択ページのファイル名を入力
 
       questions: [
+/*問題索引
+出力問題
+型の問題
+*/        
+//出力問題
         {
           q: "次のコードを実行したとき、何が出力されますか？<pre>string s = \"123\";\nfor (int bit = 0; bit < (1 << 3); bit++) {\n  string t = \"\";\n  for (int i = 0; i < 3; i++) {\n    if (bit & (1 << i)) t += s[i];\n  }\n  cout << t << endl;\n}</pre>",
           options: [
@@ -84,6 +89,8 @@
           answer: 1,
           explanation: "findは指定した値が見つからない場合、v.end()を返す。<br>この場合、6はvに含まれていないので、Not Foundが出力される。"
         },
+
+        //型の問題
         {
           q:"int *aと宣言しているとき、aは何を指しているか？",
           options: [
