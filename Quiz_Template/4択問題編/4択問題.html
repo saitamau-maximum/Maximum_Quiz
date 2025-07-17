@@ -5,21 +5,21 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>ここがヘッダだよ</title> <!--ヘッダ名を設定-->
-  <link rel="stylesheet" href="../keep_out/selectQuestion.css"><!--パスを合わせてください(このファイルの親ディレクトリがMaximum_Quizにあるなら変更は不要、間違っていた場合私がデバッグします-->
+  <link rel="stylesheet" href="../../keep_out/selectQuestion.css"><!--パスを合わせてください(このファイルの親ディレクトリがMaximum_Quizにあるなら変更は不要、間違っていた場合私がデバッグします-->
   <style>
     .options label.disabled {
       pointer-events: none;
       color: #000;
     }
   </style>
-  <audio id="se-correct" src="../keep_out/correct.mp3" preload="auto"></audio><!--パスを合わせてください(このファイルの親ディレクトリがMaximum_Quizにあるなら変更は不要、間違っていた場合私がデバッグします)-->
-  <audio id="se-wrong" src="../keep_out/wrong.mp3" preload="auto"></audio><!--同上-->
-  <audio id="se-start" src="../keep_out/start.mp3" preload="auto"></audio><!--同上-->
-  <audio id="se-end" src="../keep_out/end.mp3" preload="auto"></audio><!--同上-->
+  <audio id="se-correct" src="../../keep_out/correct.mp3" preload="auto"></audio><!--パスを合わせてください(このファイルの親ディレクトリがMaximum_Quizにあるなら変更は不要、間違っていた場合私がデバッグします)-->
+  <audio id="se-wrong" src="../../keep_out/wrong.mp3" preload="auto"></audio><!--同上-->
+  <audio id="se-start" src="../../keep_out/start.mp3" preload="auto"></audio><!--同上-->
+  <audio id="se-end" src="../../keep_out/end.mp3" preload="auto"></audio><!--同上-->
 </head>
 
 <body>
-  <audio id="bgm" src="../keep_out/BGM.mp3" loop></audio><!--同上--
+  <audio id="bgm" src="../../keep_out/BGM.mp3" loop></audio><!--同上--
   <button id="bgm-toggle">▶️ BGMを再生</button>
   <div class="quiz-container" id="home">
     <h1>タイトル</h1> <!--タイトルの設定(ヘッダ名と同じでも可)-->
@@ -107,7 +107,7 @@
       ]
     };
   </script>
-  <script src="../keep_out/selectQuestion.js" defer></script>
+  <script src="../../keep_out/selectQuestion.js" defer></script>
 </body>
 
 </html>

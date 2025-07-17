@@ -1,10 +1,10 @@
 <!DOCTYPE html>
 <html lang="ja">
-  <link rel="icon" href="https://avatars.githubusercontent.com/u/120705481?s=48&v=4" type="image/x-icon">
+   <link rel="icon" href="https://avatars.githubusercontent.com/u/120705481?s=48&v=4" type="image/x-icon">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>C++の問題</title>
+  <title>授業の問題</title> <!--ヘッダの設定-->
   <style>
     body {
       font-family: sans-serif;
@@ -44,15 +44,14 @@
 </head>
 <body>
   <div class="container">
-    <h1>C++の問題</h1>
+    <h1>授業の問題</h1> <!--タイトルの設定-->
     <a id="beginner-link">4択問題 初級編</a>
     <a id="intermediate-link">4択問題 中級編</a>
     <a id="advanced-link">4択問題 上級編</a>
     <a id="input-beginner-link">入力問題 初級編</a>
     <a id="input-intermediate-link">入力問題 中級編</a>
     <a id="input-advanced-link">入力問題 上級編</a>
-    <a id="coding-link">コーディング問題</a>
-    <a id="home-link">プログラミング言語問題のページに戻る</a>
+    <a id="home-link">Minimum Quizのトップページに戻る</a>
   </div>
 
   <script>
@@ -66,14 +65,13 @@
       });
     }
 
-    delayedRedirect("beginner-link", "C++_Multiple_Question1.html");
-    delayedRedirect("intermediate-link", "C++_Multiple_Question2.html");
-    delayedRedirect("advanced-link", "C++_Multiple_Question3.html");
-    delayedRedirect("input-beginner-link", "C++_Input_Question1.html");
-    delayedRedirect("input-intermediate-link", "C++_Input_Question2.html");
-    delayedRedirect("input-advanced-link", "C++_Input_Question3.html");
-    delayedRedirect("coding-link", "Coding_Question/Coding.html");
-    delayedRedirect("home-link", "../Programing.html");
+    delayedRedirect("beginner-link", "~4択問題初級編.html"); //後ろ側だけ変える(後ろがファイル名)
+    delayedRedirect("intermediate-link", "~4択問題中級編.html"); //同上
+    delayedRedirect("advanced-link", "~4択問題上級編.html"); //同上
+    delayedRedirect("input-beginner-link", "~入力問題初級編.html"); //同上
+    delayedRedirect("input-intermediate-link", "~入力問題中級編.html"); //同上
+    delayedRedirect("input-advanced-link", "~入力問題上級編.html"); //同上
+    delayedRedirect("home-link", "../Mini.html");
   </script>
 </body>
 </html>
