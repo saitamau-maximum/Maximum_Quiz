@@ -3,27 +3,30 @@ import { randomUUID } from 'crypto'
 import { spawn } from 'child_process'
 import path from 'path'
 
-// Hono用：handleSubmit関数の定義
 export const handleSubmit = async (c) => {
+  const MAX_CODE_SIZE_BYTES = 512 * 1024 // 512 KiB
+  let sourcePath, binaryPath
+
   try {
     const body = await c.req.json()
-    console.log('[handleSubmit] Received request body:', body)
-
     const { code, problemId } = body
-    if (!code || !problemId) {
-      return c.json({ error: 'code と problemId の両方が必要です。' }, 400)
+
+    if (typeof code !== 'string' || typeof problemId === 'undefined') {
+      return c.json({ status: 'RE', error: 'Invalid request format' }, 400)
+    }
+
+    const codeSize = Buffer.byteLength(code, 'utf8')
+    if (codeSize > MAX_CODE_SIZE_BYTES) {
+      return c.json({ status: 'RE', error: 'Code too large. Must be ≤ 512 KiB' }, 400)
     }
 
     const filename = `/tmp/${randomUUID()}`
-    const sourcePath = `${filename}.cpp`
-    const binaryPath = `${filename}.out`
+    sourcePath = `${filename}.cpp`
+    binaryPath = `${filename}.out`
 
-    // 1. 書き込み
-    console.log('[handleSubmit] Writing source to:', sourcePath)
     await writeFile(sourcePath, code)
 
-    // 2. コンパイル
-    console.log('[handleSubmit] Compiling source...')
+    // コンパイル
     await new Promise((resolve, reject) => {
       const compile = spawn('g++', [sourcePath, '-o', binaryPath])
       let compileError = ''
@@ -36,20 +39,19 @@ export const handleSubmit = async (c) => {
         if (code === 0) {
           resolve()
         } else {
-          console.error('[handleSubmit] Compile Error:\n', compileError)
-          reject(new Error(`コンパイル失敗 (exit code ${code}):\n${compileError}`))
+          reject(new Error(`Compilation error:\n${compileError}`))
         }
       })
     })
 
-    // 3. テストケースの読み込み
+    // テストケース読み込み
     const inputPath = path.join('testcases', `${problemId}`, 'input.txt')
     const outputPath = path.join('testcases', `${problemId}`, 'output.txt')
     const input = await readFile(inputPath, 'utf8')
     const expected = (await readFile(outputPath, 'utf8')).trim()
 
-    console.log('[handleSubmit] Running executable...')
-    const child = spawn(binaryPath, [], { timeout: 10000 })
+    // 実行
+    const child = spawn(binaryPath, [], { timeout: 2000 })
     let output = ''
     let error = ''
 
@@ -67,27 +69,25 @@ export const handleSubmit = async (c) => {
     const result = await new Promise((resolve, reject) => {
       child.on('close', (code, signal) => {
         if (signal === 'SIGTERM') {
-          reject(new Error('実行がタイムアウトしました。'))
+          reject(new Error('Execution timed out'))
         } else if (code !== 0) {
-          reject(new Error(`実行失敗 (exit code ${code}):\n${error}`))
+          reject(new Error(`Execution failed (exit code ${code})\n${error}`))
         } else {
           resolve(output.trim())
         }
       })
     })
 
-    const success = result === expected
-    return c.json({ result, expected, success })
+    const isCorrect = result === expected
+    return c.json({ status: isCorrect ? 'AC' : 'WA', output: result })
+
   } catch (err) {
-    console.error('[handleSubmit] エラー:', err)
-    return c.json({ error: err.message }, 500)
+    console.error('[handleSubmit] Error:', err)
+    return c.json({ status: 'RE', error: err.message })
   } finally {
-    // 一時ファイルの削除
-    if (typeof sourcePath !== 'undefined' && typeof binaryPath !== 'undefined') {
-      await Promise.allSettled([
-        unlink(sourcePath),
-        unlink(binaryPath)
-      ])
-    }
+    await Promise.allSettled([
+      sourcePath && unlink(sourcePath),
+      binaryPath && unlink(binaryPath)
+    ])
   }
 }
