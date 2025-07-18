@@ -4,7 +4,9 @@ import { spawn } from 'child_process'
 import path from 'path'
 
 export const handleSubmit = async (c) => {
-  const MAX_CODE_SIZE_BYTES = 512 * 1024 // 512 KiB
+  const MAX_CODE_SIZE_BYTES = 512 * 1024
+  const NUM_TESTCASE = 3 // ← テストケース数
+
   let sourcePath, binaryPath
 
   try {
@@ -44,42 +46,47 @@ export const handleSubmit = async (c) => {
       })
     })
 
-    // テストケース読み込み
-    const inputPath = path.join('testcases', `${problemId}`, 'input.txt')
-    const outputPath = path.join('testcases', `${problemId}`, 'output.txt')
-    const input = await readFile(inputPath, 'utf8')
-    const expected = (await readFile(outputPath, 'utf8')).trim()
+    // テストケース実行ループ
+    for (let i = 1; i <= NUM_TESTCASE; i++) {
+      const inputPath = path.join('testcases', `Problem${problemId}`, `testcase${i}`, 'input.txt')
+      const outputPath = path.join('testcases', `Problem${problemId}`, `testcase${i}`, 'output.txt')
 
-    // 実行
-    const child = spawn(binaryPath, [], { timeout: 2000 })
-    let output = ''
-    let error = ''
+      const input = await readFile(inputPath, 'utf8')
+      const expected = (await readFile(outputPath, 'utf8')).trim()
 
-    child.stdout.on('data', (data) => {
-      output += data.toString()
-    })
+      const result = await new Promise((resolve, reject) => {
+        const child = spawn(binaryPath, [], { timeout: 2000 })
+        let output = ''
+        let error = ''
 
-    child.stderr.on('data', (data) => {
-      error += data.toString()
-    })
+        child.stdout.on('data', (data) => {
+          output += data.toString()
+        })
 
-    child.stdin.write(input)
-    child.stdin.end()
+        child.stderr.on('data', (data) => {
+          error += data.toString()
+        })
 
-    const result = await new Promise((resolve, reject) => {
-      child.on('close', (code, signal) => {
-        if (signal === 'SIGTERM') {
-          reject(new Error('Execution timed out'))
-        } else if (code !== 0) {
-          reject(new Error(`Execution failed (exit code ${code})\n${error}`))
-        } else {
-          resolve(output.trim())
-        }
+        child.stdin.write(input)
+        child.stdin.end()
+
+        child.on('close', (code, signal) => {
+          if (signal === 'SIGTERM') {
+            reject(new Error('Execution timed out'))
+          } else if (code !== 0) {
+            reject(new Error(`Execution failed (exit code ${code})\n${error}`))
+          } else {
+            resolve(output.trim())
+          }
+        })
       })
-    })
 
-    const isCorrect = result === expected
-    return c.json({ status: isCorrect ? 'AC' : 'WA', output: result })
+      if (result !== expected) {
+        return c.json({ status: 'WA', testcase: i, output: result, expected })
+      }
+    }
+
+    return c.json({ status: 'AC' })
 
   } catch (err) {
     console.error('[handleSubmit] Error:', err)
