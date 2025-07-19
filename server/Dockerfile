@@ -1,16 +1,13 @@
 FROM node:20
 
-
 WORKDIR /app
 
+COPY package*.json ./
+RUN npm install
 
 COPY . .
 
-
-RUN npm install
-
-
-EXPOSE 8000
-
+# C++ コンパイルのために build-essential を追加
+RUN apt-get update && apt-get install -y build-essential
 
 CMD ["node", "server.js"]
