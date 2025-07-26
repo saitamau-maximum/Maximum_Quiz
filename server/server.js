@@ -1,7 +1,8 @@
 import { Hono } from 'hono';
 import { cors } from 'hono/cors';
 import { serve } from '@hono/node-server';
-import { handleSubmit } from './routes/judgeHandler.js'; // 修正したインポート
+import { handleSubmit } from './routes/judgeHandler.js'; // c++実行関数インポート
+import { handleRanking } from './routes/ranking.js';//ランキングをインポート
 
 const app = new Hono();
 
