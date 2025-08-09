@@ -1,6 +1,385 @@
 <!DOCTYPE html>
 <html lang="ja"></html>
 <link rel="icon" href="https://avatars.githubusercontent.com/u/120705481?s=48&v=4" type="image/x-icon">
-<!--   
-毎回の値の変わる進数変換の問題を作る
--->
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>進数変換クイズ</title>
+  <link rel="stylesheet" href="../../../keep_out/inputQuestion.css">
+  <audio id="se-correct" src="../../../keep_out/correct.mp3" preload="auto"></audio>
+  <audio id="se-wrong" src="../../../keep_out/wrong.mp3" preload="auto"></audio>
+   <audio id="se-start" src="../../../keep_out/start.mp3" preload="auto"></audio>
+  <audio id="se-end" src="../../../keep_out/end.mp3" preload="auto"></audio>
+</head>
+<body>
+<audio id="bgm" src="../../../keep_out/BGM.mp3" loop></audio>
+  <button id="bgm-toggle">▶️ BGMを再生</button>
+  <div class="quiz-container" id="home">
+    <h1>進数変換クイズ</h1>
+    <p id="question-count">問題数を表示(変更不要)</p>
+    <button id="startButton" onclick="startQuiz()">開始</button>
+    <a href="../FITEE.html" class="back-button">問題選択に戻る</a>
+  </div>
+
+<div class="quiz-container" id="quiz" style="display: none;"></div>
+  <div id="countdown-overlay" class="countdown-overlay">
+  <div id="countdown-text" class="countdown-text"></div>
+  </div>
+
+<script>
+    const RANKING_KEY = "base_conversion_quiz_ranking";
+    let questions = [];
+    const totalQuestionsToGenerate = 5;
+   
+    document.addEventListener("DOMContentLoaded", () => {
+        const startButton = document.getElementById("startButton");
+        if (startButton) {
+            startButton.addEventListener("click", startQuiz);
+        }
+
+        const backButtonHome = document.querySelector(".back-button");
+        if (backButtonHome) {
+            backButtonHome.addEventListener("click", function (e) {
+                e.preventDefault();
+                if (backClickCount === 0) {
+                    alert("本当に戻りますか？もう一度クリックすると戻ります。");
+                    backClickCount++;
+                } else {
+                    // ここに実際の戻るページのURLを設定
+                    // window.location.href = "selectionPageUrl";
+                }
+            });
+        }
+    });
+
+    // --- ヘルパー関数 ---
+    function shuffle(array) {
+        for (let i = array.length - 1; i > 0; i--) {
+            const j = Math.floor(Math.random() * (i + 1));
+            [array[i], array[j]] = [array[j], array[i]];
+        }
+    }
+    
+    // --- 進数変換ヘルパー関数 ---
+    /**
+     * 10進数を指定した基数に変換します。
+     * @param {number} decimal 10進数
+     * @param {number} radix 変換先の基数（2, 3, 16など）
+     * @returns {string} 変換後の文字列
+     */
+    function decimalToRadix(decimal, radix) {
+      if (radix === 3) {
+          if (decimal === 0) return '0';
+          let ternary = '';
+          let num = decimal;
+          while (num > 0) {
+              ternary = (num % 3) + ternary;
+              num = Math.floor(num / 3);
+          }
+          return ternary;
+      }
+      return decimal.toString(radix).toUpperCase();
+    }
+
+    /**
+     * 指定した基数の数値を10進数に変換します。
+     * @param {string} numberStr 変換元の文字列
+     * @param {number} radix 変換元の基数
+     * @returns {number} 10進数
+     */
+    function radixToDecimal(numberStr, radix) {
+      return parseInt(numberStr, radix);
+    }
+
+    /**
+     * ランダムな進数変換問題オブジェクトを生成します。
+     * @returns {object} 問題オブジェクト { q: 問題文, answer: 正解, explanation: 解説 }
+     */
+    function generateRadixQuestion() {
+        const radixOptions = [2, 3, 10, 16];
+        let fromRadix, toRadix;
+        
+        do {
+            fromRadix = radixOptions[Math.floor(Math.random() * radixOptions.length)];
+            toRadix = radixOptions[Math.floor(Math.random() * radixOptions.length)];
+        } while (fromRadix === toRadix);
+
+        const maxDecimal = 1000; // 変換する10進数の最大値
+        let decimalNum;
+        if (fromRadix === 10) {
+            // 変換元が10進数の場合、ランダムに生成
+            decimalNum = Math.floor(Math.random() * maxDecimal) + 1;
+        } else {
+            // 変換元が10進数以外の場合、まず10進数としてランダムに生成し、変換元進数に変換
+            const tempDecimal = Math.floor(Math.random() * maxDecimal) + 1;
+            decimalNum = radixToDecimal(decimalToRadix(tempDecimal, fromRadix), fromRadix);
+        }
+
+        const questionValue = decimalToRadix(decimalNum, fromRadix);
+        const correctAnswer = decimalToRadix(decimalNum, toRadix);
+
+        const radixNames = { 2: '2進数', 3: '3進数', 10: '10進数', 16: '16進数' };
+        
+        const questionText = `${radixNames[fromRadix]}の ${questionValue} を ${radixNames[toRadix]}に変換すると？`;
+        const explanationText = `${radixNames[fromRadix]}の ${questionValue} は10進数では ${decimalNum} です。これを${radixNames[toRadix]}に変換すると ${correctAnswer} となります。`;
+
+        return {
+            q: questionText,
+            answer: correctAnswer,
+            explanation: explanationText
+        };
+    }
+
+    document.addEventListener("DOMContentLoaded", () => {
+    const questionCountElement = document.getElementById("question-count");
+    if (questionCountElement) {
+      questionCountElement.textContent = `全5問です。`;
+    }
+});
+
+function toHalfWidth(str) {
+  return str.replace(/[！-～]/g, function(s) {
+    return String.fromCharCode(s.charCodeAt(0) - 0xFEE0);
+  }).replace(/　/g, ' ');
+}
+
+function normalizeInput(str) {
+  return toHalfWidth(str.trim()).replace(/\s+/g, ' ');
+}
+
+let current = 0;
+let score = 0;
+let backClickCount = 0;
+
+const backButtonHome = document.querySelector(".back-button");
+if (backButtonHome) {
+  backButtonHome.addEventListener("click", function(e) {
+    e.preventDefault();
+    if (backClickCount === 0) {
+      alert("本当に戻りますか？もう一度クリックすると戻ります。");
+      backClickCount++;
+    } else {
+      window.location.href = "../FITEE.html";
+    }
+  });
+}
+
+const homeEl = document.getElementById("home");
+const quizEl = document.getElementById("quiz");
+
+function startQuiz() {
+
+  const startButton = document.getElementById("startButton");
+  startButton.disabled = true;
+
+  const seStart = document.getElementById('se-start');
+  seStart.currentTime = 0;
+  seStart.play();
+
+  const countdownOverlay = document.getElementById('countdown-overlay');
+  const countdownText = document.getElementById('countdown-text');
+
+  countdownOverlay.style.display = 'flex';
+
+  let count = 3;
+  countdownText.textContent = count;
+
+  const countdownTimer = setInterval(() => {
+    count--;
+    if (count > 0) {
+      countdownText.textContent = count;
+    } else {
+      countdownText.textContent = 'START!';
+    }
+  }, 1000);
+
+  setTimeout(() => {
+    clearInterval(countdownTimer);
+    countdownOverlay.style.display = 'none';
+
+    if(bgmToggleBtn.textContent == "▶️ BGMを再生") {
+      document.getElementById('bgm').play();
+      bgmToggleBtn.textContent = '⏸️ BGMを停止';
+    }
+
+    questions.length = 0;
+    const numberOfQuestionsToGenerate = 5;                    //問題数調整場所
+    for (let i = 0; i < numberOfQuestionsToGenerate; i++) {
+           const q = generateRadixQuestion();
+    if (q) {
+        questions.push(q);
+    }
+}
+    
+    shuffle(questions);
+
+    current = 0;
+    score = 0;
+    homeEl.style.display = "none";
+    quizEl.style.display = "block";
+    showQuestion(current);
+    startButton.disabled = false;
+  }, 3500);
+}
+
+function showQuestion(index) {
+  const q = questions[index];
+
+  quizEl.innerHTML = "";
+
+  const question = document.createElement("div");
+  question.innerHTML = `<strong>Q${index + 1}:</strong> ${q.q}`;
+  quizEl.appendChild(question);
+
+  const input = document.createElement("textarea");
+  input.placeholder = "ここに入力してください";
+  quizEl.appendChild(input);
+
+  const answerButton = document.createElement("button");
+  answerButton.textContent = "解答する";
+  quizEl.appendChild(answerButton);
+
+  const result = document.createElement("div");
+  result.className = "result";
+  quizEl.appendChild(result);
+
+  const explanation = document.createElement("div");
+  explanation.className = "explanation";
+  quizEl.appendChild(explanation);
+
+  const nextButton = document.createElement("button");
+  nextButton.textContent = "次へ";
+  nextButton.style.display = "none";
+  quizEl.appendChild(nextButton);
+
+  const backButton = document.createElement("a");
+  backButton.href = "../FITEE.html";
+  backButton.textContent = "問題選択に戻る";
+  backButton.className = "home-button";
+  quizEl.appendChild(backButton);
+  backButton.addEventListener("click", function(e) {
+    e.preventDefault();
+    if (backClickCount === 0) {
+      alert("本当に戻りますか？もう一度クリックすると戻ります。");
+      backClickCount++;
+    } else {
+      window.location.href = "../FITEE.html";
+    }
+  });
+
+  let emptyClickCount = 0;
+
+  answerButton.addEventListener("click", () => {
+    const userInput = input.value.trim();
+
+    if (userInput === "") {
+      emptyClickCount++;
+      if (emptyClickCount === 1) {
+        result.textContent = "何も入力されていません。もう一度押すと正解が表示されます。";
+        result.style.color = "black";
+        return;
+      }
+    }
+
+    input.disabled = true;
+    const seCorrect = document.getElementById("se-correct");
+    const seWrong = document.getElementById("se-wrong");
+
+    const normalizedUser = normalizeInput(userInput);
+    const normalizedAns = normalizeInput(q.answer);
+    if (normalizedUser === normalizedAns) {
+      score++;
+      seCorrect.currentTime = 0;
+      seCorrect.play();
+      result.textContent = "○ 正解です！";
+      result.classList.add("correct");
+      result.style.color = "green";
+      explanation.innerHTML = q.explanation;
+    } else {
+      seWrong.currentTime = 0;
+      seWrong.play();
+      result.innerHTML = `× 不正解です。<br><strong>正解：</strong><pre>${q.answer}</pre>`;
+      result.classList.add("wrong");
+      result.style.color = "red";
+      explanation.innerHTML = q.explanation;
+    }
+
+    answerButton.style.display = "none";
+    nextButton.style.display = "block";
+  });
+
+  nextButton.addEventListener("click", () => {
+    setTimeout(() => {
+      current++;
+      backClickCount = 0;
+      if (current < questions.length) {
+        showQuestion(current);
+      } else {
+        const seEnd = document.getElementById('se-end');
+        seEnd.currentTime = 0;
+        seEnd.play();
+        quizEl.innerHTML = `<h2>お疲れ様でした！全${questions.length}問が終了しました。<br><br>${score}問正解しました！</h2>`;
+        const today = new Date().toLocaleString();
+        const newRecord = { date: today, score: score };
+
+        let ranking = JSON.parse(localStorage.getItem(RANKING_KEY) || "[]");
+        ranking.push(newRecord);
+
+        ranking.sort((a, b) => b.score - a.score);
+        ranking = ranking.slice(0, 5);
+
+        localStorage.setItem(RANKING_KEY, JSON.stringify(ranking));
+
+        const rankingList = document.createElement("div");
+        rankingList.innerHTML = "<h3>🏆正解数ランキング(ローカル)</h3>";
+
+        ranking.forEach((r, i) => {
+            rankingList.innerHTML += `${i + 1}位: ${r.score}点（${r.date}）<br>`;
+        });
+
+        const retryBtn = document.createElement("button");
+        retryBtn.textContent = "最初からやり直す";
+        retryBtn.onclick = () => {
+          startQuiz();
+        };
+
+        let resetClickCount = 0;
+
+        const resetBtn = document.createElement("button");
+        resetBtn.textContent = "ランキングをリセット";
+        resetBtn.onclick = () => {
+        if (resetClickCount === 0) {
+            alert("本当にリセットしますか？もう一度クリックするとリセットされます。");
+            resetClickCount++;
+          } else {
+              localStorage.removeItem(RANKING_KEY);
+              location.reload();
+          }
+        };
+        const backBtn = document.createElement("a");
+        backBtn.href = "../FITEE.html";
+        backBtn.textContent = "問題選択に戻る";
+        backBtn.className = "home-button";
+        quizEl.appendChild(backBtn);
+        quizEl.appendChild(retryBtn);
+        quizEl.appendChild(rankingList);
+        quizEl.appendChild(resetBtn);
+      }
+    }, 100);
+  });
+}
+
+const bgm = document.getElementById('bgm');
+const bgmToggleBtn = document.getElementById('bgm-toggle');
+
+bgmToggleBtn.addEventListener('click', () => {
+  if (!bgm.paused) {
+    bgm.pause();
+    bgmToggleBtn.textContent = '▶️ BGMを再開';
+  } else {
+    bgm.play();
+    bgmToggleBtn.textContent = '⏸️ BGMを停止';
+  }
+});
+  </script>
+</body>
+</html>
