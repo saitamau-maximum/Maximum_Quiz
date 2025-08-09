@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="ja">
+<link rel="icon" href="https://avatars.githubusercontent.com/u/120705481?s=48&v=4" type="image/x-icon">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GitHub 4択問題</title>
+    <link rel="stylesheet" href="../../keep_out/inputQuestion.css">
+    <style>
+        .options label.disabled {
+            pointer-events: none;
+            color: #000;
+        }
+    </style>
+    <audio id="se-correct" src="../../keep_out/correct.mp3" preload="auto"></audio>
+    <audio id="se-wrong" src="../../keep_out/wrong.mp3" preload="auto"></audio>
+    <audio id="se-start" src="../../keep_out/start.mp3" preload="auto"></audio>
+    <audio id="se-end" src="../../keep_out/end.mp3" preload="auto"></audio>
+</head>
+
+<body>
+    <audio id="bgm" src="../../keep_out/BGM.mp3" loop></audio>
+    <button id="bgm-toggle">▶️ BGMを再生</button>
+    <div class="quiz-container" id="home">
+        <h1>GitHub 4択問題</h1> <!--タイトルの設定(ヘッダ名と同じでも可)-->
+        <p id="question-count">問題数を表示(変更不要)</p>
+        <button onclick="startQuiz()">開始</button>
+        <a href="Git_Hub.html" class="back-button">問題選択に戻る</a> <!--a.htmlを変更(問題選択画面のファイル名にする)-->
+    </div>
+
+    <div class="quiz-container" id="quiz" style="display: none;"></div>
+    <div id="countdown-overlay" class="countdown-overlay">
+        <div id="countdown-text" class="countdown-text"></div>
+    </div>
+    <script>
+        window.quizConfig = {
+
+            RANKING_KEY: "GitHub2", //ランキングのキーを設定
+
+            selectionPageUrl: "Git_Hub.html", //問題選択ページのURLを入力
+
+            questions: [
+                // コミット関連
+                {
+                    q: "直前のコミットメッセージを修正したい場合、どのコマンドを使いますか？",
+                    options: [
+                        "git commit --fix",
+                        "git commit --amend",
+                        "git commit --edit",
+                        "git commit --redo"
+                    ],
+                    answer: 1,
+                    explanation: "`git commit --amend` は直前のコミットを修正するためのコマンドです。ステージ済みの変更も上書きされます。"
+                },
+
+                // ブランチ関連
+                {
+                    q: "現在の作業内容を一時的に退避し、別ブランチに移動したい場合に使うコマンドは？",
+                    options: [
+                        "git pause",
+                        "git stash",
+                        "git save",
+                        "git store"
+                    ],
+                    answer: 1,
+                    explanation: "`git stash` は作業ツリーの変更を一時的に退避します。退避後はクリーンな状態で別ブランチへ移動できます。"
+                },
+
+                // マージ戦略
+                {
+                    q: "マージ時に履歴を1本化し、マージコミットを作らないようにするには？",
+                    options: [
+                        "git merge --fast-forward",
+                        "git merge --squash",
+                        "git rebase",
+                        "git pull --merge"
+                    ],
+                    answer: 2,
+                    explanation: "`git rebase` はブランチの変更履歴を付け替えて、1本化します。マージコミットは作られません（fast-forward可能な場合）。"
+                },
+
+                // リモート関連
+                {
+                    q: "リモートリポジトリ 'origin' の 'feature' ブランチをローカルに作成して切り替えるコマンドは？",
+                    options: [
+                        "git fetch origin feature && git checkout feature",
+                        "git checkout -b feature origin/feature",
+                        "git pull origin feature --switch",
+                        "git clone origin/feature"
+                    ],
+                    answer: 1,
+                    explanation: "`git checkout -b feature origin/feature` はリモートブランチを元にローカルブランチを作成し、切り替えます。"
+                },
+
+                // 差分確認
+                {
+                    q: "ステージされていない変更内容を確認するためのコマンドは？",
+                    options: [
+                        "git diff",
+                        "git diff --cached",
+                        "git status --diff",
+                        "git show"
+                    ],
+                    answer: 0,
+                    explanation: "`git diff` はワークツリーとステージエリアの差分を表示します。`--cached` はステージ済みとの差分を表示します。"
+                }
+            ]
+        };
+    </script>
+    <script src="../../keep_out/selectQuestion.js" defer></script>
+</body>
+
+</html>
