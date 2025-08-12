@@ -1,130 +1,109 @@
 <!DOCTYPE html>
 <html lang="ja">
+  <link rel="icon" href="https://avatars.githubusercontent.com/u/120705481?s=48&v=4" type="image/x-icon">
 <head>
-<link rel="icon" href="https://avatars.githubusercontent.com/u/120705481?s=48&v=4" type="image/x-icon">
-
-<meta charset="UTF-8">
-<!--
-<p>HTMLhはこれでコメントアウトする。</p>
--->
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title> Maximum Quiz</title>
-<style>
-header {
-    padding: 20px;
-    text-align: center;
-    width: 100%; 
-    height: 200px;
-    background-color: rgb(78, 146, 249);
-    margin: 0;
-    position: relative;
-}
-.logo1 {
-    position: absolute;
-    top: 40pt;
-    left: 7%;
-    width: 250px;
-    height: auto;
-    cursor: pointer;
-}
-.logo2 {
-    position: absolute;
-    top: 20pt;
-    left: 700pt;
-    width: 200px;
-    height: auto;
-    cursor: pointer;
-}
-h1 {
-    top:100pt;
-    left: 35%;
-    position: absolute;
-    color:  rgb(43, 210, 34);
-    font-size: 50px;
-    margin: 0;
-}
-p {
-    color: rgb(43, 210, 34);
-    font-size: 18px;
-    margin: 0;
-}
-body {
-    background-color: rgb(255, 255, 255);
-    color: rgb(255, 255, 255);
-    font-size: 16px;
-    font-family: Arial, sans-serif;
-    margin: 0;
-    padding: 18px;
-    text-align: center;
-}
-button {
-    padding: 10px 20px;
-    font-size: 16px;
-    margin: 5px;
-}
-#result {
-    margin-top: 20px;
-    font-size: 18px;
-    font-weight: bold;
-}
-.green-tab {
-    display: inline-block;
-    margin-left: 0%;
-    padding: 1px;
-}
-a[href="C/C.html"],
-a[href="C-sharp/C-sharp.html"],
-a[href="C++/C++.html"],
-a[href="Python/Python.html"],
-/*a[href="MarkDown/MarkDown"]*/
-a[href="HTML/HTML.html"],
-a[href="CSS/CSS.html"],
-a[href="JavaScript/JavaScript.html"],
-a[href="SQL/SQL.html"]/*,
-a[href="Go/Go.html"]*/
-{
-    color: rgb(43, 210, 34);
-}
-a[href="../index.html"] {
-    color: rgb(59, 199, 255);
-}
-</style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>IPAの問題</title>
+  <style>
+    body {
+      font-family: sans-serif;
+      background-image: url("../keep_out/Tyosi.JPG");
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+    .container {
+      text-align: center;
+      background: white;
+      padding: 40px;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+      width: 400px;
+    }
+    .grid-links {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+      margin-top: 20px;
+    }
+    .grid-links a {
+      text-decoration: none;
+      background-color: #007BFF;
+      color: white;
+      padding: 12px 0;
+      font-size: 1.1em;
+      border-radius: 5px;
+      cursor: pointer;
+      display: block;
+      transition: background 0.2s;
+    }
+    .grid-links a:hover {
+      background-color: #0056b3;
+    }
+    .home-link {
+      display: block;
+      margin-top: 28px;
+      text-decoration: none;
+      background-color: #28a745;
+      color: white;
+      padding: 12px 0;
+      font-size: 1.1em;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+    .home-link:hover {
+      background-color: #1e7e34;
+    }
+  </style>
 </head>
 <body>
-  <header class="hXpOls cGuTmT kqknCe fPSBzf dDWCpe bYPztT">
-    <a href="https://maximum.vc/" target="_blank">
-      <img src="../keep_out/Maximum-logo.svg" alt="Maximumロゴ" class="logo1">
-    </a>
-    <h1>Maximum Quiz</h1>
-    <a href="https://maximum.vc/" target="_blank">
-      <img src="../keep_out/Logo.png" alt="ゲーム開発班のロゴ" class="logo2">
-    </a>
-  </header>
-  <br>
-  <p>このサイトは、Maximumで必要な知識を学ぶためのクイズサイトです。<br>
-    各セクションに分かれた問題を解くことで、知識を深めましょう。問題は今後増やしていく予定です。</p>
-  <br>
-  <div class="green-tab">
-    <br><br><br>
-<a href="C/C.html">C言語に関する問題</a>
-<a href="C-sharp/C-sharp.html">C#に関する問題</a>
-<a href="C++/C++.html">C++に関する問題</a>
-<a href="Python/Python.html">Pythonに関する問題</a><br>
-  <!-- <a href="MarkDown/MarkDown">MarkDownに関する問題</a>-->
-<a href="HTML/HTML.html">HTMLに関する問題</a>
-<a href="CSS/CSS.html">CSSに関する問題</a>
-<a href="JavaScript/JavaScript.html">JavaScriptに関する問題</a>
-<a href="SQL/SQL.html">SQLに関する問題</a>
-<!--<a href="GO/GO.html">GOに関する問題</a>-->>
-<br>
-<br>
-<a href="../index.html">ホームに戻る</a><br>
-</div>
-<style>
-.green-tab a {
-  display: inline-block;
-  padding: 8px 20px;
-  margin: 6px 2px;
-  text-decoration: none;
-}
-</style>
+  <div class="container">
+    <h1>プログラミング言語の問題</h1>
+    <div class="grid-links">
+      <a id="C-link">C言語</a>
+      <a id="C#-link">C#</a>
+      <a id="C++-link">C++</a>
+      <a id="CSS-link">CSS</a>
+      <a id="JavaScript-link">JavaScript</a>
+      <a id="HTML-link">HTML</a>
+      <a id="MD-link">MarkDown</a>
+      <a id="Py-link">Python</a>
+      <a id="SQL-link">SQL</a>
+    </div>
+    <a id="home-link" class="home-link">ホーム画面に戻る</a>
+  </div>
+
+  <script>
+    function delayedRedirect(id, url) {
+      const element = document.getElementById(id);
+      element.addEventListener("click", function() {
+        this.style.pointerEvents = "none";
+        setTimeout(() => {
+          window.location.href = url;
+        }, 10);
+      });
+    }
+
+    delayedRedirect("C-link", "C/C.html");
+    delayedRedirect("C#-link", "C-sharp/C-sharp.html");
+    delayedRedirect("C++-link", "C++/C++.html");
+    delayedRedirect("CSS-link", "CSS/CSS.html");
+    delayedRedirect("JavaScript-link", "JavaScript/JavaScript.html");
+    delayedRedirect("HTML-link", "HTML/HTML.html");
+    delayedRedirect("MD-link", "MarkDown/MarkDown.html");
+    delayedRedirect("Py-link", "Python/Python.html");
+    delayedRedirect("SQL-link", "SQL/SQL.html");
+    delayedRedirect("home-link", "../index.html");
+    // delayedRedirect("Java-link", "Java/Java.html");
+    // delayedRedirect("Go-link", "Go/Go.html");
+  </script>
+</body>
+</html>
