@@ -33,8 +33,8 @@ CSS,GOは大文字で統一する。
 
 以下のサイト参照のこと、Pull Requestを作成したらDiscodeで連絡。
 レビューはしげるTealand、RK、中村君の誰かにしてもらうこと。
+またコミットは作業ごとに区切って行ってください。出ないと後から履歴遡るのが大変なので。
 https://blog.maximum.vc/blog/2023/webken/3/
-
 https://blog.maximum.vc/blog/2023/webken/4/
 
 コンフリクトを起こさないようにissueをこなすごとにgit pull origin main でmain　ブランチとコードを合わせること
