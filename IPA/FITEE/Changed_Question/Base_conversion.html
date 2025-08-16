@@ -120,8 +120,13 @@
         const radixNames = { 2: '2進数', 3: '3進数', 10: '10進数', 16: '16進数' };
         
         const questionText = `${radixNames[fromRadix]}の ${questionValue} を ${radixNames[toRadix]}に変換すると？`;
-        const explanationText = `${radixNames[fromRadix]}の ${questionValue} は10進数では ${decimalNum} です。これを${radixNames[toRadix]}に変換すると ${correctAnswer} となります。`;
-
+        let explanationText;
+        if(fromRadix != 10){
+        const questionText = `${radixNames[fromRadix]}の ${questionValue} を ${radixNames[toRadix]}に変換すると？`;
+        explanationText = `${radixNames[fromRadix]}の ${questionValue} は10進数では ${decimalNum} です。<br>これを${radixNames[toRadix]}に変換するには${decimalNum}を${toRadix}で繰り返し割り、その余りを逆から読むことで変換できます。<br> 計算すると${correctAnswer} となります。`;
+        } else {
+        explanationText = `${radixNames[fromRadix]}の ${questionValue} を${radixNames[toRadix]}に変換するには${questionValue}を${toRadix}で繰り返し割り、その余りを逆から読むことで変換できます。<br> 計算すると${correctAnswer} となります。`;
+        }
         return {
             q: questionText,
             answer: correctAnswer,
