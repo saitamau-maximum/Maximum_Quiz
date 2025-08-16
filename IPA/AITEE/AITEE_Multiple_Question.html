@@ -150,7 +150,7 @@
     document.addEventListener("DOMContentLoaded", () => {
     const questionCountElement = document.getElementById("question-count");
     if (questionCountElement) {
-      questionCountElement.textContent = `全${questions.length}問です。`;
+      questionCountElement.textContent = `全10問です。`;
     }
   });
 
@@ -226,6 +226,7 @@ if (backButtonHome) {
           bgmToggleBtn.textContent = '⏸️ BGMを停止';
         }
         shuffle(questions);
+        questions = questions.slice(0, 10);
         current = 0;
         score = 0;
         homeEl.style.display = "none";
