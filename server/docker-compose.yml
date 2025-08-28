@@ -7,4 +7,6 @@ services:
       - "8000:8000"
     volumes:
       - .:/app
+      - /app/node_modules  # node_modules をホストと切り離す
+      - ./db:/app/db  # ← DB 永続化
     restart: unless-stopped
