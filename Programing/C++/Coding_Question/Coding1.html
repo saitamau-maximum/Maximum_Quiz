@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>C++ 木構造問題</title>
+    <style>
+        /* CSSは変更なし */
+        /* ... */
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h1>C++ 木構造問題</h1>
+        <p>以下のテンプレートを完成させて、指定された整数を二分探索木に挿入し、その木を中順(インオーダー)で巡回した結果を標準出力に出力するプログラムを作成してください。</p>
+        <p>
+            **ノード構造体の定義、クラスのメソッド定義、そして`main`関数をすべてこのファイルに記述してください。**
+        </p>
+        <pre>
+#include <iostream>
+#include <vector>
+using namespace std;
+
+// ここにNode構造体とBinarySearchTreeクラスを定義してください
+// ...
+// ...
+
+int main() {
+  // ここにコードを記述してください
+  // 例:
+  // BinarySearchTree tree;
+  // std::vector&lt;int&gt; numbers = {5, 3, 7, 1, 4, 6, 8};
+  // for (int num : numbers) {
+  //     tree.insert(num);
+  // }
+  // tree.inorder_traversal();
+  return 0;
+}
+    </pre>
+        <p><strong>あなたのコード:</strong></p>
+        <textarea id="userCodeInput">
+#include <iostream>
+#include <vector>
+using namespace std;
+
+// ノード構造体
+struct Node {
+    int key;
+    Node* left;
+    Node* right;
+    Node(int value) : key(value), left(nullptr), right(nullptr) {}
+};
+
+// 二分探索木クラス
+class BinarySearchTree {
+private:
+    Node* root;
+
+    void insert(Node*& node, int key) {
+        if (node == nullptr) {
+            node = new Node(key);
+        } else if (key < node->key) {
+            insert(node->left, key);
+        } else {
+            insert(node->right, key);
+        }
+    }
+
+    void inorder_traversal(Node* node) {
+        if (node != nullptr) {
+            inorder_traversal(node->left);
+            cout << node->key << " ";
+            inorder_traversal(node->right);
+        }
+    }
+
+public:
+    BinarySearchTree() : root(nullptr) {}
+
+    void insert(int key) {
+        insert(root, key);
+    }
+
+    void inorder_traversal() {
+        inorder_traversal(root);
+        cout << endl;
+    }
+};
+
+int main() {
+    // 問題を解くためのコードをここに記述してください
+    // 例えば、以下のコードのコメントアウトを外し、動作を確認してください
+    /*
+    BinarySearchTree tree;
+    std::vector<int> numbers = {5, 3, 7, 1, 4, 6, 8};
+    for (int num : numbers) {
+        tree.insert(num);
+    }
+    tree.inorder_traversal();
+    */
+
+    return 0;
+}
+    </textarea>
+        <button id="submitButton">解答を送信</button>
+        <div class="loading-spinner" id="loadingSpinner"></div>
+        <div id="result"></div>
+    </div>
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            const submitButton = document.getElementById("submitButton");
+            const userCodeInput = document.getElementById("userCodeInput");
+            const resultDiv = document.getElementById("result");
+            const loadingSpinner = document.getElementById("loadingSpinner");
+
+            submitButton.addEventListener("click", async () => {
+                const userCode = userCodeInput.value;
+                resultDiv.textContent = "";
+                resultDiv.className = "";
+                loadingSpinner.style.display = "block";
+                submitButton.disabled = true;
+
+                try {
+                    const response = await fetch("https://maximum-quiz-1.onrender.com/submit", {
+                        method: "POST",
+                        headers: {
+                            "Content-Type": "application/json",
+                        },
+                        // problemIdを2に設定
+                        body: JSON.stringify({ code: userCode, problemId: 2 }),
+                    });
+
+                    const contentType = response.headers.get("content-type") || "";
+                    if (!contentType.includes("application/json")) {
+                        const text = await response.text();
+                        resultDiv.innerHTML = `🚨 コンパイルエラーが発生しました。<br><pre>${text}</pre>`;
+                        resultDiv.classList.add("error");
+                    } else {
+                        const data = await response.json();
+                        if (data.status === "AC") {
+                            resultDiv.textContent = "✅ 正解です！";
+                            resultDiv.classList.add("correct");
+                        } else if (data.status === "WA") {
+                            resultDiv.innerHTML = `❌ 不正解です。<br>あなたのプログラムの出力:<pre>${data.output || "(出力なし)"}</pre>`;
+                            resultDiv.classList.add("wrong");
+                        } else if (data.status === "RE") {
+                            resultDiv.innerHTML = `🚨 コンパイルエラーまたは実行時エラーが発生しました。<br>エラーメッセージ:<pre>${data.error}</pre>`;
+                            resultDiv.classList.add("error");
+                        } else {
+                            resultDiv.innerHTML = `不明なエラーが発生しました。<br><pre>${JSON.stringify(data)}</pre>`;
+                            resultDiv.classList.add("error");
+                        }
+                    }
+                } catch (error) {
+                    console.error("Fetch error:", error);
+                    resultDiv.innerHTML = `通信エラーが発生しました: ${error.message}<br>サーバーが起動しているか確認してください。`;
+                    resultDiv.classList.add("error");
+                } finally {
+                    loadingSpinner.style.display = "none";
+                    submitButton.disabled = false;
+                }
+            });
+        });
+    </script>
+</body>
+
+</html>
