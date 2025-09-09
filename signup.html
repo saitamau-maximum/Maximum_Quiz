@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8" />
+  <title>ユーザー登録</title>
+</head>
+<body>
+  <div class="form-container">
+    <h2>ユーザー登録</h2>
+    <form id="signupForm">
+      <input type="email" id="email" placeholder="メールアドレス" required />
+      <input type="password" id="password" placeholder="パスワード" required />
+      <button type="submit">登録</button>
+    </form>
+    <div class="message" id="message"></div>
+    <a href="./login.html">ログインはこちら</a>
+  </div>
+
+  <script>
+    document.getElementById("signupForm").addEventListener("submit", async (e) => {
+      e.preventDefault()
+      const email = document.getElementById("email").value
+      const password = document.getElementById("password").value
+      const messageEl = document.getElementById("message")
+
+      try {
+        const res = await fetch("http://localhost:8000/auth/register", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ email, password }),
+        })
+
+        const data = await res.json()
+        if (res.ok && data.success) {
+          // JWTを保存
+          localStorage.setItem("token", data.token)
+          messageEl.textContent = "登録成功！ログイン済みです。"
+          // トップページへ遷移
+          location.href = "./index.html"
+        } else {
+          messageEl.textContent = "エラー: " + (data.error || "不明なエラー")
+        }
+      } catch (err) {
+        messageEl.textContent = "通信エラー: " + err.message
+      }
+    })
+  </script>
+</body>
+</html>
