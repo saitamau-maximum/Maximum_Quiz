@@ -37,7 +37,18 @@
   window.quizConfig = {
     RANKING_KEY: "cpp1", // ランキングのキー
     selectionPageUrl: "C++.html", // 問題選択ページのURL
+    /*
+    コメント・基本文法:1
+    変数・型・キャスト:1
+    標準入出力:1
+    演算・比較・論理:1
+    文字列・配列・vector:1
+    その他:1
+    計6問
+    */
+
     questions: [
+      // コメント・基本文法
       {
         q: "C++でのコメントアウトは次のうちどれか",
         options: [
@@ -48,42 +59,6 @@
         ],
         answer: 0,
         explanation: "//と書くとその行はコメントとしてみなされる。<br>/*と書くと、*/と書くまでコメントとみなされる。"
-      },
-      {
-        q: "C++での標準出力はどれ？",
-        options: [
-          "cout",
-          "cin",
-          "printf",
-          "scanf"
-        ],
-        answer: 0,
-        explanation: "cout は C++ の標準出力ストリーム。<br>cin は入力、printf と scanf は C言語の関数。"
-      },
-      {
-        q: "以下のコードの出力は？<pre>int a = 5;\nint b = 10;\ncout << a + b << endl;</pre>",
-        options: [
-          "15",
-          "510",
-          "エラーになる",
-          "何も表示されない"
-        ],
-        answer: 0,
-        explanation: "a と b を足すと 15 が出力される。"
-      },
-
-
-
-      {
-        q: "以下のうち、正しい変数の宣言はどれ？",
-        options: [
-          "int 123abc;",
-          "int x = 5;",
-          "string = name;",
-          "char a == 'c';"
-        ],
-        answer: 1,
-        explanation: "変数名は数字から始められないので1つめは不適。<br>3つめはイコールが要らない。<br>初期化したいなら string name = \"Yamadastring\" のように書く。<br>4つめは == でなく = を使う。"
       },
       {
         q: `<pre>次のコードでコンパイルエラーが出る理由は？
@@ -113,6 +88,43 @@ int main() {
         ],
         answer: 1,
         explanation: "std::cout を cout と書けるようになります。"
+      },
+      {
+        q: "以下のうち、正しい変数の宣言はどれ？",
+        options: [
+          "int 123abc;",
+          "int x = 5;",
+          "string = name;",
+          "char a == 'c';"
+        ],
+        answer: 1,
+        explanation: "変数名は数字から始められないので1つめは不適。<br>3つめはイコールが要らない。<br>初期化したいなら string name = \"Yamadastring\" のように書く。<br>4つめは == でなく = を使う。"
+      },
+
+      // 標準入出力
+      {
+        q: "C++での標準出力はどれ？",
+        options: [
+          "cout",
+          "cin",
+          "printf",
+          "scanf"
+        ],
+        answer: 0,
+        explanation: "cout は C++ の標準出力ストリーム。<br>cin は入力、printf と scanf は C言語の関数。"
+      },
+
+      // 変数・型・キャスト
+      {
+        q: "以下のコードの出力は？<pre>int a = 5;\nint b = 10;\ncout << a + b << endl;</pre>",
+        options: [
+          "15",
+          "510",
+          "エラーになる",
+          "何も表示されない"
+        ],
+        answer: 0,
+        explanation: "a と b を足すと 15 が出力される。"
       },
       {
         q: "以下のコードの出力は？<pre>int a = 10;\nint b = 3;\ncout << a / b << endl;</pre>",
@@ -180,6 +192,8 @@ int main() {
         answer: 0,
         explanation: "0 は false 扱い。cout で出力されると 0。"
       },
+
+      // 演算・比較・論理
       {
         q: "以下のコードを実行したときの出力は？<pre>int a = 100000;\nint b = 100000;\nint c = a * b;\ncout << c << endl;</pre>",
         options: [
@@ -192,28 +206,6 @@ int main() {
         explanation: "int の範囲を超えるのでオーバーフロー。"
       },
       {
-        q: "以下のコードを実行したとき、何が起きる？<pre>vector&lt;int&gt; v = {1, 2, 3};\ncout << v[5] << endl;</pre>",
-        options: [
-          "3と表示される",
-          "5と表示される",
-          "実行時エラー or 未定義動作になる可能性がある",
-          "エラーでコンパイルできない"
-        ],
-        answer: 2,
-        explanation: "存在しないインデックスへのアクセスは未定義動作。"
-      },
-      {
-        q: "以下のコードの出力は？<pre>int x;\ncout << x << endl;</pre>",
-        options: [
-          "0",
-          "エラーになる",
-          "変な値が表示される",
-          "何も表示されない"
-        ],
-        answer: 2,
-        explanation: "ローカル変数は初期化されない → 変な値が出る。"
-      },
-      {
         q: "次のコードを実行したときの出力は？<pre>char a = 'a';\nchar b = 'b';\ncout << (a == b) << endl;</pre>",
         options: [
           "0",
@@ -224,6 +216,8 @@ int main() {
         answer: 0,
         explanation: "a と b は異なるので比較は false（0）。"
       },
+
+      // 文字列・配列・vector
       {
         q: "次のコードを実行したときの出力は？<pre>string str1 = \"Hello\";\nstring str2 = \" World\";\ncout << str1 + str2 << endl;</pre>",
         options: [
@@ -234,6 +228,30 @@ int main() {
         ],
         answer: 1,
         explanation: "string 同士の + で結合 → Hello World。"
+      },
+      {
+        q: "以下のコードを実行したとき、何が起きる？<pre>vector&lt;int&gt; v = {1, 2, 3};\ncout << v[5] << endl;</pre>",
+        options: [
+          "3と表示される",
+          "5と表示される",
+          "実行時エラー or 未定義動作になる可能性がある",
+          "エラーでコンパイルできない"
+        ],
+        answer: 2,
+        explanation: "存在しないインデックスへのアクセスは未定義動作。"
+      },
+
+      // その他
+      {
+        q: "以下のコードの出力は？<pre>int x;\ncout << x << endl;</pre>",
+        options: [
+          "0",
+          "エラーになる",
+          "変な値が表示される",
+          "何も表示されない"
+        ],
+        answer: 2,
+        explanation: "ローカル変数は初期化されない → 変な値が出る。"
       }
     ]
   };

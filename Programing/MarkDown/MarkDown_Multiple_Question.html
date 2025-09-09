@@ -39,20 +39,128 @@
 
       selectionPageUrl: "MarkDown.html", //問題選択ページのファイル名を入力
 
-      questions: [
-        // 基礎編
-        {
-          q: "次のうち、MarkDownで見出しを表す記号はどれですか？",
-          options: [
-            "#",
-            "##",
-            "###",
-            "####"
-          ],
-          answer: 0,
-          explanation: "MarkDownでは、#記号を使って見出しを表現します。"
-        },
+/*
+  基礎編:3
+  書式編:4
+  応用編:3
+  計10問
+*/
+    questions: [
+      // 基礎編
+      {
+        q: "次のうち、MarkDownで見出しを表す記号はどれですか？",
+        options: [
+          "#",
+          "##",
+          "###",
+          "####"
+        ],
+        answer: 0,
+        explanation: "MarkDownでは、#記号を使って見出しを表現します。"
+      },
+      {
+        q: "MarkDownで箇条書きを作るための記号はどれ？",
+        options: [
+          "-",
+          "*",
+          "+",
+          "すべて正しい"
+        ],
+        answer: 3,
+        explanation: "MarkDownでは-, *, + いずれも箇条書きに使えます。"
+      },
+      {
+        q: "MarkDownでリンクを作る正しい書き方はどれ？",
+        options: [
+          "[タイトル](URL)",
+          "<タイトル>URL</タイトル>",
+          "{タイトル}(URL)",
+          "[URL](タイトル)"
+        ],
+        answer: 0,
+        explanation: "[タイトル](URL) の形式でリンクを作成します。"
+      },
 
+      // 書式編
+      {
+        q: "MarkDownで太字にする記号はどれ？",
+        options: [
+          "**",
+          "*",
+          "~~",
+          "__"
+        ],
+        answer: 0,
+        explanation: "**太字** のようにアスタリスク2つで囲みます。"
+      },
+      {
+        q: "MarkDownで斜体にする記号はどれ？",
+        options: [
+          "*",
+          "**",
+          "~~",
+          "`"
+        ],
+        answer: 0,
+        explanation: "*斜体* のようにアスタリスク1つで囲みます。"
+      },
+      {
+        q: "MarkDownで取り消し線を引く記号はどれ？",
+        options: [
+          "~~",
+          "**",
+          "__",
+          "=="
+        ],
+        answer: 0,
+        explanation: "~~取り消し線~~ のようにチルダ2つで囲みます。"
+      },
+      {
+        q: "MarkDownでコードをインライン表示する記号はどれ？",
+        options: [
+          "`",
+          "```",
+          "''",
+          "~~"
+        ],
+        answer: 0,
+        explanation: "`コード` のようにバッククォートで囲みます。"
+      },
+
+      // 応用編
+      {
+        q: "MarkDownで画像を挿入する正しい書き方はどれ？",
+        options: [
+          "![altテキスト](画像URL)",
+          "[画像URL](altテキスト)",
+          "<img src='画像URL'>",
+          "!![altテキスト](画像URL)"
+        ],
+        answer: 0,
+        explanation: "![altテキスト](画像URL) の形式で画像を挿入します。"
+      },
+      {
+        q: "MarkDownで番号付きリストを作るには？",
+        options: [
+          "1. 項目",
+          "- 項目",
+          "* 項目",
+          "+ 項目"
+        ],
+        answer: 0,
+        explanation: "1. 2. 3. ... のように数字とピリオドで番号付きリストを作ります。"
+      },
+      {
+        q: "MarkDownで引用を表す記号はどれ？",
+        options: [
+          ">",
+          "#",
+          "-",
+          "*"
+        ],
+        answer: 0,
+        explanation: "> を行頭に付けると引用になります。"
+      }
                ]
              };
            </script>

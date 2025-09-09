@@ -33,8 +33,17 @@
       RANKING_KEY: "cpp_in2",
       selectionPageUrl: "C++.html",
       questions: [
-        {
-          q: `次のコードの出力を、半角で入力してください。<pre>vector&lt;int&gt; v = {10, 20, 30};
+    /*
+      --- 問題カテゴリ索引 ---
+      // イテレータ・コンテナ
+      // set・map
+      // 参照・値渡し
+      // 三項演算子
+    */
+
+      // イテレータ・コンテナ
+      {
+        q: `次のコードの出力を、半角で入力してください。<pre>vector&lt;int&gt; v = {10, 20, 30};
 auto it = v.begin();
 for(int i = 0; i < 3; i++){
   *it += 5;
@@ -43,58 +52,62 @@ for(int i = 0; i < 3; i++){
 for(int x : v) {
   cout << x << endl;
 }</pre>`,
-          answer: "15\n25\n35",
-          explanation: "各要素に5を加えた結果が順に出力される。"
-        },
-        {
-          q: `次のコードの出力を、半角で入力してください。<pre>vector&lt;int&gt; v = {10, 20, 30};
+        answer: "15\n25\n35",
+        explanation: "各要素に5を加えた結果が順に出力される。"
+      },
+      {
+        q: `次のコードの出力を、半角で入力してください。<pre>vector&lt;int&gt; v = {10, 20, 30};
 auto it = v.begin();
 cout << *it << endl;
 it++;
 cout << *it << endl;</pre>`,
-          answer: "10\n20",
-          explanation: "it は v.begin() → *it = 10 → 次は 20。"
-        },
-        {
-          q: `次のコードを実行したときの出力を半角で入力してください。<pre>set&lt;int&gt; s;
+        answer: "10\n20",
+        explanation: "it は v.begin() → *it = 10 → 次は 20。"
+      },
+
+      // set・map
+      {
+        q: `次のコードを実行したときの出力を半角で入力してください。<pre>set&lt;int&gt; s;
 s.insert(5);
 s.insert(3);
 s.insert(5);
 for (int x : s) cout << x << endl;</pre>`,
-          answer: "3\n5",
-          explanation: "set は重複不可・昇順で並ぶ。"
-        },
-        {
-          q: `次のコードを実行したときの出力を半角で入力してください。<pre>map&lt;string, int&gt; mp;
+        answer: "3\n5",
+        explanation: "set は重複不可・昇順で並ぶ。"
+      },
+      {
+        q: `次のコードを実行したときの出力を半角で入力してください。<pre>map&lt;string, int&gt; mp;
 mp["banana"] = 5;
 mp["apple"] = 2;
 for (auto p : mp) cout << p.first << ' ' << p.second << endl;</pre>`,
-          answer: "apple 2\nbanana 5",
-          explanation: "map はキー順（文字列順）でループされる。"
-        },
-        {
-          q: `次のコードの出力を半角で入力してください。\n<pre>map&lt;string, int&gt; m;
+        answer: "apple 2\nbanana 5",
+        explanation: "map はキー順（文字列順）でループされる。"
+      },
+      {
+        q: `次のコードの出力を半角で入力してください。\n<pre>map&lt;string, int&gt; m;
 cout << m["key"] << endl;</pre>`,
-          answer: "0",
-          explanation: "未定義キーへのアクセスで初期値0が自動挿入される。"
-        },
-        {
-          q: `次のコードの出力を半角で入力してください。\n<pre>set&lt;int&gt; s = {1, 3, 5};
+        answer: "0",
+        explanation: "未定義キーへのアクセスで初期値0が自動挿入される。"
+      },
+      {
+        q: `次のコードの出力を半角で入力してください。\n<pre>set&lt;int&gt; s = {1, 3, 5};
 if (s.find(3) != s.end()) cout << "yes";
 else cout << "no";</pre>`,
-          answer: "yes",
-          explanation: "find(3) 成功で yes 出力。"
-        },
-        {
-          q: `次のコードを実行したとき、出力されるものは何か？（型の種類を答えてください）<pre>set&lt;int&gt; s = {3, 5, 8};
+        answer: "yes",
+        explanation: "find(3) 成功で yes 出力。"
+      },
+      {
+        q: `次のコードを実行したとき、出力されるものは何か？（型の種類を答えてください）<pre>set&lt;int&gt; s = {3, 5, 8};
 int x = 5;
 auto a = s.find(x);
 cout << a << endl;</pre>`,
-          answer: "イテレータ",
-          explanation: "set.find(x) の戻り値はイテレータ。cout << a でポインタっぽい出力。"
-        },
-        {
-          q: `次のコードの出力を半角で入力してください。<pre>void add(int x) {
+        answer: "イテレータ",
+        explanation: "set.find(x) の戻り値はイテレータ。cout << a でポインタっぽい出力。"
+      },
+
+      // 参照・値渡し
+      {
+        q: `次のコードの出力を半角で入力してください。<pre>void add(int x) {
   x += 5;
 }
 
@@ -103,11 +116,11 @@ int main() {
   add(a);
   cout << a << endl;
 }</pre>`,
-          answer: "10",
-          explanation: "値渡しなので a は変更されない。"
-        },
-        {
-          q: `次のコードの出力を半角で入力してください。<pre>void add(int &x) {
+        answer: "10",
+        explanation: "値渡しなので a は変更されない。"
+      },
+      {
+        q: `次のコードの出力を半角で入力してください。<pre>void add(int &x) {
   x += 5;
 }
 
@@ -116,17 +129,19 @@ int main() {
   add(a);
   cout << a << endl;
 }</pre>`,
-          answer: "15",
-          explanation: "参照渡しなので a に直接加算される。"
-        },
-        {
-          q: `次のコードの出力を半角で入力してください。<pre>int a = 5;
+        answer: "15",
+        explanation: "参照渡しなので a に直接加算される。"
+      },
+
+      // 三項演算子
+      {
+        q: `次のコードの出力を半角で入力してください。<pre>int a = 5;
 int b = 10;
 int c = (a > b ? a : b);
 cout << c << endl;</pre>`,
-          answer: "10",
-          explanation: "a > b が false → b を代入 → c = 10。"
-        }
+        answer: "10",
+        explanation: "a > b が false → b を代入 → c = 10。"
+      }
       ]
     };
   </script>

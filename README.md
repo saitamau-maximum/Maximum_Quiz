@@ -74,8 +74,8 @@ mp3やjpegなどの素材はkeep_outディレクトリに入れること
 
 ##　記述言語
 
-主にhtmlとJavaScriptとCSSを使う。フォーマットはQuiz_Templateを参照のこと。
-
+主にhtmlとJavaScriptとCSSを使う。
+4択問題には問題の分類とそれぞれの問題数を記録・更新すること
 ##　ファイル名
 
 問題選択のファイル名は「言語名_問.html」とする。例：JavaScript_.html
