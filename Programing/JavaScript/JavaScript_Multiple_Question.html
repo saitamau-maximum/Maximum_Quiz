@@ -34,76 +34,85 @@
   </div>
   <script>
     window.quizConfig = {
-
-      RANKING_KEY: "JavaScript", //ランキングのキーを設定
-
-      selectionPageUrl: "JavaScript.html", //問題選択ページのファイル名を入力
-
-      questions: [
-       {
-  q: "JavaScriptで変数を宣言する正しい方法はどれ？",
-  options: ["let x = 10;", "var: x = 10;", "int x = 10;", "x := 10;"],
-  answer: 0,
-  explanation: "JavaScriptではletやvar、constで変数を宣言します。"
-},
-{
-  q: "次のうち、配列の要素数を取得するプロパティは？",
-  options: ["length", "size", "count", "elements"],
-  answer: 0,
-  explanation: "配列.lengthで要素数を取得できます。"
-},
-{
-  q: "関数を定義する正しい方法はどれ？",
-  options: ["function myFunc() {}", "def myFunc() {}", "func myFunc() {}", "function:myFunc() {}"],
-  answer: 0,
-  explanation: "JavaScriptではfunctionキーワードで関数を定義します。"
-},
-{
-  q: "次のうち、文字列を数値に変換する関数は？",
-  options: ["parseInt()", "toString()", "parseFloat()", "Number()"],
-  answer: 0,
-  explanation: "parseInt()は文字列を整数に変換します。parseFloat()やNumber()も変換できますが、選択肢の順番に注意。"
-},
-{
-  q: "JavaScriptでコメントを書く正しい方法は？",
-  options: ["// コメント", "# コメント", "<!-- コメント -->", "' コメント"],
-  answer: 0,
-  explanation: "JavaScriptの1行コメントは//です。"
-},
-{
-  q: "次のうち、配列に要素を追加するメソッドは？",
-  options: ["push()", "add()", "append()", "insert()"],
-  answer: 0,
-  explanation: "push()で配列の末尾に要素を追加できます。"
-},
-{
-  q: "次のうち、等価比較（型変換あり）を行う演算子は？",
-  options: ["==", "===", "!=", "!=="],
-  answer: 0,
-  explanation: "==は型変換を行って比較します。===(厳密等価)は型も値も比較します。"
-},
-{
-  q: "次のうち、オブジェクトのプロパティへアクセスする正しい方法は？",
-  options: ["obj.prop", "obj->prop", "obj:prop", "obj[prop]"],
-  answer: 0,
-  explanation: "obj.prop または obj['prop'] でアクセスできます。"
-},
-{
-  q: "次のうち、無限ループになるコードはどれ？",
-  options: ["while(true) {}", "for(let i=0;i<10;i++) {}", "if(true) {}", "do {} while(false);"],
-  answer: 0,
-  explanation: "while(true) {} は条件が常に真なので無限ループになります。"
-},
-{
-  q: "次のうち、アラートダイアログを表示する関数は？",
-  options: ["alert()", "prompt()", "console.log()", "confirm()"],
-  answer: 0,
-  explanation: "alert()はメッセージを表示するダイアログを出します。<br>prompt()は入力を求めるダイアログ、confirm()は確認ダイアログです。"
-},
-      ]
-    };
-  </script>
-  <script src="../../keep_out/selectQuestion.js" defer></script>
-</body>
-
-</html>
+         
+             RANKING_KEY: "JavaScript", //ランキングのキーを設定
+        
+             selectionPageUrl: "JavaScript.html", //問題選択ページのファイル名を入力
+        
+             questions: [
+                   // --- 基本文法・宣言 ---
+                   {
+                     q: "JavaScriptで変数を宣言する正しい方法はどれ？",
+                     options: ["let x = 10;", "var: x = 10;", "int x = 10;", "x := 10;"],
+                     answer: 0,
+                     explanation: "JavaScriptではletやvar、constで変数を宣言します。"
+                   },
+                   {
+                     q: "関数を定義する正しい方法はどれ？",
+                     options: ["function myFunc() {}", "def myFunc() {}", "func myFunc() {}", "function:myFunc() {}"],
+                     answer: 0,
+                     explanation: "JavaScriptではfunctionキーワードで関数を定義します。"
+                   },
+                   {
+                     q: "JavaScriptでコメントを書く正しい方法は？",
+                     options: ["// コメント", "# コメント", "<!-- コメント -->", "' コメント"],
+                     answer: 0,
+                     explanation: "JavaScriptの1行コメントは//です。"
+                   },
+                   
+                   // --- 配列・オブジェクト ---
+                   {
+                     q: "次のうち、配列の要素数を取得するプロパティは？",
+                     options: ["length", "size", "count", "elements"],
+                     answer: 0,
+                     explanation: "配列.lengthで要素数を取得できます。"
+                   },
+                   {
+                     q: "次のうち、配列に要素を追加するメソッドは？",
+                     options: ["push()", "add()", "append()", "insert()"],
+                     answer: 0,
+                     explanation: "push()で配列の末尾に要素を追加できます。"
+                   },
+                   {
+                     q: "次のうち、オブジェクトのプロパティへアクセスする正しい方法は？",
+                     options: ["obj.prop", "obj->prop", "obj:prop", "obj[prop]"],
+                     answer: 0,
+                     explanation: "obj.prop または obj['prop'] でアクセスできます。"
+                   },
+                   
+                   // --- 型変換・演算子 ---
+                   {
+                     q: "次のうち、文字列を数値に変換する関数は？",
+                     options: ["parseInt()", "toString()", "parseFloat()", "Number()"],
+                     answer: 0,
+                     explanation: "parseInt()は文字列を整数に変換します。parseFloat()やNumber()も変換できますが、選択肢の順番に注意。"
+                   },
+                   {
+                     q: "次のうち、等価比較（型変換あり）を行う演算子は？",
+                     options: ["==", "===", "!=", "!=="],
+                     answer: 0,
+                     explanation: "==は型変換を行って比較します。===(厳密等価)は型も値も比較します。"
+                   },
+                   
+                   // --- 制御構文 ---
+                   {
+                     q: "次のうち、無限ループになるコードはどれ？",
+                     options: ["while(true) {}", "for(let i=0;i<10;i++) {}", "if(true) {}", "do {} while(false);"],
+                     answer: 0,
+                     explanation: "while(true) {} は条件が常に真なので無限ループになります。"
+                   },
+                   
+                   // --- 組み込み関数 ---
+                   {
+                     q: "次のうち、アラートダイアログを表示する関数は？",
+                     options: ["alert()", "prompt()", "console.log()", "confirm()"],
+                     answer: 0,
+                     explanation: "alert()はメッセージを表示するダイアログを出します。<br>prompt()は入力を求めるダイアログ、confirm()は確認ダイアログです。"
+                   }
+                                    ]
+                                  };
+                                </script>
+                                <script src="../../keep_out/selectQuestion.js" defer></script>
+           </body>
+           
+           </html>           

@@ -40,76 +40,125 @@
       selectionPageUrl: "Python.html", //問題選択ページのファイル名を入力
 
       questions: [
-        {
-          q: "次のコードを実行したとき、出力される値は？<pre>def func(x):\n    return x * 2\n\nprint(func(3))</pre>",
-          options: [
-            "6",
-            "3",
-            "9",
-            "エラーが発生する"
-          ],
-          answer: 0,
-          explanation: "関数 func は引数 x を受け取り、それを2倍にして返す。func(3) は 3 * 2 = 6 を返す。"
-        },
-        {
-          q: "次のコードを実行したとき、出力される値は？<pre>for i in range(5):\n    print(i)</pre>",
-          options: [
-            "0 1 2 3 4",
-            "1 2 3 4 5",
-            "0 1 2 3 4 5",
-            "エラーが発生する"
-          ],
-          answer: 0,
-          explanation: "range(5) は0から4までの整数を生成するため、出力は0, 1, 2, 3, 4となる。"
-        },
-        {
-          q: "次のコードを実行したとき、出力される値は？<pre>my_list = [1, 2, 3]\nprint(my_list[1])</pre>",
-          options: [
-            "1",
-            "2",
-            "3",
-            "エラーが発生する"
-          ],
-          answer: 1,
-          explanation: "リスト my_list のインデックス1の要素は2であるため、出力は2になる。"
-        },
-        {
-          q:"次のうち最もPythonが使われているのはどれか？",
-          options: [
-            "Web開発",
-            "ゲーム開発",
-            "データ分析",
-            "モバイルアプリ開発"
-          ],
-          answer: 2,
-          explanation: "Pythonはデータ分析や機械学習の分野で非常に人気があり、特にデータサイエンスの分野で広く使用されている。"   
-        },
-        {
-          q: "次のコードを実行したとき、出力される値は？<pre>my_dict = {'a': 1, 'b': 2}\nprint(my_dict['b'])</pre>",
-          options: [
-            "1",
-            "2",
-            "{'a': 1, 'b': 2}",
-            "エラーが発生する"
-          ],
-          answer: 1,
-          explanation: "辞書 my_dict のキー 'b' に対応する値は2であるため、出力は2になる。"
-        },
-        {
-          q: "次のコードを実行したとき、出力される値は？<pre>my_list = [1, 2, 3]\nmy_list.append(4)\nprint(my_list)</pre>",
-          options: [
-            "[1, 2, 3]",
-            "[1, 2, 3, 4]",
-            "[4, 1, 2, 3]",
-            "エラーが発生する"
-          ],
-          answer: 1,
-          explanation: "append メソッドはリストの末尾に要素を追加する。したがって、my_list は [1, 2, 3, 4] になる。"
-        }
-      ]
-    };
-  </script>
-  <script src="../../keep_out/selectQuestion.js" defer></script>
-</body>
-
-</html>
+         // 件数系
+         {
+           q: "次のSQL文の実行結果は？<pre>SELECT COUNT(*) FROM employees WHERE department = 'Sales';</pre>",
+           options: [
+             "営業部門の従業員数",
+             "全従業員数",
+             "営業部門の売上合計",
+             "営業部門の平均給与"
+           ],
+           answer: 0,
+           explanation: "COUNT(*) は指定した条件に一致する行数をカウントします。ここでは営業部門の従業員数を取得しています。"
+         },
+         {
+           q: "次のSQL文の実行結果は？<pre>SELECT COUNT(*) FROM employees WHERE salary >= 50000;</pre>",
+           options: [
+             "給与が50,000以上の従業員数を取得する",
+             "全従業員数を取得する",
+             "給与が50,000未満の従業員数を取得する",
+             "給与の合計を取得する"
+           ],
+           answer: 0,
+           explanation: "WHERE salary >= 50000 で条件を指定し、COUNT(*)で件数を取得します。"
+         },
+         
+         // 更新・追加・削除系
+         {
+           q: "次のSQL文の目的は？<pre>UPDATE employees SET salary = salary * 1.1 WHERE performance_rating = 'Excellent';</pre>",
+           options: [
+             "全従業員の給与を10%増加させる",
+             "優秀な従業員の給与を10%増加させる",
+             "全従業員の評価を'Excellent'に変更する",
+             "優秀な従業員の評価を'Excellent'に変更する"
+           ],
+           answer: 1,
+           explanation: "UPDATE文は指定した条件に一致する行を更新します。ここでは、評価が'Excellent'の従業員の給与を10%増加させています。"
+         },
+         {
+           q: "次のSQL文の目的は？<pre>DELETE FROM employees WHERE last_login < '2023-01-01';</pre>",
+           options: [
+             "2023年1月1日以前にログインした従業員を削除",
+             "全ての従業員を削除",
+             "2023年1月1日以降にログインした従業員を削除",
+             "2023年1月1日以前に登録された従業員を削除"
+           ],
+           answer: 0,
+           explanation: "DELETE文は指定した条件に一致する行を削除します。ここでは、2023年1月1日以前にログインした従業員を削除しています。"
+         },
+         {
+           q: "次のSQL文の目的は？<pre>INSERT INTO products (name, price) VALUES ('ペン', 100);</pre>",
+           options: [
+             "productsテーブルに新しい商品を追加する",
+             "productsテーブルの全ての商品を削除する",
+             "productsテーブルの価格を更新する",
+             "productsテーブルの名前を変更する"
+           ],
+           answer: 0,
+           explanation: "INSERT文は新しい行（レコード）をテーブルに追加します。"
+         },
+         {
+           q: "次のSQL文の目的は？<pre>ALTER TABLE employees ADD COLUMN age INTEGER;</pre>",
+           options: [
+             "employeesテーブルにage列を追加する",
+             "employeesテーブルを削除する",
+             "employeesテーブルのage列を削除する",
+             "employeesテーブルのage列の型を変更する"
+           ],
+           answer: 0,
+           explanation: "ALTER TABLE ... ADD COLUMN ... で新しい列を追加します。"
+         },
+         
+         // 検索・取得系
+         {
+           q: "次のSQL文の実行結果は？<pre>SELECT * FROM employees WHERE salary BETWEEN 50000 AND 100000;</pre>",
+           options: [
+             "給与が50,000から100,000の従業員を取得",
+             "給与が50,000以下の従業員を取得",
+             "給与が100,000以上の従業員を取得",
+             "全ての従業員を取得"
+           ],
+           answer: 0,
+           explanation: "BETWEEN句は指定した範囲内の値を持つ行を取得します。ここでは、給与が50,000から100,000の従業員を取得しています。"
+         },
+         {
+           q: "次のSQL文の実行結果は？<pre>SELECT AVG(price) FROM products;</pre>",
+           options: [
+             "商品の平均価格を取得する",
+             "商品の合計価格を取得する",
+             "商品の最高価格を取得する",
+             "商品の最低価格を取得する"
+           ],
+           answer: 0,
+           explanation: "AVG関数は指定した列の平均値を計算します。"
+         },
+         {
+           q: "次のSQL文の実行結果は？<pre>SELECT name FROM employees ORDER BY salary DESC;</pre>",
+           options: [
+             "給与が高い順に従業員名を取得する",
+             "給与が低い順に従業員名を取得する",
+             "従業員名を昇順で取得する",
+             "従業員名をランダムに取得する"
+           ],
+           answer: 0,
+           explanation: "ORDER BY salary DESC で給与が高い順に並べ替えます。"
+         },
+         {
+           q: "次のSQL文の目的は？<pre>SELECT DISTINCT department FROM employees;</pre>",
+           options: [
+             "重複しない部署名だけを取得する",
+             "全ての従業員を取得する",
+             "部署ごとの従業員数を取得する",
+             "部署名を昇順で取得する"
+           ],
+           answer: 0,
+           explanation: "DISTINCTは重複を除いて値を取得します。"
+         }
+               ]
+             };
+           </script>
+           <script src="../../keep_out/selectQuestion.js" defer></script>
+         </body>
+         
+         </html>         
