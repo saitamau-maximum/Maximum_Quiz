@@ -43,6 +43,7 @@
 /*問題索引
 出力問題
 型の問題
+ポインタの問題
 */        
 //出力問題
         {
@@ -89,7 +90,28 @@
           answer: 1,
           explanation: "findは指定した値が見つからない場合、v.end()を返す。<br>この場合、6はvに含まれていないので、Not Foundが出力される。"
         },
-
+        {
+          q: "次のコードを実行したとき、出力される値は？<pre>int a = 5, b = 3;\nprintf(\"%d\", a + b);</pre>",
+          options: [
+            "8",
+            "53",
+            "5+3",
+            "エラーになる"
+          ],
+          answer: 0,
+          explanation: "a + b は 5 + 3 で 8 となり、%d で整数8が出力されます。"
+        },
+        {
+          q: "次のコードを実行したとき、出力される値は？<pre>int a = 10;\nprintf(\"%d\", a++);</pre>",
+          options: [
+            "10",
+            "11",
+            "エラーになる",
+            "0"
+          ],
+          answer: 0,
+          explanation: "a++ は後置インクリメントなので、まず10が出力され、その後aは11になります。"
+        },
         //型の問題
         {
           q:"int *aと宣言しているとき、aは何を指しているか？",
@@ -102,11 +124,56 @@
           answer: 1,
           explanation: "int *aは整数型のポインタを宣言している。<br>aは整数型の変数のアドレスを格納するために使用される。"
         },
+        {
+          q: "次のうち、C言語で浮動小数点数を表す型はどれ？",
+          options: [
+            "float",
+            "int",
+            "char",
+            "double型しかない"
+          ],
+          answer: 0,
+          explanation: "float型は単精度浮動小数点数を表します。"
+        },
+        {
+          q: "次のうち、文字型を表すC言語の型はどれ？",
+          options: [
+            "char",
+            "int",
+            "float",
+            "string"
+          ],
+          answer: 0,
+          explanation: "char型は1文字を格納するための型です。"
+        },
         
-      ]
-    };
-  </script>
-  <script src="../../keep_out/selectQuestion.js" defer></script>
-</body>
-
+        // ポインタの問題
+        {
+          q: "次のうち、ポインタ変数の宣言として正しいものはどれ？",
+          options: [
+            "int *p;",
+            "int p*;",
+            "int &p;",
+            "pointer int p;"
+          ],
+          answer: 0,
+          explanation: "int *p; でint型のポインタ変数pを宣言します。"
+        },
+        {
+          q: "次のコードの意味は？<pre>int a = 5;\nint *p = &a;</pre>",
+          options: [
+            "pはaのアドレスを格納している",
+            "pはaの値を格納している",
+            "pはaの型を格納している",
+            "pはaのポインタ型を格納している"
+          ],
+          answer: 0,
+          explanation: "int *p = &a; でpはaのアドレス（メモリ上の位置）を格納します。"
+        }
+              ]
+            };
+          </script>
+          <script src="../../keep_out/selectQuestion.js" defer></script>
+        </body>
+        
 </html>
