@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="ja">
+ <link rel="icon" href="https://avatars.githubusercontent.com/u/120705481?s=48&v=4" type="image/x-icon">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MarkDownの四択問題</title>
+  <link rel="stylesheet" href="../../keep_out/selectQuestion.css">
+  <style>
+    .options label.disabled {
+      pointer-events: none;
+      color: #000;
+    }
+  </style>
+  <audio id="se-correct" src="../../keep_out/correct.mp3" preload="auto"></audio>
+  <audio id="se-wrong" src="../../keep_out/wrong.mp3" preload="auto"></audio>
+  <audio id="se-start" src="../../keep_out/start.mp3" preload="auto"></audio>
+  <audio id="se-end" src="../../keep_out/end.mp3" preload="auto"></audio>
+</head>
+
+<body>
+  <audio id="bgm" src="../../keep_out/BGM.mp3" loop></audio>
+  <button id="bgm-toggle">▶️ BGMを再生</button>
+  <div class="quiz-container" id="home">
+    <h1>MarkDownの四択問題</h1> 
+    <p id="question-count">問題数を表示(変更不要)</p>
+    <button onclick="startQuiz()">開始</button>
+    <a href="MarkDown.html" class="back-button">問題選択に戻る</a>
+  </div>
+
+  <div class="quiz-container" id="quiz" style="display: none;"></div>
+  <div id="countdown-overlay" class="countdown-overlay">
+    <div id="countdown-text" class="countdown-text"></div>
+  </div>
+  <script>
+    window.quizConfig = {
+
+      RANKING_KEY: "MarkDown", //ランキングのキーを設定
+
+      selectionPageUrl: "MarkDown.html", //問題選択ページのファイル名を入力
+
+      questions: [
+        // 基礎編
+        {
+          q: "次のうち、MarkDownで見出しを表す記号はどれですか？",
+          options: [
+            "#",
+            "##",
+            "###",
+            "####"
+          ],
+          answer: 0,
+          explanation: "MarkDownでは、#記号を使って見出しを表現します。"
+        },
+
+               ]
+             };
+           </script>
+           <script src="../../keep_out/selectQuestion.js" defer></script>
+         </body>
+         
+         </html>         

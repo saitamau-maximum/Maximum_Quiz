@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="ja">
+   <link rel="icon" href="https://avatars.githubusercontent.com/u/120705481?s=48&v=4" type="image/x-icon">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MarkDownの四択問題</title> 
+  <style>
+    body {
+      font-family: sans-serif;
+      background-image: url("../../keep_out/Tyosi.JPG");
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+    .container {
+      text-align: center;
+      background: white;
+      padding: 40px;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+    a {
+      display: block;
+      margin-top: 20px;
+      text-decoration: none;
+      background-color: #007BFF;
+      color: white;
+      padding: 12px 24px;
+      font-size: 1.2em;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+    a:hover {
+      background-color: #0056b3;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Pythonの問題</h1> 
+    <a id="beginner-link">4択問題</a>
+    <a id="home-link">プログラミング言語問題のページに戻る</a>
+  </div>
+
+  <script>
+    function delayedRedirect(id, url) {
+      const element = document.getElementById(id);
+      element.addEventListener("click", function() {
+        this.style.pointerEvents = "none";
+        setTimeout(() => {
+          window.location.href = url;
+        }, 10);
+      });
+    }
+
+    delayedRedirect("beginner-link", "Python_Multiple_Question.html"); //後ろ側だけ変える(後ろがファイル名)
+    delayedRedirect("home-link", "../Programing.html");
+  </script>
+</body>
+</html>
