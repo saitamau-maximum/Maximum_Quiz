@@ -5,7 +5,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>C++ 4択問題 中級編</title>
-
+  <link rel="stylesheet" href="../../keep_out/selectQuestion.css">
   <style>
     .options label.disabled {
       pointer-events: none;
@@ -19,7 +19,7 @@
 
 </head>
 <body>
-
+  <audio id="bgm" src="../../keep_out/BGM.mp3" loop></audio>
   <button id="bgm-toggle">▶️ BGMを再生</button>
   <div class="quiz-container" id="home">
     <h1>C++ 4択クイズ 中級編</h1>
@@ -118,7 +118,7 @@ while (i != 10) {
   i += 3;
   cout << i << endl;
 }</pre>`,
-          options: ["A. i は10にならないから", "B. while文の中にbreakがないから", "C. += の書き方が間違っているから", "D. ループの中で i が減少してるから"],
+          options: ["A. i は10にならないから", "B. while文の使い方が違うから", "C. += の書き方が間違っているから", "D. ループの中で i が減少してるから"],
           answer: 0,
           explanation: "i は 10 をスキップするので終了条件に達しない。"
         },

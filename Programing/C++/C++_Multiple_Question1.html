@@ -16,8 +16,7 @@
   <audio id="se-wrong" src="../../keep_out/wrong.mp3" preload="auto"></audio>
   <audio id="se-start" src="../../keep_out/start.mp3" preload="auto"></audio>
   <audio id="se-end" src="../../keep_out/end.mp3" preload="auto"></audio>
-
-</head>
+   </head>
 <body>
    <audio id="bgm" src="../../keep_out/BGM.mp3" loop></audio>
    <button id="bgm-toggle">▶️ BGMを再生</button>
@@ -137,26 +136,26 @@ int main() {
         explanation: "(int)x は小数点以下切り捨て → 5。"
       },
       {
-        q: "以下のコードの出力は？<pre>char c = 'A';\ncout << (int)c << endl;</pre>",
+        q: "以下のコードの出力は？<pre>char c = 'A';\ncout << (char)(c + 3) << endl;</pre>",
         options: [
           "A",
-          "65",
+          "D",
           "エラーになる",
           "何も表示されない"
         ],
         answer: 1,
-        explanation: "'A' の ASCIIコードは 65。"
+        explanation: "charに対して足し算をするとASCIIコードで計算される。'A'は65なので、65 + 3 = 68 → 'D'。"
       },
       {
-        q: "以下のコードの出力は？<pre>int x = 66;\ncout << (char)x << endl;</pre>",
+        q: "以下のコードの出力は？<pre>char c = 'C';\ncout << (int)(c - 'A') << endl;</pre>",
         options: [
-          "66",
-          "B",
+          "2",
+          "C",
           "エラーになる",
           "何も表示されない"
         ],
-        answer: 1,
-        explanation: "66番目のASCII文字は B。"
+        answer: 0,
+        explanation: "charに対してintを取るとその文字のASCIIコードが得られる。'C' - 'A' は 2 になる。"
       },
       {
         q: "以下のコードの出力は？<pre>bool b = true;\ncout << (int)b << endl;</pre>",
@@ -192,7 +191,7 @@ int main() {
         explanation: "int の範囲を超えるのでオーバーフロー。"
       },
       {
-        q: "以下のコードを実行したとき、何が起きる？<pre>vector&lt;int&gt; v = {1, 2, 3};\ncout << v[5] << endl;</pre>",
+        q: "以下のコードを実行したとき、何が起きる？<pre>vector<int> v = {1, 2, 3};\ncout << v[5] << endl;</pre>",
         options: [
           "3と表示される",
           "5と表示される",
