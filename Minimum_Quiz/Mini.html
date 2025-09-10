@@ -1,116 +1,91 @@
 <!DOCTYPE html>
 <html lang="ja">
 <head>
-<link rel="icon" href="https://avatars.githubusercontent.com/u/120705481?s=48&v=4" type="image/x-icon">
+  <link rel="icon" href="https://avatars.githubusercontent.com/u/120705481?s=48&v=4" type="image/x-icon">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- 無効なクラスを削除 -->
+  <title>Minimum Quiz</title>
 
-<meta charset="UTF-8">
-<!--
-<p>HTMLhはこれでコメントアウトする。</p>
--->
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title> Minimum Quiz</title>
-<style>
-header {
-    padding: 20px;
-    text-align: center;
-    width: 100%; 
-    height: 200px;
-    background-color: rgb(238, 46, 132);
-    margin: 0;
-    position: relative;
-}
-.logo1 {
-    position: absolute;
-    top: 40pt;
-    left: 7%;
-    width: 250px;
-    height: auto;
-    cursor: pointer;
-}
-.logo2 {
-    position: absolute;
-    top: 20pt;
-    left: 700pt;
-    width: 200px;
-    height: auto;
-    cursor: pointer;
-}
-h1 {
-    top:100pt;
-    left: 35%;
-    position: absolute;
-    color:  rgb(43, 210, 34);
-    font-size: 50px;
-    margin: 0;
-}
-p {
-    color: rgb(43, 210, 34);
-    font-size: 18px;
-    margin: 0;
-}
-body {
-    background-color: rgb(255, 255, 255);
-    color: rgb(255, 255, 255);
-    font-size: 16px;
-    font-family: Arial, sans-serif;
-    margin: 0;
-    padding: 18px;
-    text-align: center;
-}
-button {
-    padding: 10px 20px;
-    font-size: 16px;
-    margin: 5px;
-}
-#result {
-    margin-top: 20px;
-    font-size: 18px;
-    font-weight: bold;
-}
-.green-tab {
-    display: inline-block;
-    margin-left: 0%;
-    padding: 1px;
-}
-a[href="Car_License/Car_License.html"],
-a[href="Lectuer/Lectuer.html"]
-a[href="English/English.html"],
-a[href="Math/Math.html"] {
-    color: rgb(43, 210, 34);
-}
-a[href="../index.html"] {
-    color: rgb(59, 199, 255);
-}
-</style>
+  <!-- Tailwind CSS CDNを読み込み -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    /* 日本語のフォントを読み込み */
+    body {
+      font-family: 'Segoe UI', 'ヒラギノ角ゴ ProN', 'Meiryo', sans-serif;
+    }
+    /* `h1`にtext-strokeを適用するためのカスタムCSS */
+    .text-stroke {
+        -webkit-text-stroke: 1px black;
+    }
+  </style>
 </head>
-<body>
-  <header class="hXpOls cGuTmT kqknCe fPSBzf dDWCpe bYPztT">
+<body class="bg-white m-0 p-[18px] text-center min-h-screen flex flex-col">
+
+  <!-- ヘッダーを配置する親要素 (相対位置) -->
+  <header class="p-5 w-full h-[200px] bg-[rgb(17,18,18)] relative">
+
+    <!-- logo1を左上に配置 -->
     <a href="https://maximum.vc/" target="_blank">
-      <img src="../keep_out/Maximum-logo.svg" alt="Maximumロゴ" class="logo1">
+      <img src="../keep_out/Maximum-logo.svg" alt="Maximumロゴ" class="absolute top-10 left-7 w-[250px] h-auto cursor-pointer">
     </a>
-    <h1>Minimum Quiz</h1>
+
+    <!-- logo2を右上に配置 -->
     <a href="https://maximum.vc/" target="_blank">
-      <img src="../keep_out/Logo.png" alt="ゲーム開発班のロゴ" class="logo2">
+      <img src="../keep_out/Logo.png" alt="ゲーム開発班のロゴ" class="absolute top-5 right-4 w-[200px] h-auto cursor-pointer" style="transform: scale(0.8); transform-origin: top right;">
     </a>
+
+    <!-- Q&A・お問い合わせ・お知らせボタンをロゴ右側・下縁にrelative配置 -->
+    <div class="absolute left-[280px] bottom-5 flex flex-row gap-4 hidden md:flex" style="z-index:10;">
+      <a href="../QA.html"
+        class="px-6 py-2 bg-green-500 text-white font-bold rounded-full shadow-lg hover:bg-blue-700 transition duration-300 ease-in-out">
+        Q&amp;A
+      </a>
+      <a href="../contact.html"
+        class="px-6 py-2 bg-green-500 text-white font-bold rounded-full shadow-lg hover:bg-blue-700 transition duration-300 ease-in-out">
+        お問い合わせ
+      </a>
+      <a href="../information.html"
+        class="px-6 py-2 bg-green-500 text-white font-bold rounded-full shadow-lg hover:bg-blue-700 transition duration-300 ease-in-out">
+        お知らせ
+      </a>
+      <a href="../index.html"
+        class="px-6 py-2 bg-green-500 text-white font-bold rounded-full shadow-lg hover:bg-blue-700 transition duration-300 ease-in-out">
+        Maximum_Quiz
+      </a>
+
+    </div>
   </header>
+   <br> <br>
+    <!-- h1を水平・垂直方向に中央配置し、影と縁取りを追加 -->
+    <h1 class="position-centre 1/2 -translate-y-1/2 text-[rgb(50,230,40)] text-[50px] m-0 drop-shadow-[0_2px_4px_rgba(0,0,0,0.5)] text-stroke font-bold">
+      Minimum Quiz
+    </h1>
+
+
+  <p class="text-[rgb(78,146,249)] text-[18px] m-0">
+    このサイトは、埼玉大学Maximumで必要な知識を学ぶためのクイズサイトです。<br>
+    各セクションに分かれた問題を解くことで、知識を深めましょう。問題は今後増やしていく予定です。
+  </p>
+
   <br>
-  <p>このサイトは、プログラミング以外の知識を学ぶためのクイズサイトです。<br>
-    各セクションに分かれた問題を解くことで、知識を深めましょう。問題は今後増やしていく予定です。</p>
-  <br>
-  <div class="green-tab">
-    <br><br><br>
-<a href="Car_License/Car_License.html">運転免許に関する問題</a>
-<!--<a href="Lecture">授業の問題</a>-->
-<a href="English/English.html">英語に関する問題</a>
-<a href="Math/Math.html">数学に関する問題</a>
-<br><br>
-<a href="../index.html">Maximum_Quiz</a>
-</div>
-<style>
-.green-tab a {
-  display: inline-block;
-  padding: 8px 20px;
-  margin: 6px 2px;
-  text-decoration: none;
-}
-</style>
+
+  <!-- ボタンを画面下部に配置するためのコンテナ -->
+  <div class="flex flex-col md:flex-row justify-center items-center gap-4 mt-auto mb-10">
+
+    <!-- ボタンの共通スタイルを定義 -->
+    <a href="Car_License/Car_License.html" class="px-6 py-3 no-underline text-white font-bold bg-[rgb(43,210,34)] rounded-full shadow-lg hover:bg-green-600 transition duration-300 ease-in-out transform hover:scale-105">
+      運転免許に関する問題
+    </a>
+    <a href="Lecture/Lecture.html" class="px-6 py-3 no-underline text-white font-bold bg-[rgb(43,210,34)] rounded-full shadow-lg hover:bg-green-600 transition duration-300 ease-in-out transform hover:scale-105">
+      授業に関する問題
+    </a>
+    <a href="English/English.html" class="px-6 py-3 no-underline text-white font-bold bg-[rgb(43,210,34)] rounded-full shadow-lg hover:bg-green-600 transition duration-300 ease-in-out transform hover:scale-105">
+      英語に関する問題
+    </a>
+    <a href="Math/Math.html" class="px-6 py-3 no-underline text-white font-bold bg-[rgb(43,210,34)] rounded-full shadow-lg hover:bg-green-600 transition duration-300 ease-in-out transform hover:scale-105">
+      数学に関する問題
+    </a>
+  </div>
+</body>
+</html>
