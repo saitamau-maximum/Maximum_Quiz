@@ -63,7 +63,7 @@ mp3やjpegなどの素材はkeep_outディレクトリに入れること
 
 ```
 # explain.texについて
-開発上の注意点についてはREADMEファイルに書きますが、Maximum_Quiz事体の説明はexplain.texに書きます。。
+開発上の注意点についてはREADMEファイルに書きますが、Maximum_Quiz事体の説明はexplain.texに書きます。
 
 
 ](http://quiz.game.teams.maximum.vc/
@@ -113,7 +113,7 @@ mp3やjpegなどの素材はkeep_outディレクトリに入れること
 
 ##　タグについての注意
 
-```
+
 クイズの問題文や解説文の表示にはinnerHTMLというものを使っています。これによりHTMLの記号が使えるようになります(主に改行のため)
 
 つまり、問題文や解説文の中に<br>と書けば改行できます。
@@ -123,9 +123,8 @@ mp3やjpegなどの素材はkeep_outディレクトリに入れること
 なので解説や、問題で、htmlタグとして<br>以外を(リストとか)使う場合、githubのdiscussionsに書いてください
 
 
-```
 # explain.texについて
-開発上の注意点についてはREADMEファイルに書きますが、Maximum_Quiz事体の説明はexplain.texに書きます。。
+開発上の注意点についてはREADMEファイルに書きますが、Maximum_Quiz事体の説明はexplain.texに書きます。
 
 
 )

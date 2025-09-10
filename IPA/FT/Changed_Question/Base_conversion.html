@@ -17,7 +17,9 @@
     <h1>進数変換クイズ</h1>
     <p id="question-count">問題数を表示(変更不要)</p>
     <button id="startButton" onclick="startQuiz()">開始</button>
-    <a href="../FITEE.html" class="back-button">問題選択に戻る</a>
+
+    <a href="../FT.html" class="back-button">問題選択に戻る</a>
+
   </div>
 
 <div class="quiz-container" id="quiz" style="display: none;"></div>
@@ -44,8 +46,7 @@
                     alert("本当に戻りますか？もう一度クリックすると戻ります。");
                     backClickCount++;
                 } else {
-                    // ここに実際の戻るページのURLを設定
-                    // window.location.href = "selectionPageUrl";
+                    window.location.href = "../FT.html
                 }
             });
         }
@@ -122,7 +123,6 @@
         const questionText = `${radixNames[fromRadix]}の ${questionValue} を ${radixNames[toRadix]}に変換すると？`;
         let explanationText;
         if(fromRadix != 10){
-        const questionText = `${radixNames[fromRadix]}の ${questionValue} を ${radixNames[toRadix]}に変換すると？`;
         explanationText = `${radixNames[fromRadix]}の ${questionValue} は10進数では ${decimalNum} です。<br>これを${radixNames[toRadix]}に変換するには${decimalNum}を${toRadix}で繰り返し割り、その余りを逆から読むことで変換できます。<br> 計算すると${correctAnswer} となります。`;
         } else {
         explanationText = `${radixNames[fromRadix]}の ${questionValue} を${radixNames[toRadix]}に変換するには${questionValue}を${toRadix}で繰り返し割り、その余りを逆から読むことで変換できます。<br> 計算すると${correctAnswer} となります。`;
@@ -163,7 +163,8 @@ if (backButtonHome) {
       alert("本当に戻りますか？もう一度クリックすると戻ります。");
       backClickCount++;
     } else {
-      window.location.href = "../FITEE.html";
+
+      window.location.href = "../FT.html";
     }
   });
 }
@@ -267,7 +268,7 @@ function showQuestion(index) {
       alert("本当に戻りますか？もう一度クリックすると戻ります。");
       backClickCount++;
     } else {
-      window.location.href = "../FITEE.html";
+      window.location.href = "../FT.html";
     }
   });
 

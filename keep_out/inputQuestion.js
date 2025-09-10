@@ -1,5 +1,5 @@
 const RANKING_KEY = window.quizConfig.RANKING_KEY;
-const questions = window.quizConfig.questions;
+let questions = window.quizConfig.questions;
 const selectionPageUrl = window.quizConfig.selectionPageUrl;
 
 let bgmToggleBtn;
@@ -12,7 +12,9 @@ const quizEl = document.getElementById("quiz");
 
 document.addEventListener("DOMContentLoaded", () => {
   const questionCountElement = document.getElementById("question-count");
-  if (questionCountElement) {
+  if(questions.length >= 10){
+    questionCountElement.textContent = "全10問です。";
+  } else {
     questionCountElement.textContent = `全${questions.length}問です。`;
   }
 
@@ -92,6 +94,7 @@ function startQuiz() {
     }
 
     shuffle(questions);
+    questions = questions.slice(0, 10);
     current = 0;
     score = 0;
     homeEl.style.display = "none";
