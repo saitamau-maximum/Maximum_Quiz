@@ -39,74 +39,166 @@
 
       selectionPageUrl: "Git_Hub.html", //問題選択ページのURLを入力
 
-      questions: [
-/*問題索引
-コマンドに関する問題
-ブランチに関する問題
+/*
+コマンドに関する問題:3
+ブランチに関する問題:4
+リモート操作に関する問題:3
+GitHubの用語・概念:3
+計13問
 */
 
-//コマンドに関する問題      
-        {
-          q: "Gitでローカルの変更を保存するために使うコマンドはどれですか？",
-          options: [
-            "git clone",
-            "git push",
-            "git commit",
-            "git fork"
-          ],
-          answer: 2,
-          explanation: "git commit は、ステージされた変更をローカルリポジトリに保存するためのコマンドです。<br> git clone はリモートリポジトリを複製するコマンド。<br> git push はローカルの変更をリモートに送るコマンド。<br> git fork はGitHub上でリポジトリをコピーする操作ですが、コマンドではなくWeb上の操作です。"
-        },
+questions: [
+// コマンドに関する問題
+  {
+    q: "Gitでローカルの変更を保存するために使うコマンドはどれですか？",
+    options: [
+      "git clone",
+      "git push",
+      "git commit",
+      "git fork"
+    ],
+    answer: 2,
+    explanation: "git commit は、ステージされた変更をローカルリポジトリに保存するためのコマンドです。"
+  },
+  {
+    q: "作業ディレクトリの変更をステージするコマンドはどれですか？",
+    options: [
+      "git add",
+      "git stage",
+      "git push",
+      "git save"
+    ],
+    answer: 0,
+    explanation: "git add で変更をステージします。"
+  },
+  {
+    q: "リポジトリの状態（変更・コミット状況）を確認するコマンドは？",
+    options: [
+      "git status",
+      "git log",
+      "git check",
+      "git info"
+    ],
+    answer: 0,
+    explanation: "git status で現在の状態を確認できます。"
+  },
 
-//ブランチ関連の問題
-        {
-          q: "新しいブランチを作成するためのコマンドはどれですか？",
-          options: [
-            "git new branch",
-            "git create branch",
-            "git branch <ブランチ名>",
-            "git make-branch <ブランチ名>"
-          ],
-          answer: 2,
-          explanation: "git branch に続けてブランチ名を指定すると、新しいブランチが作成されます。"
-        },
+// ブランチに関する問題
+  {
+    q: "新しいブランチを作成するためのコマンドはどれですか？",
+    options: [
+      "git new branch",
+      "git create branch",
+      "git branch <ブランチ名>",
+      "git make-branch <ブランチ名>"
+    ],
+    answer: 2,
+    explanation: "git branch <ブランチ名> で新しいブランチを作成します。"
+  },
+  {
+    q: "別のブランチに移動するためのコマンドはどれですか？",
+    options: [
+      "git move <ブランチ名>",
+      "git switch <ブランチ名>",
+      "git jump <ブランチ名>",
+      "git push <ブランチ名>"
+    ],
+    answer: 1,
+    explanation: "git switch <ブランチ名> でブランチを切り替えます。"
+  },
+  {
+    q: "別ブランチでの変更を現在のブランチに取り込むために使うコマンドはどれですか？",
+    options: [
+      "git fork",
+      "git merge <ブランチ名>",
+      "git share",
+      "git pull-request"
+    ],
+    answer: 1,
+    explanation: "git merge <ブランチ名> で他ブランチの変更を統合します。"
+  },
+  {
+    q: "新しいブランチを作成して同時にそのブランチに移動するには？",
+    options: [
+      "git switch -b <ブランチ名>",
+      "git make -move <ブランチ名>",
+      "git init-branch <ブランチ名>",
+      "git commit -b <ブランチ名>"
+    ],
+    answer: 0,
+    explanation: "git switch -b <ブランチ名> で作成と移動を同時に行います。"
+  },
 
-        {
-          q: "別のブランチに移動するためのコマンドはどれですか？",
-          options: [
-            "git move <ブランチ名>",
-            "git switch <ブランチ名>",
-            "git jump <ブランチ名>",
-            "git push <ブランチ名>"
-          ],
-          answer: 1,
-          explanation: "Git 2.23以降では git switch が推奨されています（以前は git checkout <ブランチ名> も使われていました）。"
-        },
+// リモート操作に関する問題
+  {
+    q: "ローカルリポジトリの変更をリモートリポジトリに送信するコマンドは？",
+    options: [
+      "git push",
+      "git send",
+      "git upload",
+      "git commit"
+    ],
+    answer: 0,
+    explanation: "git push でリモートに送信します。"
+  },
+  {
+    q: "リモートリポジトリの変更をローカルに取り込むコマンドは？",
+    options: [
+      "git pull",
+      "git fetch",
+      "git clone",
+      "git merge"
+    ],
+    answer: 0,
+    explanation: "git pull でリモートの変更をローカルに反映します。"
+  },
+  {
+    q: "新しいリモートリポジトリをローカルに複製するコマンドは？",
+    options: [
+      "git clone",
+      "git fork",
+      "git copy",
+      "git download"
+    ],
+    answer: 0,
+    explanation: "git clone でリモートリポジトリを複製します。"
+  },
 
-        {
-          q: "別ブランチでの変更を現在のブランチに取り込むために使うコマンドはどれですか？",
-          options: [
-            "git fork",
-            "git merge <ブランチ名>",
-            "git share",
-            "git pull-request"
-          ],
-          answer: 1,
-          explanation: "指定したブランチの変更内容を現在のブランチに統合するコマンドです。<br> 変更を取り込みたいbranch上で実行してください。"
-        },
-
-        {
-          q: "新しいブランチを作成して同時にそのブランチに移動するには？",
-          options: [
-            "git switch -b <ブランチ名>",
-            "git make -move <ブランチ名>",
-            "git init-branch <ブランチ名>",
-            "git commit -b <ブランチ名>"
-          ],
-          answer: 0,
-          explanation: "新規ブランチ作成と移動を同時に行うには git switch -b または旧形式の git checkout -b を使います。"
-        }
-      ]
+// GitHubの用語・概念
+  {
+    q: "GitHubで他人のリポジトリを自分のアカウントにコピーする操作は？",
+    options: [
+      "Fork",
+      "Clone",
+      "Pull",
+      "Push"
+    ],
+    answer: 0,
+    explanation: "GitHubのFork機能で自分のアカウントにコピーできます。"
+  },
+  {
+    q: "GitHubで他人のリポジトリに変更を提案する仕組みは？",
+    options: [
+      "Pull Request",
+      "Issue",
+      "Fork",
+      "Merge"
+    ],
+    answer: 0,
+    explanation: "Pull Requestで変更提案を行います。"
+  },
+  {
+    q: "GitHubでバグ報告や要望を管理する仕組みは？",
+    options: [
+      "Issue",
+      "Pull Request",
+      "Fork",
+      "Wiki"
+    ],
+    answer: 0,
+    explanation: "Issueはバグ報告や要望管理に使います。"
+  }
+]
     };
   </script>
   <script src="../../keep_out/selectQuestion.js" defer></script>

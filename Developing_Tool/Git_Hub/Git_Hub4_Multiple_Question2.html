@@ -33,81 +33,159 @@
     <div id="countdown-overlay" class="countdown-overlay">
         <div id="countdown-text" class="countdown-text"></div>
     </div>
-    <script>
-        window.quizConfig = {
+<script>
+window.quizConfig = {
 
-            RANKING_KEY: "GitHub2", //ランキングのキーを設定
+    RANKING_KEY: "GitHub2", //ランキングのキーを設定
 
-            selectionPageUrl: "Git_Hub.html", //問題選択ページのURLを入力
+    selectionPageUrl: "Git_Hub.html", //問題選択ページのURLを入力
 
-            questions: [
-                // コミット関連
-                {
-                    q: "直前のコミットメッセージを修正したい場合、どのコマンドを使いますか？",
-                    options: [
-                        "git commit --fix",
-                        "git commit --amend",
-                        "git commit --edit",
-                        "git commit --redo"
-                    ],
-                    answer: 1,
-                    explanation: "`git commit --amend` は直前のコミットを修正するためのコマンドです。ステージ済みの変更も上書きされます。"
-                },
+    /*
+    コミット関連:2
+    ブランチ関連:2
+    マージ・履歴操作:2
+    リモート関連:2
+    差分・状態確認:2
+    その他:1
+    計11問
+    */
 
-                // ブランチ関連
-                {
-                    q: "現在の作業内容を一時的に退避し、別ブランチに移動したい場合に使うコマンドは？",
-                    options: [
-                        "git pause",
-                        "git stash",
-                        "git save",
-                        "git store"
-                    ],
-                    answer: 1,
-                    explanation: "`git stash` は作業ツリーの変更を一時的に退避します。退避後はクリーンな状態で別ブランチへ移動できます。"
-                },
+    questions: [
+        // コミット関連
+        {
+            q: "直前のコミットメッセージを修正したい場合、どのコマンドを使いますか？",
+            options: [
+                "git commit --fix",
+                "git commit --amend",
+                "git commit --edit",
+                "git commit --redo"
+            ],
+            answer: 1,
+            explanation: "`git commit --amend` は直前のコミットを修正するためのコマンドです。ステージ済みの変更も上書きされます。"
+        },
+        {
+            q: "コミット履歴を確認するコマンドはどれ？",
+            options: [
+                "git log",
+                "git history",
+                "git show",
+                "git status"
+            ],
+            answer: 0,
+            explanation: "git log でコミット履歴を確認できます。"
+        },
 
-                // マージ戦略
-                {
-                    q: "マージ時に履歴を1本化し、マージコミットを作らないようにするには？",
-                    options: [
-                        "git merge --fast-forward",
-                        "git merge --squash",
-                        "git rebase",
-                        "git pull --merge"
-                    ],
-                    answer: 2,
-                    explanation: "`git rebase` はブランチの変更履歴を付け替えて、1本化します。マージコミットは作られません（fast-forward可能な場合）。"
-                },
+        // ブランチ関連
+        {
+            q: "現在の作業内容を一時的に退避し、別ブランチに移動したい場合に使うコマンドは？",
+            options: [
+                "git pause",
+                "git stash",
+                "git save",
+                "git store"
+            ],
+            answer: 1,
+            explanation: "`git stash` は作業ツリーの変更を一時的に退避します。退避後はクリーンな状態で別ブランチへ移動できます。"
+        },
+        {
+            q: "現在のブランチ名を確認するコマンドは？",
+            options: [
+                "git branch",
+                "git branch --show-current",
+                "git status",
+                "git show-branch"
+            ],
+            answer: 1,
+            explanation: "git branch --show-current で現在のブランチ名を表示します。"
+        },
 
-                // リモート関連
-                {
-                    q: "リモートリポジトリ 'origin' の 'feature' ブランチをローカルに作成して切り替えるコマンドは？",
-                    options: [
-                        "git fetch origin feature && git checkout feature",
-                        "git checkout -b feature origin/feature",
-                        "git pull origin feature --switch",
-                        "git clone origin/feature"
-                    ],
-                    answer: 1,
-                    explanation: "`git checkout -b feature origin/feature` はリモートブランチを元にローカルブランチを作成し、切り替えます。"
-                },
+        // マージ・履歴操作
+        {
+            q: "マージ時に履歴を1本化し、マージコミットを作らないようにするには？",
+            options: [
+                "git merge --fast-forward",
+                "git merge --squash",
+                "git rebase",
+                "git pull --merge"
+            ],
+            answer: 2,
+            explanation: "`git rebase` はブランチの変更履歴を付け替えて、1本化します。マージコミットは作られません（fast-forward可能な場合）。"
+        },
+        {
+            q: "マージコミットを作成せずに、変更を現在のブランチに取り込むには？",
+            options: [
+                "git merge --no-ff",
+                "git rebase",
+                "git cherry-pick",
+                "git pull --squash"
+            ],
+            answer: 1,
+            explanation: "git rebase でマージコミットを作らずに履歴を直列化できます。"
+        },
 
-                // 差分確認
-                {
-                    q: "ステージされていない変更内容を確認するためのコマンドは？",
-                    options: [
-                        "git diff",
-                        "git diff --cached",
-                        "git status --diff",
-                        "git show"
-                    ],
-                    answer: 0,
-                    explanation: "`git diff` はワークツリーとステージエリアの差分を表示します。`--cached` はステージ済みとの差分を表示します。"
-                }
-            ]
-        };
-    </script>
+        // リモート関連
+        {
+            q: "リモートリポジトリ 'origin' の 'feature' ブランチをローカルに作成して切り替えるコマンドは？",
+            options: [
+                "git fetch origin feature && git checkout feature",
+                "git checkout -b feature origin/feature",
+                "git pull origin feature --switch",
+                "git clone origin/feature"
+            ],
+            answer: 1,
+            explanation: "`git checkout -b feature origin/feature` はリモートブランチを元にローカルブランチを作成し、切り替えます。"
+        },
+        {
+            q: "リモートリポジトリのURLを確認するコマンドは？",
+            options: [
+                "git remote -v",
+                "git remote show",
+                "git config --list",
+                "git url"
+            ],
+            answer: 0,
+            explanation: "git remote -v でリモートリポジトリのURLを確認できます。"
+        },
+
+        // 差分・状態確認
+        {
+            q: "ステージされていない変更内容を確認するためのコマンドは？",
+            options: [
+                "git diff",
+                "git diff --cached",
+                "git status --diff",
+                "git show"
+            ],
+            answer: 0,
+            explanation: "`git diff` はワークツリーとステージエリアの差分を表示します。`--cached` はステージ済みとの差分を表示します。"
+        },
+        {
+            q: "ステージ済みの変更内容（インデックスとHEADの差分）を確認するコマンドは？",
+            options: [
+                "git diff",
+                "git diff --cached",
+                "git status",
+                "git show"
+            ],
+            answer: 1,
+            explanation: "git diff --cached でステージ済みの差分を確認できます。"
+        },
+
+        // その他
+        {
+            q: "GitHubでリポジトリを非公開にするには？",
+            options: [
+                "SettingsからPrivateに変更",
+                "git privateコマンドを使う",
+                "README.mdを削除する",
+                "リポジトリを削除する"
+            ],
+            answer: 0,
+            explanation: "GitHubのSettingsからリポジトリのVisibilityをPrivateに変更します。"
+        }
+    ]
+};
+</script>
     <script src="../../keep_out/selectQuestion.js" defer></script>
 </body>
 

@@ -39,40 +39,278 @@
 
       selectionPageUrl: "CSS.html", //問題選択ページのファイル名を入力
 
-      questions: [
-        /*
-            問題の設定
-            q: 問題文
-            options: 選択肢の配列
-            answer: 正解のインデックス（0から始まる）
-            explanation: 正解の解説
-            */
-            {
-            q: "CSSで要素の背景色を設定するプロパティは？",
-            options: ["background-color", "color", "font-size", "border"],
-            answer: 0,
-            explanation: "background-colorプロパティで要素の背景色を設定します。"
-            },
-            {
-            q: "CSSでフォントサイズを指定する単位として正しいものはどれ？",
-            options: ["px", "em", "rem", "以上"],
-            answer: 0,
-            explanation: "pxはピクセル単位で、フォントサイズを指定する際によく使われます。"
-            },
-            {
-            q: "CSSで要素を中央に配置するために使用するプロパティは？",
-            options: ["margin: auto;", "text-align: center;", "float: center;", "position: center;"],
-            answer: 0,
-            explanation: "margin: auto;を使用すると、要素が中央に配置されます。"
-            },
-            {
-            q: "CSSでクラスセレクタを指定する際の記述方法は？",
-            options: [".class-name", "#class-name", "class-name", "*class-name"],
-            answer: 0,
-            explanation: "クラスセレクタはドット（.）を前につけて指定します。"
-            }
-        
-      ]
+    /*
+基本プロパティ:3
+単位:3
+配置:5
+セレクタ:4
+ボックスモデル:4
+レイアウト:5
+色・フォント:4
+アニメーション:4
+その他:8
+計46問
+*/
+
+questions: [
+  // 基本プロパティ
+  {
+    q: "CSSで要素の背景色を設定するプロパティは？",
+    options: ["background-color", "color", "font-size", "border"],
+    answer: 0,
+    explanation: "background-colorプロパティで要素の背景色を設定します。"
+  },
+  {
+    q: "CSSでテキストの色を指定するプロパティは？",
+    options: ["color", "background", "font-color", "text-color"],
+    answer: 0,
+    explanation: "colorプロパティでテキストの色を指定します。"
+  },
+  {
+    q: "CSSで要素の幅を指定するプロパティは？",
+    options: ["width", "height", "size", "length"],
+    answer: 0,
+    explanation: "widthプロパティで要素の幅を指定します。"
+  },
+
+  // 単位
+  {
+    q: "CSSでフォントサイズを指定する単位として正しいものはどれ？",
+    options: ["px", "em", "rem", "以上"],
+    answer: 0,
+    explanation: "pxはピクセル単位で、フォントサイズを指定する際によく使われます。"
+  },
+  {
+    q: "CSSで相対的な長さを指定する単位はどれ？",
+    options: ["em", "px", "cm", "pt"],
+    answer: 0,
+    explanation: "emは親要素のフォントサイズに対する相対単位です。"
+  },
+  {
+    q: "ビューポートの幅に対する割合を指定する単位はどれ？",
+    options: ["vw", "vh", "%", "em"],
+    answer: 0,
+    explanation: "vwはビューポート幅の1%を表します。"
+  },
+
+  // 配置
+  {
+    q: "CSSで要素を中央に配置するために使用するプロパティは？",
+    options: ["margin: auto;", "text-align: center;", "float: center;", "position: center;"],
+    answer: 0,
+    explanation: "margin: auto;を使用すると、要素が中央に配置されます。"
+  },
+  {
+    q: "インライン要素を中央揃えにするには？",
+    options: ["text-align: center;", "margin: auto;", "align-items: center;", "vertical-align: center;"],
+    answer: 0,
+    explanation: "親要素にtext-align: center;を指定します。"
+  },
+  {
+    q: "position: absolute;を指定した要素の基準は？",
+    options: ["親のpositionがrelative等の場合その親", "常にbody", "常にhtml", "常にwindow"],
+    answer: 0,
+    explanation: "親要素にposition: relative等があればそれが基準になります。"
+  },
+  {
+    q: "要素を右下に固定表示するには？",
+    options: ["position: fixed; right: 0; bottom: 0;", "float: right; bottom: 0;", "position: absolute; left: 0; top: 0;", "display: block;"],
+    answer: 0,
+    explanation: "position: fixed;とright, bottom指定で右下固定になります。"
+  },
+  {
+    q: "z-indexプロパティの役割は？",
+    options: ["重なり順序を指定する", "透明度を指定する", "サイズを指定する", "色を指定する"],
+    answer: 0,
+    explanation: "z-indexは重なり順序を指定します。"
+  },
+
+  // セレクタ
+  {
+    q: "CSSでクラスセレクタを指定する際の記述方法は？",
+    options: [".class-name", "#class-name", "class-name", "*class-name"],
+    answer: 0,
+    explanation: "クラスセレクタはドット（.）を前につけて指定します。"
+  },
+  {
+    q: "IDセレクタの記述方法は？",
+    options: ["#id", ".id", "id", "*id"],
+    answer: 0,
+    explanation: "IDセレクタは#を前につけて指定します。"
+  },
+  {
+    q: "全てのpタグにスタイルを適用するには？",
+    options: ["p { ... }", ".p { ... }", "#p { ... }", "*p { ... }"],
+    answer: 0,
+    explanation: "タグ名だけでセレクタになります。"
+  },
+  {
+    q: "aタグのhover時に色を変えるには？",
+    options: ["a:hover { color: red; }", "a.hover { color: red; }", "a:active { color: red; }", "a:visited { color: red; }"],
+    answer: 0,
+    explanation: "a:hoverでマウスオーバー時のスタイルを指定します。"
+  },
+
+  // ボックスモデル
+  {
+    q: "CSSのボックスモデルに含まれない要素はどれ？",
+    options: ["margin", "padding", "border", "font-size"],
+    answer: 3,
+    explanation: "font-sizeはボックスモデルの一部ではなく、テキストのサイズを指定するプロパティです。"
+  },
+  {
+    q: "paddingの役割は？",
+    options: ["内容と枠線の間の余白", "外側の余白", "枠線の太さ", "テキストの色"],
+    answer: 0,
+    explanation: "paddingは内容と枠線の間の余白です。"
+  },
+  {
+    q: "borderプロパティで指定できないものは？",
+    options: ["色", "太さ", "種類", "透明度"],
+    answer: 3,
+    explanation: "borderで透明度は直接指定できません。"
+  },
+  {
+    q: "box-sizing: border-box;の効果は？",
+    options: ["paddingとborderをwidthに含める", "box-shadowを付ける", "ボックスを中央にする", "borderを消す"],
+    answer: 0,
+    explanation: "border-boxはpaddingとborderをwidth/heightに含めます。"
+  },
+
+  // レイアウト
+  {
+    q: "CSSでFlexboxレイアウトを有効にするためのプロパティは？",
+    options: ["display: flex;", "position: flex;", "layout: flex;", "flexbox: true;"],
+    answer: 0,
+    explanation: "display: flex;を使用してFlexboxレイアウトを有効にします。"
+  },
+  {
+    q: "グリッドレイアウトを有効にするには？",
+    options: ["display: grid;", "display: flex;", "position: grid;", "layout: grid;"],
+    answer: 0,
+    explanation: "display: grid;でグリッドレイアウトが有効になります。"
+  },
+  {
+    q: "Flexboxで要素を縦方向に並べるには？",
+    options: ["flex-direction: column;", "flex-direction: row;", "align-items: center;", "justify-content: center;"],
+    answer: 0,
+    explanation: "flex-direction: column;で縦並びになります。"
+  },
+  {
+    q: "Flexboxで要素を中央揃えにするには？",
+    options: ["justify-content: center; align-items: center;", "margin: auto;", "text-align: center;", "float: center;"],
+    answer: 0,
+    explanation: "justify-contentとalign-itemsをcenterにします。"
+  },
+  {
+    q: "グリッドレイアウトで列幅を均等にするには？",
+    options: ["grid-template-columns: 1fr 1fr;", "display: flex;", "width: 100%;", "margin: auto;"],
+    answer: 0,
+    explanation: "1frで均等割り当てになります。"
+  },
+
+  // 色・フォント
+  {
+    q: "CSSで16進数で色を指定する正しい例は？",
+    options: ["#ff0000", "rgb(255,0,0)", "red", "color: red;"],
+    answer: 0,
+    explanation: "#ff0000は赤色を16進数で指定した例です。"
+  },
+  {
+    q: "フォントファミリーを指定するプロパティは？",
+    options: ["font-family", "font-size", "font-style", "font-weight"],
+    answer: 0,
+    explanation: "font-familyでフォントの種類を指定します。"
+  },
+  {
+    q: "文字の太さを指定するプロパティは？",
+    options: ["font-weight", "font-size", "font-style", "font-family"],
+    answer: 0,
+    explanation: "font-weightで太さを指定します。"
+  },
+  {
+    q: "文字の装飾線（下線など）を指定するプロパティは？",
+    options: ["text-decoration", "text-align", "font-style", "line-height"],
+    answer: 0,
+    explanation: "text-decorationで下線や取り消し線などを指定します。"
+  },
+
+  // アニメーション
+  {
+    q: "CSSでアニメーションを定義するプロパティは？",
+    options: ["@keyframes", "animation", "transition", "transform"],
+    answer: 1,
+    explanation: "animationプロパティでアニメーションを指定します。"
+  },
+  {
+    q: "CSSで要素の変形を指定するプロパティは？",
+    options: ["transform", "transition", "animation", "filter"],
+    answer: 0,
+    explanation: "transformで回転や拡大縮小などの変形を指定します。"
+  },
+  {
+    q: "CSSでホバー時に色を変えるには？",
+    options: ["a:hover { color: red; }", "a:active { color: red; }", "a:visited { color: red; }", "a:focus { color: red; }"],
+    answer: 0,
+    explanation: "a:hoverでマウスオーバー時の色を指定します。"
+  },
+  {
+    q: "CSSでアニメーションの時間を指定するプロパティは？",
+    options: ["animation-duration", "transition-duration", "animation-delay", "animation-timing-function"],
+    answer: 0,
+    explanation: "animation-durationでアニメーションの時間を指定します。"
+  },
+
+  // その他
+  {
+    q: "CSSで外部スタイルシートを読み込むタグは？",
+    options: ["<link>", "<style>", "<css>", "<script>"],
+    answer: 0,
+    explanation: "<link>タグで外部CSSを読み込みます。"
+  },
+  {
+    q: "CSSでコメントを書く正しい方法は？",
+    options: ["/* コメント */", "// コメント", "# コメント", "<!-- コメント -->"],
+    answer: 0,
+    explanation: "CSSのコメントは/* コメント */です。"
+  },
+  {
+    q: "CSSで複数のクラスを同時に指定するには？",
+    options: [".a.b", ".a, .b", "#a.b", ".a .b"],
+    answer: 0,
+    explanation: ".a.bで両方のクラスを持つ要素を指定します。"
+  },
+  {
+    q: "CSSで親要素のみにスタイルを適用するには？",
+    options: [":has()", ":parent", ":root", ":only-child"],
+    answer: 0,
+    explanation: ":has()疑似クラスで親要素を指定できます（対応ブラウザに注意）。"
+  },
+  {
+    q: "CSSで要素を非表示にするプロパティは？",
+    options: ["display: none;", "visibility: hidden;", "opacity: 0;", "すべて正しい"],
+    answer: 3,
+    explanation: "どれも非表示にできますが、動作が異なります。"
+  },
+  {
+    q: "CSSでメディアクエリを使う目的は？",
+    options: ["画面サイズなど条件でスタイルを切り替える", "画像を表示する", "JavaScriptを実行する", "HTMLを生成する"],
+    answer: 0,
+    explanation: "メディアクエリはレスポンシブデザインに使います。"
+  },
+  {
+    q: "CSSで要素の透明度を指定するプロパティは？",
+    options: ["opacity", "alpha", "transparent", "filter"],
+    answer: 0,
+    explanation: "opacityで透明度を指定します。"
+  },
+  {
+    q: "CSSで影を付けるプロパティは？",
+    options: ["box-shadow", "text-shadow", "shadow", "filter"],
+    answer: 0,
+    explanation: "box-shadowで要素に影を付けます。"
+  }
+]
     };
   </script>
   <script src="../../keep_out/selectQuestion.js" defer></script>

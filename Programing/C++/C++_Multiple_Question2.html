@@ -37,35 +37,51 @@
     window.quizConfig = {
       RANKING_KEY: "cpp2", // ランキングのキーを設定
       selectionPageUrl: "C++.html",
-      questions: [
-        {
-          q: `以下のコードの出力は？<pre>int a = 10;
+ /*
+    型変換・キャスト:2
+    スコープ・変数のシャドウイング:1
+    計算量・オーダー:2
+    関数・値渡しと参照渡し:1
+    ループ・制御構文:2
+    再帰:1
+    参照:1
+    計12問
+    */
+
+    questions: [
+      // 型変換・キャスト
+      {
+        q: `以下のコードの出力は？<pre>int a = 10;
 int b = 3;
 cout << double(a / b) << endl;</pre>`,
-          options: ["A. 3.33333", "B. 3", "C. 3.0", "D. エラーになる"],
-          answer: 2,
-          explanation: "a / b は int同士なので 3 になる。double(3) → 3.0。"
-        },
-        {
-          q: `以下のコードの出力は？<pre>int a = 10;
+        options: ["A. 3.33333", "B. 3", "C. 3.0", "D. エラーになる"],
+        answer: 2,
+        explanation: "a / b は int同士なので 3 になる。double(3) → 3.0。"
+      },
+      {
+        q: `以下のコードの出力は？<pre>int a = 10;
 int b = 3;
 cout << (double)a / b << endl;</pre>`,
-          options: ["A. 3.33333", "B. 3", "C. 3.0", "D. エラーになる"],
-          answer: 0,
-          explanation: "a を先に double に変換 → 実数除算 → 約 3.3333。"
-        },
-        {
-          q: `以下のコードの出力は？<pre>int x = 10;
+        options: ["A. 3.33333", "B. 3", "C. 3.0", "D. エラーになる"],
+        answer: 0,
+        explanation: "a を先に double に変換 → 実数除算 → 約 3.3333。"
+      },
+
+      // スコープ・変数のシャドウイング
+      {
+        q: `以下のコードの出力は？<pre>int x = 10;
 {
   int x = 5;
   cout << x << " ";
 }
 cout << x << endl;</pre>`,
-          options: ["A. 5 5", "B. 5 10", "C. 10 5", "D. エラーになる"],
-          answer: 1,
-          explanation: "スコープ内での変数 x はローカルで外側の x を隠す（シャドウイング）。"
-        },
-              {
+        options: ["A. 5 5", "B. 5 10", "C. 10 5", "D. エラーになる"],
+        answer: 1,
+        explanation: "スコープ内での変数 x はローカルで外側の x を隠す（シャドウイング）。"
+      },
+
+      // 計算量・オーダー
+      {
         q:"オーダー表記で、O(n^2)のアルゴリズムはどれ？",
         options: [
           "for (int i = 0; i < n; i++) { for (int j = 0; j < n; j++) { /* 処理 */ } }",
@@ -87,8 +103,10 @@ cout << x << endl;</pre>`,
         answer: 1,
         explanation: "while (n > 1) { n /= 2; /* 処理 */ } は、nを半分にしていくので、O(logn)に該当する。<br>1つ目はO(n)、3つ目はO(n^2)、4つ目はO(logn)だが、ループの回数がlog(n)なので、正確にはO(logn)とは言えない。"
       },
-        {
-          q: `このコードを実行しても x の値が変わらないのはなぜ？<pre>void addTen(int x) {
+
+      // 関数・値渡しと参照渡し
+      {
+        q: `このコードを実行しても x の値が変わらないのはなぜ？<pre>void addTen(int x) {
   x += 10;
 }
 
@@ -98,32 +116,29 @@ int main() {
   cout << x << endl;
   return 0;
 }</pre>`,
-          options: ["A. 関数が呼ばれていないから", "B. 値渡しなので x の変更が反映されない", "C. 10 を足す処理が間違っている", "D. cout の位置が悪い"],
-          answer: 1,
-          explanation: "int x はコピー渡し（値渡し）なので、main 内の x には影響しない。"
-        },
-        {
-          q: `以下のコードの出力は？<pre>int i = 0;
+        options: ["A. 関数が呼ばれていないから", "B. 値渡しなので x の変更が反映されない", "C. 10 を足す処理が間違っている", "D. cout の位置が悪い"],
+        answer: 1,
+        explanation: "int x はコピー渡し（値渡し）なので、main 内の x には影響しない。"
+      },
+
+      // ループ・制御構文
+      {
+        q: `以下のコードの出力は？<pre>int i = 0;
 while (i != 10) {
   i += 3;
   cout << i << endl;
 }</pre>`,
-          options: ["A. TLEになる（無限ループ）", "B. エラーになる", "C. 10以下の3の倍数が表示される", "D. 0 ~ 10の全ての数字が表示される"],
-          answer: 0,
-          explanation: "i は 0→3→6→9→12 となり 10 を飛び越える。i != 10 が常に真になる。"
-        },
-        {
-          q: `このコードが無限ループになる理由は？<pre>int i = 0;
+        options: ["A. TLEになる（無限ループ）", "B. エラーになる", "C. 10以下の3の倍数が表示される", "D. 0 ~ 10の全ての数字が表示される"],
+        answer: 0,
+        explanation: "i は 0→3→6→9→12 となり 10 を飛び越える。i != 10 が常に真になる。"
+      },
+      {
+        q: `このコードが無限ループになる理由は？<pre>int i = 0;
 while (i != 10) {
   i += 3;
   cout << i << endl;
 }</pre>`,
-          options: ["A. i は10にならないから", "B. while文の使い方が違うから", "C. += の書き方が間違っているから", "D. ループの中で i が減少してるから"],
-          answer: 0,
-          explanation: "i は 10 をスキップするので終了条件に達しない。"
-        },
-        {
-          q: `次のコードを実行したとき、何回 '1' と出力されるか？<pre>int main() {
+
   for (int i = 0; i < 3; i++) {
     for (int j = 0; j < 3; j++) {
       if (i == j) break;
@@ -132,12 +147,14 @@ while (i != 10) {
   }
   return 0;
 }</pre>`,
-          options: ["3回", "4回", "5回", "6回"],
-          answer: 0,
-          explanation: "(i,j) = (1,0), (2,0), (2,1) のとき出力 → 計3回"
-        },
-        {
-          q: `次のコードを実行したときの出力は？<pre>void func(int n) {
+        options: ["3回", "4回", "5回", "6回"],
+        answer: 0,
+        explanation: "(i,j) = (1,0), (2,0), (2,1) のとき出力 → 計3回"
+      },
+
+      // 再帰
+      {
+        q: `次のコードを実行したときの出力は？<pre>void func(int n) {
   if (n == 0) return;
   cout << n << ' ';
   func(n - 1);
@@ -146,29 +163,31 @@ int main() {
   func(3);
   return 0;
 }</pre>`,
-          options: ["3 2 1", "3 2 1 0", "1 2 3", "0 1 2 3"],
-          answer: 0,
-          explanation: "func(3) → func(2) → func(1) → func(0) で終了 → 出力は 3 2 1"
-        },
-        {
-          q: `次のコードを実行したときの出力は？<pre>int a = 5;
+        options: ["3 2 1", "3 2 1 0", "1 2 3", "0 1 2 3"],
+        answer: 0,
+        explanation: "func(3) → func(2) → func(1) → func(0) で終了 → 出力は 3 2 1"
+      },
+
+      // 参照
+      {
+        q: `次のコードを実行したときの出力は？<pre>int a = 5;
 int& b = a;
 a = 10;
 cout << b << endl;</pre>`,
-          options: ["5", "10", "エラーになる", "未定義"],
-          answer: 1,
-          explanation: "b は a の参照 → a を 10 にすると b も 10"
-        },
-        {
-          q: `次のコードを実行したときの出力は？<pre>int a = 5;
+        options: ["5", "10", "エラーになる", "未定義"],
+        answer: 1,
+        explanation: "b は a の参照 → a を 10 にすると b も 10"
+      },
+      {
+        q: `次のコードを実行したときの出力は？<pre>int a = 5;
 int& b = a;
 int& c = b;
 a = 10;
 cout << c << endl;</pre>`,
-          options: ["5", "10", "エラーになる", "未定義"],
-          answer: 1,
-          explanation: "c は b の参照 → b は a の参照 → a = 10 → b, c も 10"
-        }
+        options: ["5", "10", "エラーになる", "未定義"],
+        answer: 1,
+        explanation: "c は b の参照 → b は a の参照 → a = 10 → b, c も 10"
+      }
       ]
     };
   </script>

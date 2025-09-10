@@ -39,136 +39,149 @@
 
       selectionPageUrl: "HTML.html",
 
-      questions: [
-        {
-          q: "HTMLでのコメントアウトは次のうちどれか",
-          options: ["<!--コメント-->", "//コメント", "#コメント", "\\#コメント"],
-          answer: 0,
-          explanation: "<!-- ～ --> の形式でコメントアウトします。"
-        },
-        {
-          q: "HTMLでの見出しタグは次のうちどれか",
-          options: ["<h1>", "<head>", "<header>", "<heading>"],
-          answer: 0,
-          explanation: "<h1> は最も重要な見出しを示すタグです。"
-        },
-        {
-          q: "HTMLでの段落を表すタグは次のうちどれか",
-          options: ["<p>", "<para>", "<paragraph>", "<text>"],
-          answer: 0,
-          explanation: "<p> は段落を表すタグです。"
-        },
-        {
-          q: "HTMLでのリンクを作成するためのタグは次のうちどれか",
-          options: ["<link>", "<a>", "<href>", "<url>"],
-          answer: 1,
-          explanation: "<a> タグはリンク作成に使われます。"
-        },
-        {
-          q: "HTMLで画像を表示するためのタグは次のうちどれか",
-          options: ["<img>", "<image>", "<picture>", "<photo>"],
-          answer: 0,
-          explanation: "<img> タグは画像を表示します。"
-        },
-        {
-          q: "HTMLで順不同リストを作成するためのタグは次のうちどれか",
-          options: ["<list>", "<ul>", "<ol>", "<li>"],
-          answer: 1,
-          explanation: "<ul> は順不同リスト、<ol> は順序付きリストです。"
-        },
-        {
-          q: "HTMLでテーブルを作成するためのタグは次のうちどれか",
-          options: ["<table>", "<tab>", "<grid>", "<list>"],
-          answer: 0,
-          explanation: "<table> タグはテーブル作成に使います。"
-        },
-        {
-          q: "HTMLでテーブルのセルを定義するためのタグは次のうちどれか",
-          options: ["<td>", "<cell>", "<th>", "<tr>"],
-          answer: 0,
-          explanation: "<td> タグはテーブルのデータセルを表します。<th> はヘッダーセルです。"
-        },
-        
-        {
-          q: "HTMLでフォームを作成するためのタグは次のうちどれか",
-          options: ["<form>", "<input>", "<button>", "<submit>"],
-          answer: 0,
-          explanation: "<form> タグはフォーム全体を表します。"
-        },
+    /*
+      --- 問題カテゴリ索引 ---
+      // 基本構造:5
+      // テキスト・装飾:5
+      // リスト・テーブル:4
+      // フォーム:3
+      // メタ・リソース:4
+      // その他:5
+      計26問
+    */
 
-        {
-          q: "HTMLでのテキストを太字にするためのタグは次のうちどれか",
-          options: ["<strong>", "<bold>", "<b>", "<em>"],
-          answer: 0,
-          explanation: "<strong> は重要な太字テキストを表します。"
-        },
-
-        {
-          q: "HTMLでのテキストを斜体にするためのタグは次のうちどれか",
-          options: ["<italic>", "<i>", "<em>", "<style>"],
-          answer: 1,
-          explanation: "<i> は斜体表示に使われます。"
-        },
-
-        {
-          q: "HTMLでの改行を表すタグは次のうちどれか",
-          options: ["<break>", "<br>", "<newline>", "<hr>"],
-          answer: 1,
-          explanation: "<bг> は改行を挿入します。"
-        },
-
-        {
-          q: "HTMLでの水平線を表すタグは次のうちどれか",
-          options: ["<line>", "<hr>", "<horizontal>", "<rule>"],
-          answer: 1,
-          explanation: "<hr> タグは水平線を挿入します。"
-        },
-        {
-          q: "HTMLでのセクションを表すタグは次のうちどれか",
-          options: ["<section>", "<div>", "<article>", "<header>"],
-          answer: 0,
-          explanation: "<section> は文書内のセクションを定義します。"
-        },
-
-        {
-          q: "HTMLでのメタデータを定義するためのタグは次のうちどれか",
-          options: ["<meta>", "<head>", "<title>", "<link>"],
-          answer: 0,
-          explanation: "<meta> はメタデータ用のタグです。"
-        },
-
-        {
-          q: "HTMLでのスタイルシートをリンクするためのタグは次のうちどれか",
-          options: ["<style>", "<link>", "<css>", "<script>"],
-          answer: 1,
-          explanation: "<link> タグは外部CSSを読み込むために使います。"
-        },
-        {
-          q: "HTMLでのスクリプトを定義するためのタグは次のうちどれか",
-          options: ["<script>", "<js>", "<javascript>", "<code>"],
-          answer: 0,
-          explanation: "<script> タグは JavaScript を埋め込むのに使います。"
-        },
-         {
+    questions: [
+      // 基本構造
+      {
         q: "HTMLのフルフォームは何ですか？",
         options: ["Hyper Text Markup Language", "Home Tool Markup Language", "Hyperlinks and Text Markup Language", "Hyper Tool Markup Language"],
         answer: 0,
         explanation: "HTMLはHyper Text Markup Languageの略で、ウェブページを作成するためのマークアップ言語です。"
-    },
-    {
+      },
+      {
         q: "HTML文書の最初のタグは何ですか？",
         options: ["<html>", "<head>", "<title>", "<!DOCTYPE html>"],
         answer: 3,
         explanation: "<!DOCTYPE html> はHTML5文書の宣言で、最初に記述されます。"
-    },
-    {
+      },
+      {
+        q: "HTMLでのコメントアウトは次のうちどれか",
+        options: ["<!--コメント-->", "//コメント", "#コメント", "\\#コメント"],
+        answer: 0,
+        explanation: "<!-- ～ --> の形式でコメントアウトします。"
+      },
+      {
+        q: "HTMLでの見出しタグは次のうちどれか",
+        options: ["<h1>", "<head>", "<header>", "<heading>"],
+        answer: 0,
+        explanation: "<h1> は最も重要な見出しを示すタグです。"
+      },
+      {
+        q: "HTMLでのセクションを表すタグは次のうちどれか",
+        options: ["<section>", "<div>", "<article>", "<header>"],
+        answer: 0,
+        explanation: "<section> は文書内のセクションを定義します。"
+      },
+
+      // テキスト・装飾
+      {
+        q: "HTMLでの段落を表すタグは次のうちどれか",
+        options: ["<p>", "<para>", "<paragraph>", "<text>"],
+        answer: 0,
+        explanation: "<p> は段落を表すタグです。"
+      },
+      {
+        q: "HTMLでのテキストを太字にするためのタグは次のうちどれか",
+        options: ["<strong>", "<bold>", "<b>", "<em>"],
+        answer: 0,
+        explanation: "<strong> は重要な太字テキストを表します。"
+      },
+      {
+        q: "HTMLでのテキストを斜体にするためのタグは次のうちどれか",
+        options: ["<italic>", "<i>", "<em>", "<style>"],
+        answer: 1,
+        explanation: "<i> は斜体表示に使われます。"
+      },
+      {
+        q: "HTMLでの改行を表すタグは次のうちどれか",
+        options: ["<break>", "<br>", "<newline>", "<hr>"],
+        answer: 1,
+        explanation: "<br> は改行を挿入します。"
+      },
+      {
+        q: "HTMLでの水平線を表すタグは次のうちどれか",
+        options: ["<line>", "<hr>", "<horizontal>", "<rule>"],
+        answer: 1,
+        explanation: "<hr> タグは水平線を挿入します。"
+      },
+
+      // リスト・テーブル
+      {
+        q: "HTMLで順不同リストを作成するためのタグは次のうちどれか",
+        options: ["<list>", "<ul>", "<ol>", "<li>"],
+        answer: 1,
+        explanation: "<ul> は順不同リスト、<ol> は順序付きリストです。"
+      },
+      {
+        q: "HTMLでテーブルを作成するためのタグは次のうちどれか",
+        options: ["<table>", "<tab>", "<grid>", "<list>"],
+        answer: 0,
+        explanation: "<table> タグはテーブル作成に使います。"
+      },
+      {
+        q: "HTMLでテーブルのセルを定義するためのタグは次のうちどれか",
+        options: ["<td>", "<cell>", "<th>", "<tr>"],
+        answer: 0,
+        explanation: "<td> タグはテーブルのデータセルを表します。<th> はヘッダーセルです。"
+      },
+      {
         q: "HTMLでテーブルの行を定義するタグは？",
         options: ["<tr>", "<td>", "<table>", "<th>"],
         answer: 0,
         explanation: "<tr> タグはテーブルの行を定義します。"
-    },
+      },
 
-        
+      // フォーム
+      {
+        q: "HTMLでフォームを作成するためのタグは次のうちどれか",
+        options: ["<form>", "<input>", "<button>", "<submit>"],
+        answer: 0,
+        explanation: "<form> タグはフォーム全体を表します。"
+      },
+
+      // メタ・リソース
+      {
+        q: "HTMLでのメタデータを定義するためのタグは次のうちどれか",
+        options: ["<meta>", "<head>", "<title>", "<link>"],
+        answer: 0,
+        explanation: "<meta> はメタデータ用のタグです。"
+      },
+      {
+        q: "HTMLでのスタイルシートをリンクするためのタグは次のうちどれか",
+        options: ["<style>", "<link>", "<css>", "<script>"],
+        answer: 1,
+        explanation: "<link> タグは外部CSSを読み込むために使います。"
+      },
+      {
+        q: "HTMLでのスクリプトを定義するためのタグは次のうちどれか",
+        options: ["<script>", "<js>", "<javascript>", "<code>"],
+        answer: 0,
+        explanation: "<script> タグは JavaScript を埋め込むのに使います。"
+      },
+
+      // その他
+      {
+        q: "HTMLでリンクを作成するためのタグは次のうちどれか",
+        options: ["<link>", "<a>", "<href>", "<url>"],
+        answer: 1,
+        explanation: "<a> タグはリンク作成に使われます。"
+      },
+      {
+        q: "HTMLで画像を表示するためのタグは次のうちどれか",
+        options: ["<img>", "<image>", "<picture>", "<photo>"],
+        answer: 0,
+        explanation: "<img> タグは画像を表示します。"
+      }        
       ]
     };
   </script>

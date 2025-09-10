@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html lang="ja">
+ <link rel="icon" href="https://avatars.githubusercontent.com/u/120705481?s=48&v=4" type="image/x-icon">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>GOの四択問題</title> 
+  <link rel="stylesheet" href="../../keep_out/selectQuestion.css">
+  <style>
+    .options label.disabled {
+      pointer-events: none;
+      color: #000;
+    }
+  </style>
+  <audio id="se-correct" src="../../keep_out/correct.mp3" preload="auto"></audio>
+  <audio id="se-wrong" src="../../keep_out/wrong.mp3" preload="auto"></audio>
+  <audio id="se-start" src="../../keep_out/start.mp3" preload="auto"></audio>
+  <audio id="se-end" src="../../keep_out/end.mp3" preload="auto"></audio>
+</head>
+
+<body>
+  <audio id="bgm" src="../../keep_out/BGM.mp3" loop></audio>
+  <button id="bgm-toggle">▶️ BGMを再生</button>
+  <div class="quiz-container" id="home">
+    <h1>GOの四択問題</h1>
+    <p id="question-count">問題数を表示(変更不要)</p>
+    <button onclick="startQuiz()">開始</button>
+    <a href="GO.html" class="back-button">問題選択に戻る</a>
+  </div>
+
+  <div class="quiz-container" id="quiz" style="display: none;"></div>
+  <div id="countdown-overlay" class="countdown-overlay">
+    <div id="countdown-text" class="countdown-text"></div>
+  </div>
+  <script>
+    window.quizConfig = {
+
+      RANKING_KEY: "GO", //ランキングのキーを設定
+
+      selectionPageUrl: "GO.html", //問題選択ページのファイル名を入力
+
+/*
+基本文法:5
+変数・型:5
+制御構文:5
+関数:5
+配列・スライス:5
+マップ:5
+構造体・インターフェース:5
+パッケージ・その他:5
+計40問
+*/
+
+questions: [
+  // 基本文法
+  {
+    q: "Go言語のファイルの拡張子は？",
+    options: [".go", ".golang", ".g", ".cgo"],
+    answer: 0,
+    explanation: "Go言語のソースファイルは .go です。"
+  },
+  {
+    q: "Go言語のプログラムのエントリーポイントは？",
+    options: ["main関数", "start関数", "init関数", "run関数"],
+    answer: 0,
+    explanation: "Goの実行開始点はmainパッケージのmain関数です。"
+  },
+  {
+    q: "Go言語でコメントアウトの書き方は？",
+    options: ["// コメント", "# コメント", "<!-- コメント -->", "-- コメント"],
+    answer: 0,
+    explanation: "// で1行コメント、/* ... */ で複数行コメントです。"
+  },
+  {
+    q: "Go言語でパッケージを宣言するキーワードは？",
+    options: ["package", "import", "module", "namespace"],
+    answer: 0,
+    explanation: "package main のようにファイル先頭で宣言します。"
+  },
+  {
+    q: "Go言語で外部パッケージを読み込むキーワードは？",
+    options: ["import", "include", "require", "use"],
+    answer: 0,
+    explanation: "import \"fmt\" のように使います。"
+  },
+
+  // 変数・型
+  {
+    q: "Go言語で変数を宣言するキーワードは？",
+    options: ["var", "let", "int", "define"],
+    answer: 0,
+    explanation: "var x int のように宣言します。"
+  },
+  {
+    q: "Go言語で定数を宣言するキーワードは？",
+    options: ["const", "define", "static", "final"],
+    answer: 0,
+    explanation: "const x = 10 のように宣言します。"
+  },
+  {
+    q: "Go言語で型推論付きの変数宣言は？",
+    options: ["x := 10", "let x = 10", "var x = 10", "x = 10"],
+    answer: 0,
+    explanation: "x := 10 で型推論付きの宣言ができます。"
+  },
+  {
+    q: "Go言語で整数型はどれ？",
+    options: ["int", "float64", "string", "bool"],
+    answer: 0,
+    explanation: "int型は整数型です。"
+  },
+  {
+    q: "Go言語で文字列型はどれ？",
+    options: ["string", "char", "text", "str"],
+    answer: 0,
+    explanation: "string型が文字列型です。"
+  },
+
+  // 制御構文
+  {
+    q: "Go言語でif文の書き方で正しいものは？",
+    options: ["if x == 1 { ... }", "if (x == 1) { ... }", "if x = 1 { ... }", "if x == 1 then ..."],
+    answer: 0,
+    explanation: "Goでは条件式の括弧は不要です。"
+  },
+  {
+    q: "Go言語でswitch文の特徴は？",
+    options: ["breakが不要", "caseに式が書けない", "defaultが必須", "if文の別名"],
+    answer: 0,
+    explanation: "Goのswitchはcaseごとにbreak不要です。"
+  },
+  {
+    q: "Go言語でfor文の無限ループは？",
+    options: ["for { ... }", "while(true) { ... }", "loop { ... }", "repeat { ... }"],
+    answer: 0,
+    explanation: "for { ... } で無限ループになります。"
+  },
+  {
+    q: "Go言語でcontinue文の役割は？",
+    options: ["次のループに進む", "ループを終了する", "関数を抜ける", "エラーを投げる"],
+    answer: 0,
+    explanation: "continueは次のループに進みます。"
+  },
+  {
+    q: "Go言語でbreak文の役割は？",
+    options: ["ループを抜ける", "次のループに進む", "関数を抜ける", "エラーを投げる"],
+    answer: 0,
+    explanation: "breakはループを抜けます。"
+  },
+
+  // 関数
+  {
+    q: "Go言語で関数を定義するキーワードは？",
+    options: ["func", "function", "def", "fn"],
+    answer: 0,
+    explanation: "func main() のようにfuncで定義します。"
+  },
+  {
+    q: "Go言語で複数の戻り値を返すには？",
+    options: ["カンマ区切りで複数指定", "配列で返す", "タプルで返す", "戻り値は1つだけ"],
+    answer: 0,
+    explanation: "func f() (int, string) のように複数型を指定できます。"
+  },
+  {
+    q: "Go言語で無名関数（匿名関数）はどう書く？",
+    options: ["func() { ... }", "function() { ... }", "lambda { ... }", "def() { ... }"],
+    answer: 0,
+    explanation: "func() { ... } で無名関数を作れます。"
+  },
+  {
+    q: "Go言語で関数の引数に型を指定する位置は？",
+    options: ["引数名の後", "引数名の前", "関数名の後", "returnの後"],
+    answer: 0,
+    explanation: "func f(x int) のように引数名の後に型を書きます。"
+  },
+  {
+    q: "Go言語で再帰関数を定義できる？",
+    options: ["できる", "できない", "main関数のみできる", "パッケージ内のみできる"],
+    answer: 0,
+    explanation: "Goでも再帰関数は定義できます。"
+  },
+
+  // 配列・スライス
+  {
+    q: "Go言語で配列を宣言する正しい方法は？",
+    options: ["var a [5]int", "a := [5]int", "int a[5]", "array a[5]"],
+    answer: 0,
+    explanation: "var a [5]int で配列を宣言します。"
+  },
+  {
+    q: "Go言語でスライスを宣言する正しい方法は？",
+    options: ["var s []int", "s := []int", "slice s[]int", "int s[]"],
+    answer: 0,
+    explanation: "var s []int でスライスを宣言します。"
+  },
+  {
+    q: "Go言語で配列の長さを取得する関数は？",
+    options: ["len()", "size()", "count()", "length()"],
+    answer: 0,
+    explanation: "len(a) で配列やスライスの長さを取得します。"
+  },
+  {
+    q: "Go言語でスライスの要素を追加する関数は？",
+    options: ["append()", "push()", "add()", "insert()"],
+    answer: 0,
+    explanation: "append(s, x) でスライスに要素を追加します。"
+  },
+  {
+    q: "Go言語で配列とスライスの違いは？",
+    options: ["サイズが固定か可変か", "型が違う", "宣言方法が違う", "どちらも同じ"],
+    answer: 0,
+    explanation: "配列はサイズ固定、スライスは可変長です。"
+  },
+
+  // マップ
+  {
+    q: "Go言語でマップ（連想配列）を宣言する正しい方法は？",
+    options: ["var m map[string]int", "m := map[string]int", "map m[string]int", "dict m[string]int"],
+    answer: 0,
+    explanation: "var m map[string]int で宣言します。"
+  },
+  {
+    q: "Go言語でマップに値を追加する方法は？",
+    options: ["m[\"key\"] = value", "m.add(\"key\", value)", "m.push(\"key\", value)", "append(m, key, value)"],
+    answer: 0,
+    explanation: "m[\"key\"] = value で追加できます。"
+  },
+  {
+    q: "Go言語でマップから値を取得する方法は？",
+    options: ["m[\"key\"]", "m.get(\"key\")", "m.value(\"key\")", "m.key(\"key\")"],
+    answer: 0,
+    explanation: "m[\"key\"] で値を取得します。"
+  },
+  {
+    q: "Go言語でマップのキーが存在するか調べるには？",
+    options: ["値, ok := m[\"key\"]", "m.exists(\"key\")", "m.has(\"key\")", "m.contains(\"key\")"],
+    answer: 0,
+    explanation: "値, ok := m[\"key\"] で存在確認できます。"
+  },
+  {
+    q: "Go言語でマップの全要素をループするには？",
+    options: ["for k, v := range m", "for (k, v) in m", "foreach m as k, v", "for k in m"],
+    answer: 0,
+    explanation: "for k, v := range m で全要素をループします。"
+  },
+
+  // 構造体・インターフェース
+  {
+    q: "Go言語で構造体を定義するキーワードは？",
+    options: ["type", "struct", "class", "object"],
+    answer: 0,
+    explanation: "type Person struct { ... } のように定義します。"
+  },
+  {
+    q: "Go言語で構造体のフィールドにアクセスするには？",
+    options: [".（ドット）演算子", "->演算子", "::演算子", "#演算子"],
+    answer: 0,
+    explanation: "person.name のようにドットでアクセスします。"
+  },
+  {
+    q: "Go言語でインターフェースを定義するキーワードは？",
+    options: ["interface", "type", "struct", "class"],
+    answer: 0,
+    explanation: "type Reader interface { ... } のように定義します。"
+  },
+  {
+    q: "Go言語で構造体の埋め込み（匿名フィールド）は何のため？",
+    options: ["継承のような再利用", "型変換", "メモリ節約", "エラー処理"],
+    answer: 0,
+    explanation: "埋め込みで他の構造体のフィールドやメソッドを再利用できます。"
+  },
+  {
+    q: "Go言語でインターフェースを満たす条件は？",
+    options: ["必要なメソッドを実装するだけ", "明示的に継承する", "implementsを書く", "型アサーションが必要"],
+    answer: 0,
+    explanation: "Goは暗黙的インターフェース。必要なメソッドを実装すればOKです。"
+  },
+
+  // パッケージ・その他
+  {
+    q: "Go言語で標準出力に文字列を表示するには？",
+    options: ["fmt.Println()", "print()", "echo()", "console.log()"],
+    answer: 0,
+    explanation: "fmt.Println() で出力します。"
+  },
+  {
+    q: "Go言語でエラー型はどれ？",
+    options: ["error", "err", "exception", "fail"],
+    answer: 0,
+    explanation: "Goのエラー型はerrorです。"
+  },
+  {
+    q: "Go言語でパッケージ管理に使うコマンドは？",
+    options: ["go mod", "go pkg", "go get", "go install"],
+    answer: 0,
+    explanation: "go mod でパッケージ管理します。"
+  },
+  {
+    q: "Go言語でgoroutineを開始するには？",
+    options: ["go func()", "start func()", "thread func()", "run func()"],
+    answer: 0,
+    explanation: "go func() でgoroutineを開始します。"
+  },
+  {
+    q: "Go言語でチャネルを宣言する正しい方法は？",
+    options: ["make(chan int)", "new(chan int)", "chan int()", "channel int"],
+    answer: 0,
+    explanation: "make(chan int) でチャネルを作成します。"
+  }
+]
+
+    };
+  </script>
+  <script src="../../keep_out/selectQuestion.js" defer></script>
+</body>
+
+</html>
