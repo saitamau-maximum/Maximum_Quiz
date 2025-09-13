@@ -1,20 +1,49 @@
 <!DOCTYPE html>
 <html lang="ja">
 <head>
+  <link rel="icon" href="https://avatars.githubusercontent.com/u/120705481?s=48&v=4" type="image/x-icon">
   <meta charset="UTF-8" />
-  <title>ログイン</title>
+  <title>ログイン | Maximum Quiz</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
 </head>
-<body>
-  <div class="form-container">
-    <h2>ログイン</h2>
-    <form id="loginForm">
-      <input type="email" id="email" placeholder="メールアドレス" required />
-      <input type="password" id="password" placeholder="パスワード" required />
-      <button type="submit">ログイン</button>
+<body class="bg-gradient-to-br from-green-100 via-blue-100 to-purple-100 min-h-screen flex items-center justify-center">
+
+<!-- ...既存のコード... -->
+  <div class="bg-white rounded-2xl shadow-xl p-8 w-full max-w-md flex flex-col items-center">
+    <img src="keep_out/Maximum-logo.svg" alt="Maximumロゴ" class="w-20 h-20 mb-4">
+    <h2 class="text-2xl font-bold text-green-700 mb-6">ログイン</h2>
+    <form id="loginForm" class="w-full flex flex-col gap-4">
+      <input
+        type="email"
+        id="email"
+        placeholder="メールアドレス"
+        required
+        class="px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-400"
+      />
+      <input
+        type="password"
+        id="password"
+        placeholder="パスワード"
+        required
+        class="px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-400"
+      />
+      <button
+        type="submit"
+        class="bg-green-500 text-white font-bold py-3 rounded-lg shadow hover:bg-green-600 transition duration-200"
+      >
+        ログイン
+      </button>
     </form>
-    <div class="message" id="message"></div>
-    <a href="./signup.html">新規登録はこちら</a>
+    <div class="message text-red-600 mt-4 min-h-[1.5em]" id="message"></div>
+    <a href="./signup.html" class="mt-4 text-blue-600 hover:underline">新規登録はこちら</a>
+    <!-- index.htmlに戻るボタンを追加 -->
+    <a href="index.html" class="mt-4 px-6 py-2 bg-gray-200 text-gray-700 font-bold rounded-full shadow hover:bg-gray-300 transition duration-200">
+      トップページに戻る
+    </a>
   </div>
+<!-- ...既存のコード... -->
 
   <script>
     document.getElementById("loginForm").addEventListener("submit", async (e) => {
