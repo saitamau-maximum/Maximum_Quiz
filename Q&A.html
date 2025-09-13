@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <link rel="icon" href="https://avatars.githubusercontent.com/u/120705481?s=48&v=4" type="image/x-icon">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Q&A | Maximum Quiz</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    .left-bar, .center-bar, .right-bar {
+      flex: 1 1 0%;
+      max-width: 400px;
+      min-width: 220px;
+      padding: 20px;
+      box-sizing: border-box;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
+      height: 100%;
+    }
+    .left-bar {
+      text-align: left;
+    }
+    .center-bar {
+      text-align: left;
+    }
+    .right-bar {
+      text-align: left;
+    }
+    @media (max-width: 900px) {
+      .bar-area {
+        flex-direction: column !important;
+        align-items: stretch !important;
+      }
+      .left-bar, .center-bar, .right-bar {
+        max-width: 100%;
+        min-width: 0;
+        height: auto;
+      }
+    }
+    details {
+      margin: 10px 0;
+      font-family: Arial, sans-serif;
+    }
+    summary {
+      cursor: pointer;
+      font-weight: bold;
+      color: #007BFF;
+      outline: none;
+    }
+    summary:hover {
+      text-decoration: underline;
+    }
+  </style>
+</head>
+<body class="bg-gray-50 min-h-screen flex flex-col">
+
+  <!-- ヘッダー -->
+  <header class="bg-green-600 text-white py-6 px-4 shadow-md flex items-center">
+    <img src="keep_out/Maximum-logo.svg" alt="Maximumロゴ" class="w-14 h-14 mr-4">
+    <h1 class="text-2xl font-bold">Q&amp;A（よくある質問）</h1>
+    <a href="index.html"
+      class="px-6 py-2 bg-white text-green-700 font-bold rounded-full shadow-lg hover:black transition duration-300 ease-in-out ml-8">
+      戻る
+    </a>
+  </header>
+
+  <!-- メインコンテンツ -->
+  <main class="flex-1 max-w-7xl mx-auto py-10 px-4">
+    <section>
+      <h2 class="text-xl font-semibold mb-6 text-green-700">よくある質問</h2>
+      <div class="bar-area flex flex-row justify-between items-stretch gap-6 w-full">
+
+        <!-- 左バー -->
+        <div class="left-bar">
+          <!-- Q1 -->
+          <div class="bg-white rounded-lg shadow p-5 mb-4 flex-1">
+            <details>
+              <summary>Q. このサイトは誰が利用できますか？</summary>
+              <p class="mt-2">A. Maximumのメンバーはもちろん、プログラミングやITに興味のある方ならどなたでもご利用いただけます。</p>
+            </details>
+          </div>
+          <!-- Q4 -->
+          <div class="bg-white rounded-lg shadow p-5 mb-4 flex-1">
+            <details>
+              <summary>Q. 問題は今後も追加されますか？</summary>
+              <p class="mt-2">A. はい、随時新しい問題やカテゴリを追加していく予定です。</p>
+            </details>
+          </div>
+          <!-- Q7 -->
+          <div class="bg-white rounded-lg shadow p-5 flex-1">
+            <details>
+              <summary>Q. ランキングや成績は保存されますか？</summary>
+              <p class="mt-2">A. ブラウザのローカルストレージに保存されます。他の端末やブラウザでは共有されません。</p>
+            </details>
+          </div>
+        </div>
+
+        <!-- 中央バー -->
+        <div class="center-bar">
+          <!-- Q2 -->
+          <div class="bg-white rounded-lg shadow p-5 mb-4 flex-1">
+            <details>
+              <summary>Q. お問い合わせはどこからできますか？</summary>
+              <p class="mt-2">A. 画面上部の「お問い合わせ」ボタンからご連絡いただけます。</p>
+            </details>
+          </div>
+          <!-- Q5 -->
+          <div class="bg-white rounded-lg shadow p-5 flex-1">
+            <details>
+              <summary>Q. スマートフォンでも利用できますか？</summary>
+              <p class="mt-2">A. はい、スマートフォンやタブレットにも対応しています。</p>
+            </details>
+          </div>
+        </div>
+
+        <!-- 右バー -->
+        <div class="right-bar">
+          <!-- Q3 -->
+          <div class="bg-white rounded-lg shadow p-5 mb-4 flex-1">
+            <details>
+              <summary>Q. ログインがうまくいきません？</summary>
+              <p class="mt-2">A. パスワードを再確認してください。それでもログインできない場合は、お問い合わせください。</p>
+            </details>
+          </div>
+          <!-- Q6 -->
+          <div class="bg-white rounded-lg shadow p-5 flex-1">
+            <details>
+              <summary>Q. パスワードを忘れた場合はどうすればいいですか？</summary>
+              <p class="mt-2">A. ログイン画面の「パスワードを忘れた場合」リンクから再設定手続きを行ってください。</p>
+            </details>
+          </div>
+        </div>
+
+      </div>
+    </section>
+  </main>
+
+  <!-- フッター -->
+  <footer class="bg-gray-200 text-gray-600 text-center py-4 text-sm">
+    &copy; 2025 Maximum Quiz
+  </footer>
+</body>
+</html>

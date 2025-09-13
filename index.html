@@ -35,10 +35,9 @@
       <img src="keep_out/Logo.png" alt="ゲーム開発班のロゴ" class="absolute top-5 right-4 w-[200px] h-auto cursor-pointer" style="transform: scale(0.8); transform-origin: top right;">
     </a>
 
-    
-    <!-- Q&A・お問い合わせ・お知らせボタンをロゴ右側・下縁にrelative配置 
+    <!-- Q&A・お問い合わせ・お知らせボタンをロゴ右側・下縁にrelative配置-->
     <div class="absolute left-[280px] bottom-5 flex flex-row gap-4 hidden md:flex" style="z-index:10;">
-      <a href="QA.html"
+      <a href="Q&A.html"
         class="px-6 py-2 bg-green-500 text-white font-bold rounded-full shadow-lg hover:bg-blue-700 transition duration-300 ease-in-out">
         Q&amp;A
       </a>
@@ -46,6 +45,7 @@
         class="px-6 py-2 bg-green-500 text-white font-bold rounded-full shadow-lg hover:bg-blue-700 transition duration-300 ease-in-out">
         お問い合わせ
       </a>
+      <!--
       <a href="information.html"
         class="px-6 py-2 bg-green-500 text-white font-bold rounded-full shadow-lg hover:bg-blue-700 transition duration-300 ease-in-out">
         お知らせ
@@ -54,10 +54,18 @@
         class="px-6 py-2 bg-green-500 text-white font-bold rounded-full shadow-lg hover:bg-blue-700 transition duration-300 ease-in-out">
         Minimum_Quiz
       </a>
--->
-
-    </div>
+      <a href="login.html"
+        class="px-6 py-2 bg-green-500 text-white font-bold rounded-full shadow-lg hover:bg-blue-700 transition duration-300 ease-in-out">
+        ログイン
+      </a>
+            <a href="signup.html"
+        class="px-6 py-2 bg-green-500 text-white font-bold rounded-full shadow-lg hover:bg-blue-700 transition duration-300 ease-in-out">
+        登録
+      </a>
+        </div>
+    -->
   </header>
+
    <br> <br>
     <!-- h1を水平・垂直方向に中央配置し、影と縁取りを追加 -->
     <h1 class="position-centre 1/2 -translate-y-1/2 text-[rgb(50,230,40)] text-[50px] m-0 drop-shadow-[0_2px_4px_rgba(0,0,0,0.5)] text-stroke font-bold">
@@ -69,25 +77,74 @@
     このサイトは、埼玉大学Maximumで必要な知識を学ぶためのクイズサイトです。<br>
     各セクションに分かれた問題を解くことで、知識を深めましょう。問題は今後増やしていく予定です。
   </p>
-
   <br>
 
-  <!-- ボタンを画面下部に配置するためのコンテナ -->
-  <div class="flex flex-col md:flex-row justify-center items-center gap-4 mt-auto mb-10">
-
-    <!-- ボタンの共通スタイルを定義 -->
-    <a href="Developing_Tool/Developing_Tool.html" class="px-6 py-3 no-underline text-white font-bold bg-[rgb(43,210,34)] rounded-full shadow-lg hover:bg-green-600 transition duration-300 ease-in-out transform hover:scale-105">
-      開発ツールに関する問題
-    </a>
-    <a href="Programing/Programing.html" class="px-6 py-3 no-underline text-white font-bold bg-[rgb(43,210,34)] rounded-full shadow-lg hover:bg-green-600 transition duration-300 ease-in-out transform hover:scale-105">
-      プログラミングに関する問題
-    </a>
-    <a href="IPA/IPA.html" class="px-6 py-3 no-underline text-white font-bold bg-[rgb(43,210,34)] rounded-full shadow-lg hover:bg-green-600 transition duration-300 ease-in-out transform hover:scale-105">
-      情報処理技術者試験に関する問題
-    </a>
-    <!-- <a href="Minimum_Quiz/Mini.html" class="px-6 py-3 no-underline text-gray-800 font-bold bg-[rgb(245,234,28)] rounded-full shadow-lg hover:bg-yellow-500 transition duration-300 ease-in-out transform hover:scale-105">
-      Mimimum_Quiz
-    </a> -->
-  </div>
+<head>
+<style>
+/* 削除: .left-bar, .right-bar の position, left, right, top などの絶対位置指定 */
+/* レスポンシブ対応のため、flexレイアウトのみ利用 */
+.left-bar, .right-bar {
+    flex: 1;
+    max-width: 600px;
+    padding: 20px;
+    min-width: 280px;
+}
+.left-bar {
+    text-align: left;
+    background-color: #ffffff;
+}
+.right-bar {
+    text-align: right;
+    background-color: #ffffff;
+}
+@media (max-width: 900px) {
+  .bar {
+    flex-direction: column !important;
+    align-items: stretch !important;
+  }
+  .left-bar, .right-bar {
+    max-width: 100%;
+    text-align: center;
+  }
+}
+</style>
+</head>
+<body>
+<div class="bar flex flex-row justify-between items-start w-full mt-4 mb-4 gap-4">
+    <!-- 左側：ボタン -->
+    <div class="left-bar flex flex-col items-center space-y-4">
+      <br>
+      <a href="Developing_Tool/Developing_Tool.html" class="px-6 py-3 no-underline text-white font-bold bg-[rgb(43,210,34)] rounded-full shadow-lg hover:bg-green-600 transition duration-300 ease-in-out transform hover:scale-105">
+        開発ツールに関する問題
+      </a>
+      <a href="Programing/Programing.html" class="px-6 py-3 no-underline text-white font-bold bg-[rgb(43,210,34)] rounded-full shadow-lg hover:bg-green-600 transition duration-300 ease-in-out transform hover:scale-105">
+        プログラミングに関する問題
+      </a>
+      <a href="IPA/IPA.html" class="px-6 py-3 no-underline text-white font-bold bg-[rgb(43,210,34)] rounded-full shadow-lg hover:bg-green-600 transition duration-300 ease-in-out transform hover:scale-105">
+        情報処理技術者試験に関する問題
+      </a>
+    </div>
+    <!-- 右側：広告 -->
+    <div class="right-bar flex flex-col items-center space-y-4">
+      <div class="w-100 h-28 flex items-center justify-center">
+        <a href="https://github.com/features/copilot" target="_blank"
+          class="flex items-center gap-3 bg-gradient-to-r from-blue-500 to-green-400 text-white px-7 py-2 rounded-lg shadow-lg font-bold text-lg hover:from-blue-600 hover:to-green-500 transition duration-300 ease-in-out w-full h-full">
+          <img src="keep_out/Copilot.jpg" alt="Copilot" class="w-10 h-10 rounded-full border-2 border-white">
+          <span>
+            AIによるコーディングサポート<br class="md:hidden"></br>GitHub Copilotを試してみよう
+          </span>
+        </a>
+      </div>
+      <div class="w-100 h-28 flex items-center justify-center">
+        <a href="https://www.saitama-u.ac.jp/" target="_blank"
+          class="flex items-center gap-3 bg-gradient-to-r from-red-700 to-black text-white px-14 py-2 rounded-lg shadow-lg font-bold text-lg hover:from-red-800 hover:to-gray-900 transition duration-300 ease-in-out w-full h-full">
+          <img src="keep_out/SaitamaUniversity.jpg" alt="埼玉大学" class="w-10 h-10 rounded-full border-2 border-white bg-white">
+          <span>
+            ITでも活躍中！<br class="md:hidden">埼玉大学
+          </span>
+        </a>
+      </div>
+    </div>
+</div>
 </body>
 </html>
