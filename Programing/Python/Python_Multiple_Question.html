@@ -42,127 +42,188 @@
       questions: [
 
 /*
-件数系:3
-更新・追加・削除系:4
-検索・取得系:3
-計10問
-*/
-         // 件数系
-         {
-           q: "次のSQL文の実行結果は？<pre>SELECT COUNT(*) FROM employees WHERE department = 'Sales';</pre>",
-           options: [
-             "営業部門の従業員数",
-             "全従業員数",
-             "営業部門の売上合計",
-             "営業部門の平均給与"
-           ],
-           answer: 0,
-           explanation: "COUNT(*) は指定した条件に一致する行数をカウントします。ここでは営業部門の従業員数を取得しています。"
-         },
-         {
-           q: "次のSQL文の実行結果は？<pre>SELECT COUNT(*) FROM employees WHERE salary >= 50000;</pre>",
-           options: [
-             "給与が50,000以上の従業員数を取得する",
-             "全従業員数を取得する",
-             "給与が50,000未満の従業員数を取得する",
-             "給与の合計を取得する"
-           ],
-           answer: 0,
-           explanation: "WHERE salary >= 50000 で条件を指定し、COUNT(*)で件数を取得します。"
-         },
-         
-         // 更新・追加・削除系
-         {
-           q: "次のSQL文の目的は？<pre>UPDATE employees SET salary = salary * 1.1 WHERE performance_rating = 'Excellent';</pre>",
-           options: [
-             "全従業員の給与を10%増加させる",
-             "優秀な従業員の給与を10%増加させる",
-             "全従業員の評価を'Excellent'に変更する",
-             "優秀な従業員の評価を'Excellent'に変更する"
-           ],
-           answer: 1,
-           explanation: "UPDATE文は指定した条件に一致する行を更新します。ここでは、評価が'Excellent'の従業員の給与を10%増加させています。"
-         },
-         {
-           q: "次のSQL文の目的は？<pre>DELETE FROM employees WHERE last_login < '2023-01-01';</pre>",
-           options: [
-             "2023年1月1日以前にログインした従業員を削除",
-             "全ての従業員を削除",
-             "2023年1月1日以降にログインした従業員を削除",
-             "2023年1月1日以前に登録された従業員を削除"
-           ],
-           answer: 0,
-           explanation: "DELETE文は指定した条件に一致する行を削除します。ここでは、2023年1月1日以前にログインした従業員を削除しています。"
-         },
-         {
-           q: "次のSQL文の目的は？<pre>INSERT INTO products (name, price) VALUES ('ペン', 100);</pre>",
-           options: [
-             "productsテーブルに新しい商品を追加する",
-             "productsテーブルの全ての商品を削除する",
-             "productsテーブルの価格を更新する",
-             "productsテーブルの名前を変更する"
-           ],
-           answer: 0,
-           explanation: "INSERT文は新しい行（レコード）をテーブルに追加します。"
-         },
-         {
-           q: "次のSQL文の目的は？<pre>ALTER TABLE employees ADD COLUMN age INTEGER;</pre>",
-           options: [
-             "employeesテーブルにage列を追加する",
-             "employeesテーブルを削除する",
-             "employeesテーブルのage列を削除する",
-             "employeesテーブルのage列の型を変更する"
-           ],
-           answer: 0,
-           explanation: "ALTER TABLE ... ADD COLUMN ... で新しい列を追加します。"
-         },
-         
-         // 検索・取得系
-         {
-           q: "次のSQL文の実行結果は？<pre>SELECT * FROM employees WHERE salary BETWEEN 50000 AND 100000;</pre>",
-           options: [
-             "給与が50,000から100,000の従業員を取得",
-             "給与が50,000以下の従業員を取得",
-             "給与が100,000以上の従業員を取得",
-             "全ての従業員を取得"
-           ],
-           answer: 0,
-           explanation: "BETWEEN句は指定した範囲内の値を持つ行を取得します。ここでは、給与が50,000から100,000の従業員を取得しています。"
-         },
-         {
-           q: "次のSQL文の実行結果は？<pre>SELECT AVG(price) FROM products;</pre>",
-           options: [
-             "商品の平均価格を取得する",
-             "商品の合計価格を取得する",
-             "商品の最高価格を取得する",
-             "商品の最低価格を取得する"
-           ],
-           answer: 0,
-           explanation: "AVG関数は指定した列の平均値を計算します。"
-         },
-         {
-           q: "次のSQL文の実行結果は？<pre>SELECT name FROM employees ORDER BY salary DESC;</pre>",
-           options: [
-             "給与が高い順に従業員名を取得する",
-             "給与が低い順に従業員名を取得する",
-             "従業員名を昇順で取得する",
-             "従業員名をランダムに取得する"
-           ],
-           answer: 0,
-           explanation: "ORDER BY salary DESC で給与が高い順に並べ替えます。"
-         },
-         {
-           q: "次のSQL文の目的は？<pre>SELECT DISTINCT department FROM employees;</pre>",
-           options: [
-             "重複しない部署名だけを取得する",
-             "全ての従業員を取得する",
-             "部署ごとの従業員数を取得する",
-             "部署名を昇順で取得する"
-           ],
-           answer: 0,
-           explanation: "DISTINCTは重複を除いて値を取得します。"
-         }
-               ]
+基本文法:3
+データ型・演算:3
+制御構文:3
+関数:3
+その他:3
+計15問
+*/        // --- 基本文法 ---
+        {
+          q: "Pythonで変数aに5を代入する正しい方法は？",
+          options: [
+            "let a = 5",
+            "a := 5",
+            "a = 5",
+            "int a = 5"
+          ],
+          answer: 2,
+          explanation: "Pythonでは a = 5 で代入します。"
+        },
+        {
+          q: "Pythonでコメントを書くには？",
+          options: [
+            "// コメント",
+            "# コメント",
+            "<!-- コメント -->",
+            "/* コメント */"
+          ],
+          answer: 1,
+          explanation: "Pythonのコメントは # で始めます。"
+        },
+        {
+          q: "Pythonで改行を出力するには？",
+          options: [
+            "print('Hello')\\n",
+            "print('Hello', end='\\n')",
+            "print('Hello')",
+            "print('Hello', newline=True)"
+          ],
+          answer: 2,
+          explanation: "print()はデフォルトで改行されます。"
+        },
+
+        // --- データ型・演算 ---
+        {
+          q: "次のうちPythonのリストを正しく作成しているものは？",
+          options: [
+            "a = (1, 2, 3)",
+            "a = [1, 2, 3]",
+            "a = {1, 2, 3}",
+            "a = <1, 2, 3>"
+          ],
+          answer: 1,
+          explanation: "[]で囲むとリスト、()はタプル、{}はセットです。"
+        },
+        {
+          q: "Pythonで整数同士の割り算の結果を小数で得るには？",
+          options: [
+            "a // b",
+            "a / b",
+            "int(a / b)",
+            "a %% b"
+          ],
+          answer: 1,
+          explanation: "/ は常に小数(float)で返します。"
+        },
+        {
+          q: "文字列 'abc' を3回繰り返すには？",
+          options: [
+            "'abc' * 3",
+            "'abc' + 3",
+            "repeat('abc', 3)",
+            "'abc'.repeat(3)"
+          ],
+          answer: 0,
+          explanation: "Pythonでは 'abc' * 3 で繰り返しになります。"
+        },
+
+        // --- 制御構文 ---
+        {
+          q: "Pythonでif文の正しい書き方は？",
+          options: [
+            "if x == 1 then:",
+            "if (x == 1) {",
+            "if x == 1:",
+            "if x = 1:"
+          ],
+          answer: 2,
+          explanation: "if 条件: の形式です。thenや{}は不要です。"
+        },
+        {
+          q: "for文でリストの要素を順に取り出すには？",
+          options: [
+            "for i in range(list):",
+            "for i = 0; i < len(list); i++:",
+            "for i in list:",
+            "foreach i in list:"
+          ],
+          answer: 2,
+          explanation: "for i in list: で順に取り出せます。"
+        },
+        {
+          q: "while文で無限ループを作るには？",
+          options: [
+            "while True:",
+            "while (true) {}",
+            "while 1:",
+            "loop:"
+          ],
+          answer: 0,
+          explanation: "while True: で無限ループになります。"
+        },
+
+        // --- 関数 ---
+        {
+          q: "Pythonで関数を定義するキーワードは？",
+          options: [
+            "function",
+            "def",
+            "func",
+            "define"
+          ],
+          answer: 1,
+          explanation: "def 関数名(): で定義します。"
+        },
+        {
+          q: "次の関数定義の戻り値は？<br><pre>def f():\n  return 3\nx = f()</pre>",
+          options: [
+            "None",
+            "3",
+            "'3'",
+            "エラー"
+          ],
+          answer: 1,
+          explanation: "return 3 なので x には 3 が代入されます。"
+        },
+        {
+          q: "引数にデフォルト値を設定する正しい方法は？",
+          options: [
+            "def f(x = 1):",
+            "def f(x := 1):",
+            "def f(x == 1):",
+            "def f(x: 1):"
+          ],
+          answer: 0,
+          explanation: "def f(x = 1): でデフォルト値を設定できます。"
+        },
+
+        // --- その他 ---
+        {
+          q: "Pythonで標準入力を1行受け取るには？",
+          options: [
+            "input()",
+            "scan()",
+            "read()",
+            "gets()"
+          ],
+          answer: 0,
+          explanation: "input() で1行入力を受け取ります。"
+        },
+        {
+          q: "Pythonでモジュールをインポートする正しい方法は？",
+          options: [
+            "import math",
+            "include math",
+            "require 'math'",
+            "using math"
+          ],
+          answer: 0,
+          explanation: "import モジュール名 でインポートします。"
+        },
+        {
+          q: "Pythonで例外処理を行うキーワードは？",
+          options: [
+            "try-except",
+            "try-catch",
+            "catch-except",
+            "error-handle"
+          ],
+          answer: 0,
+          explanation: "try: ... except: ... で例外処理します。"
+        }
+      ]
+
              };
            </script>
            <script src="../../keep_out/selectQuestion.js" defer></script>
