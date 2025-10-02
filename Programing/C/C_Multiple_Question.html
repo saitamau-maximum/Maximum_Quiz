@@ -39,139 +39,162 @@
 
       selectionPageUrl: "C.html", //問題選択ページのファイル名を入力
 
-      questions: [
+questions: [
 /*問題索引
 出力問題:5
 型の問題:4
 ポインタの問題:4
 計13問
 */        
-        //出力問題
-        {
-          q: "次のコードを実行したとき、何が出力されますか？<pre>string s = \"123\";\nfor (int bit = 0; bit < (1 << 3); bit++) {\n  string t = \"\";\n  for (int i = 0; i < 3; i++) {\n    if (bit & (1 << i)) t += s[i];\n  }\n  cout << t << endl;\n}</pre>",
-          options: [
-            "すべての部分文字列を出力している",
-            "すべての並び替え（順列）を出力している",
-            "すべての文字の組み合わせを出力している",
-            "何も出力しない"
-          ],
-          answer: 2,
-          explanation: "各 bit のパターンごとに、s の各文字を選ぶか選ばないかを決めている。<br>つまり、sの部分集合(1や13、23など)をすべて出力している。<br>部分文字列は連続していないといけないので、例えば13などが当てはまらない"
-        },
-        {
-          q: "次のコードを実行したとき、出力される値は？<pre>vector<int> v = {1, 3, 5, 7, 9};\nint x = 6;\nauto it = lower_bound(v.begin(), v.end(), x);\ncout << *it << endl;</pre>",
-          options: [
-            "5",
-            "6",
-            "7",
-            "9"
-          ],
-          answer: 2,
-          explanation: "lower_boundは指定した値以上の最小値を返す。<br>この場合、6以上の最小値は7なので、それが出力される。"
-        },
-        {
-          q: "次のコードを実行したとき、出力される値は？<pre>vector<int> v = {1, 3, 5, 7, 9};\nint x = 6;\nauto it = upper_bound(v.begin(), v.end(), x);\ncout << *it << endl;</pre>",
-          options: [
-            "5",
-            "6",
-            "7",
-            "9"
-          ],
-          answer: 2,
-          explanation: "upper_boundは指定した値より大きい最小値を返す。<br>この場合、6より大きい最小値は7なので、それが出力される。"
-        },
-        {
-          q: "次のコードを実行したとき、出力される値は？<pre>vector&lt;int&gt; v = {1, 3, 5, 7, 9};\nint x = 6;\nauto it = find(v.begin(), v.end(), x);\nif (it != v.end()) cout << \"Found\" << endl;\nelse cout << \"Not Found\" << endl;</pre>",
-          options: [
-            "Found",
-            "Not Found",
-            "エラーになる",
-            "何も出力しない"
-          ],
-          answer: 1,
-          explanation: "findは指定した値が見つからない場合、v.end()を返す。<br>この場合、6はvに含まれていないので、Not Foundが出力される。"
-        },
-        {
-          q: "次のコードを実行したとき、出力される値は？<pre>int a = 5, b = 3;\nprintf(\"%d\", a + b);</pre>",
-          options: [
-            "8",
-            "53",
-            "5+3",
-            "エラーになる"
-          ],
-          answer: 0,
-          explanation: "a + b は 5 + 3 で 8 となり、%d で整数8が出力されます。"
-        },
-        {
-          q: "次のコードを実行したとき、出力される値は？<pre>int a = 10;\nprintf(\"%d\", a++);</pre>",
-          options: [
-            "10",
-            "11",
-            "エラーになる",
-            "0"
-          ],
-          answer: 0,
-          explanation: "a++ は後置インクリメントなので、まず10が出力され、その後aは11になります。"
-        },
-        //型の問題
-        {
-          q:"int *aと宣言しているとき、aは何を指しているか？",
-          options: [
-            "整数型の配列",
-            "整数型のポインタ",
-            "整数型の変数",
-            "整数型の関数"
-          ],
-          answer: 1,
-          explanation: "int *aは整数型のポインタを宣言している。<br>aは整数型の変数のアドレスを格納するために使用される。"
-        },
-        {
-          q: "次のうち、C言語で浮動小数点数を表す型はどれ？",
-          options: [
-            "float",
-            "int",
-            "char",
-            "double型しかない"
-          ],
-          answer: 0,
-          explanation: "float型は単精度浮動小数点数を表します。"
-        },
-        {
-          q: "次のうち、文字型を表すC言語の型はどれ？",
-          options: [
-            "char",
-            "int",
-            "float",
-            "string"
-          ],
-          answer: 0,
-          explanation: "char型は1文字を格納するための型です。"
-        },
-        
-        // ポインタの問題
-        {
-          q: "次のうち、ポインタ変数の宣言として正しいものはどれ？",
-          options: [
-            "int *p;",
-            "int p*;",
-            "int &p;",
-            "pointer int p;"
-          ],
-          answer: 0,
-          explanation: "int *p; でint型のポインタ変数pを宣言します。"
-        },
-        {
-          q: "次のコードの意味は？<pre>int a = 5;\nint *p = &a;</pre>",
-          options: [
-            "pはaのアドレスを格納している",
-            "pはaの値を格納している",
-            "pはaの型を格納している",
-            "pはaのポインタ型を格納している"
-          ],
-          answer: 0,
-          explanation: "int *p = &a; でpはaのアドレス（メモリ上の位置）を格納します。"
-        }
-              ]
+  // 出力問題
+  {
+    q: "次のコードを実行したとき、出力される値は？<pre>int a = 5, b = 3;\nprintf(\"%d\", a + b);</pre>",
+    options: [
+      "8",
+      "53",
+      "5+3",
+      "エラーになる"
+    ],
+    answer: 0,
+    explanation: "a + b は 5 + 3 で 8 となり、%d で整数8が出力されます。"
+  },
+  {
+    q: "次のコードを実行したとき、出力される値は？<pre>int a = 10;\nprintf(\"%d\", a++);</pre>",
+    options: [
+      "10",
+      "11",
+      "エラーになる",
+      "0"
+    ],
+    answer: 0,
+    explanation: "a++ は後置インクリメントなので、まず10が出力され、その後aは11になります。"
+  },
+  {
+    q: "次のコードを実行したとき、出力される値は？<pre>int a = 7, b = 2;\nprintf(\"%d\", a / b);</pre>",
+    options: [
+      "3",
+      "3.5",
+      "2",
+      "エラーになる"
+    ],
+    answer: 0,
+    explanation: "整数同士の割り算なので、7 / 2 は 3 になります。"
+  },
+  {
+    q: "次のコードを実行したとき、出力される値は？<pre>int a = 7, b = 2;\nprintf(\"%.1f\", (double)a / b);</pre>",
+    options: [
+      "3.5",
+      "3",
+      "3.0",
+      "エラーになる"
+    ],
+    answer: 0,
+    explanation: "(double)a でaが実数型になり、7.0 / 2 = 3.5 となります。"
+  },
+  {
+    q: "次のコードを実行したとき、出力される値は？<pre>printf(\"%c\", 65);</pre>",
+    options: [
+      "A",
+      "65",
+      "a",
+      "エラーになる"
+    ],
+    answer: 0,
+    explanation: "65はASCIIコードでAを表します。"
+  },
+
+  // 型の問題
+  {
+    q:"int *aと宣言しているとき、aは何を指しているか？",
+    options: [
+      "整数型の配列",
+      "整数型のポインタ",
+      "整数型の変数",
+      "整数型の関数"
+    ],
+    answer: 1,
+    explanation: "int *aは整数型のポインタを宣言している。aは整数型の変数のアドレスを格納するために使用される。"
+  },
+  {
+    q: "次のうち、C言語で浮動小数点数を表す型はどれ？",
+    options: [
+      "float",
+      "int",
+      "char",
+      "double型しかない"
+    ],
+    answer: 0,
+    explanation: "float型は単精度浮動小数点数を表します。"
+  },
+  {
+    q: "次のうち、文字型を表すC言語の型はどれ？",
+    options: [
+      "char",
+      "int",
+      "float",
+      "string"
+    ],
+    answer: 0,
+    explanation: "char型は1文字を格納するための型です。"
+  },
+  {
+    q: "次のうち、C言語で整数型を表すものはどれ？",
+    options: [
+      "int",
+      "float",
+      "char",
+      "double"
+    ],
+    answer: 0,
+    explanation: "int型は整数型を表します。"
+  },
+
+  // ポインタの問題
+  {
+    q: "次のうち、ポインタ変数の宣言として正しいものはどれ？",
+    options: [
+      "int *p;",
+      "int p*;",
+      "int &p;",
+      "pointer int p;"
+    ],
+    answer: 0,
+    explanation: "int *p; でint型のポインタ変数pを宣言します。"
+  },
+  {
+    q: "次のコードの意味は？<pre>int a = 5;\nint *p = &a;</pre>",
+    options: [
+      "pはaのアドレスを格納している",
+      "pはaの値を格納している",
+      "pはaの型を格納している",
+      "pはaのポインタ型を格納している"
+    ],
+    answer: 0,
+    explanation: "int *p = &a; でpはaのアドレス（メモリ上の位置）を格納します。"
+  },
+  {
+    q: "次のうち、ポインタの値を参照（間接参照）する演算子はどれ？",
+    options: [
+      "*",
+      "&",
+      "%",
+      "#"
+    ],
+    answer: 0,
+    explanation: "*p でポインタpが指す値を参照できます。"
+  },
+  {
+    q: "次のコードの出力は？<pre>int a = 10;\nint *p = &a;\nprintf(\"%d\", *p);</pre>",
+    options: [
+      "10",
+      "アドレス値",
+      "0",
+      "エラーになる"
+    ],
+    answer: 0,
+    explanation: "*p は a の値（10）を参照します。"
+  }
+]
             };
           </script>
           <script src="../../keep_out/selectQuestion.js" defer></script>
