@@ -1,10 +1,10 @@
 <!DOCTYPE html>
 <html lang="ja">
-  <link rel="icon" href="https://avatars.githubusercontent.com/u/120705481?s=48&v=4" type="image/x-icon">
+ <link rel="icon" href="https://avatars.githubusercontent.com/u/120705481?s=48&v=4" type="image/x-icon">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>応用情報基礎技術者試験の四択問題</title>
+  <title>応用情報技術者試験4択問題</title>
   <link rel="stylesheet" href="../../keep_out/selectQuestion.css">
   <style>
     .options label.disabled {
@@ -17,11 +17,12 @@
   <audio id="se-start" src="../../keep_out/start.mp3" preload="auto"></audio>
   <audio id="se-end" src="../../keep_out/end.mp3" preload="auto"></audio>
 </head>
+
 <body>
   <audio id="bgm" src="../../keep_out/BGM.mp3" loop></audio>
   <button id="bgm-toggle">▶️ BGMを再生</button>
   <div class="quiz-container" id="home">
-    <h1>応用情報基礎技術者試験の四択問題</h1>
+    <h1>応用情報技術者試験4択問題</h1> <!--タイトルの設定(ヘッダ名と同じでも可)-->
     <p id="question-count">問題数を表示(変更不要)</p>
     <button onclick="startQuiz()">開始</button>
     <a href="AT.html" class="back-button">問題選択に戻る</a>
@@ -29,391 +30,188 @@
 
   <div class="quiz-container" id="quiz" style="display: none;"></div>
   <div id="countdown-overlay" class="countdown-overlay">
-  <div id="countdown-text" class="countdown-text"></div>
+    <div id="countdown-text" class="countdown-text"></div>
   </div>
   <script>
-    const RANKING_KEY = "AITEE";
-    const questions = [
-      //索引未作成
-  {
-    q: "OSI参照モデルの第3層はどれ？",
-    options: [
-      "ネットワーク層",
-      "トランスポート層",
-      "データリンク層",
-      "セッション層"
-    ],
-    answer: 0,
-    explanation: "第3層はネットワーク層です。IPアドレスなどの論理アドレスによる通信を担当します。"
-  },
-  {
-    q: "データベースの正規化の目的は？",
-    options: [
-      "データの冗長性を減らすため",
-      "検索速度を遅くするため",
-      "データを暗号化するため",
-      "バックアップを取るため"
-    ],
-    answer: 0,
-    explanation: "正規化はデータの冗長性を減らし、整合性を保つために行います。"
-  },
-  {
-    q: "ソフトウェア開発モデルのうち、ウォーターフォールモデルの特徴は？",
-    options: [
-      "工程ごとに順番に進める",
-      "反復的に開発する",
-      "プロトタイプを作成する",
-      "アジャイルに対応する"
-    ],
-    answer: 0,
-    explanation: "ウォーターフォールモデルは各工程を順番に進める開発手法です。"
-  },
-  {
-    q: "公開鍵暗号方式の特徴はどれ？",
-    options: [
-      "暗号化と復号に異なる鍵を使う",
-      "同じ鍵で暗号化と復号を行う",
-      "鍵を公開しない",
-      "暗号化できない"
-    ],
-    answer: 0,
-    explanation: "公開鍵暗号方式は暗号化と復号に異なる鍵（公開鍵と秘密鍵）を使います。"
-  },
-  {
-    q: "CPUのクロック周波数が高いとどうなる？",
-    options: [
-      "処理速度が速くなる傾向がある",
-      "消費電力が減る",
-      "メモリ容量が増える",
-      "ディスク容量が増える"
-    ],
-    answer: 0,
-    explanation: "クロック周波数が高いほど、1秒間に多くの命令を処理できます。"
-  },
-  {
-    q: "DRAMの特徴はどれ？",
-    options: [
-      "リフレッシュが必要",
-      "不揮発性である",
-      "高速だが高価",
-      "キャッシュメモリとして使われる"
-    ],
-    answer: 0,
-    explanation: "DRAMはリフレッシュが必要な揮発性メモリです。"
-  },
-  {
-    q: "TCPとUDPの違いは？",
-    options: [
-      "TCPは信頼性が高く、UDPは高速だが信頼性が低い",
-      "TCPは高速、UDPは信頼性が高い",
-      "どちらも信頼性が高い",
-      "どちらもコネクションレス"
-    ],
-    answer: 0,
-    explanation: "TCPは信頼性重視、UDPは速度重視のプロトコルです。"
-  },
-  {
-    q: "SQLでデータを検索する命令はどれ？",
-    options: [
-      "SELECT",
-      "INSERT",
-      "UPDATE",
-      "DELETE"
-    ],
-    answer: 0,
-    explanation: "SELECT文はデータベースからデータを検索するために使います。"
-  },
-  {
-    q: "プロジェクトマネジメントで使われるガントチャートの目的は？",
-    options: [
-      "作業工程や進捗を可視化する",
-      "コストを計算する",
-      "品質を保証する",
-      "リスクを分析する"
-    ],
-    answer: 0,
-    explanation: "ガントチャートは作業工程や進捗を視覚的に管理するための図です。"
-  },
-  {
-    q: "情報セキュリティの3要素でないものはどれ？",
-    options: [
-      "効率性",
-      "機密性",
-      "完全性",
-      "可用性"
-    ],
-    answer: 0,
-    explanation: "情報セキュリティの3要素は機密性・完全性・可用性です。"
-  }
-];  
+      const RANKING_KEY = "AT";
+      const selectionPageUrl = "AT.html";
+      // --- 問題カテゴリ索引 ---
+      /*
+      ネットワーク: 2
+      データベース: 2
+      ソフトウェア開発: 1
+      セキュリティ: 2
+      ハードウェア: 2
+      プロトコル: 1
+      SQL: 1
+      プロジェクトマネジメント: 1
+      情報セキュリティ: 1
+      計13問
+      */
+      const questions = [
+        // --- ネットワーク ---
+        {
+          q: "OSI参照モデルの第3層はどれ？",
+          options: [
+            "ネットワーク層",
+            "トランスポート層",
+            "データリンク層",
+            "セッション層"
+          ],
+          answer: 0,
+          explanation: "第3層はネットワーク層です。IPアドレスなどの論理アドレスによる通信を担当します。"
+        },
+        {
+          q: "TCPとUDPの違いは？",
+          options: [
+            "TCPは信頼性が高く、UDPは高速だが信頼性が低い",
+            "TCPは高速、UDPは信頼性が高い",
+            "どちらも信頼性が高い",
+            "どちらもコネクションレス"
+          ],
+          answer: 0,
+          explanation: "TCPは信頼性重視、UDPは速度重視のプロトコルです。"
+        },
 
-    document.addEventListener("DOMContentLoaded", () => {
-    const questionCountElement = document.getElementById("question-count");
-    if (questionCountElement) {
-      questionCountElement.textContent = `全10問です。`;
-    }
-  });
+        // --- データベース ---
+        {
+          q: "データベースの正規化の目的は？",
+          options: [
+            "データの冗長性を減らすため",
+            "検索速度を遅くするため",
+            "データを暗号化するため",
+            "バックアップを取るため"
+          ],
+          answer: 0,
+          explanation: "正規化はデータの冗長性を減らし、整合性を保つために行います。"
+        },
+        {
+          q: "SQLでデータを検索する命令はどれ？",
+          options: [
+            "SELECT",
+            "INSERT",
+            "UPDATE",
+            "DELETE"
+          ],
+          answer: 0,
+          explanation: "SELECT文はデータベースからデータを検索するために使います。"
+        },
 
-    function shuffle(array) {
-  for (let i = array.length - 1; i > 0; i--) {
-    const j = Math.floor(Math.random() * (i + 1));
-    [array[i], array[j]] = [array[j], array[i]];
-  }
-}
+        // --- ソフトウェア開発 ---
+        {
+          q: "ソフトウェア開発モデルのうち、ウォーターフォールモデルの特徴は？",
+          options: [
+            "工程ごとに順番に進める",
+            "反復的に開発する",
+            "プロトタイプを作成する",
+            "アジャイルに対応する"
+          ],
+          answer: 0,
+          explanation: "ウォーターフォールモデルは各工程を順番に進める開発手法です。"
+        },
 
+        // --- セキュリティ ---
+        {
+          q: "公開鍵暗号方式の特徴はどれ？",
+          options: [
+            "暗号化と復号に異なる鍵を使う",
+            "同じ鍵で暗号化と復号を行う",
+            "鍵を公開しない",
+            "暗号化できない"
+          ],
+          answer: 0,
+          explanation: "公開鍵暗号方式は暗号化と復号に異なる鍵（公開鍵と秘密鍵）を使います。"
+        },
+        {
+          q: "情報セキュリティの3要素でないものはどれ？",
+          options: [
+            "効率性",
+            "機密性",
+            "完全性",
+            "可用性"
+          ],
+          answer: 0,
+          explanation: "情報セキュリティの3要素は機密性・完全性・可用性です。"
+        },
 
-    function escapeHTMLExceptBR(str) {
-  return str
-    .replace(/&/g, "&amp;")
-    .replace(/</g, "&lt;")
-    .replace(/>/g, "&gt;")
-    .replace(/&lt;br&gt;/g, "<br>")
-    .replace(/&lt;pre&gt;/g, "<pre>")
-    .replace(/&lt;\/pre&gt;/g, "</pre>");
-}
+        // --- ハードウェア ---
+        {
+          q: "CPUのクロック周波数が高いとどうなる？",
+          options: [
+            "処理速度が速くなる傾向がある",
+            "消費電力が減る",
+            "メモリ容量が増える",
+            "ディスク容量が増える"
+          ],
+          answer: 0,
+          explanation: "クロック周波数が高いほど、1秒間に多くの命令を処理できます。"
+        },
+        {
+          q: "DRAMの特徴はどれ？",
+          options: [
+            "リフレッシュが必要",
+            "不揮発性である",
+            "高速だが高価",
+            "キャッシュメモリとして使われる"
+          ],
+          answer: 0,
+          explanation: "DRAMはリフレッシュが必要な揮発性メモリです。"
+        },
 
-    let current = 0;
-    let score = 0;
-    let backClickCount = 0;
+        // --- プロトコル ---
+        {
+          q: "プロトコルとは何ですか？",
+          options: [
+            "通信の手順や規約",
+            "プログラムのバグ",
+            "データベースの種類",
+            "ハードウェアの部品"
+          ],
+          answer: 0,
+          explanation: "プロトコルは通信の手順や規約を定めたものです。"
+        },
 
-const backButtonHome = document.querySelector(".back-button");
-if (backButtonHome) {
-  backButtonHome.addEventListener("click", function(e) {
-    e.preventDefault();
-    if (backClickCount === 0) {
-      alert("本当に戻りますか？もう一度クリックすると戻ります。");
-      backClickCount++;
-    } else {
-      window.location.href = "AT.html";
-    }
-  });
-}
+        // --- SQL ---
+        {
+          q: "SQLでデータを検索する命令はどれ？",
+          options: [
+            "SELECT",
+            "INSERT",
+            "UPDATE",
+            "DELETE"
+          ],
+          answer: 0,
+          explanation: "SELECT文はデータベースからデータを検索するために使います。"
+        },
 
-    const homeEl = document.getElementById("home");
-    const quizEl = document.getElementById("quiz");
+        // --- プロジェクトマネジメント ---
+        {
+          q: "プロジェクトマネジメントで使われるガントチャートの目的は？",
+          options: [
+            "作業工程や進捗を可視化する",
+            "コストを計算する",
+            "品質を保証する",
+            "リスクを分析する"
+          ],
+          answer: 0,
+          explanation: "ガントチャートは作業工程や進捗を視覚的に管理するための図です。"
+        },
 
-    function startQuiz() {
-      const startButton = homeEl.querySelector("button");
-      startButton.disabled = true;
-
-      const seStart = document.getElementById('se-start');
-      seStart.currentTime = 0;
-      seStart.play();
-      
-      const countdownOverlay = document.getElementById('countdown-overlay');
-      const countdownText = document.getElementById('countdown-text');
-      
-      countdownOverlay.style.display = 'flex';
-
-      let count = 3;
-      countdownText.textContent = count;
-
-      const countdownTimer = setInterval(() => {
-        count--;
-        if (count > 0) {
-          countdownText.textContent = count;
-        } else {
-          countdownText.textContent = 'START!';
+        // --- 情報セキュリティ ---
+        {
+          q: "情報セキュリティの3要素でないものはどれ？",
+          options: [
+            "効率性",
+            "機密性",
+            "完全性",
+            "可用性"
+          ],
+          answer: 0,
+          explanation: "情報セキュリティの3要素は機密性・完全性・可用性です。"
         }
-      }, 1000);
-
-      setTimeout(() => {
-        clearInterval(countdownTimer);
-        countdownOverlay.style.display = 'none';
-
-        if(bgmToggleBtn.textContent == "▶️ BGMを再生") {
-          document.getElementById('bgm').play();
-          bgmToggleBtn.textContent = '⏸️ BGMを停止';
-        }
-        shuffle(questions);
-        questions = questions.slice(0, 10);
-        current = 0;
-        score = 0;
-        homeEl.style.display = "none";
-        quizEl.style.display = "block";
-        showQuestion(current);
-        startButton.disabled = false;
-      }, 3500);
-    }
-
-    function showQuestion(index) {
-      quizEl.innerHTML = "";
-      const q = questions[index];
-
-      const container = document.createElement("div");
-      container.className = "question";
-
-      const title = document.createElement("div");
-      title.innerHTML = `<strong>Q${index + 1}:</strong> ${escapeHTMLExceptBR(q.q)}`;
-
-      container.appendChild(title);
-
-      const options = document.createElement("div");
-      options.className = "options";
-
-      q.options.forEach((opt, i) => {
-        const label = document.createElement("label");
-        const input = document.createElement("input");
-        input.type = "radio";
-        input.name = `q${index}`;
-        input.value = i;
-        label.appendChild(input);
-        label.appendChild(document.createTextNode(" " + opt));
-        options.appendChild(label);
-      });
-
-      container.appendChild(options);
-
-      const button = document.createElement("button");
-      button.textContent = "解答";
-
-      const result = document.createElement("div");
-      result.className = "result";
-
-      const explanation = document.createElement("div");
-      explanation.className = "explanation";
-
-      const backButton = document.createElement("a");
-      backButton.href = "AITEE.html";
-      backButton.className = "home-button";
-      backButton.textContent = "問題選択に戻る";
-
-      backButton.addEventListener("click", function(e) {
-        e.preventDefault();
-        if (backClickCount === 0) {
-          alert("本当に戻りますか？もう一度クリックすると戻ります。");
-          backClickCount++;
-        } else {
-          window.location.href = "AT.html";
-        }
-      });
-
-      const nextButton = document.createElement("button");
-      nextButton.textContent = "次へ";
-      nextButton.style.display = "none";
-      nextButton.style.margin = "20px auto";
-      
-      nextButton.onclick = () => {
-    setTimeout(() => {
-    current++;
-    backClickCount = 0;
-    if (current < questions.length) {
-      showQuestion(current);
-    } else {
-          const seEnd = document.getElementById('se-end');
-          seEnd.currentTime = 0;
-          seEnd.play();
-          backClickCount = 1;
-          quizEl.innerHTML = "";
-          const container = document.createElement("div");
-          quizEl.innerHTML = `<h2>お疲れ様でした！全${questions.length}問が終了しました。<br><br>${score}問正解しました！</h2>`;
-          const today = new Date().toLocaleString();
-          const newRecord = { date: today, score: score };
-
-          let ranking = JSON.parse(localStorage.getItem(RANKING_KEY) || "[]");
-          ranking.push(newRecord);
-
-          ranking.sort((a, b) => b.score - a.score);
-          ranking = ranking.slice(0, 5);
-
-          localStorage.setItem(RANKING_KEY, JSON.stringify(ranking));
-
-          const rankingList = document.createElement("div");
-          rankingList.innerHTML = "<h3>🏆正解数ランキング(ローカル)</h3>";
-
-          ranking.forEach((r, i) => {
-            rankingList.innerHTML += `${i + 1}位: ${r.score}点（${r.date}）<br>`;
-          });
-
-          const retryBtn = document.createElement("button");
-          retryBtn.textContent = "最初からやり直す";
-          retryBtn.onclick = () => {
-          startQuiz();
-        };
-
-          let resetClickCount = 0;
-
-          const resetBtn = document.createElement("button");
-          resetBtn.textContent = "ランキングをリセット";
-          resetBtn.onclick = () => {
-            if (resetClickCount === 0) {
-              alert("本当にリセットしますか？もう一度クリックするとリセットされます。");
-              resetClickCount++;
-            } else {
-              localStorage.removeItem(RANKING_KEY);
-              location.reload();
-            }
-          };
-      quizEl.appendChild(backButton);
-      container.appendChild(retryBtn);
-      container.appendChild(rankingList);
-      container.appendChild(resetBtn);
-      quizEl.appendChild(container);
-    }
-  }, 100);
-};
-
-
-      const nextButtonWrapper = document.createElement("div");
-      nextButtonWrapper.style.textAlign = "center";
-      nextButtonWrapper.appendChild(nextButton);
-
-      button.onclick = () => {
-        const selected = container.querySelector("input:checked");
-        if (!selected) {
-          result.textContent = "選択肢を選んでください。";
-          result.style.color = "black";
-          return;
-        }
-
-        const isCorrect = parseInt(selected.value) === q.answer;
-        const seCorrect = document.getElementById("se-correct");
-        const seWrong = document.getElementById("se-wrong");
-
-        if (isCorrect) {
-          result.classList.add("correct");
-          score++;
-          seCorrect.currentTime = 0;
-          seCorrect.play();
-        } else {
-          result.classList.add("wrong");
-          seWrong.currentTime = 0;
-          seWrong.play();
-        }
-        
-        result.textContent = isCorrect ? "○ 正解です！" : `× 不正解です。正解：${q.options[q.answer]}`;
-        result.style.color = isCorrect ? "green" : "red";
-        explanation.innerHTML = escapeHTMLExceptBR(q.explanation);
-
-        const labels = container.querySelectorAll("label");
-        labels.forEach(label => label.classList.add("disabled"));
-
-        button.style.display = "none";
-        nextButton.style.display = "inline-block";
-      };
-
-      container.appendChild(button);
-      container.appendChild(result);
-      container.appendChild(explanation);
-      container.appendChild(nextButtonWrapper);
-      container.appendChild(backButton);
-
-      quizEl.appendChild(container);
-    }
-
-  const bgm = document.getElementById('bgm');
-  const bgmToggleBtn = document.getElementById('bgm-toggle');
-
-  bgmToggleBtn.addEventListener('click', () => {
-    if (!bgm.paused) {
-      bgm.pause();
-      bgmToggleBtn.textContent = '▶️ BGMを再開';
-    } else {
-      bgm.play();
-      bgmToggleBtn.textContent = '⏸️ BGMを停止';
-  }
-});
- 
+      ];
   </script>
+  <script src="../../keep_out/selectQuestion.js" defer></script>
 </body>
+
 </html>
