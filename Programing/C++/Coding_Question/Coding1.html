@@ -6,8 +6,114 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>C++ 木構造問題</title>
     <style>
-        /* CSSは変更なし */
-        /* ... */
+        body {
+            font-family: sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 20px;
+            font-size: 1.2rem;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: auto;
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+
+        pre {
+            background-color: #eee;
+            padding: 15px;
+            border-radius: 5px;
+            overflow-x: auto;
+            font-size: 1rem;
+        }
+
+        textarea {
+            width: calc(100% - 20px);
+            height: 250px;
+            padding: 10px;
+            margin-bottom: 20px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 1rem;
+            font-family: 'Consolas', 'Monaco', 'Courier New', monospace;
+        }
+
+        button {
+            display: block;
+            margin: 0 auto;
+            padding: 12px 25px;
+            border: none;
+            background-color: #007BFF;
+            color: white;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1.3rem;
+            transition: background-color 0.3s ease;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+
+        #result {
+            margin-top: 25px;
+            padding: 15px;
+            border-radius: 5px;
+            font-weight: bold;
+            white-space: pre-wrap;
+            /* 改行を保持 */
+            word-wrap: break-word;
+            /* 長い単語を折り返す */
+        }
+
+        .correct {
+            background-color: #e6ffe6;
+            border: 1px solid #28a745;
+            color: #155724;
+        }
+
+        .wrong {
+            background-color: #ffe6e6;
+            border: 1px solid #dc3545;
+            color: #721c24;
+        }
+
+        .error {
+            background-color: #fff3cd;
+            border: 1px solid #ffc107;
+            color: #856404;
+        }
+
+        .loading-spinner {
+            border: 4px solid #f3f3f3;
+            border-top: 4px solid #3498db;
+            border-radius: 50%;
+            width: 30px;
+            height: 30px;
+            animation: spin 1s linear infinite;
+            margin: 20px auto;
+            display: none;
+            /* 初期は非表示 */
+        }
+
+        @keyframes spin {
+            0% {
+                transform: rotate(0deg);
+            }
+
+            100% {
+                transform: rotate(360deg);
+            }
+        }
     </style>
 </head>
 
