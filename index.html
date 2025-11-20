@@ -126,6 +126,15 @@
     </div>
     <!-- 右側：広告 -->
     <div class="right-bar flex flex-col items-center space-y-4">
+
+
+   <script>
+const month = new Date();
+const dayOfMonth = month.getMonth(); // 0:1月、1:2月、..., 11:12月month from 'month';
+let message;
+switch (dayOfMonth) {
+  case 0:
+return (
       <div class="w-100 h-28 flex items-center justify-center">
         <a href="https://github.com/features/copilot" target="_blank"
           class="flex items-center gap-3 bg-gradient-to-r from-blue-500 to-green-400 text-white px-7 py-2 rounded-lg shadow-lg font-bold text-lg hover:from-blue-600 hover:to-green-500 transition duration-300 ease-in-out w-full h-full">
@@ -133,6 +142,7 @@
           <span>
             AIによるコーディングサポート<br class="md:hidden"></br>GitHub Copilotを試してみよう
           </span>
+          </img>
         </a>
       </div>
       <div class="w-100 h-28 flex items-center justify-center">
@@ -144,6 +154,25 @@
           </span>
         </a>
       </div>
+);
+    break;
+  case 1:
+
+    break;
+  case 2:
+    break;
+  case 3:
+    break;
+  case 4:
+    break;
+  case 5:
+    break;
+  default:
+    message = "平日ですね。頑張りましょう！";
+}
+  </script>
+
+
     </div>
 </div>
 </body>
