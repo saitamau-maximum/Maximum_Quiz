@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="ja">
+ <link rel="icon" href="https://avatars.githubusercontent.com/u/120705481?s=48&v=4" type="image/x-icon">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ここがヘッダだよ</title> <!--ヘッダ名を設定-->
+  <link rel="stylesheet" href="../../keep_out/selectQuestion.css"><!--パスを合わせてください(このファイルの親ディレクトリがMaximum_Quizにあるなら変更は不要、間違っていた場合私がデバッグします-->
+  <style>
+    .options label.disabled {
+      pointer-events: none;
+      color: #000;
+    }
+  </style>
+  <audio id="se-correct" src="../../keep_out/correct.mp3" preload="auto"></audio><!--パスを合わせてください(このファイルの親ディレクトリがMaximum_Quizにあるなら変更は不要、間違っていた場合私がデバッグします)-->
+  <audio id="se-wrong" src="../../keep_out/wrong.mp3" preload="auto"></audio><!--同上-->
+  <audio id="se-start" src="../../keep_out/start.mp3" preload="auto"></audio><!--同上-->
+  <audio id="se-end" src="../../keep_out/end.mp3" preload="auto"></audio><!--同上-->
+</head>
+
+<body>
+  <audio id="bgm" src="../../keep_out/BGM.mp3" loop></audio>
+  <button id="bgm-toggle">▶️ BGMを再生</button>
+  <div class="quiz-container" id="home">
+    <h1>タイトル</h1> <!--タイトルの設定(ヘッダ名と同じでも可)-->
+    <p id="question-count">問題数を表示(変更不要)</p>
+    <button onclick="startQuiz()">開始</button>
+    <a href="Java.html" class="back-button">問題選択に戻る</a> <!--a.htmlを変更(問題選択画面のファイル名にする)-->
+  </div>
+
+  <div class="quiz-container" id="quiz" style="display: none;"></div>
+  <div id="countdown-overlay" class="countdown-overlay">
+    <div id="countdown-text" class="countdown-text"></div>
+  </div>
+  <script>
+    window.quizConfig = {
+
+      RANKING_KEY: "Java", //ランキングのキーを設定(C言語なら「C」)
+
+      selectionPageUrl: "Java.html", //問題選択ページのファイル名を入力
+
+      questions: [
+/*問題索引
+言語区分:1
+単語問題:4
+説明問題:1
+
+*/
+
+        //言語区分  
+        {
+          q: "Javaは次のうちどれですか？",
+          options: [
+            "コンパイル言語",
+            "インタープリター言語",
+            "マークアップ言語",
+            "スクリプト言語"
+          ],
+          answer: 0,
+          explanation: "JavaはC言語と同様にコンパイル言語です。"
+        },
+        //単語問題
+        {
+          q: "同じクラス内で引数の異なるメソッドを用いることを何というか？",
+          options: [
+            "オーバーライド",
+            "オーバーロード",
+            "オーバーホール",
+            "オーバーレイ"
+          ],
+          answer: 0,
+          explanation: "オーバーロードは親クラスのメソッドを子クラスのメソッドが引き継ぐことを言います。他二つは関係ないです。"
+        },
+        {
+          q: "クラスの一つ下に定義するものは何か",
+          options: [
+            "インスタンス",
+            "サブクラス",
+            "メソッド",
+            "引数"
+          ],
+          answer: 2,
+          explanation: "javaではまずクラスを定義し、その中に複数のメソッド（関数）を定義します。"
+        },
+        {
+          q: "同じ名前のメソッドに異なる引数を持たせる方法を何というか？",
+          options: [
+            "サブタイムポリモーフィズム",
+            "パラメトリックポリモーフィズム",
+            "アドホックポリフォーフィズム",
+            "ツリーポリフォーフィズム"
+          ],
+          answer: 2,
+          explanation: "サブタイムポリモーフィズム:継承関係にあるクラス間で定義される方法。　パラメトリックポリモーフィズム:型パラメータを使用して、異なる型に対して同じコードを適応する方法。"
+        },
+        {
+          q: "他のクラスからインスタンス変数を隠蔽することをを何というか？",
+          options: [
+            "カプセル化",
+            "シャットアウト",
+            "アウトクラス",
+            "非参照化"
+          ],
+          answer: 0,
+          explanation: "カプセル化といいます。"
+        },        
+        //説明問題
+        {
+          q: "インスタンスの説明として正しいものはどれか？",
+          options: [
+            "クラスが持つ、処理の手順を定義した一連の命令。",
+            "クラスを元にメモリ上に作成された、具体的な実体のこと。",
+            "オブジェクトの構造や振る舞いを定義した設計図のようなもの。",
+            "プログラムの実行時に一度だけ用意される、静的なデータ領域。"
+          ],
+          answer: 1,
+          explanation: "インスタンスはクラスを元にメモリ上に作成された、具体的な実体のことです。"
+        },        
+
+     
+      ]
+    };
+  
+  </script>
+  <script src="../../keep_out/selectQuestion.js" defer></script>
+</body>
+
+</html>

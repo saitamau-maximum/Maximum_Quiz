@@ -126,6 +126,16 @@
     </div>
     <!-- 右側：広告 -->
     <div class="right-bar flex flex-col items-center space-y-4">
+
+
+   <script>
+document.addEventListener('DOMContentLoaded', function() {
+  const month = new Date();
+  const dayOfMonth = month.getMonth(); // 0:1月、1:2月、..., 11:12月
+  let htmlContent = '';
+  
+  if (dayOfMonth === 0||dayOfMonth === 1||dayOfMonth === 2) {
+    htmlContent = `
       <div class="w-100 h-28 flex items-center justify-center">
         <a href="https://github.com/features/copilot" target="_blank"
           class="flex items-center gap-3 bg-gradient-to-r from-blue-500 to-green-400 text-white px-7 py-2 rounded-lg shadow-lg font-bold text-lg hover:from-blue-600 hover:to-green-500 transition duration-300 ease-in-out w-full h-full">
@@ -144,6 +154,36 @@
           </span>
         </a>
       </div>
+    `;
+  }
+    if (dayOfMonth === 3||dayOfMonth === 4||dayOfMonth === 5) {
+    htmlContent = `
+      <div class="w-100 h-28 flex items-center justify-center">
+        <a href="https://github.com/features/copilot" target="_blank"
+          class="flex items-center gap-3 bg-gradient-to-r from-blue-500 to-green-400 text-white px-7 py-2 rounded-lg shadow-lg font-bold text-lg hover:from-blue-600 hover:to-green-500 transition duration-300 ease-in-out w-full h-full">
+          <img src="keep_out/Copilot.jpg" alt="Copilot" class="w-10 h-10 rounded-full border-2 border-white">
+          <span>
+            AIによるコーディングサポート<br class="md:hidden"></br>GitHub Copilotを試してみよう
+          </span>
+        </a>
+      </div>
+      <div class="w-100 h-28 flex items-center justify-center">
+        <a href="https://maximum.vc/" target="_blank"
+          class="flex items-center gap-3 bg-gradient-to-r from-red-700 to-black text-white px-14 py-2 rounded-lg shadow-lg font-bold text-lg hover:from-red-800 hover:to-gray-900 transition duration-300 ease-in-out w-full h-full">
+          <img src="keep_out/Maximum-logo.svg" alt="Maximum" class="w-10 h-10 rounded-full border-2 border-white bg-white">
+          <span>
+            Web、競プロ、ゲーム開発、CTF、色々やってます<br class="md:hidden">Maximum
+          </span>
+        </a>
+      </div>
+    `;
+  }
+  
+  document.querySelector('.right-bar').innerHTML = htmlContent;
+});
+  </script>
+
+
     </div>
 </div>
 </body>

@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="ja">
+ <link rel="icon" href="https://avatars.githubusercontent.com/u/120705481?s=48&v=4" type="image/x-icon">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Rubyの四択問題</title> <!--ヘッダ名を設定-->
+  <link rel="stylesheet" href="../../keep_out/selectQuestion.css"><!--パスを合わせてください(このファイルの親ディレクトリがMaximum_Quizにあるなら変更は不要、間違っていた場合私がデバッグします-->
+  <style>
+    .options label.disabled {
+      pointer-events: none;
+      color: #000;
+    }
+  </style>
+  <audio id="se-correct" src="../../keep_out/correct.mp3" preload="auto"></audio><!--パスを合わせてください(このファイルの親ディレクトリがMaximum_Quizにあるなら変更は不要、間違っていた場合私がデバッグします)-->
+  <audio id="se-wrong" src="../../keep_out/wrong.mp3" preload="auto"></audio><!--同上-->
+  <audio id="se-start" src="../../keep_out/start.mp3" preload="auto"></audio><!--同上-->
+  <audio id="se-end" src="../../keep_out/end.mp3" preload="auto"></audio><!--同上-->
+</head>
+
+<body>
+  <audio id="bgm" src="../../keep_out/BGM.mp3" loop></audio>
+  <button id="bgm-toggle">▶️ BGMを再生</button>
+  <div class="quiz-container" id="home">
+    <h1>Rubyの四択問題</h1> <!--タイトルの設定(ヘッダ名と同じでも可)-->
+    <p id="question-count">問題数を表示(変更不要)</p>
+    <button onclick="startQuiz()">開始</button>
+    <a href="Ruby.html" class="back-button">問題選択に戻る</a> <!--a.htmlを変更(問題選択画面のファイル名にする)-->
+  </div>
+
+  <div class="quiz-container" id="quiz" style="display: none;"></div>
+  <div id="countdown-overlay" class="countdown-overlay">
+    <div id="countdown-text" class="countdown-text"></div>
+  </div>
+  <script>
+    window.quizConfig = {
+
+      RANKING_KEY: "Ruby", //ランキングのキーを設定(C言語なら「C」)
+
+      selectionPageUrl: "Ruby.html", //問題選択ページのファイル名を入力
+
+      questions: [
+/*問題索引
+文法問題:1
+
+*/
+        
+          {
+             {
+          q: "Rubyのコメントアウトに使うのは次のうちどれですか？(~はコメントアウトする内容)",
+          options: [
+            "//~",
+            "#~",
+            "%~",
+            "<!--~-->"
+          ],
+          answer: 0,
+          explanation: "JavaはC言語と同様にコンパイル言語です。"
+        }
+          }
+        
+      ]
+    };
+  </script>
+  <script src="../../keep_out/selectQuestion.js" defer></script>
+</body>
+
+</html>
